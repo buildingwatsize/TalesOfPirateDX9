@@ -204,15 +204,25 @@ BOOL CGameApp::_Init()
 #endif
 
 	if(!LoadTerrainSet("scripts/table/TerrainInfo", FALSE))
+	{
+		LG("init", "[DBG] LoadTerrainSet FAILED");
         return 0;
+	}
+	LG("init", "[DBG] LoadTerrainSet OK");
 
 	// �ڳ�ʼ����Դ����󣬳�ʼ����Դ -- Michael Chen
 	if(!LoadResourceSet("scripts/table/ResourceInfo", g_Config.m_nMaxResourceNum, FALSE))
-		return 0;
-	if (!LoadResource() || !LoadRes2() /*|| !LoadRes3()*/)
 	{
+		LG("init", "[DBG] LoadResourceSet FAILED");
 		return 0;
 	}
+	LG("init", "[DBG] LoadResourceSet OK");
+	if (!LoadResource() || !LoadRes2() /*|| !LoadRes3()*/)
+	{
+		LG("init", "[DBG] LoadResource/LoadRes2 FAILED");
+		return 0;
+	}
+	LG("init", "[DBG] LoadResource/LoadRes2 OK");
 
 	if( g_Config.m_bEditor  )
 	{
