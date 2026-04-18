@@ -30,7 +30,7 @@ namespace GUI
 	bool CSpiritMgr::Init()
 	{
 		//
-		//  ¾«ÁéÈÚºÏ½çÃæ³õÊ¼»¯
+		//  ï¿½ï¿½ï¿½ï¿½ï¿½ÚºÏ½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
 		//
 		frmSpiritMarry = CFormMgr::s_Mgr.Find("frmSpiritMarry");
 		if(! frmSpiritMarry)
@@ -82,7 +82,7 @@ namespace GUI
 		cmdSpiritMarry[SPIRIT_MARRY_TWO]->evtBeforeAccept  = _evtDragMarryTwo;
 
 		//
-		//  ¾«ÁéÀÏ»¢»ú½çÃæ³õÊ¼»¯
+		//  ï¿½ï¿½ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
 		//
 		frmSpiritErnie = CFormMgr::s_Mgr.Find("frmSpiritErnie");
 		if(! frmSpiritErnie)
@@ -104,7 +104,7 @@ namespace GUI
 		char szName[32] = {0};
 		for(int i = 0; i < 9; ++i)
 		{
-			// ¾í¶¯Í¼Æ¬
+			// ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
 			for(int j = 0; j < ERNIE_IMAGE_COUNT; ++j)
 			{
 				sprintf(szName, "imgLine%d_%d", i + 1, j + 1);
@@ -121,7 +121,7 @@ namespace GUI
 
 		for(int i = 0; i < 3; ++i)
 		{
-			// ÏÔÊ¾µÄ¸ñ×Ó
+			// ï¿½ï¿½Ê¾ï¿½Ä¸ï¿½ï¿½ï¿½
 			for(int j = 0; j < 3; ++j)
 			{
 				int nSeq = i * 3 + j;
@@ -136,7 +136,7 @@ namespace GUI
 				cmdItem[nSeq]->SetIsDrag(false);
 			}
 
-			// ÏÂ×¢ Check
+			// ï¿½ï¿½×¢ Check
 			sprintf(szName, "chkSetmoney%d", i + 1);
 			chkSetmoney[i] = dynamic_cast<CCheckBox*>(frmSpiritErnie->Find(szName));
 			if(! chkSetmoney[i])
@@ -145,7 +145,7 @@ namespace GUI
 				return false;
 			}
 
-			// ÏÂ×¢Ó²±Ò¸öÊýÏÔÊ¾
+			// ï¿½ï¿½×¢Ó²ï¿½Ò¸ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
 			sprintf(szName, "labUsemoney%d", i + 1);
 			labUsemoney[i] = dynamic_cast<CLabelEx*>(frmSpiritErnie->Find(szName));
 			if(! labUsemoney[i])
@@ -154,7 +154,7 @@ namespace GUI
 				return false;
 			}
 
-			// Í£Ö¹×ª¶¯°´Å¥
+			// Í£Ö¹×ªï¿½ï¿½ï¿½ï¿½Å¥
 			sprintf(szName, "btnStop%d", i + 1);
 			btnStop[i] = dynamic_cast<CTextButton*>(frmSpiritErnie->Find(szName));
 			if(! btnStop[i])
@@ -184,11 +184,11 @@ namespace GUI
 
 	void CSpiritMgr::CloseForm()
 	{
-		// ²»×÷ÈÎºÎ´¦Àí
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ÎºÎ´ï¿½ï¿½ï¿½
 	}
 
 
-	// Çå³ý½çÃæÉÏËùÓÐµÄ¸ñ×Ó
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ¸ï¿½ï¿½ï¿½
 	void CSpiritMgr::ClearAllCommand()
 	{
 		PopItem(SPIRIT_MARRY_ITEM);
@@ -197,7 +197,7 @@ namespace GUI
 	}
 
 
-	// ÏÔÊ¾¾«ÁéÈÚºÏ½çÃæ
+	// ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ÚºÏ½ï¿½ï¿½ï¿½
 	void CSpiritMgr::ShowMarryForm(bool bShow)
 	{
 		if(frmSpiritMarry)
@@ -275,7 +275,7 @@ namespace GUI
 	}
 
 
-	// ¸üÐÂÀÏ»¢»ú
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½
 	void CSpiritMgr::UpdateErnieNumber(short nNum, short nID1, short nID2, short nID3)
 	{
 		switch(nNum)
@@ -344,7 +344,7 @@ namespace GUI
 
 	void CSpiritMgr::PushItem(int iIndex, CItemCommand& rItem)
 	{
-		// ²é¿´Ô­À´µÄCmdÖÐÊÇ·ñÒÑ¾­ÓÐItemÁË£¬Èç¹ûÓÐÔòÒÆ³ö
+		// ï¿½é¿´Ô­ï¿½ï¿½ï¿½ï¿½Cmdï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½Itemï¿½Ë£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ³ï¿½
 		CItemCommand* pItemCommand =  
 			dynamic_cast<CItemCommand*>(cmdSpiritMarry[iIndex]->GetCommand());
 		if (pItemCommand)
@@ -352,17 +352,17 @@ namespace GUI
 			PopItem(iIndex);
 		}
 
-		// ¼ÇÂ¼ItemÔÚÎïÆ·À¸ÖÐµÄÎ»ÖÃ
+		// ï¿½ï¿½Â¼Itemï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½Ðµï¿½Î»ï¿½ï¿½
 		m_iSpiritItemPos[iIndex] = g_stUIEquip.GetGoodsGrid()->GetDragIndex();
-		// ½«ItemÏàÓ¦µÄÎïÆ·À¸»Òµ÷
+		// ï¿½ï¿½Itemï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½Òµï¿½
 		rItem.SetIsValid(false);
 
-		// ½«´´½¨µÄItem·ÅÈëCmdÖÐ£¬ÕâÀïÓÃnew½«»áÔÚPopItem()ÖÐÉ¾³ý
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Itemï¿½ï¿½ï¿½ï¿½Cmdï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½newï¿½ï¿½ï¿½ï¿½ï¿½ï¿½PopItem()ï¿½ï¿½É¾ï¿½ï¿½
 		CItemCommand* pItemCmd = new CItemCommand(rItem);
 		pItemCmd->SetIsValid(true);
 		cmdSpiritMarry[iIndex]->AddCommand(pItemCmd);
 
-		// ÊôÐÔ
+		// ï¿½ï¿½ï¿½ï¿½
 		SItemGrid& oItemGridSrc  = rItem.GetData();
 		SItemGrid& oItemGridDest = pItemCmd->GetData();
 		for(int i = 0; i < defITEM_INSTANCE_ATTR_NUM; ++i)
@@ -375,14 +375,14 @@ namespace GUI
 
 	void CSpiritMgr::PopItem(int iIndex)
 	{
-		// É¾³ýCmdÖÐµÄItem£¬¸ÃItem»áÔÚPushItem()ÖÐÓÉnewÉú³É
+		// É¾ï¿½ï¿½Cmdï¿½Ðµï¿½Itemï¿½ï¿½ï¿½ï¿½Itemï¿½ï¿½ï¿½ï¿½PushItem()ï¿½ï¿½ï¿½ï¿½newï¿½ï¿½ï¿½ï¿½
 		CItemCommand* pItemCommand =  
 			dynamic_cast<CItemCommand*>(cmdSpiritMarry[iIndex]->GetCommand());
 		if (! pItemCommand) return;
 
-		cmdSpiritMarry[iIndex]->DelCommand();	// ¸Ãº¯Êý½«É¾³ýdelete Item
+		cmdSpiritMarry[iIndex]->DelCommand();	// ï¿½Ãºï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½delete Item
 
-		// ½«ItemÏàÓ¦µÄÎïÆ·À¸»Ö¸´³É¿ÉÓÃ
+		// ï¿½ï¿½Itemï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½É¿ï¿½ï¿½ï¿½
 		CCommandObj* pItem = 
 					g_stUIEquip.GetGoodsGrid()->GetItem(m_iSpiritItemPos[iIndex]);
 		if (pItem)
@@ -390,12 +390,12 @@ namespace GUI
 			pItem->SetIsValid(true);
 		}
 
-		// ¼ÇÂ¼ItemÔÚÎïÆ·À¸ÖÐµÄÎ»ÖÃ
+		// ï¿½ï¿½Â¼Itemï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½Ðµï¿½Î»ï¿½ï¿½
 		m_iSpiritItemPos[iIndex] = NO_USE;
 	}
 
 
-	// ÊÇ·ñÊÇºÏ·¨µÄ¶ñÄ§¹ûÊµ
+	// ï¿½Ç·ï¿½ï¿½ÇºÏ·ï¿½ï¿½Ä¶ï¿½Ä§ï¿½ï¿½Êµ
 	bool CSpiritMgr::IsValidSpiritItem(CItemCommand& rItem)
 	{
 		CItemRecord* pItem = rItem.GetItemInfo();
@@ -409,7 +409,7 @@ namespace GUI
 	}
 
 
-	// ÊÇ·ñÊÇºÏ·¨µÄ¾«Áé£¨LV > 20£©
+	// ï¿½Ç·ï¿½ï¿½ÇºÏ·ï¿½ï¿½Ä¾ï¿½ï¿½é£¨LV > 20ï¿½ï¿½
 	bool CSpiritMgr::IsValidSpirit(CItemCommand& rItem)
 	{
 		static CItemRecord* pInfo = NULL;
@@ -419,7 +419,7 @@ namespace GUI
 		memset( &s_item, 0, sizeof(SItemHint) );
 		s_item.Convert( rItem.GetData(), pInfo );
 
-		// ¸üÐÂ³èÎïµÈ¼¶,Í·Ïñ
+		// ï¿½ï¿½ï¿½Â³ï¿½ï¿½ï¿½È¼ï¿½,Í·ï¿½ï¿½
 		int nLevel  = s_item.sInstAttr[ITEMATTR_VAL_STR]
 					+ s_item.sInstAttr[ITEMATTR_VAL_AGI] 
 					+ s_item.sInstAttr[ITEMATTR_VAL_DEX] 
@@ -435,7 +435,7 @@ namespace GUI
 	}
 
 
-	// ÉèÖÃ½çÃæ
+	// ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½
 	void CSpiritMgr::SetSpiritUI()
 	{
 		CItemCommand* pItemCommand =  
@@ -465,7 +465,7 @@ namespace GUI
 
 		int nMoney = 0;
 
-		// ¼ÆËã¼Û¸ñ£¨²ß»®ÎÄµµ£©
+		// ï¿½ï¿½ï¿½ï¿½Û¸ñ£¨²ß»ï¿½ï¿½Äµï¿½ï¿½ï¿½
 		if(nLevel1 < 60 && nLevel2 < 60)
 		{
 			nMoney = (60 - nLevel1) * (60 - nLevel2) * 100;
@@ -478,12 +478,12 @@ namespace GUI
 		pItemCommand = dynamic_cast<CItemCommand*>(cmdSpiritMarry[SPIRIT_MARRY_ITEM]->GetCommand());
 		if(! pItemCommand) return;
 
-		// Èý¸öÀ¸Î»¶¼ÒÑ¾­·ÅÈë£¬ÔÊÐíµã»÷¡°È·¶¨¡±°´Å¥
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¥
 		btnForgeYes->SetIsEnabled(true);
 	}
 
 
-	// Ìá½»ÐÅÏ¢¸ø·þÎñÆ÷
+	// ï¿½á½»ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void CSpiritMgr::SendSpiritMarryProtocol()
 	{
 		CS_ItemForgeAsk(true, GetType(), m_iSpiritItemPos, SPIRIT_MARRY_CELL_COUNT);
@@ -492,10 +492,10 @@ namespace GUI
 
 ///////////////////////////////////////////////////////////////////////////
 //
-//	½çÃæÏûÏ¢´¦Àí
+//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½
 //
 
-	// ÍÏÈë¶ñÄ§¹ûÊµ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½Êµ
 	void CSpiritMgr::_evtDragMarryItem(CGuiData *pSender,CCommandObj* pItem,bool& isAccept)
 	{
 		CItemCommand* pItemCommand =  dynamic_cast<CItemCommand*>(pItem);
@@ -511,12 +511,12 @@ namespace GUI
 		}
 		else
 		{
-			g_pGameApp->MsgBox(g_oLangRec.GetString(698));	// "Äú·ÅÈëµÄ²»ÊÇ¶ñÄ§¹ûÊµ£¬ÇëÖØÐÂÑ¡Ôñ¶ñÄ§¹ûÊµ"
+			g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_698));	// "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½Ç¶ï¿½Ä§ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½Ä§ï¿½ï¿½Êµ"
 		}
 	}
 
 
-	// ÍÏÈë¾«Áé1
+	// ï¿½ï¿½ï¿½ë¾«ï¿½ï¿½1
 	void CSpiritMgr::_evtDragMarryOne(CGuiData *pSender,CCommandObj* pItem,bool& isAccept)
 	{
 		CItemCommand* pItemCommand =  dynamic_cast<CItemCommand*>(pItem);
@@ -528,13 +528,13 @@ namespace GUI
 		CItemCommand* pStoneItem = dynamic_cast<CItemCommand*>(g_stUISpirit.cmdSpiritMarry[SPIRIT_MARRY_ITEM]->GetCommand());
 		if(NULL == pStoneItem)
 		{
-			g_pGameApp->MsgBox(g_oLangRec.GetString(826));//ÇëÏÈ·ÅÈë¶ñÄ§¹ûÊµ
+			g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_826));//ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½Êµ
 			return;
 		}
 
 		if(! pItemCommand->GetIsValid())
 		{
-			g_pGameApp->MsgBox(g_oLangRec.GetString(899));//Äú·ÅÈëµÄ¾«Áé²»ºÏ·¨£¬ÇëÖØÐÂÑ¡Ôñ¾«Áé
+			g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_899));//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½é²»ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½
 			return;
 		}
 
@@ -545,12 +545,12 @@ namespace GUI
 		}
 		else
 		{
-			g_pGameApp->MsgBox(g_oLangRec.GetString(827));//Äú·ÅÈëµÄ²»ÊÇ¾«Áé»òÕßÊÇµÍÓÚ20¼¶µÄ¾«Áé£¬ÇëÖØÐÂÑ¡Ôñ¾«Áé
+			g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_827));//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½20ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½é£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 
 
-	// ÍÏÈë¾«Áé2
+	// ï¿½ï¿½ï¿½ë¾«ï¿½ï¿½2
 	void CSpiritMgr::_evtDragMarryTwo(CGuiData *pSender,CCommandObj* pItem,bool& isAccept)
 	{
 		CItemCommand* pItemCommand =  dynamic_cast<CItemCommand*>(pItem);
@@ -562,13 +562,13 @@ namespace GUI
 		CItemCommand* pStoneItem = dynamic_cast<CItemCommand*>(g_stUISpirit.cmdSpiritMarry[SPIRIT_MARRY_ITEM]->GetCommand());
 		if(NULL == pStoneItem)
 		{
-			g_pGameApp->MsgBox(g_oLangRec.GetString(826));
+			g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_826));
 			return;
 		}
 
 		if(! pItemCommand->GetIsValid())
 		{
-			g_pGameApp->MsgBox(g_oLangRec.GetString(899));//Äú·ÅÈëµÄ¾«Áé²»ºÏ·¨£¬ÇëÖØÐÂÑ¡Ôñ¾«Áé
+			g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_899));//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½é²»ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½
 			return;
 		}
 
@@ -579,12 +579,12 @@ namespace GUI
 		}
 		else
 		{
-			g_pGameApp->MsgBox(g_oLangRec.GetString(827));//Äú·ÅÈëµÄ²»ÊÇ¾«Áé»òÕßÊÇµÍÓÚ20¼¶µÄ¾«Áé£¬ÇëÖØÐÂÑ¡Ôñ¾«Áé
+			g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_827));//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½20ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½é£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 
 
-	// Êó±êµã»÷°´Å¥ÊÂ¼þ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¥ï¿½Â¼ï¿½
 	void CSpiritMgr::_evtMainMouseButton(CCompent *pSender, int nMsgType, int x, int y, DWORD dwKey)
 	{
 		string strName = pSender->GetName();
@@ -597,7 +597,7 @@ namespace GUI
 	}
 
 
-	// ¹Ø±Õ´°ÌåÊÂ¼þ
+	// ï¿½Ø±Õ´ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
 	void CSpiritMgr::_evtCloseMarryForm(CForm* pForm, bool& IsClose)
 	{
 		g_stUISpirit.ClearAllCommand();
@@ -614,7 +614,7 @@ namespace GUI
 			if(dwCurrTickCount - m_dwLastTickCount > ERNIE_SPEED)
 			{
 				//
-				// ÀÏ»¢»ú·­×ª
+				// ï¿½Ï»ï¿½ï¿½ï¿½ï¿½ï¿½×ª
 				//
 				m_dwLastTickCount = dwCurrTickCount;
 
@@ -650,7 +650,7 @@ namespace GUI
 				}
 
 				//
-				// ÏÔÊ¾ÎÄ×ÖÉÁ
+				// ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				//
 				DWORD dwColorID = (g_pGameApp->GetCurTick() & 1023) >> 8;
 				DWORD dwColor = 0;
@@ -675,7 +675,7 @@ namespace GUI
 			}
 
 			//
-			// ÏÂ×¢ÏÔÊ¾
+			// ï¿½ï¿½×¢ï¿½ï¿½Ê¾
 			//
 			char szBuffer[32] = {0};
 			sprintf(szBuffer, "%d", ERNIE_COIN_COUNT);
@@ -696,7 +696,7 @@ namespace GUI
 	}
 
 
-	// ¾«ÁéÀÏ»¢»ú£¬Êó±êµã»÷ÊÂ¼þ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
 	void CSpiritMgr::_evtErnieMouseButton(CCompent *pSender, int nMsgType, int x, int y, DWORD dwKey)
 	{
 		string strName = pSender->GetName();
@@ -707,7 +707,7 @@ namespace GUI
 				! g_stUISpirit.chkSetmoney[1]->GetIsChecked() &&
 				! g_stUISpirit.chkSetmoney[2]->GetIsChecked())
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(844));
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_844));
 				return;
 			}
 
@@ -718,26 +718,26 @@ namespace GUI
 					nCoinCount += ERNIE_COIN_COUNT;
 			}
 
-			if(nCoinCount > g_stUIEquip.GetItemCount(855))	// ÊÇ·ñÓÐ×ã¹»µÄ¾«ÁéÓ²±Ò
+			if(nCoinCount > g_stUIEquip.GetItemCount(855))	// ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ã¹»ï¿½Ä¾ï¿½ï¿½ï¿½Ó²ï¿½ï¿½
 			{
 				g_stUISpirit.chkSetmoney[0]->SetIsChecked(false);
 				g_stUISpirit.chkSetmoney[1]->SetIsChecked(false);
 				g_stUISpirit.chkSetmoney[2]->SetIsChecked(false);
 
-				g_pGameApp->MsgBox(g_oLangRec.GetString(881));
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_881));
 				return;
 			}
 
 			int nEmptyCount = g_stUIEquip.GetGoodsGrid()->GetEmptyGridCount();
-			if(ERNIE_EMPTY_COUNT > nEmptyCount)	// ±³°üÐèÒª 5 ¸ö¿Õ¸ñ
+			if(ERNIE_EMPTY_COUNT > nEmptyCount)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òª 5 ï¿½ï¿½ï¿½Õ¸ï¿½
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(890), ERNIE_EMPTY_COUNT);
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_890), ERNIE_EMPTY_COUNT);
 				return;
 			}
 
-			if(g_stUIEquip.GetIsLock())	// ±³°üÊÇ·ñËø¶¨
+			if(g_stUIEquip.GetIsLock())	// ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(894), ERNIE_EMPTY_COUNT);
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_894), ERNIE_EMPTY_COUNT);
 				return;
 			}
 
@@ -760,7 +760,7 @@ namespace GUI
 
 			g_stUISpirit.ClearTigerItem();
 
-			// Í¨Öª·þÎñÆ÷¿ªÊ¼
+			// Í¨Öªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼
 			CS_TigerStart(  g_stUINpcTalk.GetNpcId(),
 							g_stUISpirit.chkSetmoney[0]->GetIsChecked(),
 							g_stUISpirit.chkSetmoney[1]->GetIsChecked(),
@@ -800,7 +800,7 @@ namespace GUI
 	}
 
 
-	// ¸üÐÂÏÔÊ¾ÄÚÈÝ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
 	void CSpiritMgr::UpdateErnieString(const char* szText)
 	{
 		if(0 == strlen(labLastshow1->GetCaption()))
@@ -829,7 +829,7 @@ namespace GUI
 			{
 				nID[i] = pItem->GetItemInfo()->lID;
 
-				if(nID[i] != 194)	// µ¥¸ö½ðÇ®Ò²ÓÐÐ§
+				if(nID[i] != 194)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç®Ò²ï¿½ï¿½Ð§
 				{
 					ErnieHightLight(i, false);
 				}
@@ -838,27 +838,27 @@ namespace GUI
 
 		if(nID[0] == nID[3] && nID[0] == nID[6])
 		{
-			//¡¡¡ö¡ö¡ö¡¡£°£³£¶
-			//¡¡¡õ¡õ¡õ¡¡£±£´£·
-			//¡¡¡õ¡õ¡õ¡¡£²£µ£¸
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			ErnieHightLight(0);
 			ErnieHightLight(3);
 			ErnieHightLight(6);
 		}
 		if(nID[1] == nID[4] && nID[1] == nID[7])
 		{
-			//¡¡¡õ¡õ¡õ
-			//¡¡¡ö¡ö¡ö
-			//¡¡¡õ¡õ¡õ
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			ErnieHightLight(1);
 			ErnieHightLight(4);
 			ErnieHightLight(7);
 		}
 		if(nID[2] == nID[5] && nID[2] == nID[8])
 		{
-			//¡¡¡õ¡õ¡õ
-			//¡¡¡õ¡õ¡õ
-			//¡¡¡ö¡ö¡ö
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			ErnieHightLight(2);
 			ErnieHightLight(5);
 			ErnieHightLight(8);
@@ -866,36 +866,36 @@ namespace GUI
 
 		if(nID[3] == nID[4] && nID[3] == nID[5])
 		{
-			//¡¡¡õ¡ö¡õ
-			//¡¡¡õ¡ö¡õ
-			//¡¡¡õ¡ö¡õ
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			ErnieHightLight(3);
 			ErnieHightLight(4);
 			ErnieHightLight(5);
 		}
 		if(nID[2] == nID[4] && nID[2] == nID[6])
 		{
-			//¡¡¡õ¡õ¡ö
-			//¡¡¡õ¡ö¡õ
-			//¡¡¡ö¡õ¡õ
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			ErnieHightLight(2);
 			ErnieHightLight(4);
 			ErnieHightLight(6);
 		}
 		if(nID[0] == nID[4] && nID[0] == nID[8])
 		{
-			//¡¡¡ö¡õ¡õ
-			//¡¡¡õ¡ö¡õ
-			//¡¡¡õ¡õ¡ö
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			ErnieHightLight(0);
 			ErnieHightLight(4);
 			ErnieHightLight(8);
 		}
 		if(nID[1] == nID[3] && nID[1] == nID[5] && nID[1] == nID[7])
 		{
-			//¡¡¡õ¡ö¡õ
-			//¡¡¡ö¡õ¡ö
-			//¡¡¡õ¡ö¡õ
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			ErnieHightLight(1);
 			ErnieHightLight(3);
 			ErnieHightLight(5);
@@ -903,9 +903,9 @@ namespace GUI
 		}
 		if(nID[0] == nID[2] && nID[0] == nID[6] && nID[0] == nID[8])
 		{
-			//¡¡¡ö¡õ¡ö
-			//¡¡¡õ¡õ¡õ
-			//¡¡¡ö¡õ¡ö
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			ErnieHightLight(0);
 			ErnieHightLight(2);
 			ErnieHightLight(6);
@@ -913,9 +913,9 @@ namespace GUI
 		}
 		if(nID[0] == nID[2] && nID[0] == nID[4] && nID[0] == nID[6] && nID[0] == nID[8])
 		{
-			//¡¡¡ö¡õ¡ö
-			//¡¡¡õ¡ö¡õ
-			//¡¡¡ö¡õ¡ö
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			ErnieHightLight(0);
 			ErnieHightLight(2);
 			ErnieHightLight(4);
@@ -924,9 +924,9 @@ namespace GUI
 		}
 		if(nID[1] == nID[3] && nID[1] == nID[4] && nID[1] == nID[5] && nID[1] == nID[7])
 		{
-			//¡¡¡õ¡ö¡õ
-			//¡¡¡ö¡ö¡ö
-			//¡¡¡õ¡ö¡õ
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			ErnieHightLight(1);
 			ErnieHightLight(3);
 			ErnieHightLight(4);
@@ -935,9 +935,9 @@ namespace GUI
 		}
 		if(nID[0] == nID[1] && nID[0] == nID[2] && nID[0] == nID[3] && nID[0] == nID[5] && nID[0] == nID[6] && nID[0] == nID[7] && nID[0] == nID[8])
 		{
-			//¡¡¡ö¡ö¡ö
-			//¡¡¡ö¡õ¡ö
-			//¡¡¡ö¡ö¡ö
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			ErnieHightLight(0);
 			ErnieHightLight(1);
 			ErnieHightLight(2);

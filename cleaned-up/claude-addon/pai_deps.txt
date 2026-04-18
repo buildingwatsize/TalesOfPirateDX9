@@ -1,0 +1,23 @@
+Microsoft (R) COFF/PE Dumper Version 14.37.32822.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\TalesOfPirateDX9\Client\system\PAI.DLL
+
+File Type: DLL
+
+  Image has the following dependencies:
+
+    ADVAPI32.DLL
+    KERNEL32.DLL
+    OLE32.DLL
+    OLEAUT32.DLL
+    USER32.DLL
+    WSOCK32.DLL
+
+  Summary
+
+        1000 .data
+        1000 .link
+        1000 .rloc
+        6000 .text

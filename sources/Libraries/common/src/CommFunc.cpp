@@ -754,7 +754,7 @@ char* LookData2String(const stNetChangeChaPart *pLook, char *szLookBuf, int nLen
 			nBufLen += nDataLen;
 		}
 	}
-	sprintf(szData, ";%lld", lnCheckSum);
+	sprintf(szData, ";%I64d", lnCheckSum);
 	nDataLen = (int)strlen(szData);
 	if (nBufLen + nDataLen >= nLen) return NULL;
 	strcat(szLookBuf, szData);
@@ -879,7 +879,7 @@ bool Strin2LookData(stNetChangeChaPart *pLook, std::string &strData)
 	if (!bIsOldVer)
 	{
 		char	szCheckSum[64];
-		sprintf(szCheckSum, "%lld", lnCheckSum);
+		sprintf(szCheckSum, "%I64d", lnCheckSum);
 		if (strncmp(szCheckSum, strList[i + 1].c_str(), 64))
 			return false;
 	}

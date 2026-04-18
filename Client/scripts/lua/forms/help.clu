@@ -1,7 +1,7 @@
 -----------------------------------------------------------------------
--- 定义帮助界面
+-- 
 -----------------------------------------------------------------------	
--- 创建帮助表单
+-- 
 frmStartHelp = UI_CreateForm( "frmStartHelp", FALSE, 285, 327, 198, 160, TRUE, FALSE )
 UI_FormSetHotKey( frmStartHelp, ALT_KEY, HOTKEY_H ) 
 UI_ShowForm( frmStartHelp, FALSE )
@@ -20,14 +20,14 @@ UI_LoadImage( imgHelp3, "texture/ui/help4.tga", NORMAL, 256, 61, 0, 0 )
 imgHelp4 = UI_CreateCompent( frmStartHelp, IMAGE_TYPE, "imgHelp4", 29, 61, 256, 256 )
 UI_LoadImage( imgHelp4, "texture/ui/help2.tga", NORMAL, 29, 61, 29, 0 )
 
---创建关闭按钮
+--
 btnClose = UI_CreateCompent( frmStartHelp, BUTTON_TYPE, "btnClose", 14, 14, 268, 3 )
 UI_LoadButtonImage( btnClose, "texture/ui/PublicC.tga", 14, 14, 116, 175, TRUE )
 UI_SetButtonModalResult( btnClose, BUTTON_CLOSE )
 
 
 
--- 帮助图片表格
+-- 
 grdHelp = UI_CreateCompent( frmStartHelp, GRID_TYPE, "grdAction", 266, 276, 14, 27 ) 
 UI_SetGridUnitSize( grdHelp, 256, 256 )
 UI_SetIsShow( grdHelp, TRUE )
@@ -45,6 +45,6 @@ UI_AddFaceToGrid( grdHelp,"texture/ui/help/turn.bmp" , 256, 256, 0, 0, 1, 8 )
 UI_AddFaceToGrid( grdHelp,"texture/ui/help/chat.bmp" , 256, 256, 0, 0, 1, 9 )
 
 
---创建打开界面说明按钮
+--
 btnOpenHelp = UI_CreateCompent( frmStartHelp, BUTTON_TYPE, "btnOpenHelp", 49, 13, 200, 290 )
 UI_LoadButtonImage( btnOpenHelp, "texture/ui/SysBotton4.tga", 49, 13, 202, 86, FALSE )			      

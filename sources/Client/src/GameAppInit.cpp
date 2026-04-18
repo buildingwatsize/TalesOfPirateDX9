@@ -188,6 +188,9 @@ void CGameApp::End()
 
 BOOL CGameApp::_Init()
 {
+	AddFontResourceExA("font\\Browd.ttf", FR_PRIVATE, 0);
+	AddFontResourceExA("font\\COOPBL.TTF", FR_PRIVATE, 0);
+
 	_AniClock = new CAniClock[MAX_ANI_CLOCK];
 	for (int i = 0; i < MAX_ANI_CLOCK; i++) 
 	{
@@ -216,13 +219,20 @@ BOOL CGameApp::_Init()
 		LG("init", "[DBG] LoadResourceSet FAILED");
 		return 0;
 	}
-	LG("init", "[DBG] LoadResourceSet OK");
-	if (!LoadResource() || !LoadRes2() /*|| !LoadRes3()*/)
+	LG("init", "[DBG] LoadResourceSet OK\n");
+	LG("init", "[TRACE3] pre LoadResource\n");
+	if (!LoadResource())
 	{
-		LG("init", "[DBG] LoadResource/LoadRes2 FAILED");
+		LG("init", "[TRACE3] LoadResource FAILED\n");
 		return 0;
 	}
-	LG("init", "[DBG] LoadResource/LoadRes2 OK");
+	LG("init", "[TRACE3] post LoadResource\n");
+	if (!LoadRes2())
+	{
+		LG("init", "[TRACE3] LoadRes2 FAILED\n");
+		return 0;
+	}
+	LG("init", "[TRACE3] post LoadRes2\n");
 
 	if( g_Config.m_bEditor  )
 	{
@@ -251,12 +261,14 @@ BOOL CGameApp::_Init()
 	if( mSoundManager == NULL )
 		mSoundManager = new DSoundManager( GetHWND() );
 #endif
+    LG("init", "[TRACE3] pre AudioSDL init\n");
     AudioSDL::get_instance()->init();
+    LG("init", "[TRACE3] post AudioSDL init\n");
 
 	_IsMusicSystemValid = true;
     if( !_IsMusicSystemValid && g_Config.m_bEnableMusic!=0 )
     {
-        LG( "init", g_oLangRec.GetString(65) );
+        LG( "init", RES_STRING(CMISS_000065) );
     }
 
 	_bConnected = FALSE;
@@ -272,81 +284,101 @@ BOOL CGameApp::_Init()
 	// #define MPFONT_UNLINE      0x0004
 
 #ifdef USE_RENDER
-	g_CFont.CreateFont(&g_Render,const_cast<char*>(g_oLangRec.GetString(66)), 12);
-    _MidFont.CreateFont(&g_Render,const_cast<char*>(g_oLangRec.GetString(67)), 16, 3, MPFONT_BOLD);
-	_BottomFont.CreateFont(&g_Render,const_cast<char*>(g_oLangRec.GetString(67)), 12, 3, MPFONT_BOLD);
+	g_CFont.CreateFont(&g_Render,const_cast<char*>(RES_STRING(CMISS_000066)), 12); // todo - font (by using DEFAULT_FONT instead?)
+    _MidFont.CreateFont(&g_Render,const_cast<char*>(RES_STRING(CMISS_000067)), 16, 3, MPFONT_BOLD); // todo - font (by using FONT14 instead?)
+	_BottomFont.CreateFont(&g_Render,const_cast<char*>(RES_STRING(CMISS_000067)), 12, 3, MPFONT_BOLD); // todo - font (by using FONT14 instead?)
 #else
-	g_CFont.CreateFont(g_Render.GetDevice(),const_cast<char*>(g_oLangRec.GetString(66)), 12);
-    _MidFont.CreateFont(&g_Render,const_cast<char*>(g_oLangRec.GetString(67)), 16, 3, MPFONT_BOLD);
-	_BottomFont.CreateFont(&g_Render,const_cast<char*>(g_oLangRec.GetString(67)), 12, 3, MPFONT_BOLD);
+	g_CFont.CreateFont(g_Render.GetDevice(),const_cast<char*>(RES_STRING(CMISS_000066)), 12); // todo - font (by using DEFAULT_FONT instead?)
+    _MidFont.CreateFont(&g_Render,const_cast<char*>(RES_STRING(CMISS_000067)), 16, 3, MPFONT_BOLD); // todo - font (by using FONT14 instead?)
+	_BottomFont.CreateFont(&g_Render,const_cast<char*>(RES_STRING(CMISS_000067)), 12, 3, MPFONT_BOLD); // todo - font (by using FONT14 instead?)
 #endif
 	g_CFont.BindingRes(&ResMgr);
     _MidFont.BindingRes(&ResMgr);
 	_BottomFont.BindingRes(&ResMgr);
 
-	//SIZE sizes;
-	//g_CFont.GetTextSize("IDE\nokdote\n��ǹ���������� ���ȷ�",&sizes);
-
     memset( _stMidFont.szText, 0, sizeof(_stMidFont.szText) );
     _stMidFont.dwBeginTime = 0;
 
+    LG("init", "[TRACE3] post fonts+binding\n");
+	LG("init", "[TRACE2] pre ScriptMgr.Init\n");
 	if( !_stScriptMgr.Init() )
 	{
-		LG("init", g_oLangRec.GetString(68));
+		LG("init", RES_STRING(CMISS_000068));
 		return FALSE;
 	}
+	LG("init", "[TRACE2] post ScriptMgr.Init\n");
    
+	LG("init", "[TRACE4] curr_ver...\n");
 	string curr_ver = __TIME__;
 	curr_ver += " "; curr_ver += __DATE__;
-	// cout << curr_ver.c_str() << endl;
     
+	LG("init", "[TRACE4] new CPointTrack...\n");
    	_pCamTrack = new CPointTrack;
 	
+	LG("init", "[TRACE4] InitAllTable...\n");
 	InitAllTable();
+	LG("init", "[TRACE4] post InitAllTable\n");
 
+	LG("init", "[TRACE4] GetCursor()->InitMemory...\n");
     GetCursor()->InitMemory();
 
+	LG("init", "[TRACE4] InitPoseData...\n");
     extern void InitPoseData();
     InitPoseData();
     
 #if 1
-    // by lsh
-    // ������CSceneObjInfo��������
     extern void LoadResModelBuf(MPIResourceMgr* res_mgr);
     MPTimer t;
     t.Begin();
+    LG("init", "[TRACE2] pre LoadResModelBuf\n");
     LoadResModelBuf(g_Render.GetInterfaceMgr()->res_mgr);
     DWORD res_t = t.End();
+    LG("init", "[TRACE2] post LoadResModelBuf\n");
 #endif
 	
 	extern bool UIMainInit( CFormMgr* pSender );
-	CFormMgr::s_Mgr.AddFormInit( UIMainInit );				// ����ű���,��ʼ��ʱ�¼�
+	CFormMgr::s_Mgr.AddFormInit( UIMainInit );
 
-	if( !CFormMgr::s_Mgr.Init( g_pGameApp->GetHWND() ) )    // by lh ִ�����CLU_LoadScript�����
+	LG("init", "[TRACE2] pre FormMgr.Init\n");
+	if( !CFormMgr::s_Mgr.Init( g_pGameApp->GetHWND() ) )
 	{
-		LG("init", g_oLangRec.GetString(69));
+		LG("init", RES_STRING(CMISS_000069));
 		return FALSE;
 	}
+	LG("init", "[TRACE2] post FormMgr.Init\n");
 
 	GetRender().RegisterFunc();
 
 	CFormMgr::s_Mgr.SetEnabled( true );
 
+	LG("init", "[TRACE2] pre ScriptMgr.LoadScript\n");
 	if( !_stScriptMgr.LoadScript() )
 	{
-		LG("init", g_oLangRec.GetString(70));
+		LG("init", RES_STRING(CMISS_000070));
 		return FALSE;
 	}
+	LG("init", "[TRACE2] post ScriptMgr.LoadScript\n");
 
+#define _INIT_TRACE(msg) {FILE*_tf=fopen("log\\init_trace.log","a");if(_tf){fprintf(_tf,"%s\n",msg);fflush(_tf);fclose(_tf);}}
+	_INIT_TRACE("[INIT5] pre new NetIF");
 	g_NetIF	= new NetIF;
+	_INIT_TRACE("[INIT5] post new NetIF");
+	LG("init", "[TRACE2] post new NetIF\n");
+	_INIT_TRACE("[INIT5] pre Editor.Init");
 	g_Editor.Init(1);
+	_INIT_TRACE("[INIT5] post Editor.Init");
+	LG("init", "[TRACE2] post Editor.Init\n");
 
-	// װ�س�ʼ����
+	_INIT_TRACE("[INIT5] pre LoadScriptScene");
 	LoadScriptScene( (eSceneType)g_Config.m_nCreateScene );
+	_INIT_TRACE("[INIT5] post LoadScriptScene");
+	LG("init", "[TRACE2] post LoadScriptScene\n");
 
 	//LoadRes4();
 
+	_INIT_TRACE("[INIT5] pre GetRender().Init");
     GetRender().Init();
+	_INIT_TRACE("[INIT5] post GetRender().Init");
 
 #ifdef FLOAT_INVALID
 	int i = _controlfp(0,0);
@@ -358,18 +390,26 @@ BOOL CGameApp::_Init()
 
     if(g_Config.m_bEditor) SetIsRenderTipText(true);
 
+	_INIT_TRACE("[INIT5] pre RenderStateMgr");
+    LG("init", "[TRACE2] pre RenderStateMgr\n");
     _rsm = new RenderStateMgr;
     _rsm->Init(g_Render.GetInterfaceMgr()->dev_obj);
+	_INIT_TRACE("[INIT5] post RenderStateMgr");
+    LG("init", "[TRACE2] post RenderStateMgr\n");
 
     _IsInit = true;
+	_INIT_TRACE("[INIT5] _IsInit = true");
+    LG("init", "[TRACE2] _IsInit = true!\n");
     
 	ResetCaption();
 
+	_INIT_TRACE("[INIT5] pre _InitScene");
 	if( !CGameScene::_InitScene() )
 	{
 		LG( "init", "msgCGameScene::_InitScene() return false" );
 		return false;
 	}
+	_INIT_TRACE("[INIT5] post _InitScene");
 
 #if(defined USE_TIMERPERIOD)
     extern void CALLBACK __timer_period_proc(UINT uTimerID, UINT uMsg, DWORD_PTR dwUser, DWORD_PTR dw1, DWORD_PTR dw2);

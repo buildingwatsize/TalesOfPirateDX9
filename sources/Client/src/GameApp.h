@@ -104,7 +104,7 @@ public:
 
 	bool				LoadRes4();
 
-    void				SetIsRun( bool v ) { if(v != _isRun) { _isRun = v; if(v == 0) { ::SendMessage(_hWnd, WM_DESTROY, 0, 0); } } }
+    void				SetIsRun( bool v ) { if(v != _isRun) { {FILE*_f=fopen("log\\run_trace.log","a");if(_f){fprintf(_f,"[SIR] SetIsRun(%d)\n",(int)v);fflush(_f);fclose(_f);}} _isRun = v; if(v == 0) { ::SendMessage(_hWnd, WM_DESTROY, 0, 0); } } }
     BOOL                IsRun() { return _isRun; }
 	void				SetIsRenderTipText( bool v ){ _IsRenderTipText = v;		}
 	bool				GetIsRenderTipText()		{ return _IsRenderTipText;	}
@@ -114,7 +114,7 @@ public:
 	
 
 	void	            HandleKeyContinue();
-	bool	            HandleWindowMsg(DWORD dwMsg, DWORD dwParam1, DWORD dwParam2);
+	bool	            HandleWindowMsg(UINT dwMsg, WPARAM dwParam1, LPARAM dwParam2);
 
 	void                ChangeVideoStyle( int width , int height ,D3DFORMAT format , bool bWindowed  );//by billy
 
@@ -132,7 +132,7 @@ public:
     void                PlayMusic(int nMusicNo);
 	void				PlaySound(int nSoundNo);
 
-	void				SendMessage( DWORD dwTypeID, DWORD dwParam1=0, DWORD dwParam2=0 );
+	void				SendMessage( UINT dwTypeID, WPARAM dwParam1=0, LPARAM dwParam2=0 );
 
 	bool				IsInit()							{ return _IsInit;				}
 
@@ -415,7 +415,7 @@ private:
 	D3DXVECTOR4				_vSave[10];
 };
 
-inline void CGameApp::SendMessage( DWORD dwTypeID, DWORD dwParam1, DWORD dwParam2 )
+inline void CGameApp::SendMessage( UINT dwTypeID, WPARAM dwParam1, LPARAM dwParam2 )
 {	
 	int i=0;
 	while( !::PostMessage( GetHWND(), dwTypeID, dwParam1, dwParam2 ) && i<=10 )

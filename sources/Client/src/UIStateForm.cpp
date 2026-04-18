@@ -28,41 +28,41 @@ bool CStateMgr::Init()
 
 	//frmState �ڵĿؼ��б�
 	labStateName  = dynamic_cast<CLabelEx*>(frmState->Find("labStateName"));    
-	if( !labStateName )		return Error( g_oLangRec.GetString(45), frmState->GetName(), "labStateName" );
+	if( !labStateName )		return Error( RES_STRING(CMISS_000045), frmState->GetName(), "labStateName" );
 	labStateName->SetIsCenter(true);
 
 	FORM_CONTROL_LOADING_CHECK(labGuildName,frmState,CLabelEx,"preperty.clu","labStateGuid");
 
 	labStateJob  = dynamic_cast<CLabelEx*>(frmState->Find("labStateJob"));    
-	if( !labStateJob )		return Error( g_oLangRec.GetString(45), frmState->GetName(), "labStateJob" );
+	if( !labStateJob )		return Error( RES_STRING(CMISS_000045), frmState->GetName(), "labStateJob" );
 
 	labStateLevel  = dynamic_cast<CLabelEx*>(frmState->Find("labStateLevel"));    
-	if( !labStateLevel)		return Error( g_oLangRec.GetString(45), frmState->GetName(), "labStateLevel" );
+	if( !labStateLevel)		return Error( RES_STRING(CMISS_000045), frmState->GetName(), "labStateLevel" );
 
 	labStatePoint  = dynamic_cast<CLabelEx*>(frmState->Find("labStatePoint"));    
-	if( !labStatePoint )	return Error( g_oLangRec.GetString(45), frmState->GetName(), "labStatePoint" );
+	if( !labStatePoint )	return Error( RES_STRING(CMISS_000045), frmState->GetName(), "labStatePoint" );
 	
 	labSkillPoint  = dynamic_cast<CLabelEx*>(frmState->Find("labSkillPoint"));    
-	if( !labSkillPoint )	return Error( g_oLangRec.GetString(45), frmState->GetName(), "labSkillPoint" );
+	if( !labSkillPoint )	return Error( RES_STRING(CMISS_000045), frmState->GetName(), "labSkillPoint" );
 
 	labFameShow  = dynamic_cast<CLabelEx*>(frmState->Find("labFameShow"));    
-	if( !labFameShow )   	return Error( g_oLangRec.GetString(45), frmState->GetName(), "labFameShow" );
+	if( !labFameShow )   	return Error( RES_STRING(CMISS_000045), frmState->GetName(), "labFameShow" );
 
 	//6��
 	btnStr  = dynamic_cast<CTextButton *>(frmState->Find("btnStr"));    
-	if( !btnStr )   		return Error( g_oLangRec.GetString(45), frmState->GetName(), "btnStr" );
+	if( !btnStr )   		return Error( RES_STRING(CMISS_000045), frmState->GetName(), "btnStr" );
 	btnStr->evtMouseClick = MainMouseDown;
 
 	btnAgi  = dynamic_cast<CTextButton *>(frmState->Find("btnAgi"));    
-	if( !btnAgi )			return Error( g_oLangRec.GetString(45), frmState->GetName(), "btnAgi" );
+	if( !btnAgi )			return Error( RES_STRING(CMISS_000045), frmState->GetName(), "btnAgi" );
 	btnAgi->evtMouseClick = MainMouseDown;
 
 	btnCon  = dynamic_cast<CTextButton *>(frmState->Find("btnCon"));    
-	if( !btnCon )			return Error( g_oLangRec.GetString(45), frmState->GetName(), "btnCon" );
+	if( !btnCon )			return Error( RES_STRING(CMISS_000045), frmState->GetName(), "btnCon" );
 	btnCon->evtMouseClick = MainMouseDown;
 
 	btnSta  = dynamic_cast<CTextButton *>(frmState->Find("btnSta"));    
-	if( !btnSta )			return Error( g_oLangRec.GetString(45), frmState->GetName(), "btnSta" );
+	if( !btnSta )			return Error( RES_STRING(CMISS_000045), frmState->GetName(), "btnSta" );
 	btnSta->evtMouseClick = MainMouseDown;
 
 	//btnLuk  = dynamic_cast<CTextButton *>(frmState->Find("btnLuk"));    
@@ -70,23 +70,23 @@ bool CStateMgr::Init()
 	//btnLuk->evtMouseClick = MainMouseDown;
 
 	btnDex  = dynamic_cast<CTextButton *>(frmState->Find("btnDex"));    
-	if( !btnDex )			return Error( g_oLangRec.GetString(45), frmState->GetName(), "btnDex" );
+	if( !btnDex )			return Error( RES_STRING(CMISS_000045), frmState->GetName(), "btnDex" );
 	btnDex->evtMouseClick = MainMouseDown;
 
 	//frmState�µĽ������ؼ�
 	labStateEXP  = dynamic_cast<CLabelEx*>(frmState->Find("labStateEXP"));    
 	if( !labStateEXP )
-		return Error( g_oLangRec.GetString(45), frmState->GetName(), "labStateEXP" );
+		return Error( RES_STRING(CMISS_000045), frmState->GetName(), "labStateEXP" );
 	labStateEXP->SetIsCenter(true);
 
 	labStateHP  = dynamic_cast<CLabelEx*>(frmState->Find("labStateHP"));    
 	if( !labStateHP )
-		return Error( g_oLangRec.GetString(45), frmState->GetName(), "labStateHP" );
+		return Error( RES_STRING(CMISS_000045), frmState->GetName(), "labStateHP" );
 	labStateHP->SetIsCenter(true);
 
 	labStateSP  = dynamic_cast<CLabelEx*>(frmState->Find("labStateSP"));    
 	if( !labStateSP )
-		return Error( g_oLangRec.GetString(45), frmState->GetName(), "labStateSP" );
+		return Error( RES_STRING(CMISS_000045), frmState->GetName(), "labStateSP" );
 	labStateSP->SetIsCenter(true);
 
 

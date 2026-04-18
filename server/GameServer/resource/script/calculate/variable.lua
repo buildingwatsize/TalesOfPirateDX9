@@ -25,15 +25,15 @@ AuthorizedGM['admin4'] = 1
 -------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------- ** Modify Global Rates ** -----------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------
-Server.Level.Limit = 80										-- Maximum player level, must also edit "character_lvup.txt" in order to take effect.
-Server.Rates.Modifier = false								-- Activate server experience rate modifier
-Server.Rates.Global.EXP = 1									-- Rate at which a lone player grows.
-Server.Rates.Global.TeamEXP = 1								-- Rate at which an entire player team grows.
-Server.Rates.Global.DROP = 1								-- Rate at which items are dropped.
-Server.Rates.Global.ShipEXP = 1								-- Rate at which a player's boat gains experience.
-Server.Rates.Global.FairyEXP = 1							-- Rate at which a player's fairy grows.
-Server.Rates.Global.MissionGold = 1							-- The rate that the player receives gold from missions.
-Server.Rates.Global.Resource = 1							-- Rate of gathering resources.
+Server.Level.Limit = 130										-- Maximum player level, must also edit "character_lvup.txt" in order to take effect. default: 80
+Server.Rates.Modifier = true								-- Activate server experience rate modifier. default: false
+Server.Rates.Global.EXP = 1000									-- Rate at which a lone player grows. default: 1
+Server.Rates.Global.TeamEXP = 1000								-- Rate at which an entire player team grows. default: 1
+Server.Rates.Global.DROP = 1000								-- Rate at which items are dropped. default: 1
+Server.Rates.Global.ShipEXP = 1000								-- Rate at which a player's boat gains experience. default: 1
+Server.Rates.Global.FairyEXP = 1000							-- Rate at which a player's fairy grows. default: 1
+Server.Rates.Global.MissionGold = 1000							-- The rate that the player receives gold from missions. default: 1
+Server.Rates.Global.Resource = 1000							-- Rate of gathering resources. default: 1
 -------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------- ** Modify Experience Rate(Map) ** -------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------
@@ -71,9 +71,9 @@ Server.Sys.Maps['secretgarden'].Active = false				-- If disabled, everything rel
 -------------------------------------- ** Modify Apparel / Forge / Gem Variable ** --------------------------------------
 -------------------------------------------------------------------------------------------------------------------------
 Server.Equipment.Upgrade.Limit = 10							-- Maximum apparel upgrade level(10 = 100%, additional 1 = 2% increase).
-Server.Equipment.Upgrade.Cost = 10000						-- Cost to for an apparel upgrade.
+Server.Equipment.Upgrade.Cost = 100						-- Cost to for an apparel upgrade. default: 10000
 Server.Socket.Limit = 3										-- Maximum sockets allowed in equipment.
-Server.Socket.Cost = 50000									-- Cost for making a socket in an equipment.
+Server.Socket.Cost = 500									-- Cost for making a socket in an equipment. default: 50000
 -------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------ ** Modify Cloak System Variables ** ------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------
@@ -95,11 +95,11 @@ Server.Cloak.Rate[10] = 0.1
 ------------------------------------------ ** Modify Fairy System Variables ** ------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------
 Server.Fairy.Marriage['Cost'] = 200							-- Cost to marry two fairies:(MaxLv - Lv_Fairy1) *(MaxLv - Lv_Fairy2) * Cost
-Server.Fairy.Level.Normal = 42								-- Maximum level a fairy can reach by using normal/great fruits.
-Server.Fairy.Level.Improved = 62							-- Maximum level a fairy can reach by using improved fruits.
+Server.Fairy.Level.Normal = 200								-- Maximum level a fairy can reach by using normal/great fruits. default: 42
+Server.Fairy.Level.Improved = 200							-- Maximum level a fairy can reach by using improved fruits. default: 62
 Server.Fairy.Level.Minimum = 0								-- Minimum level a fairy needs to be for player to receive fairy coinds.
-Server.Fairy.Level.Maximum = 42								-- Overall maximum level a fairy can reach.
-Server.Fairy.Possession.Stamina = 100						-- Amount of stamina a fairy needs in order to activate possesion.
+Server.Fairy.Level.Maximum = 200								-- Overall maximum level a fairy can reach. default: 42
+Server.Fairy.Possession.Stamina = 1						-- Amount of stamina a fairy needs in order to activate possesion. default: 100
 Server.Fairy.Effect.Strength = 132							-- Skill effect ID for fairy possession.
 Server.Fairy.Effect.Constitution = 168						-- Skill effect ID for fairy possession.
 Server.Fairy.Effect.Spirit = 169							-- Skill effect ID for fairy possession.
@@ -111,12 +111,12 @@ Server.Fairy.Effect.MordoJR = 174                           -- Skill effect ID f
 Server.Fairy.Effect.AngelaJR = 0                            -- Skill effect ID for fairy possession.
 Server.Fairy.Fruits.Normal = 1								-- Amount of level(s) a fairy will gain when using a normal fruit.
 Server.Fairy.Fruits.Great = 2								-- Amount of level(s) a fairy will gain when using a great fruit.
-Server.Fairy.Fruits.Improved = 1							-- Amount of level(s) a fairy will gain when using a improved fruit.
-Server.Fairy.Ration[227] = 50								-- Amount of stamina given by a fairy ration, must place ration ID and amount.
-Server.Fairy.Ration[2312] = 50								-- Amount of stamina given by a auto ration, must place ration ID and amount.
-Server.Fairy.Ration[3152] = 5								-- Amount of stamina given by pet food, must place ration ID and amount.
-Server.Fairy.Ration[6841] = 100								-- Amount of stamina given by great fairy ration, must place ration ID and amount.
-Server.Fairy.Ration[6842] = 100								-- Amount of stamina given by great auto ration, must place ration ID and amount.
+Server.Fairy.Fruits.Improved = 4							-- Amount of level(s) a fairy will gain when using a improved fruit. default: 1
+Server.Fairy.Ration[227] = 100								-- Amount of stamina given by a fairy ration, must place ration ID and amount. default: 50
+Server.Fairy.Ration[2312] = 100								-- Amount of stamina given by a auto ration, must place ration ID and amount. default: 50
+Server.Fairy.Ration[3152] = 50								-- Amount of stamina given by pet food, must place ration ID and amount. default: 5
+Server.Fairy.Ration[6841] = 200								-- Amount of stamina given by great fairy ration, must place ration ID and amount. default: 100
+Server.Fairy.Ration[6842] = 200								-- Amount of stamina given by great auto ration, must place ration ID and amount. default: 100
 Server.Fairy.AutoFeed.Stamina = 0.5							-- Minimum stamina percentage in order for auto feed to work.
 Server.Fairy.AutoFeed.Normal = 2312							-- Item ID for normal auto ration.
 Server.Fairy.AutoFeed.Great = 6842							-- Item ID for great auto ration.
@@ -130,11 +130,11 @@ Server.Fairy.Fruit[0277] = {LV = 2, ATTR = ITEMATTR_VAL_AGI}	-- Great Leveling F
 Server.Fairy.Fruit[0278] = {LV = 2, ATTR = ITEMATTR_VAL_DEX}	-- Great Leveling Fruits
 Server.Fairy.Fruit[0279] = {LV = 2, ATTR = ITEMATTR_VAL_CON}	-- Great Leveling Fruits
 Server.Fairy.Fruit[0280] = {LV = 2, ATTR = ITEMATTR_VAL_STA}	-- Great Leveling Fruits
-Server.Fairy.Fruit[7003] = {LV = 1, ATTR = ITEMATTR_VAL_STR}	-- Improved Leveling Fruits
-Server.Fairy.Fruit[7004] = {LV = 1, ATTR = ITEMATTR_VAL_AGI}	-- Improved Leveling Fruits
-Server.Fairy.Fruit[7005] = {LV = 1, ATTR = ITEMATTR_VAL_DEX}	-- Improved Leveling Fruits
-Server.Fairy.Fruit[7006] = {LV = 1, ATTR = ITEMATTR_VAL_CON}	-- Improved Leveling Fruits
-Server.Fairy.Fruit[7007] = {LV = 1, ATTR = ITEMATTR_VAL_STA}	-- Improved Leveling Fruits
+Server.Fairy.Fruit[7003] = {LV = 4, ATTR = ITEMATTR_VAL_STR}	-- Improved Leveling Fruits. default: LV = 1
+Server.Fairy.Fruit[7004] = {LV = 4, ATTR = ITEMATTR_VAL_AGI}	-- Improved Leveling Fruits. default: LV = 1
+Server.Fairy.Fruit[7005] = {LV = 4, ATTR = ITEMATTR_VAL_DEX}	-- Improved Leveling Fruits. default: LV = 1
+Server.Fairy.Fruit[7006] = {LV = 4, ATTR = ITEMATTR_VAL_CON}	-- Improved Leveling Fruits. default: LV = 1
+Server.Fairy.Fruit[7007] = {LV = 4, ATTR = ITEMATTR_VAL_STA}	-- Improved Leveling Fruits. default: LV = 1
 Server.Fairy.ID['Fairy of Luck'] = 231						-- Item ID for fairy: Fairy of Luck
 Server.Fairy.ID['Fairy of Evil'] = 237						-- Item ID for fairy: Fairy of Evil
 Server.Fairy.ID['Fairy of Strength'] = 232					-- Item ID for fairy: Fairy of Strength
@@ -943,105 +943,135 @@ JNSTime_Flag[13]			=365
 DEXP_Num = Server.Level.Limit
 DEXP = {}
 DEXP[1] = 0
-DEXP[2] = 5
-DEXP[3] = 15
-DEXP[4] = 35
-DEXP[5] = 101
-DEXP[6] = 250
-DEXP[7] = 500
-DEXP[8] = 1000
-DEXP[9] = 1974
-DEXP[10] = 3208
-DEXP[11] = 4986
-DEXP[12] = 7468
-DEXP[13] = 10844
-DEXP[14] = 15338
-DEXP[15] = 21210
-DEXP[16] = 28766
-DEXP[17] = 38356
-DEXP[18] = 50382
-DEXP[19] = 65306
-DEXP[20] = 83656
-DEXP[21] = 106032
-DEXP[22] = 133112
-DEXP[23] = 165668
-DEXP[24] = 204564
-DEXP[25] = 250780
-DEXP[26] = 305412
-DEXP[27] = 369692
-DEXP[28] = 444998
-DEXP[29] = 532870
-DEXP[30] = 635026
-DEXP[31] = 753378
-DEXP[32] = 890062
-DEXP[33] = 1047438
-DEXP[34] = 1228138
-DEXP[35] = 1435074
-DEXP[36] = 1671470
-DEXP[37] = 1940892
-DEXP[38] = 2247288
-DEXP[39] = 2595010
-DEXP[40] = 2988860
-DEXP[41] = 3434132
-DEXP[42] = 3936658
-DEXP[43] = 4502856
-DEXP[44] = 5139778
-DEXP[45] = 5855180
-DEXP[46] = 6657576
-DEXP[47] = 7556310
-DEXP[48] = 8561630
-DEXP[49] = 9684764
-DEXP[50] = 10938016
-DEXP[51] = 12334856
-DEXP[52] = 13890020
-DEXP[53] = 15619622
-DEXP[54] = 17541282
-DEXP[55] = 19674240
-DEXP[56] = 22039516
-DEXP[57] = 24660044
-DEXP[58] = 27560852
-DEXP[59] = 30769230
-DEXP[60] = 37746418
-DEXP[61] = 45876427
-DEXP[62] = 59571153
-DEXP[63] = 75703638
-DEXP[64] = 94615279
-DEXP[65] = 116688304
-DEXP[66] = 155291059
-DEXP[67] = 186418013
-DEXP[68] = 238159614
-DEXP[69] = 298622278
-DEXP[70] = 368975850
-DEXP[71] = 450525549
-DEXP[72] = 568409779
-DEXP[73] = 679324744
-DEXP[74] = 806544569
-DEXP[75] = 952091724
-DEXP[76] = 1188099236
-DEXP[77] = 1480429211
-DEXP[78] = 1776125584
-DEXP[79] = 2091634902
-DEXP[80] = 2425349810
-DEXP[81] = 2440895086
-DEXP[82] = 2458896515
-DEXP[83] = 2479742169
-DEXP[84] = 2503881436
-DEXP[85] = 2531834707
-DEXP[86] = 2564204594
-DEXP[87] = 2601688923
-DEXP[88] = 2645095775
-DEXP[89] = 2695360909
-DEXP[90] = 2753567934
-DEXP[91] = 2820971668
-DEXP[92] = 2899025191
-DEXP[93] = 2989411170
-DEXP[94] = 3094078133
-DEXP[95] = 3215282476
-DEXP[96] = 3355637105
-DEXP[97] = 3518167765
-DEXP[98] = 3706378269
-DEXP[99] = 3924326032
-DEXP[100] = 4176709541
+DEXP[2] = 15
+DEXP[3] = 18
+DEXP[4] = 22
+DEXP[5] = 27
+DEXP[6] = 33
+DEXP[7] = 41
+DEXP[8] = 51
+DEXP[9] = 63
+DEXP[10] = 78
+DEXP[11] = 97
+DEXP[12] = 121
+DEXP[13] = 151
+DEXP[14] = 188
+DEXP[15] = 235
+DEXP[16] = 293
+DEXP[17] = 366
+DEXP[18] = 457
+DEXP[19] = 571
+DEXP[20] = 713
+DEXP[21] = 891
+DEXP[22] = 1113
+DEXP[23] = 1391
+DEXP[24] = 1738
+DEXP[25] = 2172
+DEXP[26] = 2715
+DEXP[27] = 3393
+DEXP[28] = 4241
+DEXP[29] = 5301
+DEXP[30] = 6626
+DEXP[31] = 8282
+DEXP[32] = 10352
+DEXP[33] = 12940
+DEXP[34] = 16175
+DEXP[35] = 20218
+DEXP[36] = 25272
+DEXP[37] = 31590
+DEXP[38] = 39487
+DEXP[39] = 49358
+DEXP[40] = 61697
+DEXP[41] = 77121
+DEXP[42] = 96401
+DEXP[43] = 120501
+DEXP[44] = 150626
+DEXP[45] = 184516
+DEXP[46] = 226032
+DEXP[47] = 276889
+DEXP[48] = 339189
+DEXP[49] = 415506
+DEXP[50] = 508994
+DEXP[51] = 623517
+DEXP[52] = 763808
+DEXP[53] = 935664
+DEXP[54] = 1146188
+DEXP[55] = 1375425
+DEXP[56] = 1650510
+DEXP[57] = 1980612
+DEXP[58] = 2376734
+DEXP[59] = 2852080
+DEXP[60] = 3422496
+DEXP[61] = 4106995
+DEXP[62] = 4928394
+DEXP[63] = 5914072
+DEXP[64] = 7096886
+DEXP[65] = 8338841
+DEXP[66] = 9798138
+DEXP[67] = 11512812
+DEXP[68] = 13527554
+DEXP[69] = 15894875
+DEXP[70] = 18676478
+DEXP[71] = 21944861
+DEXP[72] = 25785211
+DEXP[73] = 30297622
+DEXP[74] = 35599705
+DEXP[75] = 40939660
+DEXP[76] = 47080609
+DEXP[77] = 54142700
+DEXP[78] = 62264105
+DEXP[79] = 71603720
+DEXP[80] = 82344278
+DEXP[81] = 94695919
+DEXP[82] = 108900306
+DEXP[83] = 125235351
+DEXP[84] = 144020653
+DEXP[85] = 161303131
+DEXP[86] = 180659506
+DEXP[87] = 202338646
+DEXP[88] = 226619283
+DEXP[89] = 253813596
+DEXP[90] = 284271227
+DEXP[91] = 318383774
+DEXP[92] = 356589826
+DEXP[93] = 399380605
+DEXP[94] = 447306277
+DEXP[95] = 489800373
+DEXP[96] = 536331408
+DEXP[97] = 587282891
+DEXP[98] = 643074765
+DEXP[99] = 704166867
+DEXP[100] = 771062719
+DEXP[101] = 844313677
+DEXP[102] = 924523476
+DEXP[103] = 1012353206
+DEXP[104] = 1108526760
+DEXP[105] = 1180580999
+DEXP[106] = 1257318763
+DEXP[107] = 1339044482
+DEXP[108] = 1426082373
+DEXP[109] = 1518777727
+DEXP[110] = 1617498279
+DEXP[111] = 1722635667
+DEXP[112] = 1834606985
+DEXP[113] = 1953856439
+DEXP[114] = 2080857107
+DEXP[115] = 2216112818
+DEXP[116] = 2360160151
+DEXP[117] = 2513570560
+DEXP[118] = 2676952646
+DEXP[119] = 2850954567
+DEXP[120] = 2957865363
+DEXP[121] = 3068785314
+DEXP[122] = 3183864763
+DEXP[123] = 3303259691
+DEXP[124] = 3427131929
+DEXP[125] = 3555649376
+DEXP[126] = 3688986227
+DEXP[127] = 3827323210
+DEXP[128] = 3970847830
+DEXP[129] = 4119754623
+DEXP[130] = 4200000000
 
 do
     for i = 1, #DEXP, 1 do
@@ -1051,7 +1081,7 @@ do
     end
 end
 
---------------------ÊôÐÔ±àºÅ
+--------------------ï¿½ï¿½ï¿½Ô±ï¿½ï¿½
 STAR_ATTR_Num = 47
 STAR_ATTR={}
 STAR_ATTR[1]				= "Strength modulus bonus"
@@ -1140,11 +1170,11 @@ UnNormalMonster_ID[11] = 743
 UnNormalMonster_ID[12] = 744
 UnNormalMonster_ID[13] = 745
 
---PKµº¹Ø±Õ¼ÆÊý-----------
+--PKï¿½ï¿½ï¿½Ø±Õ¼ï¿½ï¿½ï¿½-----------
 PK_Win_CountNum		=	60
 
 ----------------------------------------------------------------------------------------------------
---PKµºÐèÒªÉ¾³ýµÄµÀ¾ß
+--PKï¿½ï¿½ï¿½ï¿½ÒªÉ¾ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½
 PK_BagItemDelCheckNum = 6
 PK_BagItemDelCheck_ID = { }
 PK_BagItemDelCheck_ID [0] = 1854
@@ -1158,7 +1188,7 @@ PK_BagItemDelCheck_ID [6] = 1860
 
 
 
---Ê¥Õ½¹Ø±Õ-----------
+--Ê¥Õ½ï¿½Ø±ï¿½-----------
 SZ_Win_CountNum		=	60
 SZ_Win_CountNum2	=	60
 GUILDNOTICE = 6
@@ -1184,22 +1214,22 @@ GUILDWARCLOSETIME2 = 10800
 
 
 
---ÍË³öÊ¥Õ½µØÍ¼»áÉ¾³ýµÄµÀ¾ß
+--ï¿½Ë³ï¿½Ê¥Õ½ï¿½ï¿½Í¼ï¿½ï¿½É¾ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½
 SZ_BagItemDelCheckNum = 4
 SZ_BagItemDelCheck_ID = { }
 SZ_BagItemDelCheck_ID [0] = 4661
 SZ_BagItemDelCheck_ID [1] = 2964
 SZ_BagItemDelCheck_ID [2] = 3001
-SZ_BagItemDelCheck_ID [3] = 2381 ---ÊØ»¤ÉñÕÙ»½È¯
+SZ_BagItemDelCheck_ID [3] = 2381 ---ï¿½Ø»ï¿½ï¿½ï¿½ï¿½Ù»ï¿½È¯
 
 
 
 
---ËÀÉñ¹¥ÂÔÖÐÒªÉ¾³ýµÄµÀ¾ß--ËÀÉñ×¨Êô²¿·Ö¿ªÊ¼
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÉ¾ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½--ï¿½ï¿½ï¿½ï¿½×¨ï¿½ï¿½ï¿½ï¿½ï¿½Ö¿ï¿½Ê¼
 SS_BagItemDelCheckNum = 2
 SS_BagItemDelCheck_ID = { }
-SS_BagItemDelCheck_ID [1] = 1855		--½øÈëÓÀºãµØÓüµÄÃÅÆ±
-SS_BagItemDelCheck_ID [2] = 1856		--É±ËÀÉñ±ØÐëÊ¹ÓÃµÄµÀ¾ß
+SS_BagItemDelCheck_ID [1] = 1855		--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ±
+SS_BagItemDelCheck_ID [2] = 1856		--É±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ÃµÄµï¿½ï¿½ï¿½
 
 CRY = {}
 CRY[5]=0
@@ -1263,22 +1293,22 @@ NOTICETIME[15] = 3
 NOTICETIME[16] = 2
 NOTICETIME[17] = 1
 
---ËÀÉñ×¨Êô²¿·Ö
+--ï¿½ï¿½ï¿½ï¿½×¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
---µÀ¾ßÊµÀý»¯ÊÂ¼þÀàÐÍ
-NPC_SALE				=	0	--npcÂòÂô
-MONSTER_BAOLIAO		=	1	--¹ÖÎï±©ÁÏ
-PLAYER_HECHENG		=	2	--Íæ¼ÒºÏ³É
-QUEST_AWARD_1		=	3	--ÈÎÎñ»ñÈ¡1
-QUEST_AWARD_2		=	4	--ÈÎÎñ»ñÈ¡2
-QUEST_AWARD_3		=	5	--ÈÎÎñ»ñÈ¡3
-QUEST_AWARD_4		=	6	--ÈÎÎñ»ñÈ¡4
-QUEST_AWARD_5		=	7	--ÈÎÎñ»ñÈ¡5
-QUEST_AWARD_6		=	8	--ÈÎÎñ»ñÈ¡6
-QUEST_AWARD_7		=	9	--ÈÎÎñ»ñÈ¡7
-QUEST_AWARD_8		=	10	--ÈÎÎñ»ñÈ¡8
-PLAYER_XSBOX			=	11	--ÐÂÊÖ±¦Ïä
+--ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½
+NPC_SALE				=	0	--npcï¿½ï¿½ï¿½ï¿½
+MONSTER_BAOLIAO		=	1	--ï¿½ï¿½ï¿½ï±©ï¿½ï¿½
+PLAYER_HECHENG		=	2	--ï¿½ï¿½ÒºÏ³ï¿½
+QUEST_AWARD_1		=	3	--ï¿½ï¿½ï¿½ï¿½ï¿½È¡1
+QUEST_AWARD_2		=	4	--ï¿½ï¿½ï¿½ï¿½ï¿½È¡2
+QUEST_AWARD_3		=	5	--ï¿½ï¿½ï¿½ï¿½ï¿½È¡3
+QUEST_AWARD_4		=	6	--ï¿½ï¿½ï¿½ï¿½ï¿½È¡4
+QUEST_AWARD_5		=	7	--ï¿½ï¿½ï¿½ï¿½ï¿½È¡5
+QUEST_AWARD_6		=	8	--ï¿½ï¿½ï¿½ï¿½ï¿½È¡6
+QUEST_AWARD_7		=	9	--ï¿½ï¿½ï¿½ï¿½ï¿½È¡7
+QUEST_AWARD_8		=	10	--ï¿½ï¿½ï¿½ï¿½ï¿½È¡8
+PLAYER_XSBOX			=	11	--ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½
 
 PLAYER_CCFSBOXA		=	12
 PLAYER_CCFSBOXB		=	13
@@ -1289,29 +1319,29 @@ PLAYER_CCFSBOXF 		=	17
 PLAYER_CCFSBOXG		=	18
 PLAYER_CCFSBOXH		=	19
 PLAYER_CCFSBOXI		=	20
-PLAYER_ZSITEM			=	22	--×ÏÉ«×°±¸
-PLAYER_HSSR			=	23	--ºÚÊÐÉÌÈË
-PLAYER_HSSRA			=	24	--ºÚÊÐÉÌÈËA
+PLAYER_ZSITEM			=	22	--ï¿½ï¿½É«×°ï¿½ï¿½
+PLAYER_HSSR			=	23	--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+PLAYER_HSSRA			=	24	--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½A
 
-QUEST_AWARD_GODBOX	=	94	--Ð§¹ûµÈÍ¬ÉÌ³ÇÏä×Óµ«¿ª³öÎïÆ·ÎÞ²Û --------------kokora
-QUEST_AWARD_SCBOX	=	95	--ÉÌ³ÇÏä×Ó
-QUEST_AWARD_SDJ		=	96	--Ê¥µ®»»È¡ÀñÆ·
-QUEST_AWARD_RYZ		=	97	--ÈÙÓþÖ¤»ñµÃ
-QUEST_AWARD_WZX		=	98	--Ö°ÒµÈÎÎñ±¦Ïä
-QUEST_AWARD_RAND		=	99	--Ëæ»úÖ°ÒµÈÎÎñ
-
-
+QUEST_AWARD_GODBOX	=	94	--Ð§ï¿½ï¿½ï¿½ï¿½Í¬ï¿½Ì³ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½Þ²ï¿½ --------------kokora
+QUEST_AWARD_SCBOX	=	95	--ï¿½Ì³ï¿½ï¿½ï¿½ï¿½ï¿½
+QUEST_AWARD_SDJ		=	96	--Ê¥ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Æ·
+QUEST_AWARD_RYZ		=	97	--ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½
+QUEST_AWARD_WZX		=	98	--Ö°Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+QUEST_AWARD_RAND		=	99	--ï¿½ï¿½ï¿½Ö°Òµï¿½ï¿½ï¿½ï¿½
 
 
---¸½¼ÓÊôÐÔÌ××°Ãû³Æ¶ÔÓ¦¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
-ITEMSERIES_DRAGON		= 1							--¾ÞÁúÌ××°£¨Á¦Á¿£©
-ITEMSERIES_TAITAN = 2							--Ì©Ì¹Ì××°£¨ÌåÖÊ£©
-ITEMSERIES_HUNTER = 3							--ÁÔÊÖÌ××°£¨×¨×¢£©
-ITEMSERIES_DELIVER = 4							--ÐÅÊ¹Ì××°£¨Ãô½Ý£©
-ITEMSERIES_HOLY = 5							--ÉñÊ¥Ì××°£¨¾«Éñ£©
 
---¸½¼ÓÊôÐÔ¸ÅÂÊ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½Æ¶ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+ITEMSERIES_DRAGON		= 1							--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ITEMSERIES_TAITAN = 2							--Ì©Ì¹ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½Ê£ï¿½
+ITEMSERIES_HUNTER = 3							--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½×¨×¢ï¿½ï¿½
+ITEMSERIES_DELIVER = 4							--ï¿½ï¿½Ê¹ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½
+ITEMSERIES_HOLY = 5							--ï¿½ï¿½Ê¥ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½Ê¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 Itemattr_Baoliao = {}
 
@@ -1319,26 +1349,26 @@ Itemattr_Baoliao = {}
 
 
 
---µÀ¾ßÆ·ÖÊËæ»ú¸ÅÂÊ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+--ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-Item_Baoliao = { }									--¹ÖÎï±©ÁÏ --´Ó×î¸ß¼¶Æ·ÖÊ¿ªÊ¼Ëæ»ú£¬¸ß¼¶ÎïÆ·ÓÅÏÈ£¬ÏàÁÚµÈ¼¶µÄÊýÖµ²îÖµÎªÊµ¼Ê¸ÅÂÊ
+Item_Baoliao = { }									--ï¿½ï¿½ï¿½ï±©ï¿½ï¿½ --ï¿½ï¿½ï¿½ï¿½ß¼ï¿½Æ·ï¿½Ê¿ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ÚµÈ¼ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ÖµÎªÊµï¿½Ê¸ï¿½ï¿½ï¿½
 Item_Baoliao [0]		=		0						--
 Item_Baoliao [1]		=		0						--
 Item_Baoliao [2]		=		0						--
 Item_Baoliao [3]		=		0						--
 Item_Baoliao [4]		=		0						--
-Item_Baoliao [5]		=		1						--ÉñÓ÷Ö®...
-Item_Baoliao [6]		=		5						--ÍõÕßÖ®...
+Item_Baoliao [5]		=		1						--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Baoliao [6]		=		5						--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Baoliao [7]		=		10						--Í³Ë§Ö®...
 Item_Baoliao [8]		=		40						--×¿Ô½Ö®...
-Item_Baoliao [9]		=		80						--ÆÕÍ¨ÐÍ...
+Item_Baoliao [9]		=		80						--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_0 = { }
-Item_Attr_0 [0]		=		0						--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_0 [1]		=		0						--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_0 [2]		=		1						--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_0 [3]		=		4						--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_0 [4]		=		50						--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_0 [0]		=		0						--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_0 [1]		=		0						--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_0 [2]		=		1						--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_0 [3]		=		4						--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_0 [4]		=		50						--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
 Item_Mission_1 = { }
@@ -1347,18 +1377,18 @@ Item_Mission_1 [1]		=		0						--
 Item_Mission_1 [2]		=		0						--
 Item_Mission_1 [3]		=		0						--
 Item_Mission_1 [4]		=		0						--
-Item_Mission_1 [5]		=		0						--ÉñÓ÷Ö®...
-Item_Mission_1 [6]		=		0						--ÍõÕßÖ®...
+Item_Mission_1 [5]		=		0						--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Mission_1 [6]		=		0						--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Mission_1 [7]		=		1						--Í³Ë§Ö®...
 Item_Mission_1 [8]		=		10						--×¿Ô½Ö®...
-Item_Mission_1 [9]		=		50						--ÆÕÍ¨ÐÍ...
+Item_Mission_1 [9]		=		50						--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_1 = { }
-Item_Attr_1 [0]		=		0						--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_1 [1]		=		0						--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_1 [2]		=		0						--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_1 [3]		=		0						--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_1 [4]		=		0						--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_1 [0]		=		0						--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_1 [1]		=		0						--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_1 [2]		=		0						--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_1 [3]		=		0						--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_1 [4]		=		0						--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
 
@@ -1370,18 +1400,18 @@ Item_Mission_2 [1]		=		0						--
 Item_Mission_2 [2]		=		0						--
 Item_Mission_2 [3]		=		0						--
 Item_Mission_2 [4]		=		0						--
-Item_Mission_2 [5]		=		0						--ÉñÓ÷Ö®...
-Item_Mission_2 [6]		=		1						--ÍõÕßÖ®...
+Item_Mission_2 [5]		=		0						--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Mission_2 [6]		=		1						--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Mission_2 [7]		=		5						--Í³Ë§Ö®...
 Item_Mission_2 [8]		=		20						--×¿Ô½Ö®...
-Item_Mission_2 [9]		=		80						--ÆÕÍ¨ÐÍ...
+Item_Mission_2 [9]		=		80						--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_2 = { }
-Item_Attr_2 [0]		=		0						--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_2 [1]		=		0						--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_2 [2]		=		0						--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_2 [3]		=		10						--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_2 [4]		=		30						--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_2 [0]		=		0						--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_2 [1]		=		0						--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_2 [2]		=		0						--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_2 [3]		=		10						--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_2 [4]		=		30						--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
 
@@ -1391,18 +1421,18 @@ Item_Mission_3 [1]		=		0						--
 Item_Mission_3 [2]		=		0						--
 Item_Mission_3 [3]		=		0						--
 Item_Mission_3 [4]		=		0						--
-Item_Mission_3 [5]		=		0						--ÉñÓ÷Ö®...
-Item_Mission_3 [6]		=		1						--ÍõÕßÖ®...
+Item_Mission_3 [5]		=		0						--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Mission_3 [6]		=		1						--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Mission_3 [7]		=		5						--Í³Ë§Ö®...
 Item_Mission_3 [8]		=		50						--×¿Ô½Ö®...
-Item_Mission_3 [9]		=		100						--ÆÕÍ¨ÐÍ...
+Item_Mission_3 [9]		=		100						--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_3 = { }
-Item_Attr_3 [0]		=		0						--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_3 [1]		=		0						--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_3 [2]		=		0						--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_3 [3]		=		10						--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_3 [4]		=		60						--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_3 [0]		=		0						--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_3 [1]		=		0						--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_3 [2]		=		0						--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_3 [3]		=		10						--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_3 [4]		=		60						--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
 
@@ -1414,18 +1444,18 @@ Item_Mission_4 [1]		=		0						--
 Item_Mission_4 [2]		=		0						--
 Item_Mission_4 [3]		=		0						--
 Item_Mission_4 [4]		=		0						--
-Item_Mission_4 [5]		=		1						--ÉñÓ÷Ö®...
-Item_Mission_4 [6]		=		5						--ÍõÕßÖ®...
+Item_Mission_4 [5]		=		1						--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Mission_4 [6]		=		5						--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Mission_4 [7]		=		15						--Í³Ë§Ö®...
 Item_Mission_4 [8]		=		90						--×¿Ô½Ö®...
-Item_Mission_4 [9]		=		100						--ÆÕÍ¨ÐÍ...
+Item_Mission_4 [9]		=		100						--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_4 = { }
-Item_Attr_4 [0]		=		0						--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_4 [1]		=		0						--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_4 [2]		=		1						--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_4 [3]		=		20						--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_4 [4]		=		100						--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_4 [0]		=		0						--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_4 [1]		=		0						--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_4 [2]		=		1						--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_4 [3]		=		20						--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_4 [4]		=		100						--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
 Item_Mission_5 = { }
@@ -1434,18 +1464,18 @@ Item_Mission_5 [1]		=		0						--
 Item_Mission_5 [2]		=		0						--
 Item_Mission_5 [3]		=		0						--
 Item_Mission_5 [4]		=		0						--
-Item_Mission_5 [5]		=		1						--ÉñÓ÷Ö®...
-Item_Mission_5 [6]		=		15						--ÍõÕßÖ®...
+Item_Mission_5 [5]		=		1						--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Mission_5 [6]		=		15						--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Mission_5 [7]		=		100						--Í³Ë§Ö®...
 Item_Mission_5 [8]		=		100						--×¿Ô½Ö®...
-Item_Mission_5 [9]		=		100						--ÆÕÍ¨ÐÍ...
+Item_Mission_5 [9]		=		100						--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_5 = { }
-Item_Attr_5 [0]		=		0						--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_5 [1]		=		0						--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_5 [2]		=		1						--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_5 [3]		=		5						--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_5 [4]		=		100						--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_5 [0]		=		0						--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_5 [1]		=		0						--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_5 [2]		=		1						--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_5 [3]		=		5						--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_5 [4]		=		100						--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 Item_Mission_94 = { }					 -----------------kokora
 Item_Mission_94 [0]		=		0						--
@@ -1453,18 +1483,18 @@ Item_Mission_94 [1]		=		0						--
 Item_Mission_94 [2]		=		0						--
 Item_Mission_94 [3]		=		0						--
 Item_Mission_94 [4]		=		0						--
-Item_Mission_94 [5]		=		0						--ÉñÓ÷Ö®...
-Item_Mission_94 [6]		=		1						--ÍõÕßÖ®...
+Item_Mission_94 [5]		=		0						--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Mission_94 [6]		=		1						--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Mission_94 [7]		=		100						--Í³Ë§Ö®...
 Item_Mission_94 [8]		=		100						--×¿Ô½Ö®...
-Item_Mission_94 [9]		=		100						--ÆÕÍ¨ÐÍ...
+Item_Mission_94 [9]		=		100						--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_94 = { }
-Item_Attr_94 [0]		=		0						--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_94 [1]		=		0						--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_94 [2]		=		1						--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_94 [3]		=		20						--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_94 [4]		=		90						--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_94 [0]		=		0						--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_94 [1]		=		0						--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_94 [2]		=		1						--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_94 [3]		=		20						--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_94 [4]		=		90						--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 Item_Mission_95 = { }
 Item_Mission_95 [0]		=		0						--
@@ -1472,18 +1502,18 @@ Item_Mission_95 [1]		=		0						--
 Item_Mission_95 [2]		=		0						--
 Item_Mission_95 [3]		=		0						--
 Item_Mission_95 [4]		=		0						--
-Item_Mission_95 [5]		=		0						--ÉñÓ÷Ö®...
-Item_Mission_95 [6]		=		0						--ÍõÕßÖ®...
+Item_Mission_95 [5]		=		0						--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Mission_95 [6]		=		0						--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Mission_95 [7]		=		100						--Í³Ë§Ö®...
 Item_Mission_95 [8]		=		100						--×¿Ô½Ö®...
-Item_Mission_95 [9]		=		100						--ÆÕÍ¨ÐÍ...
+Item_Mission_95 [9]		=		100						--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_95 = { }
-Item_Attr_95 [0]		=		0						--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_95 [1]		=		0						--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_95 [2]		=		1						--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_95 [3]		=		4						--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_95 [4]		=		50						--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_95 [0]		=		0						--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_95 [1]		=		0						--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_95 [2]		=		1						--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_95 [3]		=		4						--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_95 [4]		=		50						--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 Item_Mission_96 = { }
 Item_Mission_96 [0]		=		0						--
@@ -1491,18 +1521,18 @@ Item_Mission_96 [1]		=		0						--
 Item_Mission_96 [2]		=		0						--
 Item_Mission_96 [3]		=		0						--
 Item_Mission_96 [4]		=		0						--
-Item_Mission_96 [5]		=		10						--ÉñÓ÷Ö®...
-Item_Mission_96 [6]		=		20						--ÍõÕßÖ®...
+Item_Mission_96 [5]		=		10						--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Mission_96 [6]		=		20						--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Mission_96 [7]		=		50						--Í³Ë§Ö®...
 Item_Mission_96 [8]		=		90						--×¿Ô½Ö®...
-Item_Mission_96 [9]		=		100						--ÆÕÍ¨ÐÍ...
+Item_Mission_96 [9]		=		100						--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_96 = { }
-Item_Attr_96 [0]		=		0						--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_96 [1]		=		0						--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_96 [2]		=		2						--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_96 [3]		=		20						--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_96 [4]		=		100						--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_96 [0]		=		0						--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_96 [1]		=		0						--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_96 [2]		=		2						--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_96 [3]		=		20						--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_96 [4]		=		100						--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
 Item_Mission_97 = { }
@@ -1511,18 +1541,18 @@ Item_Mission_97 [1]		=		0						--
 Item_Mission_97 [2]		=		0						--
 Item_Mission_97 [3]		=		0						--
 Item_Mission_97 [4]		=		0						--
-Item_Mission_97 [5]		=		0						--ÉñÓ÷Ö®...
-Item_Mission_97 [6]		=		0						--ÍõÕßÖ®...
+Item_Mission_97 [5]		=		0						--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Mission_97 [6]		=		0						--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Mission_97 [7]		=		0						--Í³Ë§Ö®...
 Item_Mission_97 [8]		=		0						--×¿Ô½Ö®...
-Item_Mission_97 [9]		=		100						--ÆÕÍ¨ÐÍ...
+Item_Mission_97 [9]		=		100						--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_97 = { }
-Item_Attr_97 [0]		=		100						--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_97 [1]		=		100						--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_97 [2]		=		100						--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_97 [3]		=		100						--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_97 [4]		=		100						--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_97 [0]		=		100						--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_97 [1]		=		100						--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_97 [2]		=		100						--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_97 [3]		=		100						--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_97 [4]		=		100						--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
 Item_Mission_98 = { }
@@ -1531,18 +1561,18 @@ Item_Mission_98 [1]		=		0						--
 Item_Mission_98 [2]		=		0						--
 Item_Mission_98 [3]		=		0						--
 Item_Mission_98 [4]		=		0						--
-Item_Mission_98 [5]		=		10						--ÉñÓ÷Ö®...
-Item_Mission_98 [6]		=		20						--ÍõÕßÖ®...
+Item_Mission_98 [5]		=		10						--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Mission_98 [6]		=		20						--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Mission_98 [7]		=		50						--Í³Ë§Ö®...
 Item_Mission_98 [8]		=		90						--×¿Ô½Ö®...
-Item_Mission_98 [9]		=		100						--ÆÕÍ¨ÐÍ...
+Item_Mission_98 [9]		=		100						--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_98 = { }
-Item_Attr_98 [0]		=		0						--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_98 [1]		=		0						--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_98 [2]		=		2						--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_98 [3]		=		20						--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_98 [4]		=		100						--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_98 [0]		=		0						--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_98 [1]		=		0						--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_98 [2]		=		2						--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_98 [3]		=		20						--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_98 [4]		=		100						--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
 
@@ -1552,18 +1582,18 @@ Item_Mission_99 [1]		=		0						--
 Item_Mission_99 [2]		=		0						--
 Item_Mission_99 [3]		=		0						--
 Item_Mission_99 [4]		=		0						--
-Item_Mission_99 [5]		=		1						--ÉñÓ÷Ö®...
-Item_Mission_99 [6]		=		5						--ÍõÕßÖ®...
+Item_Mission_99 [5]		=		1						--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Mission_99 [6]		=		5						--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Mission_99 [7]		=		20						--Í³Ë§Ö®...
 Item_Mission_99 [8]		=		50						--×¿Ô½Ö®...
-Item_Mission_99 [9]		=		100						--ÆÕÍ¨ÐÍ...
+Item_Mission_99 [9]		=		100						--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_99 = { }
-Item_Attr_99 [0]		=		0						--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_99 [1]		=		0						--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_99 [2]		=		2						--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_99 [3]		=		20						--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_99 [4]		=		100						--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_99 [0]		=		0						--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_99 [1]		=		0						--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_99 [2]		=		2						--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_99 [3]		=		20						--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_99 [4]		=		100						--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 Item_Mission_11 = { }
 Item_Mission_11 [0]		=		0						--
@@ -1571,18 +1601,18 @@ Item_Mission_11 [1]		=		0						--
 Item_Mission_11 [2]		=		0						--
 Item_Mission_11 [3]		=		0						--
 Item_Mission_11 [4]		=		0						--
-Item_Mission_11 [5]		=		0						--ÉñÓ÷Ö®...
-Item_Mission_11 [6]		=		0						--ÍõÕßÖ®...
+Item_Mission_11 [5]		=		0						--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Mission_11 [6]		=		0						--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Mission_11 [7]		=		100						--Í³Ë§Ö®...
 Item_Mission_11 [8]		=		100						--×¿Ô½Ö®...
-Item_Mission_11 [9]		=		100						--ÆÕÍ¨ÐÍ...
+Item_Mission_11 [9]		=		100						--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_11 = { }
-Item_Attr_11 [0]		=		0						--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_11 [1]		=		0						--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_11 [2]		=		1						--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_11 [3]		=		4						--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_11 [4]		=		50						--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_11 [0]		=		0						--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_11 [1]		=		0						--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_11 [2]		=		1						--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_11 [3]		=		4						--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_11 [4]		=		50						--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
 
@@ -1592,18 +1622,18 @@ Item_Mission_12 [1]		=		0						--
 Item_Mission_12 [2]		=		0						--
 Item_Mission_12 [3]		=		0						--
 Item_Mission_12 [4]		=		0						--
-Item_Mission_12 [5]		=		0						--ÉñÓ÷Ö®...
-Item_Mission_12 [6]		=		0						--ÍõÕßÖ®...
+Item_Mission_12 [5]		=		0						--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Mission_12 [6]		=		0						--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Mission_12 [7]		=		0						--Í³Ë§Ö®...
 Item_Mission_12 [8]		=		0						--×¿Ô½Ö®...
-Item_Mission_12 [9]		=		100						--ÆÕÍ¨ÐÍ...
+Item_Mission_12 [9]		=		100						--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_12 = { }
-Item_Attr_12 [0]		=		0						--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_12 [1]		=		0						--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_12 [2]		=		0						--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_12 [3]		=		0						--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_12 [4]		=		0						--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_12 [0]		=		0						--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_12 [1]		=		0						--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_12 [2]		=		0						--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_12 [3]		=		0						--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_12 [4]		=		0						--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
 
@@ -1614,18 +1644,18 @@ Item_Mission_13 [1]		=		0						--
 Item_Mission_13 [2]		=		0						--
 Item_Mission_13 [3]		=		0						--
 Item_Mission_13 [4]		=		0						--
-Item_Mission_13 [5]		=		0						--ÉñÓ÷Ö®...
-Item_Mission_13 [6]		=		0						--ÍõÕßÖ®...
+Item_Mission_13 [5]		=		0						--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Mission_13 [6]		=		0						--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Mission_13 [7]		=		0						--Í³Ë§Ö®...
 Item_Mission_13 [8]		=		100						--×¿Ô½Ö®...
-Item_Mission_13 [9]		=		100						--ÆÕÍ¨ÐÍ...
+Item_Mission_13 [9]		=		100						--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_13 = { }
-Item_Attr_13 [0]		=		0						--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_13 [1]		=		0						--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_13 [2]		=		0						--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_13 [3]		=		0						--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_13 [4]		=		0						--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_13 [0]		=		0						--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_13 [1]		=		0						--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_13 [2]		=		0						--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_13 [3]		=		0						--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_13 [4]		=		0						--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
 Item_Mission_14 = { }
@@ -1634,18 +1664,18 @@ Item_Mission_14 [1]		=		0						--
 Item_Mission_14 [2]		=		0						--
 Item_Mission_14 [3]		=		0						--
 Item_Mission_14 [4]		=		0						--
-Item_Mission_14 [5]		=		0						--ÉñÓ÷Ö®...
-Item_Mission_14 [6]		=		0						--ÍõÕßÖ®...
+Item_Mission_14 [5]		=		0						--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Mission_14 [6]		=		0						--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Mission_14 [7]		=		100						--Í³Ë§Ö®...
 Item_Mission_14 [8]		=		100						--×¿Ô½Ö®...
-Item_Mission_14 [9]		=		100						--ÆÕÍ¨ÐÍ...
+Item_Mission_14 [9]		=		100						--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_14 = { }
-Item_Attr_14 [0]		=		0						--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_14 [1]		=		0						--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_14 [2]		=		0							--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_14 [3]		=		0							--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_14 [4]		=		0						--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_14 [0]		=		0						--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_14 [1]		=		0						--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_14 [2]		=		0							--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_14 [3]		=		0							--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_14 [4]		=		0						--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
 Item_Mission_15 = { }
@@ -1654,18 +1684,18 @@ Item_Mission_15 [1]		=		0						--
 Item_Mission_15 [2]		=		0						--
 Item_Mission_15 [3]		=		0						--
 Item_Mission_15 [4]		=		0						--
-Item_Mission_15 [5]		=		0						--ÉñÓ÷Ö®...
-Item_Mission_15 [6]		=		100						--ÍõÕßÖ®...
+Item_Mission_15 [5]		=		0						--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Mission_15 [6]		=		100						--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Mission_15 [7]		=		100						--Í³Ë§Ö®...
 Item_Mission_15 [8]		=		100						--×¿Ô½Ö®...
-Item_Mission_15 [9]		=		100						--ÆÕÍ¨ÐÍ...
+Item_Mission_15 [9]		=		100						--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_15 = { }
-Item_Attr_15 [0]		=		0						--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_15 [1]		=		0						--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_15 [2]		=		0						--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_15 [3]		=		0						--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_15 [4]		=		0						--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_15 [0]		=		0						--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_15 [1]		=		0						--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_15 [2]		=		0						--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_15 [3]		=		0						--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_15 [4]		=		0						--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
 Item_Mission_16 = { }
@@ -1674,18 +1704,18 @@ Item_Mission_16 [1]		=		0						--
 Item_Mission_16 [2]		=		0						--
 Item_Mission_16 [3]		=		0						--
 Item_Mission_16 [4]		=		0						--
-Item_Mission_16 [5]		=		100						--ÉñÓ÷Ö®...
-Item_Mission_16 [6]		=		100						--ÍõÕßÖ®...
+Item_Mission_16 [5]		=		100						--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Mission_16 [6]		=		100						--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Mission_16 [7]		=		100						--Í³Ë§Ö®...
 Item_Mission_16 [8]		=		100						--×¿Ô½Ö®...
-Item_Mission_16 [9]		=		100						--ÆÕÍ¨ÐÍ...
+Item_Mission_16 [9]		=		100						--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_16 = { }
-Item_Attr_16 [0]		=		0					--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_16 [1]		=		0					--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_16 [2]		=		0					--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_16 [3]		=		0					--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_16 [4]		=		0						--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_16 [0]		=		0					--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_16 [1]		=		0					--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_16 [2]		=		0					--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_16 [3]		=		0					--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_16 [4]		=		0						--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 Item_Mission_17 = { }
 Item_Mission_17 [0]		=		0						--
@@ -1693,18 +1723,18 @@ Item_Mission_17 [1]		=		0						--
 Item_Mission_17 [2]		=		0						--
 Item_Mission_17 [3]		=		0						--
 Item_Mission_17 [4]		=		100						--
-Item_Mission_17 [5]		=		100						--ÉñÓ÷Ö®...
-Item_Mission_17 [6]		=		100						--ÍõÕßÖ®...
+Item_Mission_17 [5]		=		100						--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Mission_17 [6]		=		100						--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Mission_17 [7]		=		100						--Í³Ë§Ö®...
 Item_Mission_17 [8]		=		100						--×¿Ô½Ö®...
-Item_Mission_17 [9]		=		100						--ÆÕÍ¨ÐÍ...
+Item_Mission_17 [9]		=		100						--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_17 = { }
-Item_Attr_17 [0]		=		0					--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_17 [1]		=		0					--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_17 [2]		=		0					--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_17 [3]		=		0					--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_17 [4]		=		0						--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_17 [0]		=		0					--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_17 [1]		=		0					--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_17 [2]		=		0					--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_17 [3]		=		0					--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_17 [4]		=		0						--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
 Item_Mission_18 = { }
@@ -1713,18 +1743,18 @@ Item_Mission_18 [1]		=		0						--
 Item_Mission_18 [2]		=		0						--
 Item_Mission_18 [3]		=		100						--
 Item_Mission_18 [4]		=		100						--
-Item_Mission_18 [5]		=		100						--ÉñÓ÷Ö®...
-Item_Mission_18 [6]		=		100						--ÍõÕßÖ®...
+Item_Mission_18 [5]		=		100						--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Mission_18 [6]		=		100						--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Mission_18 [7]		=		100						--Í³Ë§Ö®...
 Item_Mission_18 [8]		=		100						--×¿Ô½Ö®...
-Item_Mission_18 [9]		=		100						--ÆÕÍ¨ÐÍ...
+Item_Mission_18 [9]		=		100						--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_18 = { }
-Item_Attr_18 [0]		=		0					--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_18 [1]		=		0					--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_18 [2]		=		0					--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_18 [3]		=		0					--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_18 [4]		=		0						--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_18 [0]		=		0					--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_18 [1]		=		0					--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_18 [2]		=		0					--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_18 [3]		=		0					--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_18 [4]		=		0						--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 Item_Mission_19 = { }
 Item_Mission_19 [0]		=		0						--
@@ -1732,18 +1762,18 @@ Item_Mission_19 [1]		=		0						--
 Item_Mission_19 [2]		=		100						--
 Item_Mission_19 [3]		=		100						--
 Item_Mission_19 [4]		=		100						--
-Item_Mission_19 [5]		=		100						--ÉñÓ÷Ö®...
-Item_Mission_19 [6]		=		100						--ÍõÕßÖ®...
+Item_Mission_19 [5]		=		100						--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Mission_19 [6]		=		100						--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Mission_19 [7]		=		100						--Í³Ë§Ö®...
 Item_Mission_19 [8]		=		100						--×¿Ô½Ö®...
-Item_Mission_19 [9]		=		100						--ÆÕÍ¨ÐÍ...
+Item_Mission_19 [9]		=		100						--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_19 = { }
-Item_Attr_19 [0]		=		0					--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_19 [1]		=		0					--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_19 [2]		=		0					--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_19 [3]		=		0					--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_19 [4]		=		0						--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_19 [0]		=		0					--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_19 [1]		=		0					--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_19 [2]		=		0					--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_19 [3]		=		0					--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_19 [4]		=		0						--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
 Item_Mission_20 = { }
@@ -1752,18 +1782,18 @@ Item_Mission_20 [1]		=		100						--
 Item_Mission_20 [2]		=		100						--
 Item_Mission_20 [3]		=		100						--
 Item_Mission_20 [4]		=		100						--
-Item_Mission_20 [5]		=		100						--ÉñÓ÷Ö®...
-Item_Mission_20 [6]		=		100						--ÍõÕßÖ®...
+Item_Mission_20 [5]		=		100						--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Mission_20 [6]		=		100						--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Mission_20 [7]		=		100						--Í³Ë§Ö®...
 Item_Mission_20 [8]		=		100						--×¿Ô½Ö®...
-Item_Mission_20 [9]		=		100						--ÆÕÍ¨ÐÍ...
+Item_Mission_20 [9]		=		100						--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_20 = { }
-Item_Attr_20 [0]		=		0						--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_20 [1]		=		0						--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_20 [2]		=		0						--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_20 [3]		=		0						--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_20 [4]		=		0						--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_20 [0]		=		0						--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_20 [1]		=		0						--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_20 [2]		=		0						--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_20 [3]		=		0						--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_20 [4]		=		0						--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 Item_Mission_22 = { }
 Item_Mission_22 [0]		=		0						--
@@ -1771,18 +1801,18 @@ Item_Mission_22 [1]		=		0						--
 Item_Mission_22 [2]		=		0						--
 Item_Mission_22 [3]		=		0						--
 Item_Mission_22 [4]		=		100						--
-Item_Mission_22 [5]		=		100						--ÉñÓ÷Ö®...
-Item_Mission_22 [6]		=		100						--ÍõÕßÖ®...
+Item_Mission_22 [5]		=		100						--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Mission_22 [6]		=		100						--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Mission_22 [7]		=		100						--Í³Ë§Ö®...
 Item_Mission_22 [8]		=		100						--×¿Ô½Ö®...
-Item_Mission_22 [9]		=		100						--ÆÕÍ¨ÐÍ...
+Item_Mission_22 [9]		=		100						--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_22 = { }
-Item_Attr_22 [0]		=		0							--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_22 [1]		=		0							--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_22 [2]		=		1							--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_22 [3]		=		4							--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_22 [4]		=		50							--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_22 [0]		=		0							--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_22 [1]		=		0							--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_22 [2]		=		1							--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_22 [3]		=		4							--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_22 [4]		=		50							--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 Item_Mission_23 = { }
 Item_Mission_23 [0]		=		0							--
@@ -1790,18 +1820,18 @@ Item_Mission_23 [1]		=		0							--
 Item_Mission_23 [2]		=		0							--
 Item_Mission_23 [3]		=		0							--
 Item_Mission_23 [4]		=		3							--
-Item_Mission_23 [5]		=		6							--ÉñÓ÷Ö®...
-Item_Mission_23 [6]		=		25							--ÍõÕßÖ®...
+Item_Mission_23 [5]		=		6							--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Mission_23 [6]		=		25							--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Mission_23 [7]		=		50							--Í³Ë§Ö®...
 Item_Mission_23 [8]		=		70							--×¿Ô½Ö®...
-Item_Mission_23 [9]		=		100							--ÆÕÍ¨ÐÍ...
+Item_Mission_23 [9]		=		100							--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_23 = { }
-Item_Attr_23 [0]		=		0							--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_23 [1]		=		0							--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_23 [2]		=		1							--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_23 [3]		=		5							--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_23 [4]		=		60							--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_23 [0]		=		0							--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_23 [1]		=		0							--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_23 [2]		=		1							--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_23 [3]		=		5							--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_23 [4]		=		60							--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 Item_Mission_24 = { }
 Item_Mission_24 [0]		=		0							--
@@ -1809,44 +1839,44 @@ Item_Mission_24 [1]		=		0							--
 Item_Mission_24 [2]		=		0							--
 Item_Mission_24 [3]		=		0							--
 Item_Mission_24 [4]		=		0							--
-Item_Mission_24 [5]		=		1							--ÉñÓ÷Ö®...
-Item_Mission_24 [6]		=		5							--ÍõÕßÖ®...
+Item_Mission_24 [5]		=		1							--ï¿½ï¿½ï¿½ï¿½Ö®...
+Item_Mission_24 [6]		=		5							--ï¿½ï¿½ï¿½ï¿½Ö®...
 Item_Mission_24 [7]		=		20							--Í³Ë§Ö®...
 Item_Mission_24 [8]		=		65							--×¿Ô½Ö®...
-Item_Mission_24 [9]		=		99							--ÆÕÍ¨ÐÍ...
+Item_Mission_24 [9]		=		99							--ï¿½ï¿½Í¨ï¿½ï¿½...
 
 Item_Attr_24 = { }
-Item_Attr_24 [0]		=		0							--5¸ö¸½¼ÓÊôÐÔ
-Item_Attr_24 [1]		=		0							--4¸ö¸½¼ÓÊôÐÔ
-Item_Attr_24 [2]		=		1							--3¸ö¸½¼ÓÊôÐÔ
-Item_Attr_24 [3]		=		4							--2¸ö¸½¼ÓÊôÐÔ
-Item_Attr_24 [4]		=		50							--1¸ö¸½¼ÓÊôÐÔ
+Item_Attr_24 [0]		=		0							--5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_24 [1]		=		0							--4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_24 [2]		=		1							--3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_24 [3]		=		4							--2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Item_Attr_24 [4]		=		50							--1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
---ÉèÖÃ×°±¸»ñµÃ¿×ÊýµÄ¸ÅÂÊ
+--ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½
 
 Item_HoleNum_Monster = { }
-Item_HoleNum_Monster [0]		=		75						--0¸ö¶´
-Item_HoleNum_Monster [1]		=		99						--1¸ö¶´
-Item_HoleNum_Monster [2]		=		100				--2¸ö¶´
-Item_HoleNum_Monster [3]		=		100						--3¸ö¶´
+Item_HoleNum_Monster [0]		=		75						--0ï¿½ï¿½ï¿½ï¿½
+Item_HoleNum_Monster [1]		=		99						--1ï¿½ï¿½ï¿½ï¿½
+Item_HoleNum_Monster [2]		=		100				--2ï¿½ï¿½ï¿½ï¿½
+Item_HoleNum_Monster [3]		=		100						--3ï¿½ï¿½ï¿½ï¿½
 
 Item_HoleNum_Hecheng = { }
-Item_HoleNum_Hecheng [0]		=		25						--0¸ö¶´
-Item_HoleNum_Hecheng [1]		=		75						--1¸ö¶´
-Item_HoleNum_Hecheng [2]		=		100						--2¸ö¶´
-Item_HoleNum_Hecheng [3]		=		100						--3¸ö¶´
+Item_HoleNum_Hecheng [0]		=		25						--0ï¿½ï¿½ï¿½ï¿½
+Item_HoleNum_Hecheng [1]		=		75						--1ï¿½ï¿½ï¿½ï¿½
+Item_HoleNum_Hecheng [2]		=		100						--2ï¿½ï¿½ï¿½ï¿½
+Item_HoleNum_Hecheng [3]		=		100						--3ï¿½ï¿½ï¿½ï¿½
 
 Item_HoleNum_Mission_1 = { }
-Item_HoleNum_Mission_1 [0]		=		25						--0¸ö¶´
-Item_HoleNum_Mission_1 [1]		=		75						--1¸ö¶´
-Item_HoleNum_Mission_1 [2]		=		100						--2¸ö¶´
-Item_HoleNum_Mission_1 [3]		=		100						--3¸ö¶´
+Item_HoleNum_Mission_1 [0]		=		25						--0ï¿½ï¿½ï¿½ï¿½
+Item_HoleNum_Mission_1 [1]		=		75						--1ï¿½ï¿½ï¿½ï¿½
+Item_HoleNum_Mission_1 [2]		=		100						--2ï¿½ï¿½ï¿½ï¿½
+Item_HoleNum_Mission_1 [3]		=		100						--3ï¿½ï¿½ï¿½ï¿½
 
 
 
 
---º½º£¼¼ÄÜÏûºÄº½º£¾­Ñé¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
---¼¼ÄÜ¼×°å¼Ó¹Ì¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é¡ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--ï¿½ï¿½ï¿½Ü¼×°ï¿½Ó¹Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 sk_jbjg = { }
 sk_jbjg [1]				=		625
 sk_jbjg [2]				=		3439
@@ -1859,7 +1889,7 @@ sk_jbjg [8]				=		246559
 sk_jbjg [9]				=		352529
 sk_jbjg [10]			=		485199
 
---¼¼ÄÜ»ðÅÚÊìÁ·¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+--ï¿½ï¿½ï¿½Ü»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 sk_hpsl = { }
 sk_hpsl [1]				=		671
 sk_hpsl [2]				=		4641
@@ -1872,7 +1902,7 @@ sk_hpsl [8]				=		265761
 sk_hpsl [9]				=		376831
 sk_hpsl [10]			=		515201
 
---¼¼ÄÜ´¬ÌåÇ¿»¯¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+--ï¿½ï¿½ï¿½Ü´ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 sk_ctqh = { }
 sk_ctqh [1]			=		1105
 sk_ctqh [2]			=		6095
@@ -1885,7 +1915,7 @@ sk_ctqh [8]			=		285935
 sk_ctqh [9]			=		402225
 sk_ctqh [10]			=		546415
 
---¼¼ÄÜ²Ù·«Êõ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+--ï¿½ï¿½ï¿½Ü²Ù·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 sk_cfs = { }
 sk_cfs [1]				=		1695
 sk_cfs [2]				=		7825
@@ -1899,7 +1929,7 @@ sk_cfs [9]				=		428735
 sk_cfs [10]				=		578865
 
 
---¼¼ÄÜ²¹¸øÀ©ÈÝ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+--ï¿½ï¿½ï¿½Ü²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 sk_bjkr = { }
 sk_bjkr [1]				=		2465
 sk_bjkr [2]				=		9855
@@ -1912,7 +1942,7 @@ sk_bjkr [8]				=		329295
 sk_bjkr [9]				=		456385
 sk_bjkr [10]			=		612575
 
---´´½¨º£¾ü¹¤»áËùÐèÎïÆ·
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 Guild_ItemMax = 1
 Guild_item = {}
 Guild_count = {}
@@ -1924,9 +1954,9 @@ Guild_item[3] =	-1		Guild_count[3]	=	-1
 Guild_item[4] =	-1		Guild_count[4]	=	-1
 Guild_item[5] =	-1		Guild_count[5]	=	-1
 
-----¼ÓÈëº£¾ü¹¤»áËùÐèÌõ¼þ
-JOINGUILD_NAVY_FAME	=	0			--¼ÓÈëº£¾üÃûÉù
-JOINGUILD_PIRATE_FAME	=	0			--¼ÓÈëº£µÁÃûÉù
+----ï¿½ï¿½ï¿½ëº£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+JOINGUILD_NAVY_FAME	=	0			--ï¿½ï¿½ï¿½ëº£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+JOINGUILD_PIRATE_FAME	=	0			--ï¿½ï¿½ï¿½ëº£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 enumItemTypeSword 		= 1	-- sword
 enumItemTypeGlave 		= 2	-- greatsword
@@ -2391,36 +2421,36 @@ STATE_XZK12			= 251	-- Capricorn
 STATE_NSTX			= 252	-- Goddess
 STATE_HAIDAOQI		= 253	-- Pirate Banner
 
-dmg = 0					--ÉËº¦
-sus = 1					--¹¥»÷×´Ì¬
-hpdmg = 0					--hpÉËº¦
-dmgsa = 1					--ÉËº¦±¶Êý
-dis = 0					--¾àÀë
-dis_eff = 0					--¾àÀëÐ§¹û
-sklv = 0					--¼¼ÄÜµÈ¼¶
+dmg = 0					--ï¿½Ëºï¿½
+sus = 1					--ï¿½ï¿½ï¿½ï¿½×´Ì¬
+hpdmg = 0					--hpï¿½Ëºï¿½
+dmgsa = 1					--ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½
+dis = 0					--ï¿½ï¿½ï¿½ï¿½
+dis_eff = 0					--ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½
+sklv = 0					--ï¿½ï¿½ï¿½ÜµÈ¼ï¿½
 
 ItemAttr_Rad	=	 { }
-ItemAttr_Rad	[	0	]	=	0	--	-1	ÎÞÌØÊâÊôÐÔ¼Ó³É
-ItemAttr_Rad	[	1	]	=	10	--	ÂùÁ¦Ö®	+str
-ItemAttr_Rad	[	2	]	=	10	--	±ØÖÐÖ®	+dex
-ItemAttr_Rad	[	3	]	=	10	--	Ç¿ÌåÖ®	+con
-ItemAttr_Rad	[	4	]	=	5	--	¼²·çÖ®	+agi
-ItemAttr_Rad	[	5	]	=	10	--	Ê¥ÏÍÖ®	+sta
+ItemAttr_Rad	[	0	]	=	0	--	-1	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼Ó³ï¿½
+ItemAttr_Rad	[	1	]	=	10	--	ï¿½ï¿½ï¿½ï¿½Ö®	+str
+ItemAttr_Rad	[	2	]	=	10	--	ï¿½ï¿½ï¿½ï¿½Ö®	+dex
+ItemAttr_Rad	[	3	]	=	10	--	Ç¿ï¿½ï¿½Ö®	+con
+ItemAttr_Rad	[	4	]	=	5	--	ï¿½ï¿½ï¿½ï¿½Ö®	+agi
+ItemAttr_Rad	[	5	]	=	10	--	Ê¥ï¿½ï¿½Ö®	+sta
 ItemAttr_Rad	[	6	]	=	0	--	-1	0
 ItemAttr_Rad	[	7	]	=	0	--	-1	0
 ItemAttr_Rad	[	8	]	=	0	--	-1	0
 ItemAttr_Rad	[	9	]	=	0	--	-1	0
 ItemAttr_Rad	[	10	]	=	0	--	-1	0
-ItemAttr_Rad	[	11	]	=	10	--	ºÚÁúÖ®	+str +dex
-ItemAttr_Rad	[	12	]	=	10	--	ºìÁúÖ®	+str +con
-ItemAttr_Rad	[	13	]	=	5	--	À¶ÁúÖ®	+str +agi
-ItemAttr_Rad	[	14	]	=	10	--	ÒøÁúÖ®	+str +sta
-ItemAttr_Rad	[	15	]	=	10	--	°ÙÁúÖ®	+dex +con
-ItemAttr_Rad	[	16	]	=	5	--	ÂÌÁúÖ®	+dex +agi
-ItemAttr_Rad	[	17	]	=	10	--	»ÆÁúÖ®	+dex +sta
-ItemAttr_Rad	[	18	]	=	5	--	½ðÁúÖ®	+con +agi
-ItemAttr_Rad	[	19	]	=	10	--	Ê¥ÁúÖ®	+con +sta
-ItemAttr_Rad	[	20	]	=	5	--	Ä§ÁúÖ®	+agi +sta
+ItemAttr_Rad	[	11	]	=	10	--	ï¿½ï¿½ï¿½ï¿½Ö®	+str +dex
+ItemAttr_Rad	[	12	]	=	10	--	ï¿½ï¿½ï¿½ï¿½Ö®	+str +con
+ItemAttr_Rad	[	13	]	=	5	--	ï¿½ï¿½ï¿½ï¿½Ö®	+str +agi
+ItemAttr_Rad	[	14	]	=	10	--	ï¿½ï¿½ï¿½ï¿½Ö®	+str +sta
+ItemAttr_Rad	[	15	]	=	10	--	ï¿½ï¿½ï¿½ï¿½Ö®	+dex +con
+ItemAttr_Rad	[	16	]	=	5	--	ï¿½ï¿½ï¿½ï¿½Ö®	+dex +agi
+ItemAttr_Rad	[	17	]	=	10	--	ï¿½ï¿½ï¿½ï¿½Ö®	+dex +sta
+ItemAttr_Rad	[	18	]	=	5	--	ï¿½ï¿½ï¿½ï¿½Ö®	+con +agi
+ItemAttr_Rad	[	19	]	=	10	--	Ê¥ï¿½ï¿½Ö®	+con +sta
+ItemAttr_Rad	[	20	]	=	5	--	Ä§ï¿½ï¿½Ö®	+agi +sta
 ItemAttr_Rad	[	21	]	=	0	--	-1	0
 ItemAttr_Rad	[	22	]	=	0	--	-1	0
 ItemAttr_Rad	[	23	]	=	0	--	-1	0
@@ -2450,16 +2480,16 @@ ItemAttr_Rad	[	46	]	=	0	--	-1	0
 ItemAttr_Rad	[	47	]	=	0	--	-1	0
 ItemAttr_Rad	[	48	]	=	0	--	-1	0
 ItemAttr_Rad	[	49	]	=	0	--	-1	0
-ItemAttr_Rad	[	50	]	=	10	--	¿¨À­Ö®	+str +dex +con
-ItemAttr_Rad	[	51	]	=	5	--	¿¨À­Ö®	+str +dex +agi
-ItemAttr_Rad	[	52	]	=	10	--	¿¨À­Ö®	+str +dex +sta
-ItemAttr_Rad	[	53	]	=	5	--	¿¨À­Ö®	+str +con +agi
-ItemAttr_Rad	[	54	]	=	10	--	¿¨À­Ö®	+str +con +sta
-ItemAttr_Rad	[	55	]	=	5	--	¿¨À­Ö®	+str +agi +sta
-ItemAttr_Rad	[	56	]	=	5	--	¿¨À­Ö®	+dex +con +agi
-ItemAttr_Rad	[	57	]	=	10	--	¿¨À­Ö®	+dex +con +sta
-ItemAttr_Rad	[	58	]	=	5	--	¿¨À­Ö®	+dex +agi +sta
-ItemAttr_Rad	[	59	]	=	5	--	¿¨À­Ö®	+con +agi +sta
+ItemAttr_Rad	[	50	]	=	10	--	ï¿½ï¿½ï¿½ï¿½Ö®	+str +dex +con
+ItemAttr_Rad	[	51	]	=	5	--	ï¿½ï¿½ï¿½ï¿½Ö®	+str +dex +agi
+ItemAttr_Rad	[	52	]	=	10	--	ï¿½ï¿½ï¿½ï¿½Ö®	+str +dex +sta
+ItemAttr_Rad	[	53	]	=	5	--	ï¿½ï¿½ï¿½ï¿½Ö®	+str +con +agi
+ItemAttr_Rad	[	54	]	=	10	--	ï¿½ï¿½ï¿½ï¿½Ö®	+str +con +sta
+ItemAttr_Rad	[	55	]	=	5	--	ï¿½ï¿½ï¿½ï¿½Ö®	+str +agi +sta
+ItemAttr_Rad	[	56	]	=	5	--	ï¿½ï¿½ï¿½ï¿½Ö®	+dex +con +agi
+ItemAttr_Rad	[	57	]	=	10	--	ï¿½ï¿½ï¿½ï¿½Ö®	+dex +con +sta
+ItemAttr_Rad	[	58	]	=	5	--	ï¿½ï¿½ï¿½ï¿½Ö®	+dex +agi +sta
+ItemAttr_Rad	[	59	]	=	5	--	ï¿½ï¿½ï¿½ï¿½Ö®	+con +agi +sta
 ItemAttr_Rad	[	60	]	=	0	--	-1	0
 ItemAttr_Rad	[	61	]	=	0	--	-1	0
 ItemAttr_Rad	[	62	]	=	0	--	-1	0
@@ -2490,11 +2520,11 @@ ItemAttr_Rad	[	86	]	=	0	--	-1	0
 ItemAttr_Rad	[	87	]	=	0	--	-1	0
 ItemAttr_Rad	[	88	]	=	0	--	-1	0
 ItemAttr_Rad	[	89	]	=	0	--	-1	0
-ItemAttr_Rad	[	90	]	=	10	--	Î¬¶ûÖ®	 +str +dex +con +agi
-ItemAttr_Rad	[	91	]	=	10	--	Î¬¶ûÖ®	 +str +dex +con +sta
-ItemAttr_Rad	[	92	]	=	10	--	Î¬¶ûÖ®	 +str +dex +agi +sta
-ItemAttr_Rad	[	93	]	=	10	--	Î¬¶ûÖ®	 +str +con +agi +sta
-ItemAttr_Rad	[	94	]	=	10	--	Î¬¶ûÖ®	 +dex +con +agi +sta
+ItemAttr_Rad	[	90	]	=	10	--	Î¬ï¿½ï¿½Ö®	 +str +dex +con +agi
+ItemAttr_Rad	[	91	]	=	10	--	Î¬ï¿½ï¿½Ö®	 +str +dex +con +sta
+ItemAttr_Rad	[	92	]	=	10	--	Î¬ï¿½ï¿½Ö®	 +str +dex +agi +sta
+ItemAttr_Rad	[	93	]	=	10	--	Î¬ï¿½ï¿½Ö®	 +str +con +agi +sta
+ItemAttr_Rad	[	94	]	=	10	--	Î¬ï¿½ï¿½Ö®	 +dex +con +agi +sta
 ItemAttr_Rad	[	95	]	=	0	--	-1	0
 ItemAttr_Rad	[	96	]	=	0	--	-1	0
 ItemAttr_Rad	[	97	]	=	0	--	-1	0
@@ -2502,7 +2532,7 @@ ItemAttr_Rad	[	98	]	=	0	--	-1	0
 ItemAttr_Rad	[	99	]	=	0	--	-1	0
 
 Upgrade = {}
-Upgrade.Money = 100000	-- Amount multipled by item level for total cost.
+Upgrade.Money = 100	-- Amount multipled by item level for total cost. default: 100000
 -- // Original items from script. // --
 Upgrade[1 ] = {ID = 825, Catalyst = 2403, Result = 2549}
 Upgrade[2 ] = {ID = 826, Catalyst = 2403, Result = 2550}

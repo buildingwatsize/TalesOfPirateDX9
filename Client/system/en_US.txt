@@ -6,7 +6,7 @@
 en_US{
     CL_HMATTACK_CPP_00001 { "Rebirth Level %I64d" }
     CL_LANGUAGE_MATCH_0 { "English" }
-    CL_LANGUAGE_MATCH_1 { "msg unable to create item effect ID = %d\" }
+    CL_LANGUAGE_MATCH_1 { "msg unable to create item effect ID = %d" }
     CL_LANGUAGE_MATCH_10 { "Sailor" }
     CL_LANGUAGE_MATCH_100 { "Testing equipment and character size match system, if armor can be equipped on target character size but does not show any effect, open file iteminfoerror..." }
     CL_LANGUAGE_MATCH_1000 { "Exist, only one at a time." }
@@ -52,7 +52,7 @@ en_US{
     CL_LANGUAGE_MATCH_1037 { "The one time sale of crystal cannot be over 20 billion!" }
     CL_LANGUAGE_MATCH_1038 { "You have no access!" }
     CL_LANGUAGE_MATCH_1039 { "You can't lock your inventory if you have time-base item!" }
-    CL_LANGUAGE_MATCH_104 { "Start to change display setting width = %d, height = %d, window = %d\" }
+    CL_LANGUAGE_MATCH_104 { "Start to change display setting width = %d, height = %d, window = %d" }
     CL_LANGUAGE_MATCH_1040 { "Amount cannot be 0!" }
     CL_LANGUAGE_MATCH_1041 { "(Equipped)" }
     CL_LANGUAGE_MATCH_1042 { "Please fill in the amount of crystal you are buying!" }
@@ -63,7 +63,7 @@ en_US{
     CL_LANGUAGE_MATCH_1047 { "Necessary item for using Bullhorn Channel" }
     CL_LANGUAGE_MATCH_1048 { "Call of Mordo" }
     CL_LANGUAGE_MATCH_1049 { "Bullhorn" }
-    CL_LANGUAGE_MATCH_105 { "Successful Toggle Screen!\" }
+    CL_LANGUAGE_MATCH_105 { "Successful Toggle Screen!" }
     CL_LANGUAGE_MATCH_1050 { "DreamIsland" }
     CL_LANGUAGE_MATCH_1051 { "Kick" }
     CL_LANGUAGE_MATCH_1052 { "Ban" }
@@ -82,13 +82,13 @@ en_US{
     CL_LANGUAGE_MATCH_110 { "lack of parameter" }
     CL_LANGUAGE_MATCH_111 { "cannot locate designated monster file" }
     CL_LANGUAGE_MATCH_112 { "release monster" }
-    CL_LANGUAGE_MATCH_113 { "Monster release error, Character ID = %d\" }
+    CL_LANGUAGE_MATCH_113 { "Monster release error, Character ID = %d" }
     CL_LANGUAGE_MATCH_114 { "read monster successful" }
     CL_LANGUAGE_MATCH_115 { "Saving monster file successful!" }
     CL_LANGUAGE_MATCH_116 { "Designation execution completed!" }
-    CL_LANGUAGE_MATCH_117 { "%d,%s, effect [%d] does not exist\" }
+    CL_LANGUAGE_MATCH_117 { "%d,%s, effect [%d] does not exist" }
     CL_LANGUAGE_MATCH_118 { "Persists" }
-    CL_LANGUAGE_MATCH_119 { "%d,%s,effect [%d] as Persists effect\" }
+    CL_LANGUAGE_MATCH_119 { "%d,%s,effect [%d] as Persists effect" }
     CL_LANGUAGE_MATCH_12 { "Captain" }
     CL_LANGUAGE_MATCH_120 { "execution successful" }
     CL_LANGUAGE_MATCH_121 { "     Tales of Pirates Online Thanks list " }
@@ -119,7 +119,7 @@ en_US{
     CL_LANGUAGE_MATCH_144 { "Proficiency Increase: %s" }
     CL_LANGUAGE_MATCH_145 { "EXP Gained: %s" }
     CL_LANGUAGE_MATCH_146 { "Level %I64d now" }
-    CL_LANGUAGE_MATCH_147 { "msgShowHitEffect, Unable to allocate effect space!\" }
+    CL_LANGUAGE_MATCH_147 { "msgShowHitEffect, Unable to allocate effect space!" }
     CL_LANGUAGE_MATCH_148 { "DelState() false, SynchroNum[%d], Head[%d], Tail[%d], ID[%d] not same\n" }
     CL_LANGUAGE_MATCH_149 { "[%s] cannot be used" }
     CL_LANGUAGE_MATCH_15 { "Riches can match a country" }
@@ -154,9 +154,9 @@ en_US{
     CL_LANGUAGE_MATCH_176 { "PAI:" }
     CL_LANGUAGE_MATCH_177 { "PAI: ..." }
     CL_LANGUAGE_MATCH_178 { "PAI: 123" }
-    CL_LANGUAGE_MATCH_179 { "Select %d Region, server %d Server group\" }
+    CL_LANGUAGE_MATCH_179 { "Select %d Region, server %d Server group" }
     CL_LANGUAGE_MATCH_18 { "During switching of skill, skill cannot be used: %s," }
-    CL_LANGUAGE_MATCH_180 { "msg%d Region %d Group, Empty Server IP, Unable to connect\" }
+    CL_LANGUAGE_MATCH_180 { "msg%d Region %d Group, Empty Server IP, Unable to connect" }
     CL_LANGUAGE_MATCH_181 { "Game version error. Please press Confirm\n to activate autopatch or press Cancel\n to download the patch manually at our websit" }
     CL_LANGUAGE_MATCH_182 { "activate script game platform!" }
     CL_LANGUAGE_MATCH_183 { "msglua extend function[%s] parameter unit or type error!" }
@@ -204,28 +204,28 @@ en_US{
     CL_LANGUAGE_MATCH_220 { "Party is disbanded" }
     CL_LANGUAGE_MATCH_221 { "Current party adds [%s] as member" }
     CL_LANGUAGE_MATCH_222 { "[%s] has left the party" }
-    CL_LANGUAGE_MATCH_223 { "Received party invitation :%s,%d\" }
-    CL_LANGUAGE_MATCH_224 { "Received party cancel:%d, reason:%d\" }
+    CL_LANGUAGE_MATCH_223 { "Received party invitation :%s,%d" }
+    CL_LANGUAGE_MATCH_224 { "Received party cancel:%d, reason:%d" }
     CL_LANGUAGE_MATCH_225 { "Self invitation list busy, new invitation overwrite previous invitation" }
     CL_LANGUAGE_MATCH_226 { "Invitation timed out" }
     CL_LANGUAGE_MATCH_227 { "Target has gone offline" }
     CL_LANGUAGE_MATCH_228 { "Party is full" }
     CL_LANGUAGE_MATCH_229 { "target joined other/create party or target joined other party and cancel invitation" }
     CL_LANGUAGE_MATCH_23 { "Set ship appearance notice , incorrect ship mobility notice ID[%d]!" }
-    CL_LANGUAGE_MATCH_230 { "Received a friend's invitation: %s,%d\" }
-    CL_LANGUAGE_MATCH_231 { "Friend request rejected: %d, reason:%d\" }
+    CL_LANGUAGE_MATCH_230 { "Received a friend's invitation: %s,%d" }
+    CL_LANGUAGE_MATCH_231 { "Friend request rejected: %d, reason:%d" }
     CL_LANGUAGE_MATCH_232 { "Self invitation list busy" }
     CL_LANGUAGE_MATCH_233 { "Target's friend list is full" }
     CL_LANGUAGE_MATCH_234 { "Friend list is full" }
     CL_LANGUAGE_MATCH_235 { "Invitation cancelled" }
-    CL_LANGUAGE_MATCH_236 { "Friend has come online:%d, reason:%d\" }
+    CL_LANGUAGE_MATCH_236 { "Friend has come online:%d, reason:%d" }
     CL_LANGUAGE_MATCH_237 { "Friend: %s Online" }
-    CL_LANGUAGE_MATCH_238 { "Friend has gone offline: %d. Reason:%d\" }
+    CL_LANGUAGE_MATCH_238 { "Friend has gone offline: %d. Reason:%d" }
     CL_LANGUAGE_MATCH_239 { "Friend: %s Offline" }
     CL_LANGUAGE_MATCH_24 { "Please update .\scripts\txt\CharacterAction.tx" }
-    CL_LANGUAGE_MATCH_240 { "Delete friend: %d. Reason: %d\" }
-    CL_LANGUAGE_MATCH_241 { "Add Friend: %s,%d\" }
-    CL_LANGUAGE_MATCH_242 { "Obtain friend list (%d):%s,%d\" }
+    CL_LANGUAGE_MATCH_240 { "Delete friend: %d. Reason: %d" }
+    CL_LANGUAGE_MATCH_241 { "Add Friend: %s,%d" }
+    CL_LANGUAGE_MATCH_242 { "Obtain friend list (%d):%s,%d" }
     CL_LANGUAGE_MATCH_243 { "Refresh friend list:char_id=%d, motto=%s, icon=%d, degree=%d, job=%s\n" }
     CL_LANGUAGE_MATCH_244 { "msgNetMC_GUILD_INFO does not have scene\n" }
     CL_LANGUAGE_MATCH_245 { "msgNetMC_GUILD_INFO has no lead\n" }
@@ -244,7 +244,7 @@ en_US{
     CL_LANGUAGE_MATCH_257 { "msgNetDelCha, does not have Login scene\n" }
     CL_LANGUAGE_MATCH_258 { "msgNetActorMove error occurs, lead has movement status\n" }
     CL_LANGUAGE_MATCH_259 { "msgNetActorMove occurs an error, unable to locate player [%u], point [%u], first coordinate [%d,%d]\n" }
-    CL_LANGUAGE_MATCH_26 { "msg Character creation failed (LoadCha), TypeID = %d, Name = %s\" }
+    CL_LANGUAGE_MATCH_26 { "msg Character creation failed (LoadCha), TypeID = %d, Name = %s" }
     CL_LANGUAGE_MATCH_260 { "msgNetActorMove AddState return false,state:%d, Log name: [%s], point [%u], status [%u], next point: [%d,%d]	Tick:[%u]\n" }
     CL_LANGUAGE_MATCH_261 { "msg lost server movement notice once, Log name:[%s], value [%u], status [%u], next point: [%d,%d]	Tick:[%u]\n" }
     CL_LANGUAGE_MATCH_262 { "msg server movement notice unit abnormal, Log name:[%s], point[%u], status[%u], next point:[%d,%d]	Tick:[%u]\n" }
@@ -255,18 +255,18 @@ en_US{
     CL_LANGUAGE_MATCH_267 { "msgNetActorSkillRep error occurs, skill display [%u], does not locate player [%u]\n" }
     CL_LANGUAGE_MATCH_268 { "msgNetActorSkillRep produce an error, lead must be in attack status\n" }
     CL_LANGUAGE_MATCH_269 { "msgNetActorSkillEff Error, add skill damage, skill ID[%u]illegal \n" }
-    CL_LANGUAGE_MATCH_27 { "msg Character action failed to load (LoadPose), TypeID = %d, Name = %s\" }
+    CL_LANGUAGE_MATCH_27 { "msg Character action failed to load (LoadPose), TypeID = %d, Name = %s" }
     CL_LANGUAGE_MATCH_270 { "msgNetActorLean leaning, cannot locate ID:%d\n" }
     CL_LANGUAGE_MATCH_271 { "Saving character, please wait... " }
     CL_LANGUAGE_MATCH_272 { "Illegal player chat,ID:[%d],Name:[%s],LogName:[%s],say:%s\n" }
     CL_LANGUAGE_MATCH_273 { "msg Server need to create a repeated item: WorldID [%u], OldName[%s]\n" }
     CL_LANGUAGE_MATCH_274 { "msg failed to create item, Item ID = %d\n" }
     CL_LANGUAGE_MATCH_275 { "Recieve[change energy: Link,Energy]\n" }
-    CL_LANGUAGE_MATCH_276 { "Recieve[revive box],ID[%u]	Tick:[%u]\n\" }
+    CL_LANGUAGE_MATCH_276 { "Recieve[revive box],ID[%u]	Tick:[%u]\n" }
     CL_LANGUAGE_MATCH_277 { "No World Map available for this area! " }
     CL_LANGUAGE_MATCH_278 { "Recieve[switch lead]:	Tick:%u\n" }
     CL_LANGUAGE_MATCH_279 { "msgNetSynAttr, cannot locate ID [%u]\n" }
-    CL_LANGUAGE_MATCH_28 { "msg invalid action ID [%d]\" }
+    CL_LANGUAGE_MATCH_28 { "msg invalid action ID [%d]" }
     CL_LANGUAGE_MATCH_280 { "msg while adding item, slot count [%d] exceeded total slot [%d]\n" }
     CL_LANGUAGE_MATCH_281 { "msg while adding item[%d], item does not exist\n" }
     CL_LANGUAGE_MATCH_282 { "msg add item [%s], form exceed area [%d]\n" }
@@ -277,19 +277,19 @@ en_US{
     CL_LANGUAGE_MATCH_287 { "Forging failed [%s × %d]! " }
     CL_LANGUAGE_MATCH_288 { "msgdelete item fail, exceed list [%d] or current slot does not have item \n" }
     CL_LANGUAGE_MATCH_289 { "Obtain [%s] %d / %d! " }
-    CL_LANGUAGE_MATCH_29 { "Delete skill effect: %d, Pointer:%u\" }
+    CL_LANGUAGE_MATCH_29 { "Delete skill effect: %d, Pointer:%u" }
     CL_LANGUAGE_MATCH_290 { "Unknown trigger: param1 = %d, param2 = %d, param3 = %d " }
     CL_LANGUAGE_MATCH_291 { "msgNetFailedAction does not has lead\n" }
     CL_LANGUAGE_MATCH_292 { "Recieve[lead switch default skill]:	Tick:[%u]\n" }
     CL_LANGUAGE_MATCH_293 { "msg set default skill failed %d, does not have this skill\n" }
     CL_LANGUAGE_MATCH_294 { "Target address: %s\n" }
     CL_LANGUAGE_MATCH_295 { "Current map " }
-    CL_LANGUAGE_MATCH_296 { "Ground status synchronize, area position [%d, %d]	Status Count%d\n\" }
+    CL_LANGUAGE_MATCH_296 { "Ground status synchronize, area position [%d, %d]	Status Count%d\n" }
     CL_LANGUAGE_MATCH_297 { "Monster emote:%d\n" }
     CL_LANGUAGE_MATCH_298 { "repelled, new location: [%d,%d].\n" }
     CL_LANGUAGE_MATCH_299 { "Party" }
     CL_LANGUAGE_MATCH_3 { "killed [%s] %d / %d!" }
-    CL_LANGUAGE_MATCH_30 { " Synchronize skill status (decrease): ID:%d, Name:%s, Effect ID:%u\" }
+    CL_LANGUAGE_MATCH_30 { " Synchronize skill status (decrease): ID:%d, Name:%s, Effect ID:%u" }
     CL_LANGUAGE_MATCH_300 { "Synchronize party ID : Leader %d, Self %d.\n" }
     CL_LANGUAGE_MATCH_301 { "Accept trade Type = %d , Index = %d , Count = %d , ItemID = %d , Money = %d\n" }
     CL_LANGUAGE_MATCH_302 { "end trade acception result\n" }
@@ -300,7 +300,7 @@ en_US{
     CL_LANGUAGE_MATCH_307 { "	Name: %s. Level: %d. Class: %s.\n" }
     CL_LANGUAGE_MATCH_308 { "Character Name: %s, ID: %u, Location[%s, %d, %d] " }
     CL_LANGUAGE_MATCH_309 { "Map name: %s, PING: %u " }
-    CL_LANGUAGE_MATCH_31 { "Delete already got effect:  %d, Pointer:%u\" }
+    CL_LANGUAGE_MATCH_31 { "Delete already got effect:  %d, Pointer:%u" }
     CL_LANGUAGE_MATCH_310 { "	ID	Status	Level	SP consumption	Redischarge cooldown[secs]	Skill range notice \n" }
     CL_LANGUAGE_MATCH_311 { "	Status ID	Level\n" }
     CL_LANGUAGE_MATCH_312 { "	Attribute ID	Attribute Value\n" }
@@ -311,7 +311,7 @@ en_US{
     CL_LANGUAGE_MATCH_317 { "	Attribute ID: %d	Attribute Value: %d\n" }
     CL_LANGUAGE_MATCH_318 { "Inventory error " }
     CL_LANGUAGE_MATCH_319 { "effective item count %d, exceeded maximum item count\n" }
-    CL_LANGUAGE_MATCH_32 { "Synchronize skill status (add): ID:%d, Name:%s, Effect ID:%u\" }
+    CL_LANGUAGE_MATCH_32 { "Synchronize skill status (add): ID:%d, Name:%s, Effect ID:%u" }
     CL_LANGUAGE_MATCH_320 { "	Slot count: %d\n" }
     CL_LANGUAGE_MATCH_321 { "	Type: %d	Inventory position: %d\n" }
     CL_LANGUAGE_MATCH_322 { "	GridID: %d, %d\n" }
@@ -322,7 +322,7 @@ en_US{
     CL_LANGUAGE_MATCH_327 { "Skill Level Up " }
     CL_LANGUAGE_MATCH_328 { "Skill ID: %d, Raise %d level\n" }
     CL_LANGUAGE_MATCH_329 { "Open object display pic reduction " }
-    CL_LANGUAGE_MATCH_33 { "Create skill effect: ID:%d, Dummy:%d, Pointer:%u\" }
+    CL_LANGUAGE_MATCH_33 { "Create skill effect: ID:%d, Dummy:%d, Pointer:%u" }
     CL_LANGUAGE_MATCH_330 { "Close object display pic reduction " }
     CL_LANGUAGE_MATCH_331 { "Open debug notice display " }
     CL_LANGUAGE_MATCH_332 { "Close debug notice display " }
@@ -333,7 +333,7 @@ en_US{
     CL_LANGUAGE_MATCH_337 { "close all object display " }
     CL_LANGUAGE_MATCH_338 { "Show hidden seek route " }
     CL_LANGUAGE_MATCH_339 { "cannot open with read only mode! " }
-    CL_LANGUAGE_MATCH_34 { "Connecting to server: %s\" }
+    CL_LANGUAGE_MATCH_34 { "Connecting to server: %s" }
     CL_LANGUAGE_MATCH_340 { "Incorrect version! " }
     CL_LANGUAGE_MATCH_341 { "msg unable to create new ship, Unable to create character !\n" }
     CL_LANGUAGE_MATCH_342 { "msg Unable to create character, Unable to create character !\n" }
@@ -489,7 +489,7 @@ en_US{
     CL_LANGUAGE_MATCH_478 { "Send message " }
     CL_LANGUAGE_MATCH_479 { "Delete Friend" }
     CL_LANGUAGE_MATCH_48 { "msg change of face data incorrect: [%d]" }
-    CL_LANGUAGE_MATCH_480 { "Do you wish to delete friend:\n\" }
+    CL_LANGUAGE_MATCH_480 { "Do you wish to delete friend:\n" }
     CL_LANGUAGE_MATCH_481 { "PM" }
     CL_LANGUAGE_MATCH_482 { "Add Friend" }
     CL_LANGUAGE_MATCH_483 { "Leave Party" }
@@ -566,7 +566,7 @@ en_US{
     CL_LANGUAGE_MATCH_547 { "msgNetSynSkillBag lead ID error, does not exist on lead " }
     CL_LANGUAGE_MATCH_548 { "msgNetSynSkillBag skill ID [%d] error " }
     CL_LANGUAGE_MATCH_549 { "msgNetSynSkillBag add skill ID[%d] error " }
-    CL_LANGUAGE_MATCH_55 { "msg binding effect [%d] cannot find character dummy [%d], character :%s\" }
+    CL_LANGUAGE_MATCH_55 { "msg binding effect [%d] cannot find character dummy [%d], character :%s" }
     CL_LANGUAGE_MATCH_550 { "msgNetSynSkillBag edit skill ID [%d] error " }
     CL_LANGUAGE_MATCH_551 { "msgNetSynSkillBag delete skill ID[%d] error, this skill does not exist " }
     CL_LANGUAGE_MATCH_552 { "msgNetSynSkillBag type [%d] error " }
@@ -633,7 +633,7 @@ en_US{
     CL_LANGUAGE_MATCH_607 { "Lack: " }
     CL_LANGUAGE_MATCH_608 { "G  " }
     CL_LANGUAGE_MATCH_609 { "Reputation  " }
-    CL_LANGUAGE_MATCH_61 { "msg You are standing on road cannot be walk, Self (%u, %u], Target(%u, %u], ChaPos(%u, %u]\" }
+    CL_LANGUAGE_MATCH_61 { "msg You are standing on road cannot be walk, Self (%u, %u], Target(%u, %u], ChaPos(%u, %u]" }
     CL_LANGUAGE_MATCH_610 { "Member " }
     CL_LANGUAGE_MATCH_611 { "Disband Countdown %d day[s] " }
     CL_LANGUAGE_MATCH_612 { "Disband Countdown: %d hour[s] " }
@@ -666,7 +666,7 @@ en_US{
     CL_LANGUAGE_MATCH_637 { "Fuel [%I64d/%I64d] " }
     CL_LANGUAGE_MATCH_638 { "Attack [%I64d/%I64d] " }
     CL_LANGUAGE_MATCH_639 { "Defense: %I64d " }
-    CL_LANGUAGE_MATCH_64 { "Read object [%d], %d %d\" }
+    CL_LANGUAGE_MATCH_64 { "Read object [%d], %d %d" }
     CL_LANGUAGE_MATCH_640 { "Speed: %I64d " }
     CL_LANGUAGE_MATCH_641 { "Firing Rate: %I64d " }
     CL_LANGUAGE_MATCH_642 { "Cargo [%d/%d] " }
@@ -677,7 +677,7 @@ en_US{
     CL_LANGUAGE_MATCH_647 { "\n　　　　 " }
     CL_LANGUAGE_MATCH_648 { "Learning Level: %d " }
     CL_LANGUAGE_MATCH_649 { "Prerequisite: %s Lv:%d " }
-    CL_LANGUAGE_MATCH_65 { "msg sound initialize failed!\" }
+    CL_LANGUAGE_MATCH_65 { "msg sound initialize failed!" }
     CL_LANGUAGE_MATCH_650 { "Honor " }
     CL_LANGUAGE_MATCH_651 { "Kill " }
     CL_LANGUAGE_MATCH_652 { "Death " }
@@ -803,7 +803,7 @@ en_US{
     CL_LANGUAGE_MATCH_760 { "Skill has been activated\nClick again to deactivat" }
     CL_LANGUAGE_MATCH_761 { "You will be sent back to the Spawn point. \nPlease salvage your sunken ship from the Harbor Operator" }
     CL_LANGUAGE_MATCH_762 { "Revive in town?" }
-    CL_LANGUAGE_MATCH_763 { "Refresh experience screen current EXP = %d, Current Lv EXP = %d, next level EXP = %d, Percentage = %.1f\" }
+    CL_LANGUAGE_MATCH_763 { "Refresh experience screen current EXP = %d, Current Lv EXP = %d, next level EXP = %d, Percentage = %.1f" }
     CL_LANGUAGE_MATCH_764 { "Trade" }
     CL_LANGUAGE_MATCH_765 { "Both party must be in character or ship mode in order to trade" }
     CL_LANGUAGE_MATCH_766 { "Cargo Trade" }
@@ -884,7 +884,7 @@ en_US{
     CL_LANGUAGE_MATCH_833 { "Redemption successful!" }
     CL_LANGUAGE_MATCH_834 { "Redemption conditions not met. Failed to redeem!" }
     CL_LANGUAGE_MATCH_835 { "Socket 1  " }
-    CL_LANGUAGE_MATCH_836 { "None\" }
+    CL_LANGUAGE_MATCH_836 { "None" }
     CL_LANGUAGE_MATCH_837 { "Lv  " }
     CL_LANGUAGE_MATCH_838 { "Socket 2  " }
     CL_LANGUAGE_MATCH_839 { "Socket 3  " }
@@ -907,7 +907,7 @@ en_US{
     CL_LANGUAGE_MATCH_854 { "Remove relationship" }
     CL_LANGUAGE_MATCH_855 { "Mentor" }
     CL_LANGUAGE_MATCH_856 { "Remove Disciple %s You will deduct your\nreputation points: %I64d\nConfir" }
-    CL_LANGUAGE_MATCH_857 { "Confirm to purchase: \" }
+    CL_LANGUAGE_MATCH_857 { "Confirm to purchase: " }
     CL_LANGUAGE_MATCH_858 { "Do you wish to visit the Item Mall?\nIf you are in a battle zone,\nyou might be attacked anytim" }
     CL_LANGUAGE_MATCH_859 { "Disciple" }
     CL_LANGUAGE_MATCH_86 { "Error, Hairstyle changed failed: Script ID: %d, Character ID: %d, Fail ID type: %d" }
@@ -1237,4 +1237,503 @@ en_US{
     CO_COMMFUNC_H_00106 { "Skill can only be used on monster" }
     CO_COMMFUNC_H_00107 { "unknown skill usage failure code" }
     CO_COMMFUNC_H_00109 { "Item locked" }
+    CMISS_000001 { "msg unable to create item effect ID = %d\n" }
+    CMISS_000011 { "Steersman" }
+    CMISS_000017 { "Failed to switch skill:%s, no such skill" }
+    CMISS_000018 { "Skill cannot be used during switching skill:%s," }
+    CMISS_000020 { "set outlook of ship notice , incorrect  ship notice ID[%d]!" }
+    CMISS_000021 { "Outlook setting of ship message, wrong ship body ID [%d]!" }
+    CMISS_000022 { "Error message of ship fore ID [%d]!" }
+    CMISS_000023 { "ship error message mobility ID[%d]!" }
+    CMISS_000024 { "Please update .\\scripts\\txt\\CharacterAction.tx" }
+    CMISS_000026 { "msg Character creation failed (LoadCha), TypeID = %d, Name = %s\n" }
+    CMISS_000027 { "msg Character action failed to load (LoadPose), TypeID = %d, Name = %s\n" }
+    CMISS_000028 { "msg invalid action ID [%d]\n" }
+    CMISS_000029 { "Delete skill effect: %d, Pointer:%u\n" }
+    CMISS_000030 { " Synchronize skill status (decrease): ID:%d, Name:%s, Effect ID:%u\n" }
+    CMISS_000031 { "Delete already got effect:  %d, Pointer:%u\n" }
+    CMISS_000032 { "Synchronize skill status (add): ID:%d, Name:%s, Effect ID:%u\n" }
+    CMISS_000033 { "Create skill effect: ID:%d, Dummy:%d, Pointer:%u\n" }
+    CMISS_000034 { "Connecting Server: %s\n" }
+    CMISS_000035 { "    A Mysterious Race - Lance. Top notch pirate wanted by the Navy. Well versed in using swords, bows and fireguns. Vast knowledge of the sea make him suitable to become an Explorer, Swordsman or Hunter." }
+    CMISS_000038 { "    Mysterious Being - Ami. Untainted by the hands of time, she will not grow up nor grow old. Ami holds a close relationship with nature and its surroundings thus granting her the ability to raise the dead or tamper with the weather. She possesses a huge talent in either the Herbalist or Explorer class." }
+    CMISS_000042 { "Select Argent City as \nstarting town?" }
+    CMISS_000043 { "Select Shaitan City as \nstarting town?" }
+    CMISS_000044 { "Select Icicle Castle as \nstarting town?" }
+    CMISS_000045 { "msgui.clu interface<%s> cannot locate control <%s>" }
+    CMISS_000046 { "select.clu UI<%s> unable to find document<%s>" }
+    CMISS_000047 { "msg change hairstyle, hairstyle data incorrect:[%d]" }
+    CMISS_000048 { "msg when changing face style, hair style data is incorrect: [%d]" }
+    CMISS_000049 { "Please enter a name" }
+    CMISS_000050 { "Character name cannot be empty" }
+    CMISS_000053 { "Illegal character name. Please enter again" }
+    CMISS_000054 { "Invalid database structure" }
+    CMISS_000055 { "msg binding effect [%d] cannot find character dummy [%d], character :%s\n" }
+    CMISS_000059 { "Unknown effect" }
+    CMISS_000060 { "Unknown shadow" }
+    CMISS_000061 { "msg You are standing on road cannot be walk, Self [%u, %u], Target[%u, %u], ChaPos[%u, %u]\n" }
+    CMISS_000062 { "%s" }
+    CMISS_000063 { "Be added as friend!" }
+    CMISS_000064 { "Read object [%d], %d %d\n" }
+    CMISS_000065 { "msg sound initializefailed!\n" }
+    CMISS_000066 { "Browd" }
+    CMISS_000067 { "COOPBL" }
+    CMISS_000068 { "msgscript initializefailed!" }
+    CMISS_000069 { "msgUI system  initializefailed!" }
+    CMISS_000070 { "msg loading luascript failed!" }
+    CMISS_000071 { "GotoScene , target as null" }
+    CMISS_000072 { "Fail to restore resource while going to next scene " }
+    CMISS_000073 { "Jump to next scene, failed to initialize scene" }
+    CMISS_000074 { "All mini-map has been spawn." }
+    CMISS_000075 { "current screen content save as %s" }
+    CMISS_000077 { "Corsairs Online - An Ocean Fantasy" }
+    CMISS_000078 { "Scene: %s, [%s]" }
+    CMISS_000080 { "Testing all effects" }
+    CMISS_000082 { "Testing character, Check character and character movement..." }
+    CMISS_000084 { "Testing hairstyle list..." }
+    CMISS_000087 { "Testing all tools..." }
+    CMISS_000088 { "Error, Item [%d/%s], Ground model [%s] does not exist" }
+    CMISS_000089 { "Error, Item [%d/%s], Character [%d] model [%s] does not exist" }
+    CMISS_000090 { "Error, item [%d/%s], ICON [%s] does not exist" }
+    CMISS_000091 { "Error, Item [%d/%s] wielding effect [%d] not available" }
+    CMISS_000092 { "Error, Item [%d/%s] weapon binding effect [%d] not found" }
+    CMISS_000093 { "Error, Item [%d/%s] display effect [%d] does not exist" }
+    CMISS_000094 { "Error, Item [%d/%s] ground type effect [%d] not found" }
+    CMISS_000096 { "Checking forging index list..." }
+    CMISS_000097 { "Forging list number [%d/%s] effect [%d] not available" }
+    CMISS_000098 { "Testing forging list..." }
+    CMISS_000099 { "Error, Forging list [%d/%s] effect [%d] not available" }
+    CMISS_000100 { " Testing armor and character relation, if it is not suitable it will create a  iteminfoerror..." }
+    CMISS_000102 { "Enter function key mode" }
+    CMISS_000103 { "Leave function mode " }
+    CMISS_000104 { "Start to change display setting width = %d, height = %d, window = %d\n" }
+    CMISS_000105 { "Successful Toggle Screen!\n" }
+    CMISS_000106 { "Going into camera angle follow mode" }
+    CMISS_000108 { "Display hidden player route" }
+    CMISS_000109 { "Show hidden screen hint" }
+    CMISS_000110 { "Lack of participants" }
+    CMISS_000111 { "Unable to find monster document" }
+    CMISS_000112 { "Add monster" }
+    CMISS_000113 { "Monster release error, Character ID = %d\n" }
+    CMISS_000114 { "Successfully get monster" }
+    CMISS_000115 { "Monster file saved successfully!" }
+    CMISS_000116 { "Designated action completed !" }
+    CMISS_000117 { "%d,%s, Effect [%d] does not exist\n" }
+    CMISS_000119 { "%d,%s, effect [%d] as Persists effect \n" }
+    CMISS_000120 { "Run successful " }
+    CMISS_000121 { "     Tales of Pirate Thank you list  (Sort according to join time.)" }
+    CMISS_000122 { "            April 2004 --- July 2005" }
+    CMISS_000123 { "                                             ryan 18th July 2005" }
+    CMISS_000124 { "Unable to connect!" }
+    CMISS_000126 { "msg character [%s] cannot do forging ID:%d" }
+    CMISS_000129 { "save [%s], line number [%d]" }
+    CMISS_000130 { "Start auto testing" }
+    CMISS_000131 { "Start testing end" }
+    CMISS_000132 { "Start testing effect [%d-%d], test count: %d" }
+    CMISS_000133 { "Start to test skill effect [%d-%d], test count: %d" }
+    CMISS_000134 { "You have been disconnected!" }
+    CMISS_000135 { "Connection timed out: 0x%X" }
+    CMISS_000136 { "You are disconnecting from server. Press confirm to get back to login interface\nReason: %s[%d]" }
+    CMISS_000139 { "Disconnected from server, please retry again\n Reason:[%d]" }
+    CMISS_000140 { "Warning: you are using illegal program\n you account is log,  please do not use this program" }
+    CMISS_000144 { " Proficiency Increase: %d" }
+    CMISS_000145 { "Player EXP: %d" }
+    CMISS_000146 { "Level %d" }
+    CMISS_000147 { "msgShowHitEffect, Unable to allocate effect space!\n" }
+    CMISS_000149 { "[%s] cannot be casted" }
+    CMISS_000151 { "Unable to use normal attack" }
+    CMISS_000153 { "Insufficient SP to cast [%s]" }
+    CMISS_000155 { "[%s] skill can only be used for fishing" }
+    CMISS_000157 { "[%s] can only be used to chop trees" }
+    CMISS_000158 { "[%s] can only be used to mine" }
+    CMISS_000159 { "[%s] can only be casted on party members" }
+    CMISS_000161 { "[%s] casted on incorrect target" }
+    CMISS_000162 { "Beneficial skill [%s] cannot be casted on monsters" }
+    CMISS_000163 { "Harmful skill [%s] cannot be casted on self" }
+    CMISS_000164 { "Damaging skill [%s] cannot be used on party members" }
+    CMISS_000166 { "Not in PK Zone. Unable to cast [%s] on other players" }
+    CMISS_000167 { "Target cannot repair [%s]" }
+    CMISS_000170 { "%s\n Server is under maintenance \n Please choose another server" }
+    CMISS_000171 { "%s\nServer status normal" }
+    CMISS_000172 { "%s\nThe server is busy" }
+    CMISS_000173 { "%s\n Server is full\n Please join other servers" }
+    CMISS_000174 { "Username as null" }
+    CMISS_000175 { "Password cannot be less than 4 letters" }
+    CMISS_000176 { "PAI: Unable to connect to the server at this time. Please try again later." }
+    CMISS_000177 { "PAI: The account does not exist. Please re-enter." }
+    CMISS_000178 { "PAI: Wrong password, please re-enter." }
+    CMISS_000179 { "Select %d Region, server %d Server group\n" }
+    CMISS_000180 { "msg%d Region %d Group, Empty Server IP, Unable to connect\n" }
+    CMISS_000181 { "Game version is incorrect, Clear \"Confirm\"\n to start auto update or click \"Cancel \"\n to go to website to download patch." }
+    CMISS_000182 { "run game script platform!" }
+    CMISS_000183 { "msglua enlarge function[%s] participating number or type error!" }
+    CMISS_000184 { "msglua expand function[%s]current  Sceneas null" }
+    CMISS_000189 { "msg mini-map [%s] pack failed!" }
+    CMISS_000192 { "Enter" }
+    CMISS_000193 { "build 2 type form file ok!" }
+    CMISS_000194 { "Unknown map" }
+    CMISS_000195 { "Obtain [%d] item(s)" }
+    CMISS_000196 { "Only area skill can be targeted on the ground" }
+    CMISS_000197 { "Normal swimming" }
+    CMISS_000198 { "Go into editor mode" }
+    CMISS_000199 { "Close editor format" }
+    CMISS_000200 { "FPS %d-%d   Romance time %d  FrameMove time %d  Internet delay : %d  Peak Value %d  Lowest %d" }
+    CMISS_000201 { "character quantity  %d   number of surface %d    Romance time %d   total effect count %d" }
+    CMISS_000202 { "Effective scene count %d  Showtime count %d  number of surface %d   Romance time %d  Culling count %d" }
+    CMISS_000207 { "Cancel hidden item!" }
+    CMISS_000208 { "Open object obstruct display" }
+    CMISS_000209 { "Close document obstruction display" }
+    CMISS_000210 { "Lock selected object" }
+    CMISS_000212 { " Display surrounding auto stats" }
+    CMISS_000213 { "Create high error" }
+    CMISS_000214 { "Hidden state select object [%s]" }
+    CMISS_000215 { "Open moving object display" }
+    CMISS_000216 { "Close movement display" }
+    CMISS_000217 { "Unable to create effect." }
+    CMISS_000218 { "[%s] was kicked by the leader" }
+    CMISS_000219 { "Party is created with [%s] as the leader" }
+    CMISS_000220 { "Party has been disbanded." }
+    CMISS_000221 { "[%s] added to the party" }
+    CMISS_000222 { "[%s] already left party" }
+    CMISS_000223 { "receive accept from party: %s,%d\n" }
+    CMISS_000224 { "Received rejection from party: %d, reason:%d\n" }
+    CMISS_000225 { "Invitation list is busy, the previous invitation will be cancel" }
+    CMISS_000226 { "Exceed time limit" }
+    CMISS_000227 { "Player has gone offline" }
+    CMISS_000229 { "Been invite to join other / new party, current request is cancel" }
+    CMISS_000230 { "Received friend request: %s, %d\n" }
+    CMISS_000231 { "Friend request rejected: %d, reason:%d\n" }
+    CMISS_000232 { "Invitation list is busy" }
+    CMISS_000233 { "Unable to add, target list is full" }
+    CMISS_000235 { "Target party has reject your request" }
+    CMISS_000236 { " %d is online, reason:%d\n" }
+    CMISS_000237 { "Player: %s Online" }
+    CMISS_000238 { "Friend has gone offline: %d, reason:%d\n" }
+    CMISS_000239 { "Player: %s Offline" }
+    CMISS_000240 { "Delete Friend: %d, reason:%d\n" }
+    CMISS_000241 { "Add Friend: %s,%d\n" }
+    CMISS_000242 { "Obtained friend list (%d):%s,%d\n" }
+    CMISS_000243 { "Refresh friend list notice :char_id=%d, motto=%s, icon=%d, degree=%d, job=%s\n" }
+    CMISS_000244 { "msgNetMC_GUILD_INFO no scene\n" }
+    CMISS_000245 { "msgNetMC_GUILD_INFO No Character\n" }
+    CMISS_000246 { "msgNetMC_GUILD_INFO character not found [%u]\n" }
+    CMISS_000247 { "msg[%u],  cannot locate ID:%s\n" }
+    CMISS_000249 { "msgNetLoginSuccess , no login scene\n" }
+    CMISS_000250 { "msgNetLoginFailure, No Login Scene\n" }
+    CMISS_000251 { "You have exceeded the number of tries, the game will close on its own" }
+    CMISS_000252 { "Your account has been suspended!" }
+    CMISS_000254 { "msgNetBeginPlay no login scene\n" }
+    CMISS_000255 { "Login scene" }
+    CMISS_000256 { "msgNetNewCha, No Login Scene\n" }
+    CMISS_000257 { "msgNetDelCha , no Login scene\n" }
+    CMISS_000258 { "msgNetActorMove error occur, lead need to have move status\n" }
+    CMISS_000259 { "msgNetActorMove create an error, cannot locate player [%u], point [%u], first coordinate [%d,%d]\n" }
+    CMISS_000260 { "msgNetActorMove AddState return false,state:%d, Log name: [%s], point [%u], status [%u], next point: [%d,%d]\tTick:[%u]\n" }
+    CMISS_000261 { "msg lost server system message, Log name: [%s], point [%u], status [%u], next point: [%d,%d]\tTick:[%u]\n" }
+    CMISS_000262 { "msg server is adnormal, Log name: [%s], point [%u], status [%u], next point: [%d,%d]\tTick:[%u]\n" }
+    CMISS_000263 { "msg Switching character, unable to create\n" }
+    CMISS_000264 { "msgCharacter name already exists in this server[%s],WoldID[%u],OldLogName[%s]\n" }
+    CMISS_000265 { "msg Character is hidden in server, unable to create\n" }
+    CMISS_000267 { "msgNetActorSkillRep create error, skill display[%u], cannot locate player [%u]\n" }
+    CMISS_000268 { "msgNetActorSkillRep error created, Character must be in combat\n" }
+    CMISS_000270 { "msgNetActorLean, ID:%d cannot be found\n" }
+    CMISS_000272 { "Illegal Player talk, ID:[%d],Name:[%s],LogName:[%s],say:%s\n" }
+    CMISS_000275 { "===Recieve(change energy :Link,Energy)\n" }
+    CMISS_000276 { "===Recieve(revive panel),ID[%u]\tTick:[%u]\n\n" }
+    CMISS_000277 { "Current map does not have big map!" }
+    CMISS_000278 { "===Recieve(Change Character):\tTick:%u\n" }
+    CMISS_000279 { "msgNetSynAttr, ID (%u) not found\n" }
+    CMISS_000280 { "msg when adding items, required slot [%d], already exceed available slots [%d]\n" }
+    CMISS_000282 { "msgWhen adding item [%s], the limited was exceeded [%d]\n" }
+    CMISS_000283 { "Obtain [%s x %d]!" }
+    CMISS_000284 { "System adds [%s x %d]!" }
+    CMISS_000285 { "Trade received [%s x %d]!" }
+    CMISS_000286 { "Forging successful [%s x %d]!" }
+    CMISS_000287 { "Forging failed[%s x %d]!" }
+    CMISS_000288 { "msg failed to delete object, exceeded form [%d] item is not in nearby or surrounding slots\n" }
+    CMISS_000289 { "Obtained [%s] %d / %d!" }
+    CMISS_000291 { "msgNetFailedAction no character \n" }
+    CMISS_000292 { "===Recieve(Character default skill):\tTick:[%u]\n" }
+    CMISS_000293 { "msg fail to use default skill %d, no such skill\n" }
+    CMISS_000294 { "Target Location: %s\n" }
+    CMISS_000296 { "Ground status synchronize, area position [%d, %d]\tStatus Count%d\n" }
+    CMISS_000298 { "hit back, new position: [%d,%d].\n" }
+    CMISS_000302 { "End trade\n" }
+    CMISS_000303 { "Server send uknown item trade type!" }
+    CMISS_000306 { "First party has %d member. Second party has %d members.\n" }
+    CMISS_000307 { "\tname name: %s.level : %d. Class: %s.\n" }
+    CMISS_000308 { "Character Name: %s, ID: %u, Location?%s, %d, %d, ?" }
+    CMISS_000310 { "\t ID\t Status\t Level\tSP Consume\t Discharge cooldown (ms)\t  skill message\n" }
+    CMISS_000311 { "\t Status ID \t level \n" }
+    CMISS_000312 { "\t Attribute ID\t Attribute point\n" }
+    CMISS_000313 { "\t Inventory slot: %d\t Inventory ID: %d\n" }
+    CMISS_000314 { "\t Item qty: %d\t durability: %d\\%d\t energy: %d\\%d\n" }
+    CMISS_000315 { "Item ID in inventory is invalid  [%d], Game going to exit!" }
+    CMISS_000316 { "\t forging number: %d\n" }
+    CMISS_000317 { "\tAttribute ID: %d\tAttribute Points: %d\n" }
+    CMISS_000319 { "Available tool count %d, exceeded the limit\n" }
+    CMISS_000320 { "\tSlots: %d\n" }
+    CMISS_000321 { "\t type: %d\t Inventory slot: %d\n" }
+    CMISS_000322 { "\tGridID: %d, %d\n" }
+    CMISS_000323 { "\tGridID: %d\n" }
+    CMISS_000324 { "\tType:%d, GridID: %d\n" }
+    CMISS_000325 { "Request to redistribute attribute points " }
+    CMISS_000328 { "Skill ID: %d, Raised %d level(s)\n" }
+    CMISS_000329 { "Open object pov decrease" }
+    CMISS_000330 { "Close item reduce" }
+    CMISS_000331 { "Show debugging messages" }
+    CMISS_000332 { "close debug notice notice" }
+    CMISS_000333 { "reset camera" }
+    CMISS_000334 { "Display object Terrain" }
+    CMISS_000335 { "Close Terrain display" }
+    CMISS_000336 { "Open all hint display" }
+    CMISS_000337 { "close all object notice" }
+    CMISS_000338 { "Display hidden shortcut" }
+    CMISS_000339 { "Cannot open in read write format!" }
+    CMISS_000340 { "Version does not match!" }
+    CMISS_000351 { "Unknown object" }
+    CMISS_000355 { "Create document" }
+    CMISS_000357 { "is broken!" }
+    CMISS_000359 { "Unable to open attachment!" }
+    CMISS_000364 { "msgWrong item document ID\n" }
+    CMISS_000365 { "Document is corrupted! " }
+    CMISS_000369 { "complete successfully! \n" }
+    CMISS_000370 { "create temporary file failed \n" }
+    CMISS_000371 { "Failed to rename document\n" }
+    CMISS_000372 { "open file failed \n" }
+    CMISS_000373 { "The original file has been modified!\n" }
+    CMISS_000374 { "save assign error\n" }
+    CMISS_000377 { "msg Create sight of attack error" }
+    CMISS_000378 { "msg Fail to create attacking circle" }
+    CMISS_000379 { "msg create error" }
+    CMISS_000382 { "not functionname " }
+    CMISS_000383 { "msgtransfer script type does not match!" }
+    CMISS_000384 { "Do you wish to delete character" }
+    CMISS_000391 { "Ship must be %d ~ %d In-between words" }
+    CMISS_000393 { "Please select one of the ships below: " }
+    CMISS_000394 { "Center: %u, %u\n Exploration: %.02f%%" }
+    CMISS_000395 { "msg icon error%s" }
+    CMISS_000398 { "List does not have skill attribute settings during attack" }
+    CMISS_000399 { "msg Character [%s] unable to use skill [%s], while in current Pose[%d]\n" }
+    CMISS_000400 { "msg skill level [%d] has reach the max of this class skill level [%d]!\n" }
+    CMISS_000401 { "msg Attack speed is 0 during attack\n" }
+    CMISS_000406 { "You are unable to move" }
+    CMISS_000409 { "msg status [%s], CActionState::SetServerID(%d) is error\n" }
+    CMISS_000410 { "No fixed UI frmRemind!" }
+    CMISS_000411 { "chat.clu UI<%s>unable to control<%s>" }
+    CMISS_000412 { "No fixed UI frmChat!" }
+    CMISS_000413 { "No fixed UI frmChatMd!" }
+    CMISS_000414 { "No fixed UI frmChatMin!" }
+    CMISS_000418 { "Current Chat (%d members): " }
+    CMISS_000419 { "(%d Members)" }
+    CMISS_000420 { "invites you to party!" }
+    CMISS_000421 { "0" }
+    CMISS_000422 { "-" }
+    CMISS_000435 { "ten thousand" }
+    CMISS_000436 { "100 million" }
+    CMISS_000437 { "one-ten" }
+    CMISS_000438 { "npc.clu does not have fixed UI frmNPCstorage" }
+    CMISS_000439 { "npc.clu����<%s>���Ҳ����ؼ�<%s>" }
+    CMISS_000441 { "Please input quantity to deposit" }
+    CMISS_000443 { "initializeship ship, cannot locate ship cabin\n" }
+    CMISS_000444 { "msgCBoatMgr::ChangeMainCha(%d) Cannot create character while switching\n" }
+    CMISS_000446 { "traderoom.clu UI<%s> cannot be found<%s>" }
+    CMISS_000449 { "Quantity cannot be lower than 1" }
+    CMISS_000452 { "Total amount cannot exceed 1 Billion" }
+    CMISS_000453 { "Item has already been bought by another player" }
+    CMISS_000455 { "Do you wish to spend [%s]\n [%s]\n to purchase [%s]" }
+    CMISS_000456 { "npc.clu No fixed UI frmPlayertrade" }
+    CMISS_000458 { "This item is sold out" }
+    CMISS_000459 { "Your gold is insufficient!" }
+    CMISS_000460 { "Do you wish to buy: \n\n[%s]?" }
+    CMISS_000461 { "Do you wish to set a price of [%s] \n\nto sell [%s]?" }
+    CMISS_000462 { "Item exceed limit\n" }
+    CMISS_000463 { "You are unable to buy due to lack of commerce level or no commerce permit" }
+    CMISS_000473 { "main.clu UI<%s> cannot be control<%s>" }
+    CMISS_000474 { "Player [%s] you have selected is not in region" }
+    CMISS_000476 { "Selected player [%s] not at QQ board" }
+    CMISS_000480 { "Confirm to Delete Friend: \n\n" }
+    CMISS_000488 { "Target player has been added" }
+    CMISS_000500 { "Open message channel" }
+    CMISS_000501 { " notice accept close tunnel" }
+    CMISS_000502 { "(None)" }
+    CMISS_000503 { "Open system message in window" }
+    CMISS_000504 { "system notice accept close window" }
+    CMISS_000506 { "] has close PM channel. Unable to receive your message temporary " }
+    CMISS_000510 { "To prevent spamming, you can only type in the world channel after 1 minute!" }
+    CMISS_000512 { "Flood control: Players cannot use Trade channel within 1 min of logging in!" }
+    CMISS_000513 { "Message sending failed. You are not in a party!" }
+    CMISS_000514 { "message fail to send : not in the correct channel!" }
+    CMISS_000515 { "Delete all" }
+    CMISS_000516 { "coze.clu interface<%s> cannot locate control <%s>" }
+    CMISS_000517 { "Sending failed. You are not in a party" }
+    CMISS_000518 { "Please do not flood the world channel!" }
+    CMISS_000527 { "msgui.clu does not have Fixed UI ID frmEditor" }
+    CMISS_000530 { "Area attribute" }
+    CMISS_000534 { "Mosue status" }
+    CMISS_000538 { "Character portrait" }
+    CMISS_000539 { "surface" }
+    CMISS_000542 { "Please input X and Y Coordinates: [number, number]" }
+    CMISS_000543 { "Please input 4 parameters, such as: 0,0,10,10" }
+    CMISS_000546 { "Brush height already changed" }
+    CMISS_000547 { "msgNetSynSkillBag lead ID error, lead not available" }
+    CMISS_000548 { "msgNetSynSkillBagskill ID [%d] error" }
+    CMISS_000549 { "msgNetSynSkillBagAdd skill ID[%d] error" }
+    CMISS_000550 { "msgNetSynSkillBag failed to edit skill ID[%d]" }
+    CMISS_000551 { "msgNetSynSkillBag Delete Skill ID [%d] Error. Skill does not exist" }
+    CMISS_000552 { "msgNetSynSkillBag Type[%d] Error" }
+    CMISS_000553 { "[%s] cannot be placed on shortcuts" }
+    CMISS_000554 { "msgupdate appearance data [%d] ,server ID[%d], error occur" }
+    CMISS_000555 { "msg Update item UI [%d], Item not available" }
+    CMISS_000556 { "Item deleted will vanished\n\n Are you sure to delete?" }
+    CMISS_000557 { "Can only control ship that are in the sea!" }
+    CMISS_000558 { "Do you wish to discard Vessel Deed?\nThis is result in a decrease of ship level \n and EXP" }
+    CMISS_000559 { "Repair: %s\nFees: %dG\nConfirm?" }
+    CMISS_000561 { "npc.clu interface<%s> cannot locate control <%s>" }
+    CMISS_000562 { "Equipment Fusion" }
+    CMISS_000563 { "Reinforced" }
+    CMISS_000565 { "Refine Item" }
+    CMISS_000568 { "Need to spend: %dG\nAre you sure?" }
+    CMISS_000569 { "You did not insert a weapon/armor. Please reselect " }
+    CMISS_000570 { "That is not a solidifier, please try again" }
+    CMISS_000574 { "msg UI name [%s] repeated\n" }
+    CMISS_000576 { "Board Stats (Total: %d Count: %d current board ID:%d)  Stats Window (Count: %d Current board: [Window number: %d Display: %d Mode: %d]) Timer count :%d Romance time: %d ms" }
+    CMISS_000577 { "Document :<%s> no Form table: %s" }
+    CMISS_000578 { "Document :<%s>  no <%s> control:%s" }
+    CMISS_000579 { "HQAllocation" }
+    CMISS_000585 { "You are a defending champion. Unable to bid" }
+    CMISS_000587 { "You cannot challenge low level defending champion." }
+    CMISS_000589 { "Please bid. Current lowest bid is" }
+    CMISS_000591 { "Every bid is 50,000" }
+    CMISS_000592 { "Total amount cannot exceed 20 millions" }
+    CMISS_000594 { "Only the guild leader can change the MOTD" }
+    CMISS_000595 { "Do you wish to disband your guild? Please input the password " }
+    CMISS_000596 { "Do you wish to leave guild" }
+    CMISS_000598 { "Sorry, you do not have recruitment function access. Please contact your guild leader" }
+    CMISS_000599 { "Sorry, you does not have the access. Please contact your guild leader" }
+    CMISS_000601 { "Do you wish to delete \n\n [" }
+    CMISS_000603 { "Sorry, you do not have the access to remove members from guild." }
+    CMISS_000604 { "Navy Division" }
+    CMISS_000608 { "Gold " }
+    CMISS_000610 { "Members" }
+    CMISS_000611 { "Disband Countdown%d days" }
+    CMISS_000612 { "Disband Countdown%d hr" }
+    CMISS_000613 { "Disband countdown %d minutes" }
+    CMISS_000614 { "Action failed: Player has already been removed or left the guild." }
+    CMISS_000616 { "player.clu UI <%s>unable to find document<%s>" }
+    CMISS_000617 { "msgCHaircutMgr::ShowHaircutForm cannot find lead\n" }
+    CMISS_000618 { "Character hairstyle cannot be changed" }
+    CMISS_000619 { "msgCHaircutMgr::ShowHaircutForm fail to create 3D character" }
+    CMISS_000624 { "(Two-handed)" }
+    CMISS_000625 { "Attack (%d/%d)" }
+    CMISS_000626 { "Durability (%d/%d)" }
+    CMISS_000627 { "Effectiveness (%d%%)" }
+    CMISS_000629 { "Defense (%+d)" }
+    CMISS_000630 { "Physical Resist (%+d)" }
+    CMISS_000631 { "Hit Rate (%+d)" }
+    CMISS_000632 { "Dodge (%+d)" }
+    CMISS_000633 { "Quantity: %d" }
+    CMISS_000634 { "Lvl %d" }
+    CMISS_000636 { "Durability (%d/%d)" }
+    CMISS_000637 { "Fuel (%d/%d)" }
+    CMISS_000638 { "Attack (%d/%d)" }
+    CMISS_000639 { "Defense: %d" }
+    CMISS_000640 { "Navigation Speed: %d" }
+    CMISS_000641 { "Firing Speed: %d" }
+    CMISS_000642 { "Cargo (%d/%d)" }
+    CMISS_000643 { "Price (%s)" }
+    CMISS_000644 { "Energy (%d/%d)" }
+    CMISS_000648 { "Learning Level:%d" }
+    CMISS_000655 { "Team Contribution: %d" }
+    CMISS_000656 { "Lv%s %s" }
+    CMISS_000662 { "Stamina (%d/%d)" }
+    CMISS_000663 { "Growth (%d/%d)" }
+    CMISS_000673 { "Socket: %d" }
+    CMISS_000685 { "NPC.clu No fixed UI frmMakeEquip" }
+    CMISS_000693 { "The gem you inserted must be similar. Please reselect " }
+    CMISS_000699 { "Please place scroll at the top" }
+    CMISS_000701 { "Please insert the scroll" }
+    CMISS_000705 { "Obtain" }
+    CMISS_000706 { "<rUnknown ID [" }
+    CMISS_000707 { "<r" }
+    CMISS_000710 { "Unknown quest data type!" }
+    CMISS_000712 { "(Single select)" }
+    CMISS_000717 { "%d Commerce point" }
+    CMISS_000719 { "minimap.clu UI<%s> cannot be control <%s>" }
+    CMISS_000721 { "main.clu cannot find frmMission" }
+    CMISS_000723 { "Do you wish to abandon quest\n[%s]?" }
+    CMISS_000724 { "<r[><gIn progress><r]>" }
+    CMISS_000732 { "MisClear: Target quest node not found , delete failed! ID[%d]" }
+    CMISS_000735 { "MisLogState: Unable to find quest!ID[%d]" }
+    CMISS_000742 { "Do you wish to buy: \n%s\nPrice: %s" }
+    CMISS_000743 { "Do you wish to sell: \n%s\nPrice: %s" }
+    CMISS_000745 { "Please select a document" }
+    CMISS_000746 { "msg failed to load cursor [%d] \n" }
+    CMISS_000747 { "msg font not initialize!" }
+    CMISS_000749 { "[%s] has not recovered!" }
+    CMISS_000750 { "[%s] encounters an error!" }
+    CMISS_000751 { "Type: Lifeskill (Land)" }
+    CMISS_000755 { "Type: Navigation" }
+    CMISS_000756 { "Type: Sailing" }
+    CMISS_000757 { "Instruction" }
+    CMISS_000759 { "Consume" }
+    CMISS_000760 { "Skill is already activated\nClick again to deactivate" }
+    CMISS_000761 { "You will be sent back to your Spawn point. \nPlease salvage your ship at the Harbor Operator!" }
+    CMISS_000763 { "Refresh experience screen current EXP = %d, Current Lv EXP = %d, next level EXP = %d, Percentage = %.1f\n" }
+    CMISS_000765 { "To trade, both party must in character or ship status" }
+    CMISS_000767 { "Cargo trade requires both party to be in the ship" }
+    CMISS_000770 { "1 VS 1" }
+    CMISS_000771 { "You can select Help and click on the Interface button to access tooltips" }
+    CMISS_000772 { "Party action has been ban" }
+    CMISS_000773 { "You cannot relogin in this version!" }
+    CMISS_000774 { "Timer in progress, cannot work" }
+    CMISS_000775 { "Countdown: %d sec(s)" }
+    CMISS_000776 { "Countdown: %d sec(s)" }
+    CMISS_000777 { "Cancel timer" }
+    CMISS_000778 { "Unknown motto -Arcol" }
+    CMISS_000779 { "%s\n\n request to trade" }
+    CMISS_000780 { "%s\n\n requested a Cargo trade" }
+    CMISS_000781 { "Please input gold" }
+    CMISS_000782 { "Trading of Vessel Deed will result in \na decrease of ship level \nand EXP" }
+    CMISS_000787 { "Target has cancelled trade" }
+    CMISS_000790 { "Sea Region" }
+    CMISS_000791 { "msg Please use ship interface to change outlook," }
+    CMISS_000796 { "===SetMainCha(Scene change lead):\tTick:[%u]\n\n" }
+    CMISS_000797 { "Security code can only have  0 ~ 9 Make up of numbers, please re-enter" }
+    CMISS_000798 { "Invalid length for Security Code 6 ~ 12, please re-enter" }
+    CMISS_000799 { "Passwords does not match. Please re-enter" }
+    CMISS_000800 { "Account do not have Security Code\n\nCreate now?" }
+    CMISS_000803 { "Swordsman: After a few thousand years of massive training on the land, Swordsmen have become experts at using swords and shields." }
+    CMISS_000807 { "Recommended Stat: Agility and Strength, which increases dodge rate and attack power respectively. Recommended Skill: Stealth - Make character invisible to other unit. Deftness - Increase dodge rate of character. Dual Sword Mastery - Increase attack when using two weapons." }
+    CMISS_000813 { "Recommended Stat: Spirit, which increases magical damage and Max SP value. Recommended Skill: Angelic Shield - Increase defense of friendly targets. Healing Spring - Create an area that heals friendly unit continuously. Energy Shield - Replace HP loss with SP." }
+    CMISS_000819 { "Recommended Stat: Spirit, which increases magical damage and Max SP value. Recommended Skill: Lightning Curtain - Create a thunderstorm in the sea that damage enemies in an area. Tail Wind - Increases movement speed of ships in an area. Conch Ray - Damage all enemies in a straight line." }
+    CMISS_000825 { "You do not have any Lock of Mystic!" }
+    CMISS_000836 { "None\n" }
+    CMISS_000854 { "Delete" }
+    CMISS_000856 { "Remove %s as Disciple?\nReputation penalty: %d\nConfirm?" }
+    CMISS_000857 { "Confirm to purchase: \n" }
+    CMISS_000858 { "Visit Item Mall?\nIf you are in a battle zone,\nyou might be attacked!" }
+    CMISS_000860 { "Player %s\n wishes to be your disciple" }
+    CMISS_000861 { "Player %s\n wish to take you in as a disciple" }
+    CMISS_000863 { "Player %s\nHope to form a party with you" }
+    CMISS_000872 { "Material 1: %s x %i" }
+    CMISS_000873 { "Material 2: %s x %i" }
+    CMISS_000883 { "Party invitation cooldown shorter than  %d Seconds. Remaining %d sec" }
+    CMISS_000889 { "Remove %s as mentor\nGold penalty: %d" }
+    CMISS_000898 { "Item in cooldown mode, remaining time is  %d sec" }
+    CMISS_000900 { "Chaos Argent" }
+    CMISS_000902 { "Platinum Member" }
+    CMISS_000905 { "Confirm to redeem crystal:  %d" }
+    CMISS_000907 { "Purchase of item failed!\nPlease check if you have enough Pirate Crystal!" }
+    CMISS_000908 { "Gold exchange failed!" }
+    CMISS_000910 { "%d��" }
+    CMISS_000918 { "Duration hour(s)" }
+    CMISS_000919 { "Duration min(s)" }
+    CMISS_000920 { "Duration sec(s)" }
+    CMISS_000938 { "http://top.igg.com/bill/item.php" }
+    CMISS_000939 { "http://top.igg.com/bill/item.php" }
+    CMISS_000942 { "Are you sure you want to read a book?" }
+    CMISS_000943 { "Press \"confirm\" to stop reading" }
+    CMISS_000952 { "empty" }
+    CMISS_000958 { "winterland" }
 }

@@ -8,13 +8,13 @@ extern "C"
     #include <lualib.h>
 }
 
-// luaº¯Êý·µ»ØÖµ¶¨Òå
-#define LUA_FALSE			0 // ·µ»Ø´íÎó
-#define LUA_TRUE			1 // ·µ»ØÕýÈ·
+// luaï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½
+#define LUA_FALSE			0 // ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½
+#define LUA_TRUE			1 // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·
 
-// ³ö´íµ÷ÊÔÊä³ö
-#define PARAM_ERROR        { LG("lua", g_oLangRec.GetString(183),__FUNCTION__ ); }
-#define SCENE_NULL_ERROR   { LG("lua", g_oLangRec.GetString(184), __FUNCTION__);         }
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define PARAM_ERROR        { LG("lua", RES_STRING(CMISS_000183),__FUNCTION__ ); }
+#define SCENE_NULL_ERROR   { LG("lua", RES_STRING(CMISS_000184), __FUNCTION__);         }
 
 extern void InitLuaPlatform();
 extern void CreateScriptDebugWindow(HINSTANCE hInst, HWND hParent);

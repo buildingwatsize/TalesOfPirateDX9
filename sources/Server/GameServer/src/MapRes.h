@@ -34,14 +34,14 @@ class CAreaData
 public:
 	CAreaData();
 	~CAreaData();
-	dbc::Long	Init(_TCHAR *chFile);
+	dbc::Long	Init(_TCHAR* chFile);
 	void	Free();
-	bool	GetUnitAttr(dbc::Short sUnitX, dbc::Short sUnitY, dbc::uShort &usAttribute);
-	bool	GetUnitSize(dbc::Short *psWidth, dbc::Short *psHeight);
-	bool	GetUnitIsland(dbc::Short sUnitX, dbc::Short sUnitY, dbc::uChar &uchIsland);
-	dbc::Short	GetWidth() {return m_sUnitCountX;}
-	dbc::Short	GetHeight() {return m_sUnitCountY;}
-	bool	IsValidPos(dbc::Short sUnitX, dbc::Short sUnitY) {if (sUnitX < 0 || sUnitX >= GetWidth() || sUnitY < 0 || sUnitY >= GetHeight()) return false; return true;}
+	bool	GetUnitAttr(dbc::Short sUnitX, dbc::Short sUnitY, dbc::uShort& usAttribute);
+	bool	GetUnitSize(dbc::Short* psWidth, dbc::Short* psHeight);
+	bool	GetUnitIsland(dbc::Short sUnitX, dbc::Short sUnitY, dbc::uChar& uchIsland);
+	dbc::Short	GetWidth() { return m_sUnitCountX; }
+	dbc::Short	GetHeight() { return m_sUnitCountY; }
+	bool	IsValidPos(dbc::Short sUnitX, dbc::Short sUnitY) { if (sUnitX < 0 || sUnitX >= GetWidth() || sUnitY < 0 || sUnitY >= GetHeight()) return false; return true; }
 
 protected:
 
@@ -95,16 +95,16 @@ enum EMapEntryState
 
 enum EMapType // 此值也用于脚本，不能更改
 {
-	enumMAPTYPE_NORMAL			= 1, // 普通地图
-	enumMAPTYPE_GUILD_FIGHT		= 2, // 公会战地图
-	enumMAPTYPE_TEAM_FIGHT		= 3, // 队伍战地图
+	enumMAPTYPE_NORMAL = 1, // 普通地图
+	enumMAPTYPE_GUILD_FIGHT = 2, // 公会战地图
+	enumMAPTYPE_TEAM_FIGHT = 3, // 队伍战地图
 };
 
 enum EMapCopyStartType // 此值也用于脚本，不能更改
 {
-	enumMAPCOPY_START_NOW		= 1, // 立即开始
-	enumMAPCOPY_START_PLAYER	= 2, // 有玩家时开始
-	enumMAPCOPY_START_CONDITION	= 3, // 条件开始
+	enumMAPCOPY_START_NOW = 1, // 立即开始
+	enumMAPCOPY_START_PLAYER = 2, // 有玩家时开始
+	enumMAPCOPY_START_CONDITION = 3, // 条件开始
 };
 
 enum EMapCopyStartCdtType // 副本开始条件类型
@@ -116,19 +116,19 @@ enum EMapCopyStartCdtType // 副本开始条件类型
 class CMapRes
 {
 public:
-	enum{m_eyeshotwidth = 2};
+	enum { m_eyeshotwidth = 2 };
 
 	CMapRes();
 	virtual ~CMapRes();
 
 	bool		Init(void);
-	bool		IsValid(void) {return m_bValid;}
-	bool		IsOpen(void) {return m_bValid && m_chState == enumMAP_STATE_OPEN;}
+	bool		IsValid(void) { return m_bValid; }
+	bool		IsOpen(void) { return m_bValid && m_chState == enumMAP_STATE_OPEN; }
 	bool		SetCopyNum(dbc::Short sCpyNum);
-	dbc::Short	GetCopyNum(void) {return m_sMapCpyNum;}
-	SubMap*		GetCopy(dbc::Short sCpyNO = -1);
-	void		SetCopyPlyNum(dbc::Short sPlyNum) {m_sCopyPlyNum = sPlyNum;}
-	dbc::Short	GetCopyPlyNum(void) {return m_sCopyPlyNum;}
+	dbc::Short	GetCopyNum(void) { return m_sMapCpyNum; }
+	SubMap* GetCopy(dbc::Short sCpyNO = -1);
+	void		SetCopyPlyNum(dbc::Short sPlyNum) { m_sCopyPlyNum = sPlyNum; }
+	dbc::Short	GetCopyPlyNum(void) { return m_sCopyPlyNum; }
 	bool		InitCtrl(void);
 
 	bool		Open(void);
@@ -139,47 +139,47 @@ public:
 	bool		DestroyEntry(void);
 	void		Run(DWORD dwCurTime);
 	bool		CopyClose(dbc::Short sCopyNO = -1);
-	bool		CopyNotice(const char *szString, dbc::Short sCopyNO = -1);
+	bool		CopyNotice(const char* szString, dbc::Short sCopyNO = -1);
 	bool		ReleaseCopy(dbc::Short sCopyNO = 0);
 
-	bool		SetEntryMapName(dbc::cChar *szMapName);
+	bool		SetEntryMapName(dbc::cChar* szMapName);
 	void		CheckEntryState(dbc::Char chState);
 	bool		SubEntryPlayer(dbc::Short sCopyNO);
 	bool		SubEntryCopy(dbc::Short sCopyNO);
-	bool		HasDynEntry(void) {return strcmp(m_szEntryMapName, "") != 0 ? true : false;}
-	void		SetCanSavePos(bool bCan = true) {m_bCanSavePos = bCan;}
-	bool		CanSavePos(void) {return m_bCanSavePos;}
-	void		SetCanPK(bool bCan = true) {m_bCanPK = bCan;}
-	bool		CanPK(void) {return m_bCanPK;}
-	void		SetCanTeam(bool bCan = true) {m_bCanTeam = bCan;}
-	void		SetCanStall(bool bCan = true){m_bCanStall = bCan;}//设置能否摆摊
+	bool		HasDynEntry(void) { return strcmp(m_szEntryMapName, "") != 0 ? true : false; }
+	void		SetCanSavePos(bool bCan = true) { m_bCanSavePos = bCan; }
+	bool		CanSavePos(void) { return m_bCanSavePos; }
+	void		SetCanPK(bool bCan = true) { m_bCanPK = bCan; }
+	bool		CanPK(void) { return m_bCanPK; }
+	void		SetCanTeam(bool bCan = true) { m_bCanTeam = bCan; }
+	void		SetCanStall(bool bCan = true) { m_bCanStall = bCan; }//设置能否摆摊
 	void		SetCanGuild(bool bCan = true) { m_bCanGuild = bCan; }
 	void		SetGuildWar(bool bGuildWar) { m_bGuildWar = bGuildWar; }
 	bool		CanGuildWar() { return m_bGuildWar; }
-	bool		CanTeam(void) {return m_bCanTeam;}
-	bool		CanStall(void) {return m_bCanStall;}//能否摆摊
+	bool		CanTeam(void) { return m_bCanTeam; }
+	bool		CanStall(void) { return m_bCanStall; }//能否摆摊
 	bool		CanGuild(void) { return m_bCanGuild; }
-	void		SetType(dbc::Char chType = enumMAPTYPE_NORMAL) {m_chType = chType;}
-	dbc::Char	GetType(void) {return m_chType;}
-	void		SetCopyStartType(dbc::Char chStartType = enumMAPCOPY_START_PLAYER) {m_chCopyStartType = chStartType;}
-	dbc::Char	GetCopyStartType(void) {return m_chCopyStartType;}
-	void		SetCopyStartCondition(dbc::Char chType, dbc::Long lVal) {m_chCopyStartCdtType = chType; m_lCopyStartCdtVal = lVal;}
-	dbc::Char	GetCopyStartCdtType(void) {return m_chCopyStartCdtType;}
-	dbc::Long	GetCopyStartCdtVal(void) {return m_lCopyStartCdtVal;}
+	void		SetType(dbc::Char chType = enumMAPTYPE_NORMAL) { m_chType = chType; }
+	dbc::Char	GetType(void) { return m_chType; }
+	void		SetCopyStartType(dbc::Char chStartType = enumMAPCOPY_START_PLAYER) { m_chCopyStartType = chStartType; }
+	dbc::Char	GetCopyStartType(void) { return m_chCopyStartType; }
+	void		SetCopyStartCondition(dbc::Char chType, dbc::Long lVal) { m_chCopyStartCdtType = chType; m_lCopyStartCdtVal = lVal; }
+	dbc::Char	GetCopyStartCdtType(void) { return m_chCopyStartCdtType; }
+	dbc::Long	GetCopyStartCdtVal(void) { return m_lCopyStartCdtVal; }
 
-	void		SetName(dbc::cChar *cszName) {m_strMapName = cszName;}
-	const char*	GetName(void) {return m_strMapName.c_str();}
-	const Rect&	GetRange(void) {return m_SRange;}
-	BYTE		GetMapID() {return m_byMapID;}
+	void		SetName(dbc::cChar* cszName) { m_strMapName = cszName; }
+	const char* GetName(void) { return m_strMapName.c_str(); }
+	const Rect& GetRange(void) { return m_SRange; }
+	BYTE		GetMapID() { return m_byMapID; }
 
-	BOOL		SummonNpc( USHORT sAreaID, const char szNpc[], USHORT sTime );
-	void		SetRepatriateDie(bool bRepatriate = true) {m_bRepatriateDie = bRepatriate;}
-	bool		IsRepatriateDie(void) {return m_bRepatriateDie;}
+	BOOL		SummonNpc(USHORT sAreaID, const char szNpc[], USHORT sTime);
+	void		SetRepatriateDie(bool bRepatriate = true) { m_bRepatriateDie = bRepatriate; }
+	bool		IsRepatriateDie(void) { return m_bRepatriateDie; }
 
-	void		BeginGetUsedCopy(void) {m_sUsedCopySearch = 0;}
-	SubMap*		GetNextUsedCopy(void);
+	void		BeginGetUsedCopy(void) { m_sUsedCopySearch = 0; }
+	SubMap* GetNextUsedCopy(void);
 
-	mission::CNpc*		FindNpc( const char szName[] );
+	mission::CNpc* FindNpc(const char szName[]);
 
 	// 视野单元
 	struct
@@ -210,12 +210,12 @@ public:
 	{
 		dbc::dstring	m_strMapName;
 		Rect			m_SRange;
-		CMapRes			*m_pCLeftMap, *m_pCTopMap, *m_pCRightMap, *m_pCBelowMap;
+		CMapRes* m_pCLeftMap, * m_pCTopMap, * m_pCRightMap, * m_pCBelowMap;
 	};
 
-	CChaSpawn				*m_pCMonsterSpawn;
-	CMapSwitchEntitySpawn	*m_pCMapSwitchEntitySpawn;
-	CNpcSpawn*				m_pNpcSpawn;
+	CChaSpawn* m_pCMonsterSpawn;
+	CMapSwitchEntitySpawn* m_pCMapSwitchEntitySpawn;
+	CNpcSpawn* m_pNpcSpawn;
 
 	// 入口信息
 	struct
@@ -229,10 +229,10 @@ public:
 		time_t		m_tEntryOutTmDis;	// 入口每次执行后，到消失的时间间隔
 		time_t		m_tMapClsTmDis;		// 入口每次执行后，到地图关闭的时间间隔
 
-		FILE		*m_pfEntryFile;			// 入口文件
+		FILE* m_pfEntryFile;			// 入口文件
 	};
 
-	struct{
+	struct {
 		char m_szObstacleFile[_MAX_PATH + _MAX_FNAME];
 		char m_szSectionFile[_MAX_PATH + _MAX_FNAME];
 		char m_szMonsterSpawnFile[_MAX_PATH + _MAX_FNAME];
@@ -263,7 +263,7 @@ private:
 	CTimer	m_timeMgr;
 	CTimer	m_timeRun;
 
-	SubMap		*m_pCMapCopy;
+	SubMap* m_pCMapCopy;
 	dbc::Short	m_sMapCpyNum;
 	dbc::Short	m_sCopyPlyNum;
 	dbc::Char	m_chType;
@@ -289,20 +289,20 @@ class CMapID
 public:
 	CMapID();
 	~CMapID();
-	
+
 	void	Clear();
 
-	BOOL	AddInfo( const char szMap[], BYTE byID );
-	BOOL	GetID( const char szMap[], BYTE& byID );	
-	BOOL	SetMap( BYTE byID, CMapRes* pMap );
-	CMapRes* GetMap( BYTE byID );
+	BOOL	AddInfo(const char szMap[], BYTE byID);
+	BOOL	GetID(const char szMap[], BYTE& byID);
+	BOOL	SetMap(BYTE byID, CMapRes* pMap);
+	CMapRes* GetMap(BYTE byID);
 
 private:
 	struct MAP_INFO
 	{
 		char		szMap[MAX_MAPNAME_LENGTH];
 		BYTE		byID;
-		CMapRes*	pMap;
+		CMapRes* pMap;
 	};
 
 	MAP_INFO m_MapInfo[MAX_MAP];

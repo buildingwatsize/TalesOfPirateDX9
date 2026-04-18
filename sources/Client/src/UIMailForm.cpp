@@ -111,7 +111,7 @@ namespace GUI
 	{
 		if(strlen(edtQuestionTitle->GetCaption()) < 16)
 		{
-			g_pGameApp->MsgBox(g_oLangRec.GetString(914));	// ÓÊ¼şÄÚÈİ²»µÃÉÙÓÚ8¸öºº×Ö£¨16¸öÓ¢ÎÄ×Ö£©£¡
+			g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_914));	// ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½İ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½8ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½16ï¿½ï¿½Ó¢ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½
 			return;
 		}
 
@@ -126,7 +126,7 @@ namespace GUI
 	void CMailMgr::_evtQuestionFormEvent(CCompent *pSender, int nMsgType, int x, int y, DWORD dwKey)
 	{
 		string strName = pSender->GetName();
-		if(strName == "btnSubmit")	// Ìá½»ÎÊÌâ
+		if(strName == "btnSubmit")	// ï¿½á½»ï¿½ï¿½ï¿½ï¿½
 		{
 			g_stUIMail.SubmitQuestion();
 		}

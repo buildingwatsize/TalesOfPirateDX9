@@ -36,7 +36,7 @@ void CChaStateMgr::ChaDestroy()
 	{
 		if(_state->pEffect ) 
 		{
-			LG( _pCha->getLogName(), g_oLangRec.GetString(29), _state->pEffect->getIdxID(), _state->pEffect );
+			LG( _pCha->getLogName(), RES_STRING(CMISS_000029), _state->pEffect->getIdxID(), _state->pEffect );
 
 			_state->pEffect->SetValid( FALSE );
 			_state->pEffect = nullptr;
@@ -101,11 +101,11 @@ CBoolSet& CChaStateMgr::Synchro(const stSkillState* pState, int nCount) {
 	for (unsigned int i = 0; i < nTmpCount; i++) {
 		pChaState = stTmp[i];
 		if (pChaState->IsDel) {
-			LG(_pCha->getLogName(), g_oLangRec.GetString(30), pChaState->pInfo->nID, pChaState->pInfo->szName, pChaState->pInfo->sEffect);
+			LG(_pCha->getLogName(), RES_STRING(CMISS_000030), pChaState->pInfo->nID, pChaState->pInfo->szName, pChaState->pInfo->sEffect);
 
 			// Existing delete
 			if (pChaState->pEffect) {
-				LG(_pCha->getLogName(), g_oLangRec.GetString(31), pChaState->pEffect->getIdxID(), pChaState->pEffect);
+				LG(_pCha->getLogName(), RES_STRING(CMISS_000031), pChaState->pEffect->getIdxID(), pChaState->pEffect);
 
 				pChaState->pEffect->SetValid(FALSE);
 				pChaState->pEffect = nullptr;
@@ -115,7 +115,7 @@ CBoolSet& CChaStateMgr::Synchro(const stSkillState* pState, int nCount) {
 		else {
 			// increase
 			_states.push_back(pChaState);
-			LG(_pCha->getLogName(), g_oLangRec.GetString(32), pChaState->pInfo->nID, pChaState->pInfo->szName, pChaState->pInfo->sEffect);
+			LG(_pCha->getLogName(), RES_STRING(CMISS_000032), pChaState->pInfo->nID, pChaState->pInfo->szName, pChaState->pInfo->sEffect);
 
 			pInfo = pChaState->pInfo;
 			if (pInfo->sBitEffect > 0) {
@@ -216,7 +216,7 @@ CBoolSet& CChaStateMgr::Synchro(const stSkillState* pState, int nCount) {
 
 			if (pInfo->sEffect > 0 && !pChaState->pEffect) {
 				pChaState->pEffect = _pCha->SelfEffect(pInfo->sEffect, pInfo->sDummy1, true);
-				LG(_pCha->getLogName(), g_oLangRec.GetString(33), pInfo->sEffect, pInfo->sDummy1, pChaState->pEffect);
+				LG(_pCha->getLogName(), RES_STRING(CMISS_000033), pInfo->sEffect, pInfo->sDummy1, pChaState->pEffect);
 			}
 		}
 	}

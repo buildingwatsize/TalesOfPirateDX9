@@ -84,7 +84,7 @@ bool CHeadSay::Init()
 	_pImgShopHidden->LoadImage( "texture/ui/hidestall.tga", 25, 32, 0, 0, 0, 1.0, 1.0 );
 
 	_nShopFrameWidth = _ImgShop[0].GetWidth() - 1;
-	_nShopFontYOff = (_ImgShop[0].GetHeight() - CGuiFont::s_Font.GetHeight( g_oLangRec.GetString(489) ))/2;
+	_nShopFontYOff = (_ImgShop[0].GetHeight() - CGuiFont::s_Font.GetHeight( RES_STRING(CL_LANGUAGE_MATCH_489) ))/2;
 
 	for (int i = 0; i < EVIL_MAX; i++)
 	{

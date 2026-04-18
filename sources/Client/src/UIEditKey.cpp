@@ -26,7 +26,7 @@ CEditKey::CEditKey()
 CEditKey::~CEditKey()
 {
 	//delete _pParse;
-	SAFE_DELETE(_pParse); // UIµ±»ú´¦Àí
+	SAFE_DELETE(_pParse); // UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
 bool CEditKey::OnKeyDown( int key )
@@ -64,13 +64,13 @@ bool CEditKey::OnChar( char c )
 {
 	if( _IsReadyOnly ) return false;
 
-	// ÓÐÈýÖÖÇé¿ö£ºÒ»¡¢Ó¢ÎÄ×Ö·û£¬¶þ¡¢ºº×Ö£¬Èý¡¢¿ØÖÆ×Ö·û
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ó¢ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½
 	switch( c )
 	{
-	case '\r':		// »Ø³µ
+	case '\r':		// ï¿½Ø³ï¿½
 		AddChar( new CEditControl( c ) );
 		break;
-	case '\b':		// ÍË¸ñ
+	case '\b':		// ï¿½Ë¸ï¿½
 		break;
 	case '\t':
 		break;
@@ -92,7 +92,7 @@ bool CEditKey::OnChar( char c )
 				if( _ismbslead( (unsigned char*)_szEnter, (unsigned char*)&_szEnter[0] )==0 
 					&& _ismbstrail( (unsigned char*)_szEnter, (unsigned char*)&_szEnter[0] )==0 )
 				{
-					// ÎªÓ¢ÎÄ»ò¿ØÖÆ×Ö·û
+					// ÎªÓ¢ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½
 					_nEnterPos = 0;
 
 					AddChar( new CEditChar( c ) );
@@ -102,7 +102,7 @@ bool CEditKey::OnChar( char c )
 			{
 				if( _ismbslead( (unsigned char*)_szEnter, (unsigned char*)&_szEnter[0] )==-1 && _ismbstrail( (unsigned char*)_szEnter, (unsigned char*)&_szEnter[1] )==-1 )
 				{
-					// ºº×Ö
+					// ï¿½ï¿½ï¿½ï¿½
 					AddChar( new CEditChar( _szEnter[0], _szEnter[1] ) );
 
 
@@ -114,7 +114,7 @@ bool CEditKey::OnChar( char c )
 
 			if( IsError )
 			{
-				// ´íÎó
+				// ï¿½ï¿½ï¿½ï¿½
 				_nEnterPos = 0;
 				_szEnter[1] = 0;
 			}
@@ -149,7 +149,7 @@ bool CEditKey::SetFont( DWORD dwFont )
 void CEditKey::Init()
 {	
 	int w, h;
-	CGuiFont::s_Font.GetSize( _dwFontIndex, g_oLangRec.GetString(489), w, h );
+	CGuiFont::s_Font.GetSize( _dwFontIndex, RES_STRING(CL_LANGUAGE_MATCH_489), w, h );
 	_dwCursorHeight = h;
 }
 
@@ -159,7 +159,7 @@ void CEditKey::AddChar( CEditObj* pObj )
 	if( rv==-1 )
 	{
 		//delete pObj;
-		SAFE_DELETE(pObj); // UIµ±»ú´¦Àí
+		SAFE_DELETE(pObj); // UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}
 	else
 	{

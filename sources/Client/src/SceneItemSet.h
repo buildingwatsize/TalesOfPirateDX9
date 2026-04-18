@@ -8,7 +8,7 @@ public:
 
 	CSceneItemInfo()
 	{
-	   strcpy(szName, g_oLangRec.GetString(351));
+	   strcpy(szName, RES_STRING(CMISS_000351));
 	   nPhotoTexID     = 0;
 	   nAttachEffectID = 0;
     }
@@ -17,12 +17,12 @@ public:
 	int		nAttachEffectID;
     int     nCharacterID;
     BYTE    btWeaponType;  
-    //  武器类型
-    //  0   单手近战武器(同徒手共用)	
-    //  1   双手近战武器	
-    //  2   手持两把近战武器	
-    //  3   单手持枪械武器	
-    //  4   双手持弓箭类武器
+    //  锟斤拷锟斤拷锟斤拷锟斤拷
+    //  0   锟斤拷锟街斤拷战锟斤拷锟斤拷(同徒锟街癸拷锟斤拷)	
+    //  1   双锟街斤拷战锟斤拷锟斤拷	
+    //  2   锟街筹拷锟斤拷锟窖斤拷战锟斤拷锟斤拷	
+    //  3   锟斤拷锟街筹拷枪械锟斤拷锟斤拷	
+    //  4   双锟街持癸拷锟斤拷锟斤拷锟斤拷锟斤拷
 
     //int     nShipLinkID;
     //int     nItemLinkID;
@@ -45,7 +45,7 @@ public:
 
 protected:
 
-	static CSceneItemSet* _Instance; // 相当于单键, 把自己记住
+	static CSceneItemSet* _Instance; // 锟洁当锟节碉拷锟斤拷, 锟斤拷锟皆硷拷锟斤拷住
    
 	virtual CRawDataInfo* _CreateRawDataArray(int nCnt)
 	{

@@ -151,7 +151,7 @@ public:
 	bool	CheckFunction(std::string mapName, std::string funName);
 public:
 	void	CP_GARNER2_GETORDER(Player *ply,DataSocket *datasock,RPacket &pk);//�ͻ������󷴶�����������
-	void	KickUser(DataSocket *datasock,uLong gpaddr,uLong gtaddr);
+	void	KickUser(DataSocket *datasock,LONG64 gpaddr,LONG64 gtaddr);
 	void	SendToAllClients(const WPacket& wpk);
 	void	SendToClient(Player* ply[], short cli_num, const WPacket& wpk);
 	void	SendToClient(Player* ply,WPacket &wpk);

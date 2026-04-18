@@ -92,7 +92,7 @@ void CLU_ExpandBuffer(void** in, int type, int data, int amount)
 	if(!amount) return;
 	if (*in == NULL) {
 		*in = (void*)malloc(amount*type);
-	} else if ((unsigned int)(type*(amount+data)) > _msize(*in)) {
+	} else if ((size_t)(type*(amount+data)) > _msize(*in)) {
 		tmp = (void*)malloc(_msize(*in) + (amount*type));
 		if (_msize(*in) > 0) {
 			memcpy(tmp, *in, _msize(*in));
@@ -117,10 +117,9 @@ void CLU_InsertBuffer(void** in, int type, int sz, void* data, int where, int le
 	memcpy( tmp, *in, where);
 
 	// Insert data in spot
-	memcpy( (void*)((int)tmp + where), data, len);
+	memcpy( (void*)((uintptr_t)tmp + where), data, len);
 
-	// Copy the rest of the data over
-	memcpy( (void*)((int)tmp + where + len), (void*)((int)*in + where), (sz - where));
+	memcpy( (void*)((uintptr_t)tmp + where + len), (void*)((uintptr_t)*in + where), (sz - where));
 
 	SAFE_FREE(*in);
 	*in = tmp;
@@ -141,7 +140,7 @@ void CLU_SnipBuffer(void** in, int type, int sz, int loc, int len)
 	memcpy( (void*)tmp, *in, loc);
 
 	//Copy over part after ommission
-	memcpy( (void*)((int)tmp + loc), (void*)((int)(*in) + loc + len), sz - len - loc);
+	memcpy( (void*)((uintptr_t)tmp + loc), (void*)((uintptr_t)(*in) + loc + len), sz - len - loc);
 
 	SAFE_FREE(*in);
 	*in = tmp;

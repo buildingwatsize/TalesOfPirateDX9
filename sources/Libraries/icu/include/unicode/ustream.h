@@ -1,6 +1,8 @@
+// © 2016 and later: Unicode, Inc. and others.
+// License & terms of use: http://www.unicode.org/copyright.html
 /*
 **********************************************************************
-*   Copyright (C) 2001-2007 International Business Machines
+*   Copyright (C) 2001-2014 International Business Machines
 *   Corporation and others.  All Rights Reserved.
 **********************************************************************
 *  FILE NAME : ustream.h
@@ -11,11 +13,17 @@
 *   06/25/2001  grhoten     Move iostream from unistr.h
 ******************************************************************************
 */
-   
+
 #ifndef USTREAM_H
 #define USTREAM_H
 
+#include "unicode/utypes.h"
+
+#if U_SHOW_CPLUSPLUS_API
+
 #include "unicode/unistr.h"
+
+#if !UCONFIG_NO_CONVERSION  // not available without conversion
 
 /**
  * \file
@@ -26,9 +34,11 @@
  * C++ I/O stream API.
  */
 
-#if U_IOSTREAM_SOURCE >= 199711
-#include <istream>
-#include <ostream>
+#if defined(__GLIBCXX__)
+namespace std { class type_info; } // WORKAROUND: http://llvm.org/bugs/show_bug.cgi?id=13364
+#endif
+
+#include <iostream>
 
 U_NAMESPACE_BEGIN
 
@@ -50,18 +60,10 @@ U_IO_API std::ostream & U_EXPORT2 operator<<(std::ostream& stream, const Unicode
 U_IO_API std::istream & U_EXPORT2 operator>>(std::istream& stream, UnicodeString& s);
 U_NAMESPACE_END
 
-#elif U_IOSTREAM_SOURCE >= 198506
-/* <istream.h> and <ostream.h> don't exist. */
-#include <iostream.h>
-
-U_NAMESPACE_BEGIN
-U_IO_API ostream & U_EXPORT2 operator<<(ostream& stream, const UnicodeString& s);
-
-U_IO_API istream & U_EXPORT2 operator>>(istream& stream, UnicodeString& s);
-U_NAMESPACE_END
-
 #endif
 
 /* No operator for UChar because it can conflict with wchar_t  */
+
+#endif /* U_SHOW_CPLUSPLUS_API */
 
 #endif

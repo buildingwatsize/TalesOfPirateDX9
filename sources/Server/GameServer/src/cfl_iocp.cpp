@@ -12,7 +12,7 @@ using namespace std;
 void cfl_printf(char const* fmt, ...)
     {
     char buf[2048];
-    int len; // len Òª·ÅÔÚ buf ºóÃæ¶¨Òå
+    int len; // len Òªï¿½ï¿½ï¿½ï¿½ buf ï¿½ï¿½ï¿½æ¶¨ï¿½ï¿½
 
     va_list args;
     va_start(args, fmt);
@@ -240,7 +240,7 @@ DWORD WINAPI cfl_iocpclt::wrk_thrd(LPVOID wrk_thrd_ctx)
     while (true)
         {
         // continually loop to service io completion packets
-        ret = GetQueuedCompletionStatus(that->_hIOCP, &io_size, (LPDWORD)&sk_ctx,
+        ret = GetQueuedCompletionStatus(that->_hIOCP, &io_size, (PULONG_PTR)&sk_ctx,
                                         &overlapped, INFINITE);
         if (!ret)
             cfl_printf("Failed to GetQueuedCompletionStatus: %d\n", GetLastError());

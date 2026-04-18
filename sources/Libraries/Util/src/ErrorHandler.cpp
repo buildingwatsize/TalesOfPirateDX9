@@ -93,8 +93,12 @@ void ErrorHandler::DisableErrorDialogs()
 /// @return EXCEPTION_CONTINUE_SEARCH if we want to continue on and show
 /// the default crash dialog.
 LONG WINAPI ErrorHandler::UnhandledExceptionFilter(
-    EXCEPTION_POINTERS* pExceptionPointers) ///< Pointer to information about the exception
+    EXCEPTION_POINTERS* pExceptionPointers)
 {
+	{FILE*_tf=fopen("log\\crash_handler.log","a");
+	if(_tf){fprintf(_tf,"[CRASH] UnhandledExceptionFilter code=0x%08X addr=%p\n",
+		pExceptionPointers->ExceptionRecord->ExceptionCode,
+		pExceptionPointers->ExceptionRecord->ExceptionAddress);fflush(_tf);fclose(_tf);}}
 	RuntimeStack statck(pExceptionPointers);
 	
 	std::stringstream text;
@@ -132,6 +136,8 @@ LONG WINAPI ErrorHandler::UnhandledExceptionFilter(
 /// - The stack is corrupted after throwing an exception.
 void ErrorHandler::TerminateFunction()
 {
+    FILE*_tf=fopen("log\\crash_handler.log","a");
+    if(_tf){fprintf(_tf,"[CRASH] terminate() called\n");fflush(_tf);fclose(_tf);}
     DisplayError(L"Premature shutdown.  terminate() was called.");
     ::ExitProcess(WINUNIT_EXIT_UNHANDLED_EXCEPTION);
 }
@@ -140,6 +146,8 @@ void ErrorHandler::TerminateFunction()
 /// was specified), this function is called when abort() is called.
 void ErrorHandler::AbortFunction(int /* signal */)
 {
+    FILE*_tf=fopen("log\\crash_handler.log","a");
+    if(_tf){fprintf(_tf,"[CRASH] abort() called\n");fflush(_tf);fclose(_tf);}
     DisplayError(L"Premature shutdown.  abort() was called.");
     ::ExitProcess(WINUNIT_EXIT_UNHANDLED_EXCEPTION);
 }

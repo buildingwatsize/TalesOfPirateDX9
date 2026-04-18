@@ -37,11 +37,11 @@ namespace GUI
 	bool CGuildChallengeMgr::Init()
 	{
 		CFormMgr &mgr = CFormMgr::s_Mgr;
-		//³õÊ¼»¯npc¶Ô»°±íµ¥
+		//ï¿½ï¿½Ê¼ï¿½ï¿½npcï¿½Ô»ï¿½ï¿½ï¿½ï¿½ï¿½
 		frmGuildPK  = mgr.Find("frmGuildPK" );
 		if ( !frmGuildPK )
 		{	
-			LG("gui", g_oLangRec.GetString(560));
+			LG("gui", RES_STRING(CL_LANGUAGE_MATCH_560));
 			return false;
 		}
 
@@ -49,7 +49,7 @@ namespace GUI
 		//frmNPCforge->evtClose = _OnClose;
 		//lstGuildPK = dynamic_cast<CList*>(frmGuildPK->Find("lstGuildPK"));
 		//if (!lstGuildPK)
-		//	return Error("NPC.clu½çÃæ<%s>ÉÏÕÒ²»µ½¿Ø¼þ<%s>",
+		//	return Error("NPC.cluï¿½ï¿½ï¿½ï¿½<%s>ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½<%s>",
 		//				 frmGuildPK->GetName(), 
 		//				 "lstGuildPK");
 		char szBuf[32];
@@ -58,28 +58,28 @@ namespace GUI
 			sprintf(szBuf, "labGuildName%d", i);
 			labGuildName[i] = dynamic_cast<CLabel*>(frmGuildPK->Find(szBuf));
 			if (!labGuildName[i]) 
-				return Error(g_oLangRec.GetString(561),
+				return Error(RES_STRING(CMISS_000561),
 				frmGuildPK->GetName(), 
 				szBuf);
 
 			sprintf(szBuf, "labChallenger%d", i);
 			labChallenger[i] = dynamic_cast<CLabel*>(frmGuildPK->Find(szBuf));
 			if (!labChallenger[i]) 
-				return Error(g_oLangRec.GetString(561),
+				return Error(RES_STRING(CMISS_000561),
 				frmGuildPK->GetName(), 
 				szBuf);
 
 			sprintf(szBuf, "labMoney%d", i);
 			labMoney[i] = dynamic_cast<CLabel*>(frmGuildPK->Find(szBuf));
 			if (!labMoney[i]) 
-				return Error(g_oLangRec.GetString(561),
+				return Error(RES_STRING(CMISS_000561),
 				frmGuildPK->GetName(), 
 				szBuf);
 
 			sprintf(szBuf, "btnCharge%d", i);
 			btnCharge[i] = dynamic_cast<CTextButton*>(frmGuildPK->Find(szBuf));
 			if (!btnCharge[i]) 
-				return Error(g_oLangRec.GetString(561),
+				return Error(RES_STRING(CMISS_000561),
 				frmGuildPK->GetName(), 
 				szBuf);
 
@@ -190,13 +190,13 @@ namespace GUI
 		g_stGuildChallenge.m_iChangeMoney = iChargeMoney;
 
 		char buf[256] = { 0 };
-		sprintf(buf, g_oLangRec.GetString(583), StringSplitNum( iChargeMoney ));
+		sprintf(buf, RES_STRING(CL_LANGUAGE_MATCH_583), StringSplitNum( iChargeMoney ));
 		g_stUIBox.ShowSelectBox(_ChargeEvent, buf, true);
 	}
 	//-------------------------------------------------------------------------
 	void CGuildChallengeMgr::_ChargeEvent(CCompent *pSender, int nMsgType, int x, int y, DWORD dwKey)
 	{
-		if( nMsgType!=CForm::mrYes )	// ÐÞÕý¾ºÅÄµãÈ¡ÏûÒ²ÊÕÇ®µÄ BUG  add by Philip.Wu  2006-07-25
+		if( nMsgType!=CForm::mrYes )	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½È¡ï¿½ï¿½Ò²ï¿½ï¿½Ç®ï¿½ï¿½ BUG  add by Philip.Wu  2006-07-25
 		{
 			g_stGuildChallenge.m_iSelIndex = -1;
 			return;
@@ -219,7 +219,7 @@ namespace GUI
 
 		if (m_bStart[iIndex])
 		{
-			g_pGameApp->MsgBox(g_oLangRec.GetString(584));
+			g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_584));
 			return;
 		}
 
@@ -227,7 +227,7 @@ namespace GUI
 		{
 			if (GetChallengeMasterIndex(pMainCha->getGuildName()) != -1)
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(585));
+				g_pGameApp->MsgBox(RES_STRING(CMISS_000585));
 				return;
 			}
 		}
@@ -238,12 +238,12 @@ namespace GUI
 			{
 				if (iIndex == iMasterIndex)
 				{
-					g_pGameApp->MsgBox(g_oLangRec.GetString(586));
+					g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_586));
 					return;
 				}
 				if (iIndex > iMasterIndex)
 				{
-					g_pGameApp->MsgBox(g_oLangRec.GetString(587));
+					g_pGameApp->MsgBox(RES_STRING(CMISS_000587));
 					return;
 				}
 			}
@@ -252,7 +252,7 @@ namespace GUI
 
 		if (strcmp(labChallenger[iIndex]->GetCaption(), pMainCha->getGuildName()) == 0 )
 		{
-			g_pGameApp->MsgBox(g_oLangRec.GetString(588));
+			g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_588));
 			return;
 		}
 		m_iSelIndex = iIndex;
@@ -267,7 +267,7 @@ namespace GUI
 		}
 
 		char szBuf[64];
-		stNumBox* numBox = CBoxMgr::ShowNumberBox(_enterChargeMoney, -1, g_oLangRec.GetString(589), false);
+		stNumBox* numBox = CBoxMgr::ShowNumberBox(_enterChargeMoney, -1, RES_STRING(CMISS_000589), false);
 		sprintf(szBuf, "%d", iNextCharge);
 		numBox->edtNumber->SetCaption(szBuf);
 	}
@@ -290,7 +290,7 @@ namespace GUI
 		{
 			if (lMoney < FIRST_CHARGE_MONEY[iIndex])
 			{
-				g_pGameApp->MsgBox( g_oLangRec.GetString(590) );
+				g_pGameApp->MsgBox( RES_STRING(CL_LANGUAGE_MATCH_590) );
 				return false;
 			}
 		}
@@ -299,14 +299,14 @@ namespace GUI
 			long lMinMoney = m_lChargeMoney[iIndex] + CGuildChallengeMgr::CHARGE_MONEY;
 			if( lMoney < lMinMoney ) 
 			{
-				g_pGameApp->MsgBox( g_oLangRec.GetString(591) );
+				g_pGameApp->MsgBox( RES_STRING(CMISS_000591) );
 				return false;
 			}
 		}
 
 		if (lMoney >= 2000000000)
 		{
-			g_pGameApp->MsgBox( g_oLangRec.GetString(592) );
+			g_pGameApp->MsgBox( RES_STRING(CMISS_000592) );
 			return false;
 		}
 		return true;

@@ -19,54 +19,65 @@ using namespace std;
 #pragma warning(disable: 4355)
 
 
-void CCharacter::DoCommand(cChar *cszCommand, uLong ulLen)
-{T_B
+void CCharacter::DoCommand(cChar* cszCommand, uLong ulLen)
+{
+	T_B
+		// Add by lark.li 20090311 begin
+		if (!cszCommand) // todo: What's this?
+			return;
+	// End
+
 	Char	szComHead[256], szComParam[2048];
 	std::string	strList[10];
 	std::string strPrint = cszCommand;
 
-	Char	*szCom = (Char *)cszCommand;
+	Char* szCom = (Char*)cszCommand;
 	size_t	tStart = strspn(cszCommand, " ");
 	if (tStart >= strlen(cszCommand))
 		return;
 	szCom += tStart;
-	Char	*szParam = strstr(szCom, " ");
+	Char* szParam = strstr(szCom, " ");
 	if (szParam)
 	{
 		*szParam = '\0';
-		strncpy(szComHead, szCom, 256 - 1);
+		//strncpy(szComHead, szCom, 256 - 1);
+		strncpy_s(szComHead, sizeof(szComHead), szCom, _TRUNCATE);
 		if (szParam[1] != '\0')
-			strncpy(szComParam, szParam + 1, 256 - 1);
+			//strncpy(szComParam, szParam + 1, 256 - 1);
+			strncpy_s(szComParam, sizeof(szComParam), szParam + 1, _TRUNCATE);
 		else
 			szComParam[0] = '\0';
 	}
 	else
 	{
-		strncpy(szComHead, szCom, 256 - 1);
+		//strncpy(szComHead, szCom, 256 - 1);
+		strncpy_s(szComHead, sizeof(szComHead), szCom, _TRUNCATE);
 		szComParam[0] = '\0';
 	}
 
-	
+
 	// 检查执行GM指令
-	if(DoGMCommand(szComHead, szComParam))
+	if (DoGMCommand(szComHead, szComParam))
 		//LG("DoCommand", "[执行成功]%s：%s\n", GetLogName(), strPrint.c_str());
 		LG("DoCommand", "[operator succeed]%s：%s\n", GetLogName(), strPrint.c_str());
 	else
 		//LG("DoCommand", "[执行失败]%s：%s\n", GetLogName(), strPrint.c_str());
 		LG("DoCommand", "[operator succeed]%s：%s\n", GetLogName(), strPrint.c_str());
-	
-T_E}
+
+	T_E
+}
 
 
 //--------------------------------------------------------------------------------
 // GM 指令区, 还缺少帐号权限判断
 //--------------------------------------------------------------------------------
 //TODO(Ogge): Extract method for each GM-level
-BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
-{T_B
-	CPlayer *pPlayer = GetPlayer(); 
-	if(!pPlayer) return FALSE;
-	
+BOOL CCharacter::DoGMCommand(const char* pszCmd, const char* pszParam)
+{
+	T_B
+		CPlayer* pPlayer = GetPlayer();
+	if (!pPlayer) return FALSE;
+
 	uChar uchGMLv = pPlayer->GetGMLev();
 	if (uchGMLv == 0)
 	{
@@ -82,13 +93,13 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 	//-----------------------
 	// 所有GM都可以执行的指令
 	//-----------------------
-	if (strCmd==g_Command.m_cMove) // 地图跳转，格式：move x,y,地图名
+	if (strCmd == g_Command.m_cMove) // 地图跳转，格式：move x,y,地图名
 	{
 		int n = Util_ResolveTextLine(pszParam, strList, 10, ',');
 		Point l_aim;
 		l_aim.x = Str2Int(strList[0]) * 100;
 		l_aim.y = Str2Int(strList[1]) * 100;
-		const char	*szMapName = 0;
+		const char* szMapName = 0;
 		short	sMapCpyNO = 0;
 		if (n == 3)
 			szMapName = strList[2].c_str();
@@ -103,28 +114,28 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 		// End
 		return TRUE;
 	}
-	else if(strCmd==g_Command.m_cNotice) // 系统通告
+	else if (strCmd == g_Command.m_cNotice) // 系统通告
 	{
 		g_pGameApp->WorldNotice(pszParam);
 		LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 		return TRUE;
 	}
-	else if(strCmd==g_Command.m_cHide) // 隐身
+	else if (strCmd == g_Command.m_cHide) // 隐身
 	{
 		AddSkillState(m_uchFightID, GetID(), GetHandle(), enumSKILL_TYPE_SELF, enumSKILL_TAR_LORS, enumSKILL_EFF_HELPFUL, SSTATE_HIDE, 1, -1, enumSSTATE_ADD);
 		LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 		return TRUE;
 	}
-	else if(strCmd==g_Command.m_cUnhide) // 显形
+	else if (strCmd == g_Command.m_cUnhide) // 显形
 	{
 		DelSkillState(SSTATE_HIDE);
 		LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 		return TRUE;
 	}
-	else if(strCmd==g_Command.m_cGoto) // 将自己传到某角色身边
+	else if (strCmd == g_Command.m_cGoto) // 将自己传到某角色身边
 	{
 		int n = Util_ResolveTextLine(pszParam, strList, 10, ',');
-		WPACKET WtPk	=GETWPACKET();
+		WPACKET WtPk = GETWPACKET();
 		WRITE_CMD(WtPk, CMD_MM_GOTO_CHA);
 		WRITE_LONG(WtPk, GetID());
 		WRITE_STRING(WtPk, strList[0].c_str());
@@ -135,7 +146,7 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 		return TRUE;
 	}
 
-	if(uchGMLv <= 1)
+	if (uchGMLv <= 1)
 	{
 		//SystemNotice("权限不够!");
 		SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00001));
@@ -145,7 +156,7 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 	//-----------------------
 	// 1级以上GM都可以执行的指令
 	//-----------------------
-	
+
 	if (strCmd == g_Command.m_cMute)
 	{
 		const auto n = Util_ResolveTextLine(pszParam, strList, 10, ',');
@@ -161,7 +172,7 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 		ReflectINFof(this, wpk);
 	}
 
-	if (strCmd==g_Command.m_cKick) // 将玩家踢下线
+	if (strCmd == g_Command.m_cKick) // 将玩家踢下线
 	{
 		int n = Util_ResolveTextLine(pszParam, strList, 10, ',');
 		if (n < 1)
@@ -185,45 +196,45 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 
 	// Modify by lark.li 20080731 begin
 	time_t t = time(0);
-    tm* TM = localtime(&t);
+	tm* TM = localtime(&t);
 
 	bool gmOK = false;
 
-	for(vector<int>::iterator it = g_Config.m_vGMCmd.begin(); it != g_Config.m_vGMCmd.end(); it++)
+	for (vector<int>::iterator it = g_Config.m_vGMCmd.begin(); it != g_Config.m_vGMCmd.end(); it++)
 	{
-		if(TM->tm_wday == *it)
+		if (TM->tm_wday == *it)
 		{
 			gmOK = true;
 			break;
 		}
 	}
 
-	if(!gmOK)
+	if (!gmOK)
 	{
 		SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00047));
 		return FALSE;
 	}
 	// End
 
-	if(uchGMLv != 99)
+	if (uchGMLv != 99)
 	{
 		//SystemNotice("权限不够!");
 		SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00001));
 		return FALSE;
 	}
 
-    LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
+	LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 
-	cChar	*szComHead = pszCmd;
-	cChar	*szComParam = pszParam;
+	cChar* szComHead = pszCmd;
+	cChar* szComParam = pszParam;
 	//-----------------------
 	// 99级GM都可以执行的指令
 	//-----------------------
 	if (!strcmp(szComHead, g_Command.m_cReload)) // 重新读表
 	{
-		cChar *pszChaInfo = "characterinfo";
-		cChar *pszSkillInfo = "skillinfo";
-		cChar *pszItemInfo = "iteminfo";
+		cChar* pszChaInfo = "characterinfo";
+		cChar* pszSkillInfo = "skillinfo";
+		cChar* pszItemInfo = "iteminfo";
 		if (!strcmp(szComParam, pszChaInfo))
 			g_pGameApp->LoadCharacterInfo();
 		else if (!strcmp(szComParam, pszSkillInfo))
@@ -239,15 +250,15 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 		LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 		return TRUE;
 	}
-    else if(!strcmp(szComHead, g_Command.m_cRelive)) // 原地复活
-	{	
+	else if (!strcmp(szComHead, g_Command.m_cRelive)) // 原地复活
+	{
 		LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 		return TRUE;
 	}
-	else if(!strcmp(szComHead, g_Command.m_cQcha)) // 查询角色信息(所在地图,坐标,唯一ID)
+	else if (!strcmp(szComHead, g_Command.m_cQcha)) // 查询角色信息(所在地图,坐标,唯一ID)
 	{
 		int n = Util_ResolveTextLine(pszParam, strList, 10, ',');
-		WPACKET WtPk	=GETWPACKET();
+		WPACKET WtPk = GETWPACKET();
 		WRITE_CMD(WtPk, CMD_MM_QUERY_CHA);
 		WRITE_LONG(WtPk, GetID());
 		WRITE_STRING(WtPk, strList[0].c_str());
@@ -255,10 +266,10 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 		LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 		return TRUE;
 	}
-	else if(!strcmp(szComHead, g_Command.m_cQitem)) // 查询角色道具
+	else if (!strcmp(szComHead, g_Command.m_cQitem)) // 查询角色道具
 	{
 		int n = Util_ResolveTextLine(pszParam, strList, 10, ',');
-		WPACKET WtPk	=GETWPACKET();
+		WPACKET WtPk = GETWPACKET();
 		WRITE_CMD(WtPk, CMD_MM_QUERY_CHAITEM);
 		WRITE_LONG(WtPk, GetID());
 		WRITE_STRING(WtPk, strList[0].c_str());
@@ -266,10 +277,10 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 		LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 		return TRUE;
 	}
-    if(!strcmp(szComHead, g_Command.m_cCall)) // 将单一角色传到身边
+	if (!strcmp(szComHead, g_Command.m_cCall)) // 将单一角色传到身边
 	{
 		int n = Util_ResolveTextLine(pszParam, strList, 10, ',');
-		WPACKET WtPk	=GETWPACKET();
+		WPACKET WtPk = GETWPACKET();
 		WRITE_CMD(WtPk, CMD_MM_CALL_CHA);
 		WRITE_LONG(WtPk, GetID());
 		WRITE_STRING(WtPk, strList[0].c_str());
@@ -292,13 +303,13 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 		LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 		return TRUE;
 	}
-	else if( !strcmp(szComHead, g_Command.m_cUpdateall) ) // 脚本lua更新
+	else if (!strcmp(szComHead, g_Command.m_cUpdateall)) // 脚本lua更新
 	{
 		LoadScript();
-		if ( g_pGameApp->ReloadNpcInfo( *this ) )
+		if (g_pGameApp->ReloadNpcInfo(*this))
 		{
 			//SystemNotice( "NPC对话和任务lua脚本更新成功!" );
-			SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00002) );
+			SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00002));
 		}
 		else
 		{
@@ -307,7 +318,7 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 		LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 		return TRUE;
 	}
-	else if( !strcmp(szComHead, "reloadcfg"))
+	else if (!strcmp(szComHead, "reloadcfg"))
 	{
 		if (!g_Config.Reload((char*)pszParam))
 		{
@@ -319,25 +330,25 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 		}
 		return TRUE;
 	}
-	else if( !strcmp(szComHead, "harmlog=1") ) // 伤害累计计算Log开关
+	else if (!strcmp(szComHead, "harmlog=1")) // 伤害累计计算Log开关
 	{
 		g_bLogHarmRec = TRUE;
 		LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 		return TRUE;
 	}
-	else if( !strcmp(szComHead, "harmlog=0") ) // 伤害累计计算Log开关
+	else if (!strcmp(szComHead, "harmlog=0")) // 伤害累计计算Log开关
 	{
 		g_bLogHarmRec = FALSE;
 		LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 		return TRUE;
 	}
-	else if( !strcmp(szComHead, g_Command.m_cMisreload) ) // 任务脚本更新
+	else if (!strcmp(szComHead, g_Command.m_cMisreload)) // 任务脚本更新
 	{
 		LoadScript();
-		if( g_pGameApp->ReloadNpcInfo( *this ) )
+		if (g_pGameApp->ReloadNpcInfo(*this))
 		{
 			//SystemNotice( "NPC对话和任务lua脚本更新成功!" );
-			SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00002) );
+			SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00002));
 		}
 		else
 		{
@@ -346,160 +357,160 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 		LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 		return TRUE;
 	}
-	else if( !strcmp(szComHead, "reload_ai") )
+	else if (!strcmp(szComHead, "reload_ai"))
 	{
 		ReloadAISdk();
 		LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 		return TRUE;
 	}
-	else if( !strcmp(szComHead, "setrecord" ) ) // 设置角色任务历史标记
+	else if (!strcmp(szComHead, "setrecord")) // 设置角色任务历史标记
 	{
-		int n = Util_ResolveTextLine(szComParam, strList, 10, ',');		
-		USHORT sID   = Str2Int(strList[0]);
-		if( GetPlayer()->MisSetRecord( sID ) )
+		int n = Util_ResolveTextLine(szComParam, strList, 10, ',');
+		USHORT sID = Str2Int(strList[0]);
+		if (GetPlayer()->MisSetRecord(sID))
 		{
 			//SystemNotice( "设置任务历史标记成功!ID[%d]", sID );
-			SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00003), sID );
+			SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00003), sID);
 			LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 			return TRUE;
 		}
 		else
 		{
 			//SystemNotice( "设置任务历史标记失败!ID[%d]", sID );
-			SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00003), sID );
+			SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00003), sID);
 			return FALSE;
 		}
 		LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 		return TRUE;
 	}
-	else if( !strcmp(szComHead, "clearrecord" ) ) // 设置角色任务历史标记
+	else if (!strcmp(szComHead, "clearrecord")) // 设置角色任务历史标记
 	{
-		int n = Util_ResolveTextLine(szComParam, strList, 10, ',');		
-		USHORT sID   = Str2Int(strList[0]);
-		if( GetPlayer()->MisClearRecord( sID ) )
+		int n = Util_ResolveTextLine(szComParam, strList, 10, ',');
+		USHORT sID = Str2Int(strList[0]);
+		if (GetPlayer()->MisClearRecord(sID))
 		{
 			//SystemNotice( "清除任务历史标记成功!ID[%d]", sID );
-			SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00004), sID );
+			SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00004), sID);
 			LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 			return TRUE;
 		}
 		else
 		{
 			//SystemNotice( "清除任务历史标记失败!ID[%d]", sID );
-			SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00005), sID );
+			SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00005), sID);
 			return FALSE;
 		}
 		return TRUE;
 	}
-	else if( !strcmp(szComHead, "setflag" ) ) // 设置任务标记
+	else if (!strcmp(szComHead, "setflag")) // 设置任务标记
 	{
-		int n = Util_ResolveTextLine(szComParam, strList, 10, ',');		
-		USHORT sID   = Str2Int(strList[0]);
+		int n = Util_ResolveTextLine(szComParam, strList, 10, ',');
+		USHORT sID = Str2Int(strList[0]);
 		USHORT sFlag = Str2Int(strList[1]);
-		if( GetPlayer()->MisSetFlag( sID, sFlag ) )
+		if (GetPlayer()->MisSetFlag(sID, sFlag))
 		{
 			//SystemNotice( "设置任务标记成功!ID[%d], FLAG[%d]", sID, sFlag );
-			SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00006), sID, sFlag );
+			SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00006), sID, sFlag);
 			LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 			return TRUE;
 		}
 		else
 		{
 			//SystemNotice( "设置任务标记失败!ID[%d], FLAG[%d]", sID, sFlag );
-			SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00007), sID, sFlag );
+			SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00007), sID, sFlag);
 			return FALSE;
 		}
 		return TRUE;
 	}
-	else if( !strcmp(szComHead, "clearflag" ) ) // 清除任务标记
+	else if (!strcmp(szComHead, "clearflag")) // 清除任务标记
 	{
-		int n = Util_ResolveTextLine(szComParam, strList, 10, ',');		
-		USHORT sID   = Str2Int(strList[0]);
+		int n = Util_ResolveTextLine(szComParam, strList, 10, ',');
+		USHORT sID = Str2Int(strList[0]);
 		USHORT sFlag = Str2Int(strList[1]);
-		if( GetPlayer()->MisClearFlag( sID, sFlag ) )
+		if (GetPlayer()->MisClearFlag(sID, sFlag))
 		{
 			//SystemNotice( "清除任务标记成功!ID[%d], FLAG[%d]", sID, sFlag );
-			SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00008), sID, sFlag );
+			SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00008), sID, sFlag);
 			LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 			return TRUE;
 		}
 		else
 		{
 			//SystemNotice( "清除任务标记失败!ID[%d], FLAG[%d]", sID, sFlag );
-			SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00009), sID, sFlag );
+			SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00009), sID, sFlag);
 			return FALSE;
 		}
 		return TRUE;
 	}
-	else if( !strcmp(szComHead, "addmission" ) ) // 设置任务标记
+	else if (!strcmp(szComHead, "addmission")) // 设置任务标记
 	{
-		int n = Util_ResolveTextLine(szComParam, strList, 10, ',');		
-		USHORT sMID   = Str2Int(strList[0]);
-		USHORT sSID   = Str2Int(strList[1]);
-		if( GetPlayer()->MisAddRole( sMID, sSID ) )
+		int n = Util_ResolveTextLine(szComParam, strList, 10, ',');
+		USHORT sMID = Str2Int(strList[0]);
+		USHORT sSID = Str2Int(strList[1]);
+		if (GetPlayer()->MisAddRole(sMID, sSID))
 		{
 			//SystemNotice( "添加任务成功!MID[%d], SID[%d]", sMID, sSID );
-			SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00010), sMID, sSID );
+			SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00010), sMID, sSID);
 			LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 			return TRUE;
 		}
 		else
 		{
 			//SystemNotice( "添加任务失败!MID[%d], SID[%d]", sMID, sSID );
-			SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00011), sMID, sSID );
+			SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00011), sMID, sSID);
 			return FALSE;
 		}
 		return TRUE;
 	}
-	else if( !strcmp(szComHead, "clearmission" ) ) // 清除任务标记
+	else if (!strcmp(szComHead, "clearmission")) // 清除任务标记
 	{
 		int n = Util_ResolveTextLine(szComParam, strList, 10, ',');
-		USHORT sID   = Str2Int(strList[0]);
-		if( GetPlayer()->MisCancelRole( sID ) )
+		USHORT sID = Str2Int(strList[0]);
+		if (GetPlayer()->MisCancelRole(sID))
 		{
 			//SystemNotice( "清除任务成功!MID[%d]", sID );
-			SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00012), sID );
+			SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00012), sID);
 			LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 			return TRUE;
 		}
 		else
 		{
 			//SystemNotice( "清除任务失败!MID[%d]", sID );
-			SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00013), sID );
+			SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00013), sID);
 			return FALSE;
 		}
 		return TRUE;
 	}
-	else if( !strcmp(szComHead, "delmission" ) ) // 清除任务标记
+	else if (!strcmp(szComHead, "delmission")) // 清除任务标记
 	{
 		int n = Util_ResolveTextLine(szComParam, strList, 10, ',');
-		USHORT sID   = Str2Int(strList[0]);
-		if( GetPlayer()->MisClearRole( sID ) )
+		USHORT sID = Str2Int(strList[0]);
+		if (GetPlayer()->MisClearRole(sID))
 		{
 			//SystemNotice( "删除任务成功!MID[%d]", sID );
-			SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00014), sID );
+			SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00014), sID);
 			LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 			return TRUE;
 		}
 		else
 		{
 			//SystemNotice( "删除任务失败!MID[%d]", sID );
-			SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00015), sID );
+			SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00015), sID);
 			return FALSE;
 		}
 		return TRUE;
 	}
-	else if( !strcmp(szComHead, "missdk" ) )	 // 任务脚本更新
+	else if (!strcmp(szComHead, "missdk"))	 // 任务脚本更新
 	{
 		ReloadLuaSdk();
 		LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 		return TRUE;
 	}
-	else if( !strcmp( szComHead, "misclear") ) // 清除角色任务标签信息和触发器信息
+	else if (!strcmp(szComHead, "misclear")) // 清除角色任务标签信息和触发器信息
 	{
 		GetPlayer()->MisClear();
 		//SystemNotice( "清除角色任务标签信息和触发器信息成功!" );
-		SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00016) );
+		SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00016));
 		LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 		return TRUE;
 	}
@@ -519,7 +530,7 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 		Long	lChaInfoID = Str2Int(strList[0]);
 		Point	Pos = GetPos();
 		Pos.move(rand() % 360, 3 * 100);
-		CCharacter *pCha = m_submap->ChaSpawn(lChaInfoID, enumCHACTRL_PLAYER_PET, rand()%360, &Pos);
+		CCharacter* pCha = m_submap->ChaSpawn(lChaInfoID, enumCHACTRL_PLAYER_PET, rand() % 360, &Pos);
 		if (pCha)
 		{
 			pCha->m_HostCha = this;
@@ -531,7 +542,7 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 		else
 		{
 			//SystemNotice( "召唤宠物失败" );
-			SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00019) );
+			SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00019));
 			return FALSE;
 		}
 		return TRUE;
@@ -544,24 +555,24 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 			Long	lChaInfoID = Str2Int(strList[0]);
 			Point	Pos = GetPos();
 			Pos.move(rand() % 360, 3 * 100);
-			CCharacter *pCha = m_submap->ChaSpawn(lChaInfoID, enumCHACTRL_NONE, rand()%360, &Pos);
+			CCharacter* pCha = m_submap->ChaSpawn(lChaInfoID, enumCHACTRL_NONE, rand() % 360, &Pos);
 			if (pCha)
 			{
-				if(n>=2)
+				if (n >= 2)
 				{
 					DWORD dwLifeTime = Str2Int(strList[1]);
-					pCha->ResetLifeTime(dwLifeTime);	
+					pCha->ResetLifeTime(dwLifeTime);
 				}
-				if( n==3 )
+				if (n == 3)
 				{
 					int nAIType = Str2Int(strList[2]);
-					pCha->m_AIType  = (BYTE)nAIType; // 设置怪物的AI类型
+					pCha->m_AIType = (BYTE)nAIType; // 设置怪物的AI类型
 				}
 			}
 			else
 			{
 				//SystemNotice( "创建怪物失败!" );
-				SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00020) );
+				SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00020));
 				return FALSE;
 			}
 			LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
@@ -580,26 +591,26 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 			if (n > 1)
 				lChaNum = Str2Int(strList[1]);
 			bool	bActEyeshot = false;
-			if( n > 2 )
+			if (n > 2)
 				bActEyeshot = Str2Int(strList[2]) ? true : false;
 			int nAIType = 0;
-			if( n > 3 )
+			if (n > 3)
 				nAIType = Str2Int(strList[3]);
-			CCharacter *pCha;
+			CCharacter* pCha;
 			for (long i = 0; i < lChaNum; i++)
 			{
 				Pos = GetPos();
 				Pos.move(rand() % 360, rand() % 20 * 100);
-				pCha = m_submap->ChaSpawn(lChaInfoID, enumCHACTRL_NONE, rand()%360, &Pos, bActEyeshot);
+				pCha = m_submap->ChaSpawn(lChaInfoID, enumCHACTRL_NONE, rand() % 360, &Pos, bActEyeshot);
 				if (pCha)
 				{
-					if( n > 3 )
+					if (n > 3)
 						pCha->m_AIType = (BYTE)nAIType; // 设置怪物的AI类型
 				}
 				else
 				{
 					//SystemNotice( "创建角色失败!" );
-					SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00021 ));
+					SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00021));
 				}
 			}
 			LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
@@ -612,7 +623,7 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 		int n = Util_ResolveTextLine(szComParam, strList, 10, ',');
 		if (n >= 1)
 		{
-			const char	*szMonsName = strList[0].c_str();
+			const char* szMonsName = strList[0].c_str();
 			long	lRange = 8 * 100;
 			long	lNum = 0;
 			if (n >= 2)
@@ -620,9 +631,9 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 			if (n >= 3)
 				lNum = Str2Int(strList[2]);
 
-			long	lBParam[defSKILL_RANGE_BASEP_NUM] = {GetPos().x, GetPos().y, 0};
-			long	lEParam[defSKILL_RANGE_EXTEP_NUM] = {enumRANGE_TYPE_CIRCLE, lRange};
-			CCharacter	*pCCha = 0, *pCFreeCha = 0;
+			long	lBParam[defSKILL_RANGE_BASEP_NUM] = { GetPos().x, GetPos().y, 0 };
+			long	lEParam[defSKILL_RANGE_EXTEP_NUM] = { enumRANGE_TYPE_CIRCLE, lRange };
+			CCharacter* pCCha = 0, * pCFreeCha = 0;
 			long	lFindNum = 0, lKillNum = 0;
 			GetSubMap()->BeginSearchInRange(lBParam, lEParam);
 			while (pCCha = GetSubMap()->GetNextCharacterInRange())
@@ -647,27 +658,27 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 				pCFreeCha->Free();
 
 			//SystemNotice( "删除怪物数目：%u.!", lKillNum );
-			SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00022), lKillNum );
+			SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00022), lKillNum);
 			LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 			return TRUE;
 		}
 		return FALSE;
 	}
-	
-	if(g_Config.m_bSuperCmd==FALSE)
+
+	if (g_Config.m_bSuperCmd == FALSE)
 	{
 		//SystemNotice("权限不够!");
 		SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00001));
 		return FALSE;
 	}
-	
+
 	//-----------------------------------
 	// 超级调试指令, 与GM指令要严格区分开
 	//-----------------------------------
-	if( !strcmp( szComHead, g_Command.m_cAddmoney ) )
+	if (!strcmp(szComHead, g_Command.m_cAddmoney))
 	{
 		//AddMoney( "系统", atol(szComParam) );
-		AddMoney( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00023), atol(szComParam) );
+		AddMoney(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00023), atol(szComParam));
 		LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 		return TRUE;
 	}
@@ -686,41 +697,41 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 		lua_settop(g_pLuaState, 0);
 		return TRUE;
 	}
-	else if( !strcmp( szComHead, g_Command.m_cAddexp ) )
+	else if (!strcmp(szComHead, g_Command.m_cAddexp))
 	{
-		AddExpAndNotic( atol(szComParam) );
+		AddExpAndNotic(atol(szComParam));
 		LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 		return TRUE;
 	}
-	else if( !strcmp( szComHead, "addlifeexp" ) )
+	else if (!strcmp(szComHead, "addlifeexp"))
 	{
-		AddAttr( ATTR_CLIFEEXP, atol(szComParam) );
+		AddAttr(ATTR_CLIFEEXP, atol(szComParam));
 		//SystemNotice( "系统给了你%ld生活经验!", atol(szComParam) );
-		SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00024), atol(szComParam) );
+		SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00024), atol(szComParam));
 		LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 		return TRUE;
 	}
-	else if( !strcmp( szComHead, "addsailexp" ) )
+	else if (!strcmp(szComHead, "addsailexp"))
 	{
-		AddAttr( ATTR_CSAILEXP, atol(szComParam) );
+		AddAttr(ATTR_CSAILEXP, atol(szComParam));
 		//SystemNotice( "系统给了你%ld转生经验!", atol(szComParam) );
-		SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00025), atol(szComParam) );
+		SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00025), atol(szComParam));
 		LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 		return TRUE;
 	}
-	else if( !strcmp( szComHead, "addcess" ) )
+	else if (!strcmp(szComHead, "addcess"))
 	{
-		AdjustTradeItemCess( 60000, (USHORT)atol(szComParam) );
+		AdjustTradeItemCess(60000, (USHORT)atol(szComParam));
 		//SystemNotice( "添加%ld贸易税点!", atol(szComParam) );
-		SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00026), atol(szComParam) );
+		SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00026), atol(szComParam));
 		LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 		return TRUE;
 	}
-	else if( !strcmp( szComHead, "setcesslevel" ) )
+	else if (!strcmp(szComHead, "setcesslevel"))
 	{
-		SetTradeItemLevel( (BYTE)atol(szComParam) );
+		SetTradeItemLevel((BYTE)atol(szComParam));
 		//SystemNotice( "设置贸易等级%ld!", atol(szComParam) );
-		SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00027), atol(szComParam) );
+		SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00027), atol(szComParam));
 		LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 		return TRUE;
 	}
@@ -728,7 +739,7 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 	{
 		LG("GMmakeLog", "begin make\n");
 		int n = Util_ResolveTextLine(szComParam, strList, 20, ',');
-		if(n >= 2)
+		if (n >= 2)
 		{
 			short	sID = Str2Int(strList[0]);
 			short	sNum = Str2Int(strList[1]);
@@ -740,14 +751,14 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 				chSpawnType = Str2Int(strList[2]);
 			if (n == 4)
 				sTo = Str2Int(strList[3]);
-			
-			
+
+
 			LG("GMmakeLog", "atorNome = %s,sID = %d,sNum = %d,sTo = %d,chSpawnType = %c\n",
-				m_name,sID,sNum,sTo,chSpawnType);
+				m_name, sID, sNum, sTo, chSpawnType);
 
 			if (sTo == 1)
 			{
-				if (AddItem( sID, sNum, this->GetName(), chSpawnType))
+				if (AddItem(sID, sNum, this->GetName(), chSpawnType))
 				{
 					LG("GMmakeLog", "add to kitbag successful!\n");
 					return TRUE;
@@ -758,7 +769,7 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 				SItemGrid GridContent(sID, sNum);
 				ItemInstance(chSpawnType, &GridContent);
 				Long	lPosX, lPosY;
-				CCharacter	*pCCtrlCha = GetPlyCtrlCha();
+				CCharacter* pCCtrlCha = GetPlyCtrlCha();
 				pCCtrlCha->GetTrowItemPos(&lPosX, &lPosY);
 				if (pCCtrlCha->GetSubMap()->ItemSpawn(&GridContent, lPosX, lPosY, enumITEM_APPE_THROW, pCCtrlCha->GetID()))
 				{
@@ -777,7 +788,7 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 		int n = Util_ResolveTextLine(szComParam, strList, 10, ',');
 		if (n < 2)
 			return FALSE;
-		CCharacter	*pCCha = this;
+		CCharacter* pCCha = this;
 
 		long	lAttrID = Str2Int(strList[0]);
 
@@ -824,7 +835,7 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 
 		Char	chPosType = Str2Int(strList[0]);
 		Long	lPosID = Str2Int(strList[1]);
-		SItemGrid	*pSItem = GetItem2(chPosType, lPosID);
+		SItemGrid* pSItem = GetItem2(chPosType, lPosID);
 		if (!pSItem)
 			return FALSE;
 		Long	lAttrID = Str2Int(strList[2]);
@@ -834,26 +845,26 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 		LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
 		return TRUE;
 	}
-	
+
 	else if (!strcmp(szComHead, "setexpiration"))
 	{
-	int n = Util_ResolveTextLine(szComParam, strList, 30, ',');
-	if (n != 3) return FALSE;
-	Char	chPosType = Str2Int(strList[0]);
-	Long	lPosID = Str2Int(strList[1]);
-	SItemGrid* pSItem = GetItem2(chPosType, lPosID);
-	if (!pSItem)
-		return FALSE;
+		int n = Util_ResolveTextLine(szComParam, strList, 30, ',');
+		if (n != 3) return FALSE;
+		Char	chPosType = Str2Int(strList[0]);
+		Long	lPosID = Str2Int(strList[1]);
+		SItemGrid* pSItem = GetItem2(chPosType, lPosID);
+		if (!pSItem)
+			return FALSE;
 
-	int minutes = Str2Int(strList[2]);
-	time_t expirationt;
-	if (minutes == 0) expirationt = 0;
-	else expirationt = std::time(0) + minutes;
-	pSItem->expiration = expirationt;
-	pSItem->SetChange(true);
-	char buf[32];
+		int minutes = Str2Int(strList[2]);
+		time_t expirationt;
+		if (minutes == 0) expirationt = 0;
+		else expirationt = std::time(0) + minutes;
+		pSItem->expiration = expirationt;
+		pSItem->SetChange(true);
+		char buf[32];
 
-	return TRUE;
+		return TRUE;
 
 	}
 
@@ -878,7 +889,7 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 
 		uLong	ulWorldID = Str2Int(strList[0]);
 		short	sAttrID = Str2Int(strList[1]);
-		CCharacter	*pCCha = g_pGameApp->FindChaByID(ulWorldID);
+		CCharacter* pCCha = g_pGameApp->FindChaByID(ulWorldID);
 		if (!pCCha)
 		{
 			//SystemNotice("没有搜索到目标或目标不是角色类对象!");
@@ -898,10 +909,10 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 		if (n == 2)
 			sGridID = Str2Int(strList[1]);
 
-		SItemGrid *pItemCont = m_CKitbag.GetGridContByID(sGridID);
+		SItemGrid* pItemCont = m_CKitbag.GetGridContByID(sGridID);
 		if (pItemCont)
 		{
-			CItemRecord	*pCItemRec = GetItemRecordInfo(pItemCont->sID);
+			CItemRecord* pCItemRec = GetItemRecordInfo(pItemCont->sID);
 			if (pCItemRec && pCItemRec->chForgeLv > 0)
 			{
 				m_CKitbag.SetChangeFlag(false);
@@ -963,7 +974,7 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 	}
 	else if (!strcmp(szComHead, g_Command.m_cLuaall)) // 本组GameServer执行脚本
 	{
-		WPACKET WtPk	=GETWPACKET();
+		WPACKET WtPk = GETWPACKET();
 		WRITE_CMD(WtPk, CMD_MM_DO_STRING);
 		WRITE_LONG(WtPk, GetID());
 		WRITE_STRING(WtPk, szComParam);
@@ -1028,7 +1039,7 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 	{
 		int n = Util_ResolveTextLine(szComParam, strList, 10, ',');
 		short	sAddCap = Str2Int(strList[0]);
-		CCharacter	*pCCha = this;
+		CCharacter* pCCha = this;
 		if (n == 2)
 			pCCha = g_pGameApp->FindChaByID(Str2Int(strList[1]));
 		if (!pCCha)
@@ -1075,143 +1086,143 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 		}
 		else
 			LG("ServerRunLog", "ChaID: %i, ChaName: %s, CMD: %s, Param: %s\n", GetPlayer()->GetID(), GetName(), pszCmd, pszParam);
-			return TRUE;
-	}
-	else if (!strcmp(szComHead, "scroll")) {
-	g_pGameApp->ScrollNotice(szComParam, 2);
 		return TRUE;
 	}
-	else if (!strcmp(szComHead, "generatecharbag")) {					
-	const char *charname = szComParam;
-	CCharacter *player = g_pGameApp->FindChaByName(charname);
-	if (!player) return FALSE;
-	CKitbag inventory[2];
-	inventory[0] = player->m_CKitbag;
-	inventory[1] = *player->GetPlayer()->GetBank();
-	char buf2[50];
-	char buf3[1024];
-	char buf4[300];
-	sprintf(buf2, "%s.txt", charname);
-	ofstream myfile;
-	myfile.open(buf2, ios::out | ios::app);
-	if (myfile.is_open())
-	{
-		for (int p = 0; p < 2; p++) {
-			if (p == 0) {
-				myfile << "INVENTORY ITEMS: \n";
-			}
-			else {
-				myfile << "BANK ITEMS: \n";
-			}
-			for (int i = 0; i < inventory[p].GetCapacity(); i++) {
-				if (inventory[p].GetGridContByID(i)) {
-					
-					sprintf(buf3, "Item Name: %s; Item ID: %d; Position ID: %d\n;", GetItemRecordInfo(inventory[p].GetGridContByID(i)->sID)->szName, inventory[p].GetGridContByID(i)->sID, i);
-					myfile << buf3;
-					sprintf(buf4, "STR (raw): %d. STR (%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(26), inventory[p].GetGridContByID(i)->GetInstAttr(1));
-					myfile << buf4;
-					sprintf(buf4, "AGI (raw): %d. AGI (%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(27), inventory[p].GetGridContByID(i)->GetInstAttr(2));
-					myfile << buf4;
-					sprintf(buf4, "DEX (raw): %d. DEX (%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(28), inventory[p].GetGridContByID(i)->GetInstAttr(3));
-					myfile << buf4;
-					sprintf(buf4, "CON (raw): %d. CON (%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(29), inventory[p].GetGridContByID(i)->GetInstAttr(4));
-					myfile << buf4;
-					sprintf(buf4, "STA (raw): %d. STA (%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(30), inventory[p].GetGridContByID(i)->GetInstAttr(5));
-					myfile << buf4;
-					sprintf(buf4, "LUCK (raw): %d. LUCK (%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(31), inventory[p].GetGridContByID(i)->GetInstAttr(6));
-					myfile << buf4;
-					sprintf(buf4, "ASPD (raw): %d. ASPD(%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(32), inventory[p].GetGridContByID(i)->GetInstAttr(7));
-					myfile << buf4;
-					sprintf(buf4, "ADIS (raw): %d. ADIS (%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(33), inventory[p].GetGridContByID(i)->GetInstAttr(8));
-					myfile << buf4;
-					sprintf(buf4, "MNATK (raw): %d. MNATK (%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(34), inventory[p].GetGridContByID(i)->GetInstAttr(9));
-					myfile << buf4;
-					sprintf(buf4, "MXATK (raw): %d. MXATK (%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(35), inventory[p].GetGridContByID(i)->GetInstAttr(10));
-					myfile << buf4;
-					sprintf(buf4, "DEF (raw): %d. DEF(%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(36), inventory[p].GetGridContByID(i)->GetInstAttr(11));
-					myfile << buf4;
-					sprintf(buf4, "MXHP (raw): %d. MXHP(%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(37), inventory[p].GetGridContByID(i)->GetInstAttr(12));
-					myfile << buf4;
-					sprintf(buf4, "MXSP (raw): %d. MXSP(%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(38), inventory[p].GetGridContByID(i)->GetInstAttr(13));
-					myfile << buf4;
-					sprintf(buf4, "FLEE (raw): %d. FLEE(%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(39), inventory[p].GetGridContByID(i)->GetInstAttr(14));
-					myfile << buf4;
-					sprintf(buf4, "HIT (raw): %d. HIT(%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(40), inventory[p].GetGridContByID(i)->GetInstAttr(15));
-					myfile << buf4;
-					sprintf(buf4, "CRT (raw): %d. CRT(%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(41), inventory[p].GetGridContByID(i)->GetInstAttr(16));
-					myfile << buf4;
-					sprintf(buf4, "MF (raw): %d. MF(%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(42), inventory[p].GetGridContByID(i)->GetInstAttr(17));
-					myfile << buf4;
-					sprintf(buf4, "HREC (raw): %d. HREC(%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(43), inventory[p].GetGridContByID(i)->GetInstAttr(18));
-					myfile << buf4;
-					sprintf(buf4, "SREC (raw): %d. SREC(%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(44), inventory[p].GetGridContByID(i)->GetInstAttr(19));
-					myfile << buf4;
-					sprintf(buf4, "MSPD (raw): %d. MSPD(%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(45), inventory[p].GetGridContByID(i)->GetInstAttr(20));
-					myfile << buf4;
-					sprintf(buf4, "COL (raw): %d. COL(%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(46), inventory[p].GetGridContByID(i)->GetInstAttr(21));
-					myfile << buf4;
-					sprintf(buf4, "PDEF (raw): %d. PDEF(%): %2.2f\n\n", inventory[p].GetGridContByID(i)->GetInstAttr(47), inventory[p].GetGridContByID(i)->GetInstAttr(22));
-					myfile << buf4;
-
+	else if (!strcmp(szComHead, "scroll")) {
+		g_pGameApp->ScrollNotice(szComParam, 2);
+		return TRUE;
+	}
+	else if (!strcmp(szComHead, "generatecharbag")) {
+		const char* charname = szComParam;
+		CCharacter* player = g_pGameApp->FindChaByName(charname);
+		if (!player) return FALSE;
+		CKitbag inventory[2];
+		inventory[0] = player->m_CKitbag;
+		inventory[1] = *player->GetPlayer()->GetBank();
+		char buf2[50];
+		char buf3[1024];
+		char buf4[300];
+		sprintf(buf2, "%s.txt", charname);
+		ofstream myfile;
+		myfile.open(buf2, ios::out | ios::app);
+		if (myfile.is_open())
+		{
+			for (int p = 0; p < 2; p++) {
+				if (p == 0) {
+					myfile << "INVENTORY ITEMS: \n";
 				}
+				else {
+					myfile << "BANK ITEMS: \n";
+				}
+				for (int i = 0; i < inventory[p].GetCapacity(); i++) {
+					if (inventory[p].GetGridContByID(i)) {
+
+						sprintf(buf3, "Item Name: %s; Item ID: %d; Position ID: %d\n;", GetItemRecordInfo(inventory[p].GetGridContByID(i)->sID)->szName, inventory[p].GetGridContByID(i)->sID, i);
+						myfile << buf3;
+						sprintf(buf4, "STR (raw): %d. STR (%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(26), inventory[p].GetGridContByID(i)->GetInstAttr(1));
+						myfile << buf4;
+						sprintf(buf4, "AGI (raw): %d. AGI (%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(27), inventory[p].GetGridContByID(i)->GetInstAttr(2));
+						myfile << buf4;
+						sprintf(buf4, "DEX (raw): %d. DEX (%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(28), inventory[p].GetGridContByID(i)->GetInstAttr(3));
+						myfile << buf4;
+						sprintf(buf4, "CON (raw): %d. CON (%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(29), inventory[p].GetGridContByID(i)->GetInstAttr(4));
+						myfile << buf4;
+						sprintf(buf4, "STA (raw): %d. STA (%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(30), inventory[p].GetGridContByID(i)->GetInstAttr(5));
+						myfile << buf4;
+						sprintf(buf4, "LUCK (raw): %d. LUCK (%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(31), inventory[p].GetGridContByID(i)->GetInstAttr(6));
+						myfile << buf4;
+						sprintf(buf4, "ASPD (raw): %d. ASPD(%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(32), inventory[p].GetGridContByID(i)->GetInstAttr(7));
+						myfile << buf4;
+						sprintf(buf4, "ADIS (raw): %d. ADIS (%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(33), inventory[p].GetGridContByID(i)->GetInstAttr(8));
+						myfile << buf4;
+						sprintf(buf4, "MNATK (raw): %d. MNATK (%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(34), inventory[p].GetGridContByID(i)->GetInstAttr(9));
+						myfile << buf4;
+						sprintf(buf4, "MXATK (raw): %d. MXATK (%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(35), inventory[p].GetGridContByID(i)->GetInstAttr(10));
+						myfile << buf4;
+						sprintf(buf4, "DEF (raw): %d. DEF(%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(36), inventory[p].GetGridContByID(i)->GetInstAttr(11));
+						myfile << buf4;
+						sprintf(buf4, "MXHP (raw): %d. MXHP(%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(37), inventory[p].GetGridContByID(i)->GetInstAttr(12));
+						myfile << buf4;
+						sprintf(buf4, "MXSP (raw): %d. MXSP(%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(38), inventory[p].GetGridContByID(i)->GetInstAttr(13));
+						myfile << buf4;
+						sprintf(buf4, "FLEE (raw): %d. FLEE(%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(39), inventory[p].GetGridContByID(i)->GetInstAttr(14));
+						myfile << buf4;
+						sprintf(buf4, "HIT (raw): %d. HIT(%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(40), inventory[p].GetGridContByID(i)->GetInstAttr(15));
+						myfile << buf4;
+						sprintf(buf4, "CRT (raw): %d. CRT(%%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(41), inventory[p].GetGridContByID(i)->GetInstAttr(16));
+						myfile << buf4;
+						sprintf(buf4, "MF (raw): %d. MF(%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(42), inventory[p].GetGridContByID(i)->GetInstAttr(17));
+						myfile << buf4;
+						sprintf(buf4, "HREC (raw): %d. HREC(%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(43), inventory[p].GetGridContByID(i)->GetInstAttr(18));
+						myfile << buf4;
+						sprintf(buf4, "SREC (raw): %d. SREC(%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(44), inventory[p].GetGridContByID(i)->GetInstAttr(19));
+						myfile << buf4;
+						sprintf(buf4, "MSPD (raw): %d. MSPD(%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(45), inventory[p].GetGridContByID(i)->GetInstAttr(20));
+						myfile << buf4;
+						sprintf(buf4, "COL (raw): %d. COL(%): %2.2f\n", inventory[p].GetGridContByID(i)->GetInstAttr(46), inventory[p].GetGridContByID(i)->GetInstAttr(21));
+						myfile << buf4;
+						sprintf(buf4, "PDEF (raw): %d. PDEF(%): %2.2f\n\n", inventory[p].GetGridContByID(i)->GetInstAttr(47), inventory[p].GetGridContByID(i)->GetInstAttr(22));
+						myfile << buf4;
+
+					}
+				}
+				myfile << "=========================================\n";
 			}
-			myfile << "=========================================\n";
-		}
-		myfile << "EQUIPMENTS: \n";
-		for (int i = 0; i < 34; i++) {
-			if (player->m_SChaPart.SLink[i].sID) {
-				sprintf(buf3, "Item ID: %d; SLink (position) ID: %d\n;", player->m_SChaPart.SLink[i].sID, i);
-				myfile << buf3;
-				sprintf(buf4, "STR (raw): %d. STR (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(26), player->m_SChaPart.SLink[i].GetInstAttr(1));
-				myfile << buf4;
-				sprintf(buf4, "AGI (raw): %d. AGI (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(27), player->m_SChaPart.SLink[i].GetInstAttr(2));
-				myfile << buf4;
-				sprintf(buf4, "DEX (raw): %d. DEX (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(28), player->m_SChaPart.SLink[i].GetInstAttr(3));
-				myfile << buf4;
-				sprintf(buf4, "CON (raw): %d. CON (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(29), player->m_SChaPart.SLink[i].GetInstAttr(4));
-				myfile << buf4;
-				sprintf(buf4, "STA (raw): %d. STA (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(30), player->m_SChaPart.SLink[i].GetInstAttr(5));
-				myfile << buf4;
-				sprintf(buf4, "LUCK (raw): %d. LUCK (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(31), player->m_SChaPart.SLink[i].GetInstAttr(6));
-				myfile << buf4;
-				sprintf(buf4, "ASPD (raw): %d. ASPD(%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(32), player->m_SChaPart.SLink[i].GetInstAttr(7));
-				myfile << buf4;
-				sprintf(buf4, "ADIS (raw): %d. ADIS (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(33), player->m_SChaPart.SLink[i].GetInstAttr(8));
-				myfile << buf4;
-				sprintf(buf4, "MNATK (raw): %d. MNATK (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(34), player->m_SChaPart.SLink[i].GetInstAttr(9));
-				myfile << buf4;
-				sprintf(buf4, "MXATK (raw): %d. MXATK (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(35), player->m_SChaPart.SLink[i].GetInstAttr(10));
-				myfile << buf4;
-				sprintf(buf4, "DEF (raw): %d. DEF(%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(36), player->m_SChaPart.SLink[i].GetInstAttr(11));
-				myfile << buf4;
-				sprintf(buf4, "MXHP (raw): %d. MXHP(%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(37), player->m_SChaPart.SLink[i].GetInstAttr(12));
-				myfile << buf4;
-				sprintf(buf4, "MXSP (raw): %d. MXSP(%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(38), player->m_SChaPart.SLink[i].GetInstAttr(13));
-				myfile << buf4;
-				sprintf(buf4, "FLEE (raw): %d. FLEE(%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(39), player->m_SChaPart.SLink[i].GetInstAttr(14));
-				myfile << buf4;
-				sprintf(buf4, "HIT (raw): %d. HIT(%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(40), player->m_SChaPart.SLink[i].GetInstAttr(15));
-				myfile << buf4;
-				sprintf(buf4, "CRT (raw): %d. CRT(%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(41), player->m_SChaPart.SLink[i].GetInstAttr(16));
-				myfile << buf4;
-				sprintf(buf4, "MF (raw): %d. MF(%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(42), player->m_SChaPart.SLink[i].GetInstAttr(17));
-				myfile << buf4;
-				sprintf(buf4, "HREC (raw): %d. HREC(%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(43), player->m_SChaPart.SLink[i].GetInstAttr(18));
-				myfile << buf4;
-				sprintf(buf4, "SREC (raw): %d. SREC(%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(44), player->m_SChaPart.SLink[i].GetInstAttr(19));
-				myfile << buf4;
-				sprintf(buf4, "MSPD (raw): %d. MSPD(%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(45), player->m_SChaPart.SLink[i].GetInstAttr(20));
-				myfile << buf4;
-				sprintf(buf4, "COL (raw): %d. COL(%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(46), player->m_SChaPart.SLink[i].GetInstAttr(21));
-				myfile << buf4;
-				sprintf(buf4, "PDEF (raw): %d. PDEF(%): %2.2f\n\n", player->m_SChaPart.SLink[i].GetInstAttr(47), player->m_SChaPart.SLink[i].GetInstAttr(22));
-				myfile << buf4;
+			myfile << "EQUIPMENTS: \n";
+			for (int i = 0; i < 34; i++) {
+				if (player->m_SChaPart.SLink[i].sID) {
+					sprintf(buf3, "Item ID: %d; SLink (position) ID: %d\n;", player->m_SChaPart.SLink[i].sID, i);
+					myfile << buf3;
+					sprintf(buf4, "STR (raw): %d. STR (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(26), player->m_SChaPart.SLink[i].GetInstAttr(1));
+					myfile << buf4;
+					sprintf(buf4, "AGI (raw): %d. AGI (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(27), player->m_SChaPart.SLink[i].GetInstAttr(2));
+					myfile << buf4;
+					sprintf(buf4, "DEX (raw): %d. DEX (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(28), player->m_SChaPart.SLink[i].GetInstAttr(3));
+					myfile << buf4;
+					sprintf(buf4, "CON (raw): %d. CON (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(29), player->m_SChaPart.SLink[i].GetInstAttr(4));
+					myfile << buf4;
+					sprintf(buf4, "STA (raw): %d. STA (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(30), player->m_SChaPart.SLink[i].GetInstAttr(5));
+					myfile << buf4;
+					sprintf(buf4, "LUCK (raw): %d. LUCK (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(31), player->m_SChaPart.SLink[i].GetInstAttr(6));
+					myfile << buf4;
+					sprintf(buf4, "ASPD (raw): %d. ASPD(%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(32), player->m_SChaPart.SLink[i].GetInstAttr(7));
+					myfile << buf4;
+					sprintf(buf4, "ADIS (raw): %d. ADIS (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(33), player->m_SChaPart.SLink[i].GetInstAttr(8));
+					myfile << buf4;
+					sprintf(buf4, "MNATK (raw): %d. MNATK (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(34), player->m_SChaPart.SLink[i].GetInstAttr(9));
+					myfile << buf4;
+					sprintf(buf4, "MXATK (raw): %d. MXATK (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(35), player->m_SChaPart.SLink[i].GetInstAttr(10));
+					myfile << buf4;
+					sprintf(buf4, "DEF (raw): %d. DEF(%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(36), player->m_SChaPart.SLink[i].GetInstAttr(11));
+					myfile << buf4;
+					sprintf(buf4, "MXHP (raw): %d. MXHP(%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(37), player->m_SChaPart.SLink[i].GetInstAttr(12));
+					myfile << buf4;
+					sprintf(buf4, "MXSP (raw): %d. MXSP(%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(38), player->m_SChaPart.SLink[i].GetInstAttr(13));
+					myfile << buf4;
+					sprintf(buf4, "FLEE (raw): %d. FLEE(%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(39), player->m_SChaPart.SLink[i].GetInstAttr(14));
+					myfile << buf4;
+					sprintf(buf4, "HIT (raw): %d. HIT(%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(40), player->m_SChaPart.SLink[i].GetInstAttr(15));
+					myfile << buf4;
+					sprintf(buf4, "CRT (raw): %d. CRT(%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(41), player->m_SChaPart.SLink[i].GetInstAttr(16));
+					myfile << buf4;
+					sprintf(buf4, "MF (raw): %d. MF(%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(42), player->m_SChaPart.SLink[i].GetInstAttr(17));
+					myfile << buf4;
+					sprintf(buf4, "HREC (raw): %d. HREC(%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(43), player->m_SChaPart.SLink[i].GetInstAttr(18));
+					myfile << buf4;
+					sprintf(buf4, "SREC (raw): %d. SREC(%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(44), player->m_SChaPart.SLink[i].GetInstAttr(19));
+					myfile << buf4;
+					sprintf(buf4, "MSPD (raw): %d. MSPD(%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(45), player->m_SChaPart.SLink[i].GetInstAttr(20));
+					myfile << buf4;
+					sprintf(buf4, "COL (raw): %d. COL(%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(46), player->m_SChaPart.SLink[i].GetInstAttr(21));
+					myfile << buf4;
+					sprintf(buf4, "PDEF (raw): %d. PDEF(%): %2.2f\n\n", player->m_SChaPart.SLink[i].GetInstAttr(47), player->m_SChaPart.SLink[i].GetInstAttr(22));
+					myfile << buf4;
+				}
+
 			}
-	
+			myfile.close();
 		}
-		myfile.close();
-		}
-	SystemNotice(".txt created!");
+		SystemNotice(".txt created!");
 		return TRUE;
 	}
 	else if (!strcmp(szComHead, "editcharbag")) {
@@ -1229,152 +1240,162 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 			p = player->m_CKitbag.GetGridContByID(positionID)->SetInstAttr(ATTR_TYPE, ATTR_VALUE);
 		}
 		else if (TYPE == 2) {
-		 p = player->m_SChaPart.SLink[positionID].SetInstAttr(ATTR_TYPE, ATTR_VALUE);
+			p = player->m_SChaPart.SLink[positionID].SetInstAttr(ATTR_TYPE, ATTR_VALUE);
 		}
 		else if (TYPE == 3) {
 			p = player->GetPlayer()->GetBank()->GetGridContByID(positionID)->SetInstAttr(ATTR_TYPE, ATTR_VALUE);
 		}
-		
+
 		sprintf(buffer, "Attribute updated (1 is ok, 0 is not ok) =  %d", p);
 		SystemNotice(buffer);
 		player->SynKitbagNew(enumSYN_KITBAG_PICK);
 		return TRUE;
 	}
 
-	
+
 
 
 	SystemNotice("Invalid command!");
 	return FALSE;
-T_E}
+	T_E
+}
 
 // 查询服务器状态
-void CCharacter::DoCommand_CheckStatus(cChar *pszCommand, uLong ulLen)
-{T_B
-	Char szComHead[256], szComParam[256];
+void CCharacter::DoCommand_CheckStatus(cChar* pszCommand, uLong ulLen)
+{
+	T_B
+		Char szComHead[256], szComParam[256];
 	std::string	strList[10];
 
 	int n = Util_ResolveTextLine(pszCommand, strList, 10, ' ');
-	strncpy(szComHead, strlwr((char *)strList[0].c_str()), 256 - 1);
+	strncpy(szComHead, strlwr((char*)strList[0].c_str()), 256 - 1);
 	strncpy(szComParam, strList[1].c_str(), 256 - 1);
 
-	string strCmd   = szComHead;
+	string strCmd = szComHead;
 	string strParam = szComParam;
 
-	if(strCmd=="game_status")	 // 返回gameserver的状态
+	if (strCmd == "game_status")	 // 返回gameserver的状态
 	{
 		char szInfo[255];
-		sprintf(szInfo, "fps:%d tick:%d player:%d mgr:%d\n", g_pGameApp->m_dwFPS, 
-			                     g_pGameApp->m_dwRunCnt, g_pGameApp->m_dwPlayerCnt,
-								 g_pGameApp->m_dwActiveMgrUnit);
+		sprintf(szInfo, "fps:%d tick:%d player:%d mgr:%d\n", g_pGameApp->m_dwFPS,
+			g_pGameApp->m_dwRunCnt, g_pGameApp->m_dwPlayerCnt,
+			g_pGameApp->m_dwActiveMgrUnit);
 		SystemNotice(szInfo);
 	}
-	else if (strCmd=="ping_game") // 查询角色到GameServer逻辑层的ping值
+	else if (strCmd == "ping_game") // 查询角色到GameServer逻辑层的ping值
 	{
 		int n = Util_ResolveTextLine(szComParam, strList, 10, ',');
-		WPACKET WtPk  = GETWPACKET();
+		WPACKET WtPk = GETWPACKET();
 		WRITE_CMD(WtPk, CMD_MM_QUERY_CHAPING);
 		WRITE_LONG(WtPk, GetID());
 		WRITE_STRING(WtPk, strList[0].c_str());
 		ReflectINFof(this, WtPk);//通告
 	}
-T_E}
+	T_E
+}
 
-	
+
 // NPC对玩家自己私人的说话， 别人无法看见的
-void NPC_PrivateTalk(CCharacter *pCha, CCharacter *pNPC, const char *pszText)
+void NPC_PrivateTalk(CCharacter* pCha, CCharacter* pNPC, const char* pszText)
 {
-	WPACKET wpk	= GETWPACKET();
+	// Add by lark.li 20090311 begin
+	if (!pszText) // todo: What's this?
+		return;
+	// End
+
+	WPACKET wpk = GETWPACKET();
 	WRITE_CMD(wpk, CMD_MC_SAY);
 	WRITE_LONG(wpk, pNPC->m_ID);
 	WRITE_SEQ(wpk, pszText, uShort(strlen(pszText) + 1));
 	pCha->ReflectINFof(pCha, wpk);
-}		
+}
 
 // 玩家请求帮助查询
-void CCharacter::HandleHelp(cChar *pszCommand, uLong ulLen)
-{T_B
-	if(!pszCommand)           return;
-	
-	if(ulLen==0 || strlen(pszCommand)==0) 
+void CCharacter::HandleHelp(cChar* pszCommand, uLong ulLen)
+{
+	T_B
+		if (!pszCommand)           return;
+
+	if (ulLen == 0 || strlen(pszCommand) == 0)
 	{
 		//SystemNotice( "你想打听什么?" );
-		SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00040) );
+		SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00040));
 		return;
 	}
 
 	// 如果玩家距离npc太远, 也不考虑
-	if(GetSubMap()==NULL) return;
-	if(strcmp(GetSubMap()->GetName(), "garner")!=0) return;
+	if (GetSubMap() == NULL) return;
+	if (strcmp(GetSubMap()->GetName(), "garner") != 0) return;
 
 	int x = this->GetPos().x / 100;
 	int y = this->GetPos().y / 100;
 
-	if(g_HelpNPCList.size()==0) return;
+	if (g_HelpNPCList.size() == 0) return;
 
-	CCharacter *pNPC1 = g_HelpNPCList.front();
-	if(pNPC1==NULL)
+	CCharacter* pNPC1 = g_HelpNPCList.front();
+	if (pNPC1 == NULL)
 	{
 		//LG("error", "查询NPC为空\n");
 		LG("error", "inquire NPC is empty\n");
 		return;
 	}
 
-	if(! ( abs(x - 2222) < 4 && abs(y - 2888) < 4) )
+	if (!(abs(x - 2222) < 4 && abs(y - 2888) < 4))
 	{
 		//SystemNotice( "附近没有可以回答问题的人!" );
-		SystemNotice( RES_STRING(GM_CHARACTERSUPERCMD_CPP_00041) );
+		SystemNotice(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00041));
 		return;
 	}
-	
+
 	std::string	strList[3];
 	int n = Util_ResolveTextLine(pszCommand, strList, 3, ' ');
-	
-	const char *pszHelp = FindHelpInfo(strList[0].c_str());
-	
-	
-	char szTip[128]; 
+
+	const char* pszHelp = FindHelpInfo(strList[0].c_str());
+
+
+	char szTip[128];
 	//sprintf(szTip, "打听有关'%s':\n", strList[0].c_str()); 
-	sprintf(szTip, RES_STRING(GM_CHARACTERSUPERCMD_CPP_00042), strList[0].c_str()); 
-	if(strList[0]=="time")	// 当前时间查询
+	sprintf(szTip, RES_STRING(GM_CHARACTERSUPERCMD_CPP_00042), strList[0].c_str());
+	if (strList[0] == "time")	// 当前时间查询
 	{
 		//SystemNotice( szTip );
 		//GetCurrentTime()
 		//SystemNotice( "force is strong with this one!");
 	}
 	//else if(strList[0]=="ryan" || strList[0]=="新一代爆头专家")
-	else if(strList[0]=="ryan" || strList[0]==RES_STRING(GM_CHARACTERSUPERCMD_CPP_00043))
+	else if (strList[0] == "ryan" || strList[0] == RES_STRING(GM_CHARACTERSUPERCMD_CPP_00043))
 	{
-		SystemNotice( szTip );
+		SystemNotice(szTip);
 		NPC_PrivateTalk(this, pNPC1, "force is strong with this one!");
 		return;
 	}
-	
-	if(pszHelp==NULL)
+
+	if (pszHelp == NULL)
 	{
-		SystemNotice( szTip );
+		SystemNotice(szTip);
 		//NPC_PrivateTalk(this, pNPC1, "真糟糕,看来我年纪大了,你问倒我了!");
 		NPC_PrivateTalk(this, pNPC1, RES_STRING(GM_CHARACTERSUPERCMD_CPP_00044));
 	}
 	else
 	{
 		//if(strcmp(GetName(), "新一代爆头专家")==0) // 此角色打听信息不收钱,不影响游戏平衡
-		if(strcmp(GetName(), RES_STRING(GM_CHARACTERSUPERCMD_CPP_00043))==0) // 此角色打听信息不收钱,不影响游戏平衡
+		if (strcmp(GetName(), RES_STRING(GM_CHARACTERSUPERCMD_CPP_00043)) == 0) // 此角色打听信息不收钱,不影响游戏平衡
 		{
-			SystemNotice( szTip );
+			SystemNotice(szTip);
 			NPC_PrivateTalk(this, pNPC1, pszHelp);
 		}
 		//else if(TakeMoney("万事通", 100))
-		else if(TakeMoney(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00045), 100))
+		else if (TakeMoney(RES_STRING(GM_CHARACTERSUPERCMD_CPP_00045), 100))
 		{
-			SystemNotice( szTip );
+			SystemNotice(szTip);
 			NPC_PrivateTalk(this, pNPC1, pszHelp);
 		}
 		else
 		{
-			SystemNotice( szTip );
+			SystemNotice(szTip);
 			//NPC_PrivateTalk(this, pNPC1, "对不起, Money Talk!" );
-			NPC_PrivateTalk(this, pNPC1, RES_STRING(GM_CHARACTERSUPERCMD_CPP_00046) );
+			NPC_PrivateTalk(this, pNPC1, RES_STRING(GM_CHARACTERSUPERCMD_CPP_00046));
 		}
 	}
-T_E}
+	T_E
+}

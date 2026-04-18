@@ -76,11 +76,13 @@ MPGameApp::~MPGameApp()
 
 BOOL MPGameApp::Init(HINSTANCE hInst,const char *pszClassName, int nScrWidth, int nScrHeight, int nColorBit, BOOL bFullScreen)
 {
+	{ FILE* _f=fopen("log\\trace_init.log","w"); if(_f){fprintf(_f,"MPGameApp::Init enter class=%s %dx%d\n",pszClassName,nScrWidth,nScrHeight);fclose(_f);} }
+
 	_hInst			= hInst;
 
 	DWORD dwWindowStyle = WS_CAPTION|WS_SYSMENU|WS_MINIMIZEBOX; 
 	
-    if(bFullScreen==2 ||bFullScreen==1) // αȫ��
+    if(bFullScreen==2 ||bFullScreen==1)
     {
         dwWindowStyle = WS_VISIBLE|WS_POPUP|WS_CLIPCHILDREN;
     }
@@ -92,22 +94,30 @@ BOOL MPGameApp::Init(HINSTANCE hInst,const char *pszClassName, int nScrWidth, in
 	int nCaptionSize = GetSystemMetrics(SM_CXSIZE);
 
     int nWindowWidth = rc.right - rc.left;
-    int nWindowHeight = rc.bottom - rc.top; // nScrHeight + nFrameSize + nCaptionSize;
+    int nWindowHeight = rc.bottom - rc.top;
+
+	{ FILE* _f=fopen("log\\trace_init.log","a"); if(_f){fprintf(_f,"Creating window %dx%d...\n",nWindowWidth,nWindowHeight);fclose(_f);} }
+
 	_hWnd = CreateWindow(pszClassName, "MindPower3D Application", dwWindowStyle, 
 	CW_USEDEFAULT, CW_USEDEFAULT, nWindowWidth, nWindowHeight, NULL, NULL, hInst, NULL);
 
+	{ FILE* _f=fopen("log\\trace_init.log","a"); if(_f){fprintf(_f,"CreateWindow returned hWnd=%p\n",(void*)_hWnd);fflush(_f);fclose(_f);} }
+
 	if(!_hWnd)
 	{
+		{ FILE* _f=fopen("log\\trace_init.log","a"); if(_f){fprintf(_f,"HWND is NULL!\n");fclose(_f);} }
 		return FALSE;
 	}
 
+	{ FILE* _f=fopen("log\\trace_init.log","a"); if(_f){fprintf(_f,"GetClientRect...\n");fflush(_f);fclose(_f);} }
     GetClientRect(_hWnd, &rc);
     _nWindowWidth  = rc.right  - rc.left;
     _nWindowHeight = rc.bottom - rc.top;
     _bFullScreen   = bFullScreen;
     
+	{ FILE* _f=fopen("log\\trace_init.log","a"); if(_f){fprintf(_f,"pre-SetMessageWnd ptr=%p\n",(void*)CLogMgr::Instance());fflush(_f);fclose(_f);} }
     CLogMgr::Instance()->SetMessageWnd(_hWnd);
-
+	{ FILE* _f=fopen("log\\trace_init.log","a"); if(_f){fprintf(_f,"post-SetMessageWnd\n");fflush(_f);fclose(_f);} }
 	int dev_width;
     int dev_height;
 
@@ -121,6 +131,8 @@ BOOL MPGameApp::Init(HINSTANCE hInst,const char *pszClassName, int nScrWidth, in
         dev_width = _nWindowWidth;
         dev_height = _nWindowHeight;
     }
+
+	{ FILE* _f=fopen("log\\trace_init.log","a"); if(_f){fprintf(_f,"Calling g_Render.Init hWnd=%p %dx%d\n",(void*)_hWnd,dev_width,dev_height);fflush(_f);fclose(_f);} }
 
    	if(!g_Render.Init(_hWnd, dev_width, dev_height, nColorBit, bFullScreen))
     {

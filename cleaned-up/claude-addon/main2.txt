@@ -1,0 +1,71 @@
+=== Lines 520-560 ===
+520: 
+521: 	g_pGameApp->End();
+522:     SAFE_DELETE(g_pGameApp);
+523: 
+524:     ::DeleteObject(brush);
+525: 
+526: 	UnmapViewOfFile(pClientLogNO);
+527: 	CloseHandle(hFile);
+528: 	GetRegionMgr()->Exit();
+529: 
+530: 	if( g_IsAutoUpdate )  	// ����?�Զ�����ʱ ��ʾԭʼ���� ����kop.exe
+531: 	{
+532: 		::WinExec( "Launcher.exe", SW_SHOWNORMAL );
+533: 	}
+534: 	// �Զ�����ʱ �쳣�������?
+535: 	}
+536: 	catch(std::exception& e)
+537: 	{
+538: 		std::string	strfile;
+539: 		LG_GetDir(strfile);
+540: 		strfile += "\\exception.txt";
+541: 
+542: 		FILE * fp = fopen(strfile.c_str(),"a+");
+543: 
+544: 		if(fp)
+545: 		{
+546: 			SYSTEMTIME st;
+547: 			char tim[100] = {0};
+548: 			GetLocalTime(&st);
+549: 			sprintf(tim, "%02d-%02d %02d:%02d:%02d\r\n", st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond);
+550: 
+551: 			fwrite(tim,strlen(tim),1,fp);
+552: 
+553: 			try
+554: 			{
+555: 				OSVERSIONINFOEX osvi;
+556: 				BOOL bOsVersionInfoEx;
+557: 
+558: 				// Try calling GetVersionEx using the OSVERSIONINFOEX structure.
+559: 				ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
+560: 				osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
+
+=== Lines 705-730 ===
+705: 			catch(...)
+706: 			{
+707: 				fwrite("GetDeviceCaps error\r\n",strlen("GetDeviceCaps error\r\n") - 1,1,fp);
+708: 			}
+709: 
+710: 			fwrite(e.what(),strlen(e.what()) - 1,1,fp);
+711: 			fclose(fp);
+712: 		}
+713: 		WinExec("system/errorreport.exe", SW_SHOW);
+714: 	}
+715: 	catch( ... )
+716: 	{
+717: 		MessageBox( NULL, g_oLangRec.GetString(186), g_oLangRec.GetString(185), 0 );
+718: 	}
+719: 
+720: 	return 0;
+721: }
+722: 
+723: 
+724: //
+725: //  FUNCTION: MyRegisterClass()
+726: //
+727: //  PURPOSE: Registers the window class.
+728: //
+729: //  COMMENTS:
+730: //
+731: //    This function and its usage are only necessary if you want this code

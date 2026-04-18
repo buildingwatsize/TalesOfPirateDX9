@@ -51,7 +51,7 @@ CMember::~CMember()
     //{
     //    delete _pData;
     //}
-	SAFE_DELETE(_pData); // UIµ±»ú´¦Àí
+	SAFE_DELETE(_pData); // UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
 void CMember::Refresh()
@@ -162,7 +162,7 @@ CMember* CTeam::Add( unsigned long nID, const char* szName,const char* szMotto, 
 		CMember* tmp;
 		string strMotto;
 		if (szMotto==NULL)
-			strMotto=g_oLangRec.GetString(778);
+			strMotto=RES_STRING(CMISS_000778);
 		else
 			strMotto=szMotto;
 
@@ -224,7 +224,7 @@ bool CTeam::Del( unsigned long nID )
         {
 			_nCount--;
             //delete *it;
-			SAFE_DELETE(*it); // UIµ±»ú´¦Àí
+			SAFE_DELETE(*it); // UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             _member.erase( it );
 
 		    g_stUIChat.TeamSend( enumSTM_AFTER_DEL_MEMBER, NULL, GetStyle() );
@@ -242,7 +242,7 @@ bool CTeam::DelByName( const char* szName )
         {
 			_nCount--;
             //delete *it;
-			SAFE_DELETE(*it); // UIµ±»ú´¦Àí
+			SAFE_DELETE(*it); // UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             _member.erase( it );
 
 		    g_stUIChat.TeamSend( enumSTM_AFTER_DEL_MEMBER, NULL, GetStyle() );
@@ -258,7 +258,7 @@ void CTeam::Clear()
     for( members::iterator it=_member.begin(); it!=_member.end(); it++ )
 	{
 		//  delete *it;
-		SAFE_DELETE(*it); // UIµ±»ú´¦Àí
+		SAFE_DELETE(*it); // UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}
 
     _member.clear();
@@ -291,11 +291,11 @@ DWORD CTeamMgr::_dwTeamLeaderID = 0;
 
 CTeamMgr::CTeamMgr()
 {
-	_pFrndTeam     = new CTeam(enumTeamFrnd,     g_oLangRec.GetString(466));
-    _pGroupTeam    = new CTeam(enumTeamGroup,    g_oLangRec.GetString(299));
-    _pRoadTeam     = new CTeam(enumTeamRoad,     g_oLangRec.GetString(469));
-	_pMasterTeam   = new CTeam(enumTeamMaster,   g_oLangRec.GetString(850));
-	_pPrenticeTeam = new CTeam(enumTeamPrentice, g_oLangRec.GetString(851));
+	_pFrndTeam     = new CTeam(enumTeamFrnd,     RES_STRING(CL_LANGUAGE_MATCH_466));
+    _pGroupTeam    = new CTeam(enumTeamGroup,    RES_STRING(CL_LANGUAGE_MATCH_299));
+    _pRoadTeam     = new CTeam(enumTeamRoad,     RES_STRING(CL_LANGUAGE_MATCH_469));
+	_pMasterTeam   = new CTeam(enumTeamMaster,   RES_STRING(CL_LANGUAGE_MATCH_855));
+	_pPrenticeTeam = new CTeam(enumTeamPrentice, RES_STRING(CL_LANGUAGE_MATCH_851));
 	_pGMTeam = new CTeam(enumTeamGM, "GM");
 	_pBlockedTeam  = new CTeam(enumTeamBlocked,  "Blocked");
 }

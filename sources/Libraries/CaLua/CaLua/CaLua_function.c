@@ -14,8 +14,13 @@
 //\\ Takes offset 's' and moves it to the next boundary point divisible by 4
 int To4ByteBoundary(int s)
 {
+#ifdef _M_X64
+	while(s%8)
+		s++;
+#else
 	while(s%4)
 		s++;
+#endif
 return(s);
 }
 
@@ -70,7 +75,7 @@ CStack* PrepareStack(int rFunc)
 	while( i <= lastArg)
 	{
 		CLU_ExpandBuffer(&(void*)stackData->data, sizeof(void*), stackData->numArgs,1);
-		CLU_ExpandBuffer(&stackData->dataSize, sizeof(int*), stackData->numArgs,1);
+		CLU_ExpandBuffer(&stackData->dataSize, sizeof(int), stackData->numArgs,1);
 
 		stackData->data[stackData->numArgs] = ConvertLuaStackData( i, funcs[rFunc]->passType[i-2], &stackData->dataSize[stackData->numArgs]);
 
@@ -94,8 +99,8 @@ CStack* PrepareStack(int rFunc)
 	if(CLU_IS_STRUCTURE(funcs[rFunc]->retType))
 	{
 		CLU_ExpandBuffer( &ret->data, sizeof(void*), ret->dataLength, sizeof(void*));
-		((void*)((int*)ret->data)[0]) = CLU_Calloc(GetDataSize(funcs[rFunc]->retType));
-		ret->dataLength += 4;
+		((void**)ret->data)[0] = CLU_Calloc(GetDataSize(funcs[rFunc]->retType));
+		ret->dataLength += (int)sizeof(void*);
 	}
 	for(i = 0; i < stackData->numArgs; i++)
 	{
@@ -124,7 +129,7 @@ return(ret);
 //\\ ea : state of EAX after function call
 //\\ ed : state of EDX after function call
 //\\ fs : top of the floating point stack after function call	
-int ParseReturnArgument(int cType, int ea, int ed, double fs)
+int ParseReturnArgument(int cType, intptr_t ea, intptr_t ed, double fs)
 {
 	switch(CLU_C_BASE_TYPE(cType))
 	{
@@ -138,9 +143,9 @@ int ParseReturnArgument(int cType, int ea, int ed, double fs)
 		}break;
 	case CLU_INT :
 		{
-			lua_pushnumber(virtualMachine, ea);
+			lua_pushnumber(virtualMachine, (int)ea);
 		}break;
-	case CLU_FLOAT :										// Floats, while being 32-bit, are returned in the floating point register
+	case CLU_FLOAT :
 		{
 			lua_pushnumber(virtualMachine,fs);
 		}break;
@@ -156,7 +161,7 @@ int ParseReturnArgument(int cType, int ea, int ed, double fs)
 		{
 			if(CLU_IS_POINTER(cType))
 			{
-				lua_pushlightuserdata(virtualMachine, (void*)(ea));			// They're expecting a pointer to SOMETHING, in any case, it would be stored in eax
+				lua_pushlightuserdata(virtualMachine, (void*)(ea));
 			}
 			else
 			{
@@ -172,7 +177,7 @@ int ParseReturnArgument(int cType, int ea, int ed, double fs)
 			else
 			{
 				PushStructure(CLU_TYPE_TO_INDEX(cType), (void*)(ea));
-				CLU_Free((void*)ea);						//A literal structure has to have it's pointer free'd
+				CLU_Free((void*)ea);
 			}
 		}break;
 	}	

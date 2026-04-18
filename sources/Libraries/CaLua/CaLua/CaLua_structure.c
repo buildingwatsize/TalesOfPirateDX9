@@ -108,8 +108,8 @@ int ComputeStructureAlignment(StructForm* s)
 	//Go through every member except the last
 	while(curMem < (s->numMembers-1))
 	{
-		CLU_ExpandBuffer( (void**)&s->NextMemberOffset, sizeof(int*), curMem, 1);
-		
+	CLU_ExpandBuffer( (void**)&s->NextMemberOffset, sizeof(int), curMem, 1);
+
 		nextAvail = lastPos + s->memberSize[curMem]; //Skip over the size of this data element...
 		
 		offset = GetNextAlignmentPosition(nextAvail, GetMemberAlignmentSize(s,curMem+1));
@@ -121,8 +121,8 @@ int ComputeStructureAlignment(StructForm* s)
 		curMem++;
 	}
 
-	CLU_ExpandBuffer( (void**)&s->NextMemberOffset, sizeof(int*), curMem, 1);
-	
+	CLU_ExpandBuffer( (void**)&s->NextMemberOffset, sizeof(int), curMem, 1);
+
 	s->NextMemberOffset[curMem] = 0; //Last member has no offset.... eee... it's just assumed it won't be used in any stupid calculation
 
 return(0);

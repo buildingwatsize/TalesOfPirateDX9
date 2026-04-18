@@ -52,6 +52,28 @@
 
 using namespace GUI;
 
+void CryptImage(bool encrypt, std::string filename, char* sinkbuffer);
+
+static std::string EncryptAndRenameToWsd(const char* originalFile)
+{
+	std::string s(originalFile);
+	if (s.find(".png") != std::string::npos || s.find(".tga") != std::string::npos ||
+		s.find(".bmp") != std::string::npos || s.find(".dds") != std::string::npos)
+	{
+		s.replace(s.length() - 3, 3, "wsd");
+	}
+	struct stat st;
+	if (stat(s.c_str(), &st) != 0)
+	{
+		struct stat origSt;
+		if (stat(originalFile, &origSt) == 0)
+		{
+			CryptImage(true, originalFile, NULL);
+		}
+	}
+	return s;
+}
+
 static UIScript<CItemObj> g_ItemScript;
 
 static CList* GetList( int list_id )
@@ -305,51 +327,10 @@ int UI_SetIsDrag( int id, int isDrag )
 
 int UI_LoadFormImage( int id, char* client, int cw, int ch, int tx, int ty, char * file, int w, int h )
 {
-	
-	std::string s(client);
-	// Check the type of file
-	if (s.find(".png") != std::string::npos || s.find(".tga") != std::string::npos || s.find(".bmp") != std::string::npos ||
-		s.find(".dds") != std::string::npos) {
-		s.replace(s.length() - 3, 3, "wsd");
-	}
-	// Quickest way to check if file exists. If it doesn't, encrypt the original file.
-	struct stat buffer;
-	if (stat(s.c_str(), &buffer) != 0) {
-		CryptImage(true, client, NULL);
-	}
-	strcpy(client, s.c_str());
-	// Change file extension and send to UIRender for loading.
-
-	
-	if (strcmp(client, file)) {
-		if (strlen(file) > 4) {
-			std::string s2(file);
-			// Check the type of file
-			if (s2.find(".png") != std::string::npos || s2.find(".tga") != std::string::npos || s2.find(".bmp") != std::string::npos ||
-				s2.find(".dds") != std::string::npos) {
-				s2.replace(s2.length() - 3, 3, "wsd");
-			}
-			// Quickest way to check if file exists. If it doesn't, encrypt the original file.
-			struct stat buffer2;
-			if (stat(s2.c_str(), &buffer2) != 0) {
-				CryptImage(true, file, NULL);
-			}
-			strcpy(file, s2.c_str());
-			// Change file extension and send to UIRender for loading.
-			size_t len2 = strlen(file);
-			file[len2 - 1] = 'd';
-			file[len2 - 2] = 's';
-			file[len2 - 3] = 'w';
-		}
-
-	}
-	else {
-		size_t len3 = strlen(file);
-		file[len3 - 1] = 'd';
-		file[len3 - 2] = 's';
-		file[len3 - 3] = 'w';
-	}
-
+	std::string sClient = EncryptAndRenameToWsd(client);
+	std::string sFile = (strcmp(client, file) && strlen(file) > 4)
+		? EncryptAndRenameToWsd(file)
+		: sClient;
 
 	CGuiData* p = CGuiData::GetGui( id );
 	if( !p ) return R_FAIL;
@@ -357,7 +338,7 @@ int UI_LoadFormImage( int id, char* client, int cw, int ch, int tx, int ty, char
 	CForm *f = dynamic_cast<CForm*>(p);
 	if( !f ) return R_FAIL;
 
-	f->GetFrameImage()->LoadImage( client, cw, ch, tx, ty, file, w, h );
+	f->GetFrameImage()->LoadImage( sClient.c_str(), cw, ch, tx, ty, sFile.c_str(), w, h );
 	return R_OK;
 }
 
@@ -432,13 +413,13 @@ int UI_SetListIsMouseFollow( int list, int IsFollow )
     return R_FAIL;
 }
 
-int UI_SetListFontColor( int list, int nBackColor, int nSelectColor )
-{	
-	CList* l = GetList( list );
+int UI_SetListFontColor( double list, double nBackColor, double nSelectColor )
+{
+	CList* l = GetList( (int)list );
 	if( l )
 	{
-		l->SetFontColor( nBackColor );
-		l->SetSelectColor( nSelectColor );
+		l->SetFontColor( (DWORD)(unsigned int)nBackColor );
+		l->SetSelectColor( (DWORD)(unsigned int)nSelectColor );
         return R_OK;
 	}
     return R_FAIL;
@@ -600,30 +581,18 @@ int UI_ComboSetStyle( int id, int style )
 	return R_OK;
 }
 
-int UI_ComboSetTextColor( int id, int color )
+int UI_ComboSetTextColor( double id, double color )
 {
-	CCombo * combo = dynamic_cast<CCombo*>(CGuiData::GetGui( id ));
+	CCombo * combo = dynamic_cast<CCombo*>(CGuiData::GetGui( (int)id ));
 	if( !combo ) return R_FAIL;
 
-	combo->GetEdit()->SetTextColor( color );
+	combo->GetEdit()->SetTextColor( (DWORD)(unsigned int)color );
 	return R_OK;
 }
 
 int UI_LoadButtonImage( int id, char* file, int w, int h, int sx, int sy, int isHorizontal )
 {
-	std::string s(file);
-	// Check the type of file
-	if (s.find(".png") != std::string::npos || s.find(".tga") != std::string::npos || s.find(".bmp") != std::string::npos ||
-		s.find(".dds") != std::string::npos) {
-		s.replace(s.length() - 3, 3, "wsd");
-	}
-	// Quickest way to check if file exists. If it doesn't, encrypt the original file.
-	struct stat buffer;
-	if (stat(s.c_str(), &buffer) != 0) {
-		CryptImage(true, file, NULL);
-	}
-	strcpy(file, s.c_str());
-	// Change file extension and send to UIRender for loading.
+	std::string s = EncryptAndRenameToWsd(file);
 
 	CGuiData* p = CGuiData::GetGui( id );
 	if( !p ) return R_FAIL;
@@ -631,8 +600,7 @@ int UI_LoadButtonImage( int id, char* file, int w, int h, int sx, int sy, int is
 	CTextButton * b = dynamic_cast<CTextButton*>(p);
 	if( !b ) return R_FAIL;
 
-	b->LoadImage( file, w, h, sx, sy, isHorizontal!=0 ? true: false );
-	//b->GetImage()->TintColour( 131, 188, 225 );
+	b->LoadImage( s.c_str(), w, h, sx, sy, isHorizontal!=0 ? true: false );
 	return R_OK;
 }
 
@@ -654,73 +622,39 @@ int UI_LoadImageUnencrypted(int id, char* file, int frame, int w, int h, int tx,
 
 int UI_LoadImage( int id, char * file, int frame, int w, int h, int tx, int ty )
 {
-	std::string s(file);
+	if (!file || !*file) return R_FAIL;
 
-	if (s.empty())
-	{
-		return R_FAIL;
-	}
+	std::string s = EncryptAndRenameToWsd(file);
 
-	// Check the type of file
-	if (s.find(".png") != std::string::npos || s.find(".tga") != std::string::npos || s.find(".bmp") != std::string::npos ||
-		s.find(".dds") != std::string::npos) {
-			s.replace(s.length() - 3, 3, "wsd");
-		}
-	// Quickest way to check if file exists. If it doesn't, encrypt the original file.
-		struct stat buffer;
-		if (stat(s.c_str(), &buffer) != 0) {
-			CryptImage(true, file, NULL);
-		}
-		strcpy(file, s.c_str());
-	// Change file extension and send to UIRender for loading.
-		size_t len = strlen(file);
-		file[len - 1] = 'd';
-		file[len - 2] = 's';
-		file[len - 3] = 'w';
-		CGuiData* p = CGuiData::GetGui(id);
-		if (!p) return R_FAIL;
+	CGuiData* p = CGuiData::GetGui(id);
+	if (!p) return R_FAIL;
 
-		CGuiPic* img = p->GetImage();
-		if (!img) return R_FAIL;
+	CGuiPic* img = p->GetImage();
+	if (!img) return R_FAIL;
 
-		if (img->LoadImage(file, w, h, frame, tx, ty)) {
-			//img->TintColour( 131, 188, 225 );
-			return R_OK;
-		}
-		return R_FAIL;
-	
-	
+	if (img->LoadImage(s.c_str(), w, h, frame, tx, ty))
+		return R_OK;
+
+	return R_FAIL;
 }
 
 // װ�ش�������ͼ��
-int UI_LoadScaleImage( int id, char * file, int frame, int w, int h, int tx, int ty, float scalex, float scaley )
+int UI_LoadScaleImage( int id, char * file, int frame, int w, int h, int tx, int ty, double scalex, double scaley )
 {
-	std::string s(file);
-	// Check the type of file
-	if (s.find(".png") != std::string::npos || s.find(".tga") != std::string::npos || s.find(".bmp") != std::string::npos ||
-		s.find(".dds") != std::string::npos) {
-		s.replace(s.length() - 3, 3, "wsd");
-	}
-	// Quickest way to check if file exists. If it doesn't, encrypt the original file.
-	struct stat buffer;
-	if (stat(s.c_str(), &buffer) != 0) {
-		CryptImage(true, file, NULL);
-	}
-	strcpy(file, s.c_str());
-	// Change file extension and send to UIRender for loading.
+	std::string s = EncryptAndRenameToWsd(file);
+
 	CGuiData* p = CGuiData::GetGui( id );
 	if( !p ) return R_FAIL;
-	
+
 	CGuiPic* img = p->GetImage();
 	if( !img ) return R_FAIL;
 
-	
-	if( img->LoadImage( file, w, h, frame, tx, ty, scalex, scaley ) ) return R_OK;
+	if( img->LoadImage( s.c_str(), w, h, frame, tx, ty, (float)scalex, (float)scaley ) ) return R_OK;
 
 	return R_FAIL;
 }
 // װ�ش�������ͼ��
-int UI_LoadFlashScaleImage( int id,int flash , char * file, int frame, int w, int h, int tx, int ty, float scalex, float scaley )
+int UI_LoadFlashScaleImage( int id,int flash , char * file, int frame, int w, int h, int tx, int ty, double scalex, double scaley )
 {
 	CGuiData* p = CGuiData::GetGui( id );
 	if( !p ) return R_FAIL;
@@ -732,7 +666,7 @@ int UI_LoadFlashScaleImage( int id,int flash , char * file, int frame, int w, in
 	CGuiPic* img = p->GetImage();
 	if( !img ) return R_FAIL;
 	
-	if( img->LoadImage( file, w, h, frame, tx, ty, scalex, scaley ) ) return R_OK;
+	if( img->LoadImage( file, w, h, frame, tx, ty, (float)scalex, (float)scaley ) ) return R_OK;
 	return R_FAIL;
 }
 
@@ -823,14 +757,14 @@ int UI_SetButtonModalResult( int id, int modal )
     return R_OK;
 }
 
-int UI_SetLabelExFont( int id, int nFontIndex, int IsShadow, int dwShadowColor )
+int UI_SetLabelExFont( double id, double nFontIndex, double IsShadow, double dwShadowColor )
 {
-	CLabelEx* g = dynamic_cast<CLabelEx*>(CGuiData::GetGui( id ));
+	CLabelEx* g = dynamic_cast<CLabelEx*>(CGuiData::GetGui( (int)id ));
 	if( !g ) return R_FAIL;
 
-	g->SetIsShadow( IsShadow != 0 );
-	g->SetFont( nFontIndex );
-	g->SetShadowColor( (DWORD)dwShadowColor );
+	g->SetIsShadow( (int)IsShadow != 0 );
+	g->SetFont( (int)nFontIndex );
+	g->SetShadowColor( (DWORD)(unsigned int)dwShadowColor );
 	return R_OK;
 }
 
@@ -915,7 +849,7 @@ int UI_ListSetItemImageMargin( int id,  int left, int top )
 	return R_OK;
 }
 
-int UI_AddListBarText( int id, char *text, float prgress )
+int UI_AddListBarText( int id, char *text, double prgress )
 {
 	CList* s = GetList( id );
 	if( !s ) return R_FAIL;
@@ -924,7 +858,7 @@ int UI_AddListBarText( int id, char *text, float prgress )
 	CItemBar* bar = new CItemBar;
 	bar->SetString( text );
 	item->SetBegin( bar );
-	bar->SetScale( prgress );
+	bar->SetScale( (float)prgress );
 	return R_OK;
 
 }
@@ -959,12 +893,12 @@ int UI_SetEditEnterButton( int nEditID, int nButtonID )
 	return R_OK;
 }
 
-int UI_SetEditCursorColor( int nEditID, int color )
+int UI_SetEditCursorColor( double nEditID, double color )
 {
-	CEdit* t = dynamic_cast<CEdit*>(CGuiData::GetGui( nEditID ));
+	CEdit* t = dynamic_cast<CEdit*>(CGuiData::GetGui( (int)nEditID ));
 	if( !t ) return R_FAIL;
 
-	t->SetCursorColor( color );
+	t->SetCursorColor( (DWORD)(unsigned int)color );
 	return R_OK;
 }
 
@@ -988,12 +922,12 @@ int UI_SetEditMaxNumVisible( int id, int num )
 }
 
 
-int UI_SetTextColor( int id, int color )
+int UI_SetTextColor( double id, double color )
 {
-	CGuiData* t = CGuiData::GetGui( id );
+	CGuiData* t = CGuiData::GetGui( (int)id );
 	if( !t ) return R_FAIL;
 
-	t->SetTextColor( color );
+	t->SetTextColor( (DWORD)(unsigned int)color );
 	return R_OK;
 }
 
@@ -1281,20 +1215,8 @@ int UI_TreeLoadImage( int nTreeID, int nType, char* imagefile, int w, int h, int
 
 	if (pic)
 	{
-		std::string s(imagefile);
-		// Check the type of file
-		if (s.find(".png") != std::string::npos || s.find(".tga") != std::string::npos || s.find(".bmp") != std::string::npos ||
-			s.find(".dds") != std::string::npos) {
-			s.replace(s.length() - 3, 3, "wsd");
-		}
-		// Quickest way to check if file exists. If it doesn't, encrypt the original file.
-		struct stat buffer;
-		if (stat(s.c_str(), &buffer) != 0) {
-			CryptImage(true, imagefile, NULL);
-		}
-		strcpy(imagefile, s.c_str());
-		// Change file extension and send to UIRender for loading.
-		pic->LoadImage(imagefile, w, h, 0, sx, sy);
+		std::string s = EncryptAndRenameToWsd(imagefile);
+		pic->LoadImage(s.c_str(), w, h, 0, sx, sy);
 		pic->SetScale(itemw, itemh);
 		return R_OK;
 	}
@@ -1324,7 +1246,7 @@ int UI_CreateGraphItem( char* file, int w, int h, int sx, int sy, int frame )
 	return g_ItemScript.AddObj( item );
 }
 
-int UI_CreateGraphItemTex( int tx, int ty, int tw, int th, float scale_x, float scale_y, int nTextureID, int tag )
+int UI_CreateGraphItemTex( int tx, int ty, int tw, int th, double scale_x, double scale_y, int nTextureID, int tag )
 {
 	CHintGraph * item =  new CHintGraph( 1 );
 	MPTexRect *pImage = item->GetImage()->GetImage();
@@ -1332,8 +1254,8 @@ int UI_CreateGraphItemTex( int tx, int ty, int tw, int th, float scale_x, float 
 	pImage->nTexSY	= ty;
 	pImage->nTexW	= tw;
 	pImage->nTexH	= th;
-	pImage->fScaleX	= scale_x;
-	pImage->fScaleY	= scale_y;
+	pImage->fScaleX	= (float)scale_x;
+	pImage->fScaleY	= (float)scale_y;
 	pImage->nTextureNo = nTextureID;
 	item->nTag = tag;
 	return g_ItemScript.AddObj( item );
@@ -1342,21 +1264,9 @@ int UI_CreateGraphItemTex( int tx, int ty, int tw, int th, float scale_x, float 
 int UI_CreateNoteGraphItem( char* file, int w, int h, int sx, int sy, int frame, const char* text, int TextX, int TextY )
 {
 	CNoteGraph * item =  new CNoteGraph( frame );
-	std::string s(file);
-	// Check the type of file
-	if (s.find(".png") != std::string::npos || s.find(".tga") != std::string::npos || s.find(".bmp") != std::string::npos ||
-		s.find(".dds") != std::string::npos) {
-		s.replace(s.length() - 3, 3, "wsd");
-	}
-	// Quickest way to check if file exists. If it doesn't, encrypt the original file.
-	struct stat buffer;
-	if (stat(s.c_str(), &buffer) != 0) {
-		CryptImage(true, file, NULL);
-	}
-	strcpy(file, s.c_str());
-	// Change file extension and send to UIRender for loading.
+	std::string s = EncryptAndRenameToWsd(file);
 
-	item->GetImage()->LoadAllImage( file, w, h, sx, sy );
+	item->GetImage()->LoadAllImage( s.c_str(), w, h, sx, sy );
 	item->GetImage()->SetScale( w, h );
 	item->SetString( text );
 	item->SetTextX( TextX );
@@ -1425,7 +1335,7 @@ int UI_GridNodeAddItem( int nodeid, int itemid )
     {
         CTreeNode* pParent = dynamic_cast<CTreeNode*>( obj->GetParent() );
 
-        if( stricmp( obj->GetItem()->GetString(), g_oLangRec.GetString(528) )==0 )
+        if( stricmp( obj->GetItem()->GetString(), RES_STRING(CL_LANGUAGE_MATCH_528) )==0 )
         {
             CChaRecord* pInfo = GetChaRecordInfo( pHint->nTag );
             if( pInfo )
@@ -1435,7 +1345,7 @@ int UI_GridNodeAddItem( int nodeid, int itemid )
                 pHint->SetHint( szBuf );
             }
         }
-        else if( stricmp( obj->GetItem()->GetString(), g_oLangRec.GetString(532) )==0 )
+        else if( stricmp( obj->GetItem()->GetString(), RES_STRING(CL_LANGUAGE_MATCH_532) )==0 )
         {
             CMapInfo* pInfo = GetMapInfo( pHint->nTag );
             if( pInfo )
@@ -1443,11 +1353,11 @@ int UI_GridNodeAddItem( int nodeid, int itemid )
                 pHint->SetHint( pInfo->szName );
             }
         }
-        else if( stricmp( obj->GetItem()->GetString(), g_oLangRec.GetString(530) )==0 )
+        else if( stricmp( obj->GetItem()->GetString(), RES_STRING(CMISS_000530) )==0 )
         {
             pHint->SetHint( g_GetAreaName(pHint->nTag) );
         }
-        else if( stricmp( obj->GetItem()->GetString(), g_oLangRec.GetString(529) )==0 )
+        else if( stricmp( obj->GetItem()->GetString(), RES_STRING(CL_LANGUAGE_MATCH_758) )==0 )
         {
             CEffectInfo *pInfo = GetEffectInfo(pHint->nTag);
             if( pInfo )
@@ -1459,7 +1369,7 @@ int UI_GridNodeAddItem( int nodeid, int itemid )
         }
         else if( pParent )            
         {
-            if( stricmp( pParent->GetItem()->GetString(), g_oLangRec.GetString(540) )==0 ) 
+            if( stricmp( pParent->GetItem()->GetString(), RES_STRING(CL_LANGUAGE_MATCH_540) )==0 ) 
             {
         	    CSceneObjInfo *pInfo = GetSceneObjInfo(pHint->nTag);
                 if( pInfo )
@@ -1474,26 +1384,16 @@ int UI_GridNodeAddItem( int nodeid, int itemid )
 	return R_OK;
 }
 
-int UI_SetChatColor(int world, int road, int team, int guild, int gm, int system, int trade, int person)
+int UI_SetChatColor(double world, double road, double team, double guild, double gm, double system, double trade, double person)
 {
-	// ����,·��,����,����,GM,ϵͳ,����,˽��
-	//g_stUICoze.chatColor.road = road;
-	//g_stUICoze.chatColor.person = person;
-	//g_stUICoze.chatColor.team = team;
-	//g_stUICoze.chatColor.guild = guild;
-	//g_stUICoze.chatColor.world = world;
-	//g_stUICoze.chatColor.system = system;
-	//g_stUICoze.chatColor.trade = trade;
-	//g_stUICoze.chatColor.gm = gm;
-
-	CCharMsg::SetChannelColor(CCharMsg::CHANNEL_SIGHT, road);
-	CCharMsg::SetChannelColor(CCharMsg::CHANNEL_PRIVATE, person);
-	CCharMsg::SetChannelColor(CCharMsg::CHANNEL_TEAM, team);
-	CCharMsg::SetChannelColor(CCharMsg::CHANNEL_GUILD, guild);
-	CCharMsg::SetChannelColor(CCharMsg::CHANNEL_WORLD, world);
-	CCharMsg::SetChannelColor(CCharMsg::CHANNEL_SYSTEM, system);
-	CCharMsg::SetChannelColor(CCharMsg::CHANNEL_TRADE, trade);
-	CCharMsg::SetChannelColor(CCharMsg::CHANNEL_PUBLISH, gm);
+	CCharMsg::SetChannelColor(CCharMsg::CHANNEL_SIGHT, (DWORD)(unsigned int)road);
+	CCharMsg::SetChannelColor(CCharMsg::CHANNEL_PRIVATE, (DWORD)(unsigned int)person);
+	CCharMsg::SetChannelColor(CCharMsg::CHANNEL_TEAM, (DWORD)(unsigned int)team);
+	CCharMsg::SetChannelColor(CCharMsg::CHANNEL_GUILD, (DWORD)(unsigned int)guild);
+	CCharMsg::SetChannelColor(CCharMsg::CHANNEL_WORLD, (DWORD)(unsigned int)world);
+	CCharMsg::SetChannelColor(CCharMsg::CHANNEL_SYSTEM, (DWORD)(unsigned int)system);
+	CCharMsg::SetChannelColor(CCharMsg::CHANNEL_TRADE, (DWORD)(unsigned int)trade);
+	CCharMsg::SetChannelColor(CCharMsg::CHANNEL_PUBLISH, (DWORD)(unsigned int)gm);
 	return R_OK;
 }
 
@@ -1798,24 +1698,12 @@ int UI_SetFormStyleEx(int id ,int index, int offWidth, int offHeight)
 // �˵�
 int UI_MenuLoadSelect( int id, char* imagefile, int w, int h, int sx, int sy )
 {
-	std::string s(imagefile);
-	// Check the type of file
-	if (s.find(".png") != std::string::npos || s.find(".tga") != std::string::npos || s.find(".bmp") != std::string::npos ||
-		s.find(".dds") != std::string::npos) {
-		s.replace(s.length() - 3, 3, "wsd");
-	}
-	// Quickest way to check if file exists. If it doesn't, encrypt the original file.
-	struct stat buffer;
-	if (stat(s.c_str(), &buffer) != 0) {
-		CryptImage(true, imagefile, NULL);
-	}
-	strcpy(imagefile, s.c_str());
-	// Change file extension and send to UIRender for loading.
+	std::string s = EncryptAndRenameToWsd(imagefile);
 
 	CMenu *f = dynamic_cast<CMenu*>(CGuiData::GetGui( id ));
 	if( !f ) return R_FAIL;
 
-	f->GetSelectImage()->LoadImage(imagefile, w, h, 0, sx, sy);
+	f->GetSelectImage()->LoadImage(s.c_str(), w, h, 0, sx, sy);
 	return R_OK;
 }
 
@@ -1824,54 +1712,15 @@ int UI_MenuLoadImage( int id, int IsShowFrame, int IsTitle, char* clientfile, in
 	CMenu *f = dynamic_cast<CMenu*>(CGuiData::GetGui( id ));
 	if( !f ) return R_FAIL;
 
-	std::string s(clientfile);
-	// Check the type of file
-	if (s.find(".png") != std::string::npos || s.find(".tga") != std::string::npos || s.find(".bmp") != std::string::npos ||
-		s.find(".dds") != std::string::npos) {
-		s.replace(s.length() - 3, 3, "wsd");
-	}
-	// Quickest way to check if file exists. If it doesn't, encrypt the original file.
-	struct stat buffer;
-	if (stat(s.c_str(), &buffer) != 0) {
-		CryptImage(true, clientfile, NULL);
-	}
-	strcpy(clientfile, s.c_str());
-	// Change file extension and send to UIRender for loading.
-
-	if (strcmp(clientfile, framefile)) {
-		if (strlen(framefile) > 4) {
-			std::string s2(framefile);
-			// Check the type of file
-			if (s2.find(".png") != std::string::npos || s2.find(".tga") != std::string::npos || s2.find(".bmp") != std::string::npos ||
-				s2.find(".dds") != std::string::npos) {
-				s2.replace(s2.length() - 3, 3, "wsd");
-			}
-			// Quickest way to check if file exists. If it doesn't, encrypt the original file.
-			struct stat buffer2;
-			if (stat(s2.c_str(), &buffer2) != 0) {
-				CryptImage(true, framefile, NULL);
-			}
-			strcpy(framefile, s2.c_str());
-			// Change file extension and send to UIRender for loading.
-			size_t len2 = strlen(framefile);
-			framefile[len2 - 1] = 'd';
-			framefile[len2 - 2] = 's';
-			framefile[len2 - 3] = 'w';
-		}
-
-	}
-	else {
-		size_t len3 = strlen(framefile);
-		framefile[len3 - 1] = 'd';
-		framefile[len3 - 2] = 's';
-		framefile[len3 - 3] = 'w';
-	}
-
+	std::string sClient = EncryptAndRenameToWsd(clientfile);
+	std::string sFrame = (strcmp(clientfile, framefile) && strlen(framefile) > 4)
+		? EncryptAndRenameToWsd(framefile)
+		: sClient;
 
 	CFramePic* frame = f->GetBkgImage();
 	frame->SetIsTitle( IsTitle ? true : false );
 	frame->SetIsShowFrame( IsShowFrame ? true : false );
-	frame->LoadImage( clientfile, cw, ch, tx, ty, framefile, w, h );
+	frame->LoadImage( sClient.c_str(), cw, ch, tx, ty, sFrame.c_str(), w, h );
 	return R_OK;
 }
 
@@ -1894,9 +1743,9 @@ int UI_AddFilterTextToDialogTable(const char* text )
 	return CTextFilter::Add(CTextFilter::DIALOG_TABLE,text);
 }
 
-int UI_SetHeadSayBkgColor( int color )
+int UI_SetHeadSayBkgColor( double color )
 {
-	CHeadSay::SetBkgColor( color );
+	CHeadSay::SetBkgColor( (DWORD)(unsigned int)color );
 	return R_OK;
 }
 
@@ -1930,6 +1779,37 @@ int UI_SetCaption( int id, char* caption )
 	return R_OK;
 }
 
+// Add by lark.li
+const char* UI_ResString(char* id)
+{
+	const char* text = CResourceBundleManage::Instance()->LoadResString(id);
+
+#if _DEBUG
+	char buffer[255];
+	_snprintf_s(buffer, _countof(buffer), _TRUNCATE, "UI_ResString\t%s\t%s\r\n", id, text);
+	::OutputDebugStr(buffer);
+#endif
+	return text;
+}
+
+int UI_SetCaptionEx(int id, char* caption, int tail)
+{
+	CGuiData* p = CGuiData::GetGui(id);
+
+	if (!p) return R_FAIL;
+
+	char buffer[255];
+	_snprintf_s(buffer, _countof(buffer), _TRUNCATE, "%s%d", caption, tail);
+
+	p->SetCaption(buffer);
+	return R_OK;
+}
+
+const int AddMisDataFromC(int id, char* name, int type, int x1, int y1, char* map1, int x2, int y2, char* map2)
+{
+	CLU_CallScriptFunction("AddMisData", "int", "int, char*, int, int, int, char*, int, int, char*", id, name, type, x1, y1, map1, x2, y2, map2);
+	return R_OK;
+}
 
 
 
@@ -1978,11 +1858,11 @@ void MPInitLua_Gui()
 	CLU_RegisterFunction("UI_SetAlign", "int", "int, int", CLU_CDECL, CLU_CAST(UI_SetAlign));
 	CLU_RegisterFunction("UI_LoadImage", "int", "int, char*, int, int, int, int, int", CLU_CDECL, CLU_CAST(UI_LoadImage));
 	CLU_RegisterFunction("UI_LoadImageUnencrypted", "int", "int, char*, int, int, int, int, int", CLU_CDECL, CLU_CAST(UI_LoadImageUnencrypted));
-	CLU_RegisterFunction("UI_LoadScaleImage", "int", "int, char*, int, int, int, int, int, float, float", CLU_CDECL, CLU_CAST(UI_LoadScaleImage));	
+	CLU_RegisterFunction("UI_LoadScaleImage", "int", "int, char*, int, int, int, int, int, double, double", CLU_CDECL, CLU_CAST(UI_LoadScaleImage));	
     CLU_RegisterFunction("UI_SetHint", "int", "int, char*", CLU_CDECL, CLU_CAST(UI_SetHint));
-    CLU_RegisterFunction("UI_LoadFlashScaleImage", "int", "int, int ,char*, int, int, int, int, int, float, float", CLU_CDECL, CLU_CAST(UI_LoadFlashScaleImage));	
+    CLU_RegisterFunction("UI_LoadFlashScaleImage", "int", "int, int ,char*, int, int, int, int, int, double, double", CLU_CDECL, CLU_CAST(UI_LoadFlashScaleImage));	
 	CLU_RegisterFunction("UI_SetImageAlpha", "int", "int, int", CLU_CDECL, CLU_CAST(UI_SetImageAlpha));
-	CLU_RegisterFunction("UI_ComboSetTextColor", "int", "int, int", CLU_CDECL, CLU_CAST(UI_ComboSetTextColor));
+	CLU_RegisterFunction("UI_ComboSetTextColor", "int", "double, double", CLU_CDECL, CLU_CAST(UI_ComboSetTextColor));
 	CLU_RegisterFunction("UI_ComboSetStyle", "int", "int, int", CLU_CDECL, CLU_CAST(UI_ComboSetStyle));
 	CLU_RegisterFunction("UI_LoadComboImage", "int", "int, char*, int, int, int, int, char*, int, int, int, int, int", CLU_CDECL, CLU_CAST(UI_LoadComboImage));
 	CLU_RegisterFunction("UI_LoadButtonImage", "int", "int, char*, int, int, int, int, int", CLU_CDECL, CLU_CAST(UI_LoadButtonImage));
@@ -1994,7 +1874,7 @@ void MPInitLua_Gui()
 	CLU_RegisterFunction("UI_LoadListItemImage", "int", "int, char*, int, int, int, int, int, int", CLU_CDECL, CLU_CAST(UI_LoadListItemImage));
 	CLU_RegisterFunction("UI_ListSetItemMargin", "int", "int, int, int", CLU_CDECL, CLU_CAST(UI_ListSetItemMargin));	
 	CLU_RegisterFunction("UI_ListSetItemImageMargin", "int", "int, int, int", CLU_CDECL, CLU_CAST(UI_ListSetItemImageMargin));	
-	CLU_RegisterFunction("UI_SetListFontColor", "int", "int, int, int", CLU_CDECL, CLU_CAST(UI_SetListFontColor));
+	CLU_RegisterFunction("UI_SetListFontColor", "int", "double, double, double", CLU_CDECL, CLU_CAST(UI_SetListFontColor));
 	CLU_RegisterFunction("UI_SetProgressStyle", "int", "int, int", CLU_CDECL, CLU_CAST(UI_SetProgressStyle));
 	CLU_RegisterFunction("UI_SetScrollStyle", "int", "int, int", CLU_CDECL, CLU_CAST(UI_SetScrollStyle));
     
@@ -2004,7 +1884,7 @@ void MPInitLua_Gui()
     CLU_RegisterFunction("UI_ListViewSetTitleHeight", "int", "int, int", CLU_CDECL, CLU_CAST(UI_ListViewSetTitleHeight));
     CLU_RegisterFunction("UI_GoodGridLoadUnitImage", "int", "int, char*, int, int, int, int", CLU_CDECL, CLU_CAST(UI_GoodGridLoadUnitImage));
 
-	CLU_RegisterFunction("UI_SetChatColor", "int", "int, int, int, int, int, int, int, int", CLU_CDECL, CLU_CAST(UI_SetChatColor));
+	CLU_RegisterFunction("UI_SetChatColor", "int", "double, double, double, double, double, double, double, double", CLU_CDECL, CLU_CAST(UI_SetChatColor));
 	CLU_RegisterFunction("UI_SetListRowHeight", "int", "int, int", CLU_CDECL, CLU_CAST(UI_SetListRowHeight));
 	CLU_RegisterFunction("UI_SetAlpha", "int", "int, int", CLU_CDECL, CLU_CAST(UI_SetAlpha));
 	CLU_RegisterFunction("UI_GridLoadSelectImage", "int", "int, char*, int, int, int, int", CLU_CDECL, CLU_CAST(UI_GridLoadSelectImage));
@@ -2024,14 +1904,14 @@ void MPInitLua_Gui()
 	CLU_RegisterFunction("UI_CheckFixListSetCheckMargin", "int", "int, int, int", CLU_CDECL, CLU_CAST(UI_CheckFixListSetCheckMargin));
 	CLU_RegisterFunction("UI_LoadCheckFixListCheck", "int", "int, char*, int, int, int, int, char*, int, int, int, int", CLU_CDECL, CLU_CAST(UI_LoadCheckFixListCheck));
 
-	CLU_RegisterFunction("UI_SetEditCursorColor", "int", "int, int", CLU_CDECL, CLU_CAST(UI_SetEditCursorColor));
+	CLU_RegisterFunction("UI_SetEditCursorColor", "int", "double, double", CLU_CDECL, CLU_CAST(UI_SetEditCursorColor));
 	CLU_RegisterFunction("UI_SetEditMaxNum", "int", "int, int", CLU_CDECL, CLU_CAST(UI_SetEditMaxNum));
 	CLU_RegisterFunction("UI_SetEditEnterButton", "int", "int, int", CLU_CDECL, CLU_CAST(UI_SetEditEnterButton));
 	CLU_RegisterFunction("UI_SetEditMaxNumVisible", "int", "int, int", CLU_CDECL, CLU_CAST(UI_SetEditMaxNumVisible));
     CLU_RegisterFunction("UI_SetProgressHintStyle", "int", "int, int", CLU_CDECL, CLU_CAST(UI_SetProgressHintStyle));
 
     CLU_RegisterFunction("UI_SetButtonModalResult", "int", "int, int", CLU_CDECL, CLU_CAST(UI_SetButtonModalResult));
-	CLU_RegisterFunction("UI_SetTextColor", "int", "int, int", CLU_CDECL, CLU_CAST(UI_SetTextColor));
+	CLU_RegisterFunction("UI_SetTextColor", "int", "double, double", CLU_CDECL, CLU_CAST(UI_SetTextColor));
 	CLU_RegisterFunction("UI_LoadFrameImage", "int", "int, char*, int, int, int, int, char*, int, int", CLU_CDECL, CLU_CAST(UI_LoadFrameImage));
 	CLU_RegisterFunction("UI_CreatePageItem", "int", "int", CLU_CDECL, CLU_CAST(UI_CreatePageItem));
 	CLU_RegisterFunction("UI_GetPageItemObj", "int", "int, int", CLU_CDECL, CLU_CAST(UI_GetPageItemObj));
@@ -2049,13 +1929,13 @@ void MPInitLua_Gui()
 	CLU_RegisterFunction("UI_CreateSingleNode", "int", "int, int, int", CLU_CDECL, CLU_CAST(UI_CreateSingleNode));
 	CLU_RegisterFunction("UI_CreateGridNode", "int", "int,int,int,int,int,int", CLU_CDECL, CLU_CAST(UI_CreateGridNode));
 	CLU_RegisterFunction("UI_GridNodeAddItem", "int", "int,int", CLU_CDECL, CLU_CAST(UI_GridNodeAddItem));
-	CLU_RegisterFunction("UI_CreateGraphItemTex", "int", "int,int,int,int,float,float,int,int", CLU_CDECL, CLU_CAST(UI_CreateGraphItemTex));
-	CLU_RegisterFunction("UI_SetLabelExFont", "int", "int,int,int,int", CLU_CDECL, CLU_CAST(UI_SetLabelExFont));
+	CLU_RegisterFunction("UI_CreateGraphItemTex", "int", "int,int,int,int,double,double,int,int", CLU_CDECL, CLU_CAST(UI_CreateGraphItemTex));
+	CLU_RegisterFunction("UI_SetLabelExFont", "int", "double,double,double,double", CLU_CDECL, CLU_CAST(UI_SetLabelExFont));
 	CLU_RegisterFunction("UI_SetGridSpace", "int", "int,int,int", CLU_CDECL, CLU_CAST(UI_SetGridSpace));
 	CLU_RegisterFunction("UI_SetGridContent", "int", "int,int,int", CLU_CDECL, CLU_CAST(UI_SetGridContent));
 
 	CLU_RegisterFunction("UI_ItemBarLoadImage", "int", "char*,int,int,int,int", CLU_CDECL, CLU_CAST(UI_ItemBarLoadImage));	
-	CLU_RegisterFunction("UI_AddListBarText", "int", "int,char*,float", CLU_CDECL, CLU_CAST(UI_AddListBarText));	
+	CLU_RegisterFunction("UI_AddListBarText", "int", "int,char*,double", CLU_CDECL, CLU_CAST(UI_AddListBarText));	
 
 	// headsay
 	CLU_RegisterFunction("UI_LoadHeadSayFaceImage", "int", "int,int,int,int,char*,int,int,int,int", CLU_CDECL, CLU_CAST(UI_LoadHeadSayFaceImage));
@@ -2093,12 +1973,18 @@ void MPInitLua_Gui()
 	CLU_RegisterFunction("UI_AddFilterTextToNameTable", "int", "char*", CLU_CDECL, CLU_CAST(UI_AddFilterTextToNameTable));
 	CLU_RegisterFunction("UI_AddFilterTextToDialogTable", "int", "char*", CLU_CDECL, CLU_CAST(UI_AddFilterTextToDialogTable));
 
-	CLU_RegisterFunction("UI_SetHeadSayBkgColor", "int", "int", CLU_CDECL, CLU_CAST(UI_SetHeadSayBkgColor));
+	CLU_RegisterFunction("UI_SetHeadSayBkgColor", "int", "double", CLU_CDECL, CLU_CAST(UI_SetHeadSayBkgColor));
 
 	CLU_RegisterFunction("UI_SetTitleFont", "int", "int, int, int, int", CLU_CDECL, CLU_CAST(UI_SetTitleFont));
 
 	CLU_RegisterFunction("UI_LoadSkillActiveImage", "int", "char*, int, int, int, int, int", CLU_CDECL, CLU_CAST(UI_LoadSkillActiveImage));
 	CLU_RegisterFunction("UI_LoadChargeImage", "int", "int, char*, int, int, int, int, int", CLU_CDECL, CLU_CAST(UI_LoadChargeImage));
+
+	// Add by lark.li
+	char ret[] = "char*";
+	CLU_RegisterFunction("UI_ResString", ret, "char*", CLU_CDECL, CLU_CAST(UI_ResString));
+	CLU_RegisterFunction("UI_SetCaptionEx", "int", "int, char*, int", CLU_CDECL, CLU_CAST(UI_SetCaptionEx));
+	CLU_RegisterFunction("AddMisDataFromC", "int", "int, char*, int, int, int, char*, int, int, char*", CLU_CDECL, CLU_CAST(AddMisDataFromC));
 }
 
 

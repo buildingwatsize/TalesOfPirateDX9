@@ -119,32 +119,85 @@ BOOL SC_ShowRanking(LPRPACKET pk){
 	return TRUE;
 }
 
+static void _spk_trace(const char* msg) {
+	FILE* _f = fopen("log\\connect.log", "a");
+	if (_f) { fprintf(_f, "%s", msg); fflush(_f); fclose(_f); }
+}
+
+static bool ParseDERRSAPublicKey(const uint8_t* data, size_t len,
+	std::vector<uint8_t>& modulus, std::vector<uint8_t>& exponent)
+{
+	size_t pos = 0;
+	auto readTag = [&]() -> uint8_t {
+		return (pos < len) ? data[pos++] : 0;
+	};
+	auto readLen = [&]() -> size_t {
+		if (pos >= len) return 0;
+		uint8_t b = data[pos++];
+		if (b < 0x80) return b;
+		size_t n = b & 0x7F;
+		size_t result = 0;
+		for (size_t i = 0; i < n && pos < len; i++)
+			result = (result << 8) | data[pos++];
+		return result;
+	};
+
+	if (readTag() != 0x30) return false;  readLen();
+	if (readTag() != 0x30) return false;
+	size_t algLen = readLen();
+	pos += algLen;
+	if (readTag() != 0x03) return false;  readLen();
+	if (pos >= len || data[pos++] != 0x00) return false;
+	if (readTag() != 0x30) return false;  readLen();
+
+	if (readTag() != 0x02) return false;
+	size_t modLen = readLen();
+	if (modLen > 0 && pos < len && data[pos] == 0x00) { pos++; modLen--; }
+	if (pos + modLen > len) return false;
+	modulus.assign(data + pos, data + pos + modLen);
+	pos += modLen;
+
+	if (readTag() != 0x02) return false;
+	size_t expLen = readLen();
+	if (expLen > 0 && pos < len && data[pos] == 0x00) { pos++; expLen--; }
+	if (pos + expLen > len) return false;
+	exponent.assign(data + pos, data + pos + expLen);
+	return true;
+}
+
 BOOL	SC_SendPublicKey(LPRPACKET pk)
 {
-		uShort keySize = pk.ReadShort();
-		CryptoPP::ArraySource as(reinterpret_cast<const unsigned char*>(pk.ReadSequence(keySize)), keySize, true);
-		try {
-			g_NetIF->srvPublicKey.Load(as);
-			if (!g_NetIF->srvPublicKey.Validate(g_NetIF->rng, 2))
-			{
-				return false;
-			}
-		}
-		catch (const CryptoPP::BERDecodeErr& ex)
-		{
-			cerr << ex.what() << endl;
-		}
-	
-		g_NetIF->m_connect.CHAPSTR();
-		CS_SendPrivateKey();
-	
-	return TRUE;
+	_spk_trace("[SPK] enter\n");
 
+	uShort keySize = pk.ReadShort();
+	{FILE*_f=fopen("log\\connect.log","a");if(_f){fprintf(_f,"[SPK] keySize=%d\n",(int)keySize);fflush(_f);fclose(_f);}}
+
+	const unsigned char* keyData = reinterpret_cast<const unsigned char*>(pk.ReadSequence(keySize));
+	if (!keyData || keySize == 0) {
+		_spk_trace("[SPK] no key data\n");
+		return FALSE;
+	}
+
+	_spk_trace("[SPK] pre Parse DER\n");
+	if (!ParseDERRSAPublicKey(keyData, keySize, g_NetIF->srvModulus, g_NetIF->srvExponent)) {
+		_spk_trace("[SPK] DER parse FAILED\n");
+		return FALSE;
+	}
+	{FILE*_f=fopen("log\\connect.log","a");if(_f){
+		fprintf(_f,"[SPK] DER OK mod=%zu exp=%zu\n",g_NetIF->srvModulus.size(),g_NetIF->srvExponent.size());
+		fflush(_f);fclose(_f);}}
+
+	_spk_trace("[SPK] pre CHAPSTR\n");
+	g_NetIF->m_connect.CHAPSTR();
+	_spk_trace("[SPK] pre CS_SendPrivateKey\n");
+	CS_SendPrivateKey();
+	_spk_trace("[SPK] done OK\n");
+
+	return TRUE;
 }
 
 
 BOOL	SC_SendHandshake(LPRPACKET pk) {
-	/**/
 	return true;
 }
 
@@ -153,23 +206,31 @@ BOOL	SC_SendHandshake(LPRPACKET pk) {
 
 BOOL	SC_Login(LPRPACKET pk)
 {T_B
+	{FILE*_f=fopen("log\\connect.log","a");if(_f){fprintf(_f,"[SC_LOGIN] enter\n");fflush(_f);fclose(_f);}}
 	uShort l_errno	=pk.ReadShort();
+	{FILE*_f=fopen("log\\connect.log","a");if(_f){fprintf(_f,"[SC_LOGIN] errno=%d\n",(int)l_errno);fflush(_f);fclose(_f);}}
 	if(l_errno)
 	{
 		cChar *l_errtext=pk.ReadString();
+		{FILE*_f=fopen("log\\connect.log","a");if(_f){fprintf(_f,"[SC_LOGIN] failure err=%d text=%s\n",(int)l_errno,l_errtext?l_errtext:"(null)");fflush(_f);fclose(_f);}}
 		NetLoginFailure(l_errno);
 	}else			
 	{
+		{FILE*_f=fopen("log\\connect.log","a");if(_f){fprintf(_f,"[SC_LOGIN] success, reading chars\n");fflush(_f);fclose(_f);}}
 		const auto maxCharacters = static_cast<uint8_t>(pk.ReadChar());
 		const auto characters = ReadSelectCharacters(pk);
 		const auto chPassword = pk.ReadChar();
+		{FILE*_f=fopen("log\\connect.log","a");if(_f){fprintf(_f,"[SC_LOGIN] maxCha=%d numCha=%d pwd=%d\n",(int)maxCharacters,(int)characters.size(),(int)chPassword);fflush(_f);fclose(_f);}}
 		NetLoginSuccess(chPassword, maxCharacters, characters);
+		{FILE*_f=fopen("log\\connect.log","a");if(_f){fprintf(_f,"[SC_LOGIN] post NetLoginSuccess\n");fflush(_f);fclose(_f);}}
 
 		extern CGameWG g_oGameWG;
 		g_oGameWG.SafeTerminateThread();
-		g_oGameWG.BeginThread();		
+		g_oGameWG.BeginThread();
+		{FILE*_f=fopen("log\\connect.log","a");if(_f){fprintf(_f,"[SC_LOGIN] post GameWG\n");fflush(_f);fclose(_f);}}
 	}
 	updateDiscordPresence("Selecting Character", "");
+	{FILE*_f=fopen("log\\connect.log","a");if(_f){fprintf(_f,"[SC_LOGIN] done\n");fflush(_f);fclose(_f);}}
 	return TRUE;
 T_E}
 
@@ -210,7 +271,7 @@ BOOL SC_EnterMap(LPRPACKET pk)
 	SMapInfo.szMapName = pk.ReadString();
 	SMapInfo.bCanTeam = pk.ReadChar() != 0 ? true : false;
 	NetSwitchMap(SMapInfo);
-	LG(g_oLangRec.GetString(295), "%s\n", SMapInfo.szMapName);
+	LG(RES_STRING(CL_LANGUAGE_MATCH_295), "%s\n", SMapInfo.szMapName);
 	
 	
 	int const IMPs = pk.ReadLong();
@@ -310,8 +371,9 @@ T_E}
 BOOL    SC_BeginPlay(LPRPACKET pk)
 {T_B
 uShort	l_errno = pk.ReadShort();
+{FILE*_f=fopen("log\\connect.log","a");if(_f){fprintf(_f,"[SC_BGNPLAY] errno=%d\n",(int)l_errno);fflush(_f);fclose(_f);}}
 NetBeginPlay(l_errno);
-	
+
 	return TRUE;
 T_E}
 
@@ -680,7 +742,7 @@ BOOL SC_AStateBeginSee(LPRPACKET pk)
 	// log
 	const char* szLogName = g_LogName.GetMainLogName();
 
-	LG(szLogName, g_oLangRec.GetString(296), SynAState.sAreaX, SynAState.sAreaY, SynAState.chStateNum);
+	LG(szLogName, RES_STRING(CMISS_000296), SynAState.sAreaX, SynAState.sAreaY, SynAState.chStateNum);
 	for (char j = 0; j < SynAState.chStateNum; j++)
 		LG(szLogName, "\t%d\t%d\n", SynAState.State[j].chID, SynAState.State[j].chLv);
 	LG(szLogName, "\n");
@@ -699,7 +761,7 @@ BOOL SC_AStateEndSee(LPRPACKET pk)
 	NetAreaStateEndSee(&SynAState);
 
 	// log
-	LG(g_LogName.GetMainLogName(), g_oLangRec.GetString(296), SynAState.sAreaX, SynAState.sAreaY, 0);
+	LG(g_LogName.GetMainLogName(), RES_STRING(CMISS_000296), SynAState.sAreaX, SynAState.sAreaY, 0);
 	//
 
 	return TRUE;
@@ -752,7 +814,7 @@ BOOL SC_Cha_Emotion(LPRPACKET pk)
 	uShort sEmotion = pk.ReadShort();
 
 	NetChaEmotion( l_id, sEmotion );
-	LG( g_LogName.GetLogName( l_id ), g_oLangRec.GetString(297), sEmotion );
+	LG( g_LogName.GetLogName( l_id ), RES_STRING(CL_LANGUAGE_MATCH_297), sEmotion );
 	return TRUE;
 T_E}
 
@@ -1284,7 +1346,7 @@ BOOL SC_SynTeam(LPRPACKET pk)
     LG( "Team", "Refresh, ID[%u], HP[%d], MaxHP[%d], SP[%d], MaxSP[%d], LV[%d]\n", STeamState.ulID, STeamState.lHP, STeamState.lMaxHP, STeamState.lSP, STeamState.lMaxSP, STeamState.lLV );
 
 	stNetLookInfo SLookInfo;
-	ReadChaLookPacket(pk, SLookInfo, const_cast<char*>(g_oLangRec.GetString(299)));
+	ReadChaLookPacket(pk, SLookInfo, const_cast<char*>(RES_STRING(CL_LANGUAGE_MATCH_299)));
 	stNetChangeChaPart	&SFace = SLookInfo.SLook;
 	STeamState.SFace.sTypeID = SFace.sTypeID;
 	STeamState.SFace.sHairID = SFace.sHairID;
@@ -1309,7 +1371,7 @@ BOOL SC_SynTLeaderID(LPRPACKET pk)
 	NetChaTLeaderID(lID, lLeaderID);
 
 	// log
-	LG(g_LogName.GetLogName( lID ), g_oLangRec.GetString(300), lLeaderID, lID);
+	LG(g_LogName.GetLogName( lID ), RES_STRING(CL_LANGUAGE_MATCH_300), lLeaderID, lID);
 	//
 
 	return TRUE;
@@ -1543,9 +1605,9 @@ BOOL SC_TradeResult( LPRPACKET packet )
 	BYTE byCount = packet.ReadChar();
 	USHORT sItemID = packet.ReadShort();
 	DWORD  dwMoney  = packet.ReadLong();
-	LG("trade", g_oLangRec.GetString(301), byType, byIndex, byCount, sItemID, dwMoney);
+	LG("trade", RES_STRING(CL_LANGUAGE_MATCH_301), byType, byIndex, byCount, sItemID, dwMoney);
 	  NetTradeResult( byType, byIndex, byCount, sItemID, dwMoney );
-	LG("trade", g_oLangRec.GetString(302));
+	LG("trade", RES_STRING(CMISS_000302));
 	return TRUE;
 T_E}
 
@@ -1669,7 +1731,7 @@ BOOL SC_CharTradeInfo( LPRPACKET packet )
 			}
 			else
 			{
-				MessageBox( NULL, g_oLangRec.GetString(303), g_oLangRec.GetString(25), MB_OK );
+				MessageBox( NULL, RES_STRING(CMISS_000303), RES_STRING(CL_LANGUAGE_MATCH_25), MB_OK );
 				return FALSE;
 			}
 			
@@ -1797,7 +1859,7 @@ BOOL SC_MisPage( LPRPACKET packet )
 				else
 				{
 					// δ֪����������
-					LG( "mission_error", g_oLangRec.GetString(304));
+					LG( "mission_error", RES_STRING(CL_LANGUAGE_MATCH_304));
 					return FALSE;
 				}
 			}
@@ -1873,7 +1935,7 @@ BOOL SC_MisLogInfo( LPRPACKET packet )
 		else
 		{
 			// δ֪����������
-			LG( "mission_error", g_oLangRec.GetString(304));
+			LG( "mission_error", RES_STRING(CL_LANGUAGE_MATCH_304));
 			return FALSE;
 		}
 	}
@@ -2384,12 +2446,12 @@ T_E}
 BOOL SC_TeamFightAsk(LPRPACKET packet)
 {T_B
 	char szLogName[128] = {0};
-	strcpy(szLogName, g_oLangRec.GetString(305));
+	strcpy(szLogName, RES_STRING(CL_LANGUAGE_MATCH_305));
 
 	stNetTeamFightAsk SFightAsk;
 	SFightAsk.chSideNum2 = packet.ReverseReadChar();
 	SFightAsk.chSideNum1 = packet.ReverseReadChar();
-	LG(szLogName, g_oLangRec.GetString(306), SFightAsk.chSideNum1, SFightAsk.chSideNum2);
+	LG(szLogName, RES_STRING(CMISS_000306), SFightAsk.chSideNum1, SFightAsk.chSideNum2);
 	for (char i = 0; i < SFightAsk.chSideNum1 + SFightAsk.chSideNum2; i++)
 	{
 		SFightAsk.Info[i].szName = packet.ReadString();
@@ -2397,7 +2459,7 @@ BOOL SC_TeamFightAsk(LPRPACKET packet)
 		SFightAsk.Info[i].szJob = packet.ReadString();
 		SFightAsk.Info[i].usFightNum = packet.ReadShort();
 		SFightAsk.Info[i].usVictoryNum = packet.ReadShort();
-		LG(szLogName, g_oLangRec.GetString(307), SFightAsk.Info[i].szName, SFightAsk.Info[i].chLv, SFightAsk.Info[i].szJob);
+		LG(szLogName, RES_STRING(CMISS_000307), SFightAsk.Info[i].szName, SFightAsk.Info[i].chLv, SFightAsk.Info[i].szJob);
 	}
 	LG(szLogName, "\n");
 	SFightAsk.Exec();
@@ -2516,7 +2578,7 @@ BOOL SC_QueryCha(LPRPACKET pk)
 	long	lPosX = pk.ReadLong();
 	long	lPosY = pk.ReadLong();
 	long	lChaID = pk.ReadLong();
-	sprintf(szInfo, g_oLangRec.GetString(308), pChaName, lChaID, pMapName, lPosX, lPosY);
+	sprintf(szInfo, RES_STRING(CMISS_000308), pChaName, lChaID, pMapName, lPosX, lPosY);
 	SShowInfo.m_sysinfo = szInfo;
 	NetSysInfo(SShowInfo);
 
@@ -2539,7 +2601,7 @@ BOOL SC_QueryChaPing(LPRPACKET pk)
 	const char	*pChaName = pk.ReadString();
 	const char	*pMapName = pk.ReadString();
 	long	lPing = pk.ReadLong();
-	sprintf(szInfo, g_oLangRec.GetString(309), pMapName, lPing);
+	sprintf(szInfo, RES_STRING(CL_LANGUAGE_MATCH_309), pMapName, lPing);
 	SShowInfo.m_sysinfo = szInfo;
 	NetSysInfo(SShowInfo);
 
@@ -2756,7 +2818,7 @@ BOOL SC_StoreBuyAnswer(LPRPACKET packet)
 	}
 	else
 	{
-		g_pGameApp->MsgBox(g_oLangRec.GetString(907)); // �������ʧ��!
+		g_pGameApp->MsgBox(RES_STRING(CMISS_000907)); // �������ʧ��!
 	}
 
 	g_stUIStore.SetStoreBuyButtonEnable(true);
@@ -2775,7 +2837,7 @@ BOOL SC_StoreChangeAnswer(LPRPACKET packet)
 	}
 	else
 	{
-		g_pGameApp->MsgBox(g_oLangRec.GetString(908));	// ���Ҷһ�ʧ��!
+		g_pGameApp->MsgBox(RES_STRING(CMISS_000908));	// ���Ҷһ�ʧ��!
 	}
 	return TRUE;
 T_E}
@@ -3113,7 +3175,17 @@ BOOL PC_MasterRefresh(LPRPACKET packet)
 					l_nfs[l_nfnum].sIconID	=packet.ReadShort();
 					l_nfs[l_nfnum].cStatus	=packet.ReadChar();
 					l_nfnum	++;
+
+					// Add by lark.li 20090331 begin for ฑฑรภBug
+					if (l_nfnum >= 100)
+						break;
+					// End
 				}
+
+				// Add by lark.li 20090331 begin for ฑฑรภBug
+				if (l_nfnum >= 100)
+					break;
+				// End
 			}
 			NetMasterStart(l_self,l_nfs,l_nfnum);
 		}
@@ -3170,7 +3242,17 @@ BOOL PC_MasterRefresh(LPRPACKET packet)
 					l_nfs[index].sIconID	= packet.ReadShort();
 					l_nfs[index].cStatus	= packet.ReadChar();
 					l_nfnum	++;
+
+					// Add by lark.li 20090331 begin for ฑฑรภBug
+					if (l_nfnum >= 100)
+						break;
+					// End
 				}
+
+				// Add by lark.li 20090331 begin for ฑฑรภBug
+				if (l_nfnum >= 100)
+					break;
+				// End
 			}
 			NetPrenticeStart(l_self,l_nfs,min(l_nfnum, (sizeof(l_nfs) / sizeof(l_nfs[0]))));
 		}
@@ -3408,7 +3490,7 @@ BOOL ReadChaSkillBagPacket(LPRPACKET pk, stNetSkillBag &SCurSkill, const char *s
 
 	// log
 	LG(szLogName, "Syn Skill Bag, Type:%d,\tTick:[%u]\n", SCurSkill.chType, GetTickCount());
-	LG(szLogName, g_oLangRec.GetString(310));
+	LG(szLogName, RES_STRING(CMISS_000310));
 	char	szRange[256];
 	for (i = 0; i < sSkillNum; i++)
 	{
@@ -3453,7 +3535,7 @@ void ReadChaSkillStatePacket(LPRPACKET pk, stNetSkillState &SCurSState, const ch
 
 	// log
 	LG(szLogName, "Syn Skill State: Num[%d]\tTick[%u]\n", sNum, GetTickCount());
-	LG(szLogName, g_oLangRec.GetString(311));
+	LG(szLogName, RES_STRING(CMISS_000311));
 	for (char i = 0; i < sNum; i++)
 		LG(szLogName, "\t%8d\t%4d\n", SCurSState.SState[i].chID, SCurSState.SState[i].chLv);
 	LG(szLogName, "\n");
@@ -3473,7 +3555,7 @@ void ReadChaAttrPacket(LPRPACKET pk, stNetChaAttr& SChaAttr, const  char* szLogN
 
 	// log
 	LG(szLogName, "Syn Character Attr: Count=%d\t, Type:%d\tTick:[%u]\n", SChaAttr.sNum, SChaAttr.chType, GetTickCount());
-	LG(szLogName, g_oLangRec.GetString(312));
+	LG(szLogName, RES_STRING(CMISS_000312));
 	for (short i = 0; i < SChaAttr.sNum; i++)
 	{
 		LG(szLogName, "\t%d\t%d\n", SChaAttr.SEff[i].lAttrID, SChaAttr.SEff[i].lVal);
@@ -3662,7 +3744,7 @@ void ReadChaKitbagPacket(LPRPACKET pk, stNetKitbag &SKitbag, const char *szLogNa
 
 		pItem = &Grid[nGridNum].SGridContent;
 		pItem->sID = pk.ReadShort();
-		LG(szLogName, g_oLangRec.GetString(313), Grid[nGridNum].sGridID, pItem->sID);
+		LG(szLogName, RES_STRING(CMISS_000313), Grid[nGridNum].sGridID, pItem->sID);
 		if (pItem->sID > 0) // ���ڵ���
 		{
 			pItem->dwDBID = pk.ReadLong();
@@ -3672,7 +3754,7 @@ void ReadChaKitbagPacket(LPRPACKET pk, stNetKitbag &SKitbag, const char *szLogNa
 			pItem->sEndure[1]	=	pk.ReadShort();
 			pItem->sEnergy[0]	=	pk.ReadShort();
 			pItem->sEnergy[1]	=	pk.ReadShort();
-			LG(szLogName, g_oLangRec.GetString(314), pItem->sNum, pItem->sEndure[0], pItem->sEndure[1], pItem->sEnergy[0], pItem->sEnergy[1]);
+			LG(szLogName, RES_STRING(CMISS_000314), pItem->sNum, pItem->sEndure[0], pItem->sEndure[1], pItem->sEnergy[0], pItem->sEnergy[1]);
 			pItem->chForgeLv = pk.ReadChar();
 			pItem->SetValid(pk.ReadChar() != 0 ? true : false);
 			pItem->bItemTradable = pk.ReadChar();
@@ -3682,7 +3764,7 @@ void ReadChaKitbagPacket(LPRPACKET pk, stNetKitbag &SKitbag, const char *szLogNa
 			if(pItemRec==NULL)
 			{
 				char szBuf[256] = { 0 };
-				sprintf( szBuf, g_oLangRec.GetString(315), pItem->sID );
+				sprintf( szBuf, RES_STRING(CMISS_000315), pItem->sID );
 				MessageBox( 0, szBuf, "Error", 0 );
 #ifdef USE_DSOUND
 				if( g_dwCurMusicID )
@@ -3710,26 +3792,26 @@ void ReadChaKitbagPacket(LPRPACKET pk, stNetKitbag &SKitbag, const char *szLogNa
 				pItem->SetDBParam(enumITEMDBP_INST_ID, pk.ReadLong());
 			}
 
-			LG(szLogName, g_oLangRec.GetString(316), pItem->GetDBParam(enumITEMDBP_FORGE));
+			LG(szLogName, RES_STRING(CMISS_000316), pItem->GetDBParam(enumITEMDBP_FORGE));
 			if (pk.ReadChar()) // ����ʵ������
 			{
 				for (int j = 0; j < defITEM_INSTANCE_ATTR_NUM; j++)
 				{
 					pItem->sInstAttr[j][0] = pk.ReadShort();
 					pItem->sInstAttr[j][1] = pk.ReadShort();
-					LG(szLogName, g_oLangRec.GetString(317), pItem->sInstAttr[j][0], pItem->sInstAttr[j][1]);
+					LG(szLogName, RES_STRING(CMISS_000317), pItem->sInstAttr[j][0], pItem->sInstAttr[j][1]);
 				}
 			}
 		}
 		nGridNum++;
 		if (nGridNum > defMAX_KBITEM_NUM_PER_TYPE) // ���ó��ֵ����
 		{
-			LG(g_oLangRec.GetString(318), g_oLangRec.GetString(319), nGridNum, defMAX_KBITEM_NUM_PER_TYPE);
+			LG(RES_STRING(CL_LANGUAGE_MATCH_318), RES_STRING(CMISS_000319), nGridNum, defMAX_KBITEM_NUM_PER_TYPE);
 			break;
 		}
 	}
 	SKitbag.nGridNum = nGridNum;
-	LG(szLogName, g_oLangRec.GetString(320), SKitbag.nGridNum);
+	LG(szLogName, RES_STRING(CMISS_000320), SKitbag.nGridNum);
 T_E}
 
 void ReadChaShortcutPacket(LPRPACKET pk, stNetShortCut &SShortcut, const char* szLogName)
@@ -3740,7 +3822,7 @@ void ReadChaShortcutPacket(LPRPACKET pk, stNetShortCut &SShortcut, const char* s
 	{
 		SShortcut.chType[i] = pk.ReadChar();
 		SShortcut.byGridID[i] = pk.ReadShort();
-		LG(szLogName, g_oLangRec.GetString(321), SShortcut.chType[i], SShortcut.byGridID[i]);
+		LG(szLogName, RES_STRING(CMISS_000321), SShortcut.chType[i], SShortcut.byGridID[i]);
 	}
 T_E}
 

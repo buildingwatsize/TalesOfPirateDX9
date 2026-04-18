@@ -22,7 +22,7 @@ CGameWG::~CGameWG(void)
 }
 
 
-// к╒пб╣╠г╟╫ЬЁлюО╣ддё©И
+// к╒О©╫б╣О©╫г╟О©╫О©╫О©╫О©╫О©╫О©╫О©╫дёО©╫О©╫
 bool CGameWG::RefreshModule(void)
 {
     bool          bRet        = false;
@@ -40,7 +40,7 @@ bool CGameWG::RefreshModule(void)
 
 		if(Module32First(hModuleSnap.get(), &me32)) 
 		{
-			// ╠ИюЗ╣╠г╟╫ЬЁлюО╣дкЫспдё©И
+			// О©╫О©╫О©╫О©╫О©╫О©╫г╟О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫дёО©╫О©╫
 			do
 			{
 				strModule = me32.szModule;
@@ -52,7 +52,7 @@ bool CGameWG::RefreshModule(void)
 		}
 		else
 		{
-			// ц╤╬ый╖╟э
+			// ц╤О©╫О©╫й╖О©╫О©╫
 			bRet = false;
 		}
 	}
@@ -65,7 +65,7 @@ bool CGameWG::RefreshModule(void)
 }
 
 
-// йг╥Яй╧сцак║╟╨ё╣алЛй╧║╠мБ╧р
+// О©╫г╥О©╫й╧О©╫О©╫О©╫к║О©╫О©╫О©╫О©╫О©╫О©╫О©╫й╧О©╫О©╫О©╫О©╫О©╫
 bool CGameWG::IsUseHdts(void)
 {
 	if (m_lstModule.contains("hookit.dll"))
@@ -77,14 +77,14 @@ bool CGameWG::IsUseHdts(void)
 }
 
 
-// фТ╤╞оъЁл
+// О©╫О©╫О©╫О©╫О©╫ъЁО©╫
 void CGameWG::BeginThread(void)
 {
     m_hThread = (HANDLE)_beginthreadex(0, 0, Run, this, 0, 0);
 }
 
 
-// ╟╡х╚жуж╧оъЁл
+// О©╫О©╫х╚О©╫О©╫ж╧О©╫ъЁО©╫
 void CGameWG::SafeTerminateThread()
 {
 	if(m_hThread)
@@ -97,32 +97,32 @@ void CGameWG::SafeTerminateThread()
 }
 
 
-// оъЁл╩ь╣В
+// О©╫ъЁл╩ь╣О©╫
 UINT CALLBACK CGameWG::Run(void* param)
 {
 	CGameWG* pGameWG = (CGameWG*)(param);
 
 	for(;;)
 	{
-		Sleep(60 * 1000);	// р╩╥жжск╒р╩╢н
+		Sleep(60 * 1000);	// р╩О©╫О©╫О©╫О©╫к╒р╩О©╫О©╫
 
 		if(! g_NetIF || ! g_NetIF->IsConnected())
 		{
-			// мЬбГн╢а╛╫с
+			// О©╫О©╫О©╫О©╫н╢О©╫О©╫О©╫О©╫
 			continue;
 		}
 
 		if(! pGameWG->RefreshModule())
 		{
-			// к╒пбдё©Иап╠М
+			// к╒О©╫О©╫дёО©╫О©╫О©╫п╠О©╫
 			continue;
 		}
 
 		if(pGameWG->IsUseHdts())
 		{
-			// й╧сцакмБ╧р║╟╨ё╣алЛй╧║╠
+			// й╧О©╫О©╫О©╫О©╫О©╫О©╫р║О©╫О©╫О©╫О©╫О©╫О©╫О©╫й╧О©╫О©╫
 
-			CS_ReportWG(g_oLangRec.GetString(143));
+			CS_ReportWG(RES_STRING(CL_LANGUAGE_MATCH_143));
 			break;
 		}
 

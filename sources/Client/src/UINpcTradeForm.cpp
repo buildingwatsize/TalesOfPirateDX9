@@ -28,21 +28,21 @@ bool CNpcTradeMgr::Init()
 	if ( !frmNPCtrade ) return false;
 
 	CPage* pgeNPCtrade = (CPage*)frmNPCtrade->Find( "pgeNPCtrade" );
-	if ( !pgeNPCtrade) return Error( g_oLangRec.GetString(45), frmNPCtrade->GetName(), "pgeNPCtrade" );
+	if ( !pgeNPCtrade) return Error( RES_STRING(CMISS_000045), frmNPCtrade->GetName(), "pgeNPCtrade" );
 		
 	// ���׵�������
 	grdNPCtradeWeapon = dynamic_cast<CGoodsGrid*>(frmNPCtrade->Find("grdNPCtradeWeapon"));
-	if( !grdNPCtradeWeapon ) return Error(g_oLangRec.GetString(45), frmNPCtrade->GetName(), "grdNPCtradeWeapon");
+	if( !grdNPCtradeWeapon ) return Error(RES_STRING(CMISS_000045), frmNPCtrade->GetName(), "grdNPCtradeWeapon");
     grdNPCtradeWeapon->evtBeforeAccept = _evtDragToGoodsEvent;
 
 	// ���׵�װ����
 	grdNPCtradeEquip = dynamic_cast<CGoodsGrid*>(frmNPCtrade->Find("grdNPCtradeEquip"));
-	if( !grdNPCtradeEquip )	return Error(g_oLangRec.GetString(45), frmNPCtrade->GetName(), "grdNPCtradeEquip");
+	if( !grdNPCtradeEquip )	return Error(RES_STRING(CMISS_000045), frmNPCtrade->GetName(), "grdNPCtradeEquip");
     grdNPCtradeEquip->evtBeforeAccept = _evtDragToGoodsEvent;
 
 	// ���׵�ҩƷ��
 	grdNPCtradeOther = dynamic_cast<CGoodsGrid*>(frmNPCtrade->Find("grdNPCtradeOther"));
-	if( !grdNPCtradeOther )	return Error(g_oLangRec.GetString(45), frmNPCtrade->GetName(), "grdNPCtradeOther");
+	if( !grdNPCtradeOther )	return Error(RES_STRING(CMISS_000045), frmNPCtrade->GetName(), "grdNPCtradeOther");
     grdNPCtradeOther->evtBeforeAccept = _evtDragToGoodsEvent;
 	return true;
 }
@@ -419,7 +419,7 @@ void CNpcTradeMgr::LocalBuyFromNpc( CGoodsGrid* pNpcGrid, CGoodsGrid* pSelfGrid,
 
 		if( nMax==0 )
 		{
-			g_pGameApp->MsgBox( g_oLangRec.GetString(459) );
+			g_pGameApp->MsgBox( RES_STRING(CMISS_000459) );
 			return;
 		}
 	}	
@@ -436,7 +436,7 @@ void CNpcTradeMgr::LocalBuyFromNpc( CGoodsGrid* pNpcGrid, CGoodsGrid* pSelfGrid,
 	else
 	{
 		char buf[256] = { 0 };
-		sprintf( buf, g_oLangRec.GetString(742), pBuy->GetName(), StringSplitNum( pBuy->GetPrice() ) );
+		sprintf( buf, RES_STRING(CMISS_000742), pBuy->GetName(), StringSplitNum( pBuy->GetPrice() ) );
 		if( g_stUIBox.ShowSelectBox( _BuyEquipYesNoTradeEvent, buf, true ) )
 		{
 			_sBuy.dwNpcID = _dwNpcID;
@@ -479,7 +479,7 @@ void CNpcTradeMgr::LocalSaleToNpc( CGoodsGrid* pNpcGrid, CGoodsGrid* pSelfGrid, 
 			}		
 		}
 
-		sprintf( buf, g_oLangRec.GetString(743), pSaleItem->GetName(), StringSplitNum( nPrice ) );
+		sprintf( buf, RES_STRING(CMISS_000743), pSaleItem->GetName(), StringSplitNum( nPrice ) );
 		if( g_stUIBox.ShowSelectBox( _SaleEquipYesNoTradeEvent, buf, true ) )
 		{
 			_sSale.dwNpcID = _dwNpcID;

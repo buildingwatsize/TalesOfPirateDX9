@@ -1,0 +1,45 @@
+wing: talesofpiratedx9
+rooms:
+- name: claude_addon
+  description: Files from claude-addon/
+  keywords:
+  - claude_addon
+  - claude-addon
+- name: claude_transcript
+  description: Files from claude-transcript/
+  keywords:
+  - claude_transcript
+  - claude-transcript
+- name: frontend
+  description: Files from Client/
+  keywords:
+  - frontend
+  - client
+- name: mssql
+  description: Files from mssql/
+  keywords:
+  - mssql
+  - mssql
+- name: backend
+  description: Files from server/
+  keywords:
+  - backend
+  - server
+- name: sources
+  description: Files from sources/
+  keywords:
+  - sources
+  - sources
+- name: upgrade
+  description: Files from upgrade/
+  keywords:
+  - upgrade
+  - upgrade
+- name: scripts
+  description: Files from scripts/
+  keywords:
+  - scripts
+  - scripts
+- name: general
+  description: Files that don't fit other rooms
+  keywords: []

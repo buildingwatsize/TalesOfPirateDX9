@@ -1,0 +1,164 @@
+1: #ifndef __CATCH_STACK
+2: #define __CATCH_STACK
+3: 
+4: #undef T_B
+5: #undef T_E
+6: 
+7: #define __CATCH
+8: 
+9: #ifdef __CATCH
+10: 
+11:     #define CATCH_EXCEPTION
+12: 
+13:     #pragma warning(push, 3)
+14:       #include <exception>
+15:     #pragma warning(pop)
+16: 
+17:   #include "Stacktrace.h"
+18: 
+19: #endif
+20: 
+21: #if defined( CATCH_EXCEPTION )
+22:     #define T_FINAL }catch(std::exception &e) \
+23: 				{ \
+24: 					std::cout << e.what() << std::endl;\
+25: 					\
+26: 					std::string	strfile;\
+27: 					LG_GetDir(strfile);\
+28: 					strfile += "\\exception.txt";\
+29: 					FILE * fp = fopen(strfile.c_str(),"a+");\
+30: 					\
+31: 					if(fp) \
+32: 					{ \
+33: 						SYSTEMTIME st;\
+34: 						char tim[100] = {0};\
+35: 						GetLocalTime(&st);\
+36: 						sprintf(tim, "%02d-%02d %02d:%02d:%02d", st.wMonth, st.wDay, st.wHour,\
+37: 								st.wMinute, st.wSecond);\
+38: 						\
+39: 						fwrite(tim,strlen(tim),1,fp);\
+40: 						fwrite(__FUNCTION__,sizeof(__FUNCTION__) - 1,1,fp); \
+41: 						fwrite(e.what(),strlen(e.what()) - 1,1,fp); \
+42: 						fclose(fp); \
+43: 					} \
+44: 				}
+45:     #define T_REPORT } catch(std::exception &e) \
+46: 				{ \
+47: 					std::string	strfile;\
+48: 					LG_GetDir(strfile);\
+49: 					strfile += "\\exception.txt";\
+50: 					FILE * fp = fopen(strfile.c_str(),"a+");\
+51: 					\
+52: 					if(fp) \
+53: 					{ \
+54: 						SYSTEMTIME st;\
+55: 						char tim[100] = {0};\
+56: 						GetLocalTime(&st);\
+57: 						sprintf(tim, "%02d-%02d %02d:%02d:%02d", st.wMonth, st.wDay, st.wHour,\
+58: 								st.wMinute, st.wSecond);\
+59: 						\
+60: 						fwrite(tim,strlen(tim),1,fp);\
+61: 						fwrite(__FUNCTION__,sizeof(__FUNCTION__) - 1,1,fp); \
+62: 						fwrite(e.what(),strlen(e.what()) - 1,1,fp); \
+63: 						fclose(fp); \
+64: 					} \
+65: 					WinExec("system/errorreport.exe", SW_SHOW); \
+66: 				}
+67:     #define T_B try {
+68: 
+69:     #define T_E	} \
+70: 				catch(std::exception &e) \
+71: 				{ \
+72: 					std::string	strfile;\
+73: 					LG_GetDir(strfile);\
+74: 					strfile += "\\exception.txt";\
+75: 					FILE * fp = fopen(strfile.c_str(),"a+");\
+76: 					\
+77: 					if(fp) \
+78: 					{ \
+79: 						SYSTEMTIME st;\
+80: 						char tim[100] = {0};\
+81: 						GetLocalTime(&st);\
+82: 						sprintf(tim, "%02d-%02d %02d:%02d:%02d", st.wMonth, st.wDay, st.wHour,\
+83: 								st.wMinute, st.wSecond);\
+84: 						\
+85: 						fwrite(tim,strlen(tim),1,fp);\
+86: 						fwrite(__FUNCTION__,sizeof(__FUNCTION__) - 1,1,fp); \
+87: 						fwrite(e.what(),strlen(e.what()) - 1,1,fp); \
+88: 						fclose(fp); \
+89: 					} \
+90: 				     throw; \
+91:                 }
+92:     #define T_EXIT	} \
+93: 				catch(std::exception &e) \
+94: 				{ \
+95: 				try {\
+96: 					std::string	strfile;\
+97: 					LG_GetDir(strfile);\
+98: 					strfile += "\\exception.txt";\
+99: 					FILE * fp = fopen(strfile.c_str(),"a+");\
+100: 					\
+101: 					if(fp) \
+102: 					{ \
+103: 						SYSTEMTIME st;\
+104: 						char tim[100] = {0};\
+105: 						GetLocalTime(&st);\
+106: 						sprintf(tim, "%02d-%02d %02d:%02d:%02d", st.wMonth, st.wDay, st.wHour,\
+107: 								st.wMinute, st.wSecond);\
+108: 						\
+109: 						fwrite(tim,strlen(tim),1,fp);\
+110: 						fwrite(__FUNCTION__,sizeof(__FUNCTION__) - 1,1,fp); \
+111: 						fwrite(e.what(),strlen(e.what()) - 1,1,fp); \
+112: 						fclose(fp); \
+113: 					} \
+114: 					 ChaException(g_ulCurID, g_lCurHandle); \
+115: 				}\
+116: 				catch(...)\
+117: 				{}\
+118:                 }
+119: 	#define TRY_END_INFO(str) } \
+120: 				catch(...) \
+121: 				{ \
+122: 					std::string	strfile;\
+123: 					LG_GetDir(strfile);\
+124: 					strfile += "\\exception.txt";\
+125: 					FILE * fp = fopen(strfile.c_str(),"a+");\
+126: 					\
+127: 					if(fp) \
+128: 					{ \
+129: 						SYSTEMTIME st;\
+130: 						char tim[100] = {0};\
+131: 						GetLocalTime(&st);\
+132: 						sprintf(tim, "%02d-%02d %02d:%02d:%02d", st.wMonth, st.wDay, st.wHour,\
+133: 								st.wMinute, st.wSecond);\
+134: 						\
+135: 						fwrite(tim,strlen(tim),1,fp);\
+136: 						fwrite(__FUNCTION__,sizeof(__FUNCTION__) - 1,1,fp); \
+137: 						fwrite(e.what(),strlen(e.what()) - 1,1,fp); \
+138: 						fclose(fp); \
+139: 					} \
+140: 					throw; \
+141: 				}
+142: 	#define TRY_END_NOTHROW } \
+143: 				catch(...) \
+144: 				{ \
+145: 				}
+146: 	#define TRY_END_RETURN(str) } \
+147: 				catch(...) \
+148: 				{ \
+149: 					return str; \
+150: 				}
+151: 
+152: #else
+153: 
+154: 	#define T_B
+155: 	#define T_E
+156:     #define T_FINAL
+157: 	#define TRY_END_INFO(str)
+158: 	#define TRY_END_NOTHROW
+159: 	#define TRY_END_RETURN(str)
+160: 
+161: #endif
+162: 
+163: #endif
+164: 

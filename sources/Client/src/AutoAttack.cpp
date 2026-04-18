@@ -44,7 +44,7 @@ bool CAutoAttack::AttackStart( CCharacter* pMain, CSkillRecord* pSkill, CCharact
 		return false;
 	}
 
-	g_stUIStart.SysLabel( g_oLangRec.GetString(4), g_stUIMap.IsPKSilver() ? "??????" : pCha->getName() );
+	g_stUIStart.SysLabel( RES_STRING(CL_LANGUAGE_MATCH_4), g_stUIMap.IsPKSilver() ? "??????" : pCha->getName() );
 
 	_pMain = pMain;
 	_pSkill = pSkill;
@@ -72,7 +72,7 @@ bool CAutoAttack::AttackStart( CCharacter* pMain, CSkillRecord* pSkill, int nScr
 		return false;
 	}
 
-	g_stUIStart.SysLabel( g_oLangRec.GetString(5), nScrX/100, nScrY/100 );
+	g_stUIStart.SysLabel( RES_STRING(CL_LANGUAGE_MATCH_5), nScrX/100, nScrY/100 );
 
 	_pTarget = NULL;
 
@@ -234,7 +234,7 @@ bool CAutoAttack::Follow( CCharacter* pMain, CCharacter* pTarget )
 	if( pMain==pTarget ) 
 		return false;
 
-	g_stUIStart.SysLabel( g_oLangRec.GetString(6), g_stUIMap.IsPKSilver() ? "??????" : pTarget->getName() );
+	g_stUIStart.SysLabel( RES_STRING(CL_LANGUAGE_MATCH_6), g_stUIMap.IsPKSilver() ? "??????" : pTarget->getName() );
 
 	_pTarget = pTarget;
 	_pMain = pMain;

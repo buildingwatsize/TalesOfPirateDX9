@@ -295,7 +295,7 @@ int CCharacterModel::ReCreate( DWORD type_id )
 
         if( LoadCha( pInfo->chModalType, pInfo->sModel, part_buf ) == 0 )
         {
-            LG("error", g_oLangRec.GetString(26), type_id, pInfo->szDataName);  
+            LG("error", RES_STRING(CMISS_000026), type_id, pInfo->szDataName);  
             return NULL;
         }
 #endif
@@ -316,7 +316,7 @@ int CCharacterModel::ReCreate( DWORD type_id )
 
         if( LoadCha( &load_info ) == 0 )
         {
-            LG("error", g_oLangRec.GetString(26), type_id, pInfo->szDataName);  
+            LG("error", RES_STRING(CMISS_000026), type_id, pInfo->szDataName);  
             return NULL;
         }
 #endif
@@ -332,7 +332,7 @@ int CCharacterModel::ReCreate( DWORD type_id )
 
         if( LoadShip( pInfo->chModalType, pInfo->sModel, part_buf ) == 0 )
         {
-            LG("error", g_oLangRec.GetString(26), type_id, pInfo->szDataName);  
+            LG("error", RES_STRING(CMISS_000026), type_id, pInfo->szDataName);  
             return NULL;
         }
     }
@@ -348,7 +348,7 @@ int CCharacterModel::ReCreate( DWORD type_id )
 
         if( LoadTower( pInfo->chModalType, part_buf ) == 0 )
         {
-            LG("error", g_oLangRec.GetString(26), type_id, pInfo->szDataName);  
+            LG("error", RES_STRING(CMISS_000026), type_id, pInfo->szDataName);  
             return NULL;
         }
     }
@@ -370,7 +370,7 @@ int CCharacterModel::ReCreate( DWORD type_id )
 
         if( LoadCha( &load_info ) == 0 )
         {
-            LG("error", g_oLangRec.GetString(26), type_id, pInfo->szDataName);  
+            LG("error", RES_STRING(CMISS_000026), type_id, pInfo->szDataName);  
             return NULL;
         }
     }
@@ -380,7 +380,7 @@ int CCharacterModel::ReCreate( DWORD type_id )
 
     if( LoadPose( type_id ) == 0 )
     {
-       LG("error", g_oLangRec.GetString(27), type_id, pInfo->szDataName);  
+       LG("error", RES_STRING(CMISS_000027), type_id, pInfo->szDataName);  
        return NULL;
     }
     
@@ -712,7 +712,7 @@ DWORD CCharacterModel::_BigPose2SmallPose(DWORD pose_id)
     CPoseInfo* info = ::GetPoseInfo( (short)pose_id );
     if( info == NULL )
     {
-        LG("pose_id", g_oLangRec.GetString(28), pose_id);
+        LG("pose_id", RES_STRING(CMISS_000028), pose_id);
         return -1;
     }
 
@@ -1324,7 +1324,7 @@ MPIPoseCtrl* CCharacterModel::GetPoseCtrl()
         c = MPCharacter::GetObjImpPoseCtrl(1, ANIM_CTRL_TYPE_MAT);
         break;
     default:
-        __asm int 3;
+        __debugbreak();
         break;
     }
 

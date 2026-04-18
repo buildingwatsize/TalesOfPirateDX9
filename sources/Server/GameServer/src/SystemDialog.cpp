@@ -98,7 +98,7 @@ BOOL CALLBACK DlgProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			}
 			break;
 		}
-		case WM_USER_LOG: // Í¨¹ýSendMessage°ÑlogËÍÍù´°¿ÚÏß³ÌµÄÁÐ±í
+		case WM_USER_LOG: // Í¨ï¿½ï¿½SendMessageï¿½ï¿½logï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³Ìµï¿½ï¿½Ð±ï¿½
 		{
 			// g_pGameApp->AddLog((const char*)lParam);
 			break;	
@@ -237,11 +237,11 @@ void DrawMapUnit(SubMap *pMap, HDC dc, int sx, int sy, int w, int h)
 	//lf.lfWeight    = 9;
 	lf.lfWidth     = 14;
 	lf.lfHeight    = 14;
-	lf.lfUnderline = FALSE;           //ÎÞÏÂ»®Ïß
-	lf.lfStrikeOut = FALSE;           //ÎÞÉ¾³ýÏß
+	lf.lfUnderline = FALSE;           //ï¿½ï¿½ï¿½Â»ï¿½ï¿½ï¿½
+	lf.lfStrikeOut = FALSE;           //ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½
 	lf.lfItalic    = FALSE; 
-	lf.lfCharSet   = DEFAULT_CHARSET; //Ê¹ÓÃÈ±Ê¡×Ö·û¼¯
-    strcpy(lf.lfFaceName,"ÐÂËÎÌå");   //×ÖÌåÃû=@system
+	lf.lfCharSet   = DEFAULT_CHARSET; //Ê¹ï¿½ï¿½È±Ê¡ï¿½Ö·ï¿½ï¿½ï¿½
+    strcpy(lf.lfFaceName,"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=@system
 
 	font = CreateFontIndirect(&lf);
 	SelectObject(dc, font);
@@ -392,7 +392,7 @@ T_E}
 
 void CreateMainDialog(HINSTANCE hInst, HWND hParent)
 {T_B
-    g_SysDlg = CreateDialog(hInst, MAKEINTRESOURCE(IDD_DLG_MAIN), hParent, DlgProc);
+    g_SysDlg = CreateDialog(hInst, MAKEINTRESOURCE(IDD_DLG_MAIN), hParent, (DLGPROC)DlgProc);
     ShowWindow(g_SysDlg, SW_SHOW);
 	/*std::string	strCaption = "KOPOL-GS(Ver1.30-7)";
 	strCaption += "[";
@@ -402,10 +402,10 @@ void CreateMainDialog(HINSTANCE hInst, HWND hParent)
 	strCaption += "]"; */
 	SetWindowText(g_SysDlg, "GameServer");
 	
-	g_ReportView = CreateDialog(hInst, MAKEINTRESOURCE(IDD_REPORT_VIEW), g_SysDlg, ReportDlgProc);
+	g_ReportView = CreateDialog(hInst, MAKEINTRESOURCE(IDD_REPORT_VIEW), g_SysDlg, (DLGPROC)ReportDlgProc);
 	ShowWindow(g_ReportView, SW_SHOW);
 
-	g_MapView = CreateDialog(hInst, MAKEINTRESOURCE(IDD_MAP_VIEW), g_SysDlg, MapDlgProc);
+	g_MapView = CreateDialog(hInst, MAKEINTRESOURCE(IDD_MAP_VIEW), g_SysDlg, (DLGPROC)MapDlgProc);
 	ShowWindow(g_MapView, SW_SHOW);
 
 	SetWindowPos(g_MapView, NULL, 65, 340, 0,0, SWP_NOSIZE);
@@ -426,7 +426,7 @@ void SystemReport(DWORD dwTimeParam)
 
 	if(g_bShowView) InvalidateRect(g_MapView, NULL, FALSE);
 	
-	if(dwLastReportTime==0) // Ö»Ö´ÐÐÒ»´Î
+	if(dwLastReportTime==0) // Ö»Ö´ï¿½ï¿½Ò»ï¿½ï¿½
 	{
 		HWND hDB = GetDlgItem(g_ReportView, IDC_GAMEDB);
 		if(game_db.m_bInitOK)	SetWindowText(hDB, "ok");
@@ -485,14 +485,14 @@ void SystemReport(DWORD dwTimeParam)
 		CMapRes *pCMap = g_pGameApp->FindMapByName("teampk");
 		if(pCMap)
 		{
-			// Çå¿ÕÁÐ±í¿ò
+			// ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½
 			HWND hPKList = GetDlgItem(g_ReportView, IDC_PK_LIST);
 			SendMessage(hPKList, LB_RESETCONTENT, 0, 0);
-			//sprintf(szText, "±àºÅ    Íæ¼ÒÈËÊý");
+			//sprintf(szText, "ï¿½ï¿½ï¿½    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			sprintf(szText, RES_STRING(GM_SYSTEMDIALOG_CPP_00001));
 			SendMessage(hPKList, LB_ADDSTRING, 0, (LPARAM)szText);  
 			
-			// ¿ªÊ¼±éÀú
+			// ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
 			pCMap->BeginGetUsedCopy();
 			SubMap *pCMapCopy;
 			int nPKCnt = 0;
@@ -505,8 +505,8 @@ void SystemReport(DWORD dwTimeParam)
 				nPKCnt++;
 				nPlayerCnt+=nNum;
 			}
-			sprintf(szFPS, "%d ÈËÊý:%d", nPKCnt, nPlayerCnt);
-			if(hPKCnt) SetWindowText(hPKCnt, szFPS); // ÏÔÊ¾×ÜÊý
+			sprintf(szFPS, "%d ï¿½ï¿½ï¿½ï¿½:%d", nPKCnt, nPlayerCnt);
+			if(hPKCnt) SetWindowText(hPKCnt, szFPS); // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 

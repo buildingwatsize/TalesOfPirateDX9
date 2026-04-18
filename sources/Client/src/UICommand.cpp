@@ -152,7 +152,7 @@ void CCommandObj::ReadyForHint( int x, int y, CCompent* pCompent )
 			if(pFast->topBar == true){
 				sprintf( buf, "Shortcut: Shift + F%d", n + 1 );
 			}else{
-				sprintf( buf, g_oLangRec.GetString(492), n + 1 );
+				sprintf( buf, RES_STRING(CL_LANGUAGE_MATCH_492), n + 1 );
 			}
             PushHint( buf );
         }

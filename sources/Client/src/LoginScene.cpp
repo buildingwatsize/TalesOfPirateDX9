@@ -273,7 +273,7 @@ bool CLoginScene::_Init()
 
 	if (!_InitUI())
 	{
-		LG("login_ini", g_oLangRec.GetString(168));
+		LG("login_ini", RES_STRING(CL_LANGUAGE_MATCH_168));
 
 		return false;
 	}
@@ -539,7 +539,7 @@ void CLoginScene::_FrameMove(DWORD dwTimeParam)
             {
 				if (g_TomServer.bEnable)
 				{
-					MessageBox( 0, g_oLangRec.GetString(169), "Info", 0 );
+					MessageBox( 0, RES_STRING(CL_LANGUAGE_MATCH_169), "Info", 0 );
 					g_pGameApp->SetIsRun( false );
 					return;
 				}
@@ -551,7 +551,7 @@ void CLoginScene::_FrameMove(DWORD dwTimeParam)
 				ShowKeyboard(false);
 				frmRegion->SetIsShow(false);
 				//frmAccount->SetIsShow(false);
-				g_stUIBox.ShowMsgBox( _GoBack, g_oLangRec.GetString(169) );
+				g_stUIBox.ShowMsgBox( _GoBack, RES_STRING(CL_LANGUAGE_MATCH_169) );
             }
             return;
         case Connection::CNST_CONNECTED:
@@ -608,16 +608,16 @@ void CLoginScene::_Render()
 			switch( n )
 			{
 			case 0: 
-				sprintf( szBuf, g_oLangRec.GetString(170), pRow->GetIndex(1)->GetString() );
+				sprintf( szBuf, RES_STRING(CMISS_000170), pRow->GetIndex(1)->GetString() );
 				break;
 			case 1:
-				sprintf( szBuf, g_oLangRec.GetString(171), pRow->GetIndex(1)->GetString() );
+				sprintf( szBuf, RES_STRING(CMISS_000171), pRow->GetIndex(1)->GetString() );
 				break;
 			case 2: 
-				sprintf( szBuf, g_oLangRec.GetString(172), pRow->GetIndex(1)->GetString() );
+				sprintf( szBuf, RES_STRING(CMISS_000172), pRow->GetIndex(1)->GetString() );
 				break;
 			case 3:
-				sprintf( szBuf, g_oLangRec.GetString(173), pRow->GetIndex(1)->GetString() );
+				sprintf( szBuf, RES_STRING(CMISS_000173), pRow->GetIndex(1)->GetString() );
 				break;
 			}
 			
@@ -847,20 +847,27 @@ void CLoginScene::_evtServerLDBDown(CGuiData *pSender, int x, int y, DWORD key)
 
 void CLoginScene::_evtRegionLDBDown(CGuiData *pSender, int x, int y, DWORD key)
 {
+	{FILE*_tf=fopen("log\\login_trace.log","a");if(_tf){fprintf(_tf,"[RDB] _evtRegionLDBDown key=0x%x\n",(unsigned)key);fflush(_tf);fclose(_tf);}}
+
 	CLoginScene* pkScene = dynamic_cast<CLoginScene*>(CGameApp::GetCurScene());
 	if (!pkScene) return;
 
 	CList* pkRegionList = dynamic_cast<CList*>(pSender);
 	if (!pkRegionList) return;
 
+	int selIdx = -1;
 	if (pkRegionList == lstRegion[0])
 	{
-		pkScene->SetCurSelRegionIndex(pkRegionList->GetItems()->GetSelect()->GetIndex() * 2);
+		selIdx = pkRegionList->GetItems()->GetSelect()->GetIndex() * 2;
+		pkScene->SetCurSelRegionIndex(selIdx);
 	}
 	else if (pkRegionList == lstRegion[1])
 	{
-		pkScene->SetCurSelRegionIndex(pkRegionList->GetItems()->GetSelect()->GetIndex() * 2 + 1);
+		selIdx = pkRegionList->GetItems()->GetSelect()->GetIndex() * 2 + 1;
+		pkScene->SetCurSelRegionIndex(selIdx);
 	}
+
+	{FILE*_tf=fopen("log\\login_trace.log","a");if(_tf){fprintf(_tf,"[RDB] selIdx=%d curRegion=%d\n",selIdx,pkScene->GetCurSelRegionIndex());fflush(_tf);fclose(_tf);}}
 
 	if (key & Mouse_LDown)
 	{
@@ -883,8 +890,10 @@ void CLoginScene::InitRegionList()
 	lstRegion[1]->GetItems()->Clear();
 
 	CServerSet* server_set = CServerSet::I();
+	{FILE*_tf=fopen("log\\login_trace.log","a");if(_tf){fprintf(_tf,"[IRL] InitRegionList: server_set=%p regionCnt=%d\n",(void*)server_set,server_set?server_set->m_nRegionCnt:0);fflush(_tf);fclose(_tf);}}
 	for (int i = 0; i < server_set->m_nRegionCnt; i++)
 	{
+		{FILE*_tf=fopen("log\\login_trace.log","a");if(_tf){fprintf(_tf,"[IRL] region[%d]='%s'\n",i,server_set->m_szRegionName[i]);fflush(_tf);fclose(_tf);}}
 		lstRegion[i % 2]->Add(server_set->m_szRegionName[i]);
 	}
 
@@ -897,15 +906,20 @@ void CLoginScene::InitRegionList()
 
 void CLoginScene::InitServerList(int nRegionNo)
 {
+	{FILE*_tf=fopen("log\\login_trace.log","a");if(_tf){fprintf(_tf,"[ISL] InitServerList region=%d groupCnt=%d\n",nRegionNo,GetCurServerGroupCnt(nRegionNo));fflush(_tf);fclose(_tf);}}
+
 	lstServer[0]->GetList()->GetItems()->Clear();
 	lstServer[1]->GetList()->GetItems()->Clear();
 
 	for (int i = 0; i < GetCurServerGroupCnt(nRegionNo); i++)
 	{
+		const char* srvName = GetCurServerGroupName(nRegionNo, i);
+		{FILE*_tf=fopen("log\\login_trace.log","a");if(_tf){fprintf(_tf,"[ISL] server[%d]='%s'\n",i,srvName?srvName:"(null)");fflush(_tf);fclose(_tf);}}
+
 		CItemRow* item_row = lstServer[i % 2]->AddItemRow();
 		if (item_row)
 		{
-			CItem* v7 = new CItem(GetCurServerGroupName(nRegionNo, i), COLOR_BLACK);
+			CItem* v7 = new CItem(srvName, COLOR_BLACK);
 			v7->SetColor(lstServer[1]->GetList()->GetFontColor());
 
 			CGraph* v10 = new CGraph(*imgServerIcons->GetImage());
@@ -926,8 +940,13 @@ void CLoginScene::InitServerList(int nRegionNo)
 
 BOOL CLoginScene::_InitUI()
 {
+	{FILE*_tf=fopen("log\\login_trace.log","w");if(_tf){fprintf(_tf,"[LUI] _InitUI enter\n");fflush(_tf);fclose(_tf);}}
+
 	frmServer = CFormMgr::s_Mgr.Find( "frmServer" );	
-	if(!frmServer) return false;
+	if(!frmServer) {
+		{FILE*_tf=fopen("log\\login_trace.log","a");if(_tf){fprintf(_tf,"[LUI] FAIL: frmServer not found\n");fflush(_tf);fclose(_tf);}}
+		return false;
+	}
 	frmServer->evtEntrustMouseEvent = _evtServerFrm;
 #ifdef USE_STATUS
 	frmServer->evtBeforeShow = _evtServerFrmBeforeShow;
@@ -946,7 +965,10 @@ BOOL CLoginScene::_InitUI()
 	imgServerIcons->SetIsShow(false);
 
 	frmRegion = CFormMgr::s_Mgr.Find("frmArea");
-	if (!frmRegion) return false;
+	if (!frmRegion) {
+		{FILE*_tf=fopen("log\\login_trace.log","a");if(_tf){fprintf(_tf,"[LUI] FAIL: frmArea not found\n");fflush(_tf);fclose(_tf);}}
+		return false;
+	}
 	frmRegion->evtEntrustMouseEvent = _evtRegionFrm;
 
 	lstRegion[0] = dynamic_cast<CList*>(frmRegion->Find("lstRegion0"));
@@ -958,15 +980,22 @@ BOOL CLoginScene::_InitUI()
 	lstRegion[1]->evtListMouseDown = _evtRegionLDBDown;
 
 	InitRegionList();
+	{FILE*_tf=fopen("log\\login_trace.log","a");if(_tf){fprintf(_tf,"[LUI] post InitRegionList, g_TomServer.bEnable=%d\n",g_TomServer.bEnable);fflush(_tf);fclose(_tf);}}
 	if (!g_TomServer.bEnable)
 		frmRegion->SetIsShow(true);
 
 	frmPathLogo = CFormMgr::s_Mgr.Find("frmPathLogo");
-	if(! frmPathLogo) return false;
+	if(! frmPathLogo) {
+		{FILE*_tf=fopen("log\\login_trace.log","a");if(_tf){fprintf(_tf,"[LUI] FAIL: frmPathLogo not found\n");fflush(_tf);fclose(_tf);}}
+		return false;
+	}
 	frmPathLogo->SetIsShow(false);
 
 	frmAccount = CFormMgr::s_Mgr.Find( "frmAccount" );
-	if(!frmAccount) return false;
+	if(!frmAccount) {
+		{FILE*_tf=fopen("log\\login_trace.log","a");if(_tf){fprintf(_tf,"[LUI] FAIL: frmAccount not found\n");fflush(_tf);fclose(_tf);}}
+		return false;
+	}
 	frmAccount->SetIsShow(false);
 	frmAccount->evtEntrustMouseEvent = _evtLoginFrm;
 
@@ -1061,6 +1090,7 @@ BOOL CLoginScene::_InitUI()
 	imgLogo2 = (CImage*) frmAccount->Find("imgLogo2");
 	if(!imgLogo2) return false;
 
+	{FILE*_tf=fopen("log\\login_trace.log","a");if(_tf){fprintf(_tf,"[LUI] _InitUI SUCCESS - all forms found\n");fflush(_tf);fclose(_tf);}}
 	return TRUE;
 }
 
@@ -1072,7 +1102,7 @@ bool CLoginScene::IsValidCheckChaName(const char *name)
 {
 	if( !::IsValidName( name, (unsigned short)strlen(name) ) )
 	{
-		g_pGameApp->MsgBox(g_oLangRec.GetString(51));
+		g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_51));
 		return false;
 	}
 	return true;
@@ -1107,7 +1137,7 @@ bool CLoginScene::IsValidCheckChaName(const char *name)
 	}
 
 	if (!bOk )
-		g_pGameApp->MsgBox( g_oLangRec.GetString(52));
+		g_pGameApp->MsgBox( RES_STRING(CL_LANGUAGE_MATCH_52));
 
 	return bOk;
 }
@@ -1130,7 +1160,7 @@ bool CLoginScene::_CheckAccount()
 	
 	if (strlen(edtID->GetCaption()) == 0)
 	{
-		g_pGameApp->MsgBox(g_oLangRec.GetString(174));
+		g_pGameApp->MsgBox(RES_STRING(CMISS_000174));
 		return false;
 	}
 	if(!IsValidCheckChaName(edtID->GetCaption()))
@@ -1138,7 +1168,7 @@ bool CLoginScene::_CheckAccount()
 
 	if (strlen(edtPassword->GetCaption()) <= 4)
 	{
-		g_pGameApp->MsgBox(g_oLangRec.GetString(175));
+		g_pGameApp->MsgBox(RES_STRING(CMISS_000175));
 		return false;
 	}
 
@@ -1166,18 +1196,18 @@ bool CLoginScene::_Bill()
 		}
         else if(10004 == ret)
         {
-            CBoxMgr::ShowMsgBox( NULL, g_oLangRec.GetString(176), true );
+            CBoxMgr::ShowMsgBox( NULL, RES_STRING(CMISS_000176), true );
         }
         else
         {
             std::string ret = cpai.LastError();
             if(ret == "[Player_Missing]")
             {
-                CBoxMgr::ShowMsgBox( NULL, g_oLangRec.GetString(177), true );
+                CBoxMgr::ShowMsgBox( NULL, RES_STRING(CMISS_000177), true );
             }
             else if(ret == "[Player_Failure]")
             {
-                CBoxMgr::ShowMsgBox( NULL, g_oLangRec.GetString(178), true );
+                CBoxMgr::ShowMsgBox( NULL, RES_STRING(CMISS_000178), true );
             }
             else
             {
@@ -1204,7 +1234,7 @@ void CLoginScene::_Connect()
 		return;
 	}
 
-	LG("connect", g_oLangRec.GetString(179), m_iCurSelRegionIndex, m_iCurSelServerIndex);
+	LG("connect", RES_STRING(CMISS_000179), m_iCurSelRegionIndex, m_iCurSelServerIndex);
 	//int nSelRegionNo = 0;
 	//int nNO = lstServer->GetItems()->GetSelect()->GetIndex();
 
@@ -1244,8 +1274,8 @@ void CLoginScene::_Connect()
 
 	if (!pszSelectGateIP)
 	{
-		//LG("connect", g_oLangRec.GetString(180), m_iCurSelRegionIndex, m_iCurSelServerIndex);
-		LG("connect", g_oLangRec.GetString(180), 0, 0);
+		//LG("connect", RES_STRING(CMISS_000180), m_iCurSelRegionIndex, m_iCurSelServerIndex);
+		LG("connect", RES_STRING(CMISS_000180), 0, 0);
 	}
 	else
 	{
@@ -1371,7 +1401,7 @@ void CLoginScene::Error( int error_no, const char* error_info )
 
 	if( ERR_MC_VER_ERROR==error_no && !g_TomServer.bEnable )
 	{		
-		CBoxMgr::ShowSelectBox( _evtVerErrorFrm, g_oLangRec.GetString(181), true );
+		CBoxMgr::ShowSelectBox( _evtVerErrorFrm, RES_STRING(CMISS_000181), true );
 		return;
 	}
 

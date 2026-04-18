@@ -510,12 +510,12 @@ BOOL xShipFactory::CheckShipName()
     size_t l = _tcslen(ship_name);
 	if (l == 0)
 	{
-		g_pGameApp->MsgBox(g_oLangRec.GetString(390));
+		g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_390));
 		return 0;
 	}
 	else if(l < MIN_LENGTH || l > MAX_LENGTH)
 	{
-		g_pGameApp->MsgBox(g_oLangRec.GetString(391), MIN_LENGTH, MAX_LENGTH);
+		g_pGameApp->MsgBox(RES_STRING(CMISS_000391), MIN_LENGTH, MAX_LENGTH);
         return 0;
 	}
 
@@ -524,7 +524,7 @@ BOOL xShipFactory::CheckShipName()
 	if (!CTextFilter::IsLegalText(CTextFilter::NAME_TABLE, sBoatName) || 
 		!IsValidName(sBoatName.c_str(), (unsigned short)sBoatName.length()) )
 	{
-		g_pGameApp->MsgBox(g_oLangRec.GetString(51));
+		g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_51));
 		return 0;
 	}
 
@@ -557,13 +557,13 @@ BOOL xShipFactory::GetCabinByID()
 	CForm* pTradeForm = g_stUIBourse.GetForm();
 	if (pTradeForm && pTradeForm->GetIsShow() && pForm == pTradeForm)
 	{
-		g_pGameApp->SysInfo(g_oLangRec.GetString(392));
+		g_pGameApp->SysInfo(RES_STRING(CL_LANGUAGE_MATCH_392));
 		return FALSE;
 	}
 	CForm* pChangeForm = g_stUITrade.GetForm();
 	if (pChangeForm && pChangeForm->GetIsShow() && pForm == pChangeForm)
 	{
-		g_pGameApp->SysInfo(g_oLangRec.GetString(392));
+		g_pGameApp->SysInfo(RES_STRING(CL_LANGUAGE_MATCH_392));
 		return FALSE;
 	}
 
@@ -1050,7 +1050,7 @@ void xShipLaunchList::Update(DWORD num, const BOAT_BERTH_DATA* data,
     memo->Init();
 	memo->reset();
 
-    memo->SetCaption(g_oLangRec.GetString(393));
+    memo->SetCaption(RES_STRING(CMISS_000393));
     memo->SetIsHaveItem(1);
     memo->SetItemRowNum(num);
     //memo->SetRowHeight(20);

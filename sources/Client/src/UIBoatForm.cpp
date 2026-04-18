@@ -18,7 +18,7 @@
 using namespace GUI;
 
 //---------------------------------------------------------------------------
-// class CBoat  ÓÃ»§´¬Àà
+// class CBoat  ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½
 //---------------------------------------------------------------------------
 CBoat::CBoat() 
 : _chtBoat(0), _frmShipRoom(0)
@@ -26,7 +26,7 @@ CBoat::CBoat()
 {
 }
 
-bool CBoat::Init( int n, CForm* ship, GuiDragInGridEvent evt )  // ÓÃ»§´¬ÐÅÏ¢³õÊ¼»¯
+bool CBoat::Init( int n, CForm* ship, GuiDragInGridEvent evt )  // ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Ê¼ï¿½ï¿½
 {
 	_frmShipRoom = ship;
 	if( !_frmShipRoom ) return false;
@@ -36,15 +36,15 @@ bool CBoat::Init( int n, CForm* ship, GuiDragInGridEvent evt )  // ÓÃ»§´¬ÐÅÏ¢³õÊ
 	_grdHold = dynamic_cast<CGoodsGrid*>(_frmShipRoom->Find("grdRoom"));
 	if( !_grdHold ) 
 	{
-		LG("gui", g_oLangRec.GetString(443) );
+		LG("gui", RES_STRING(CMISS_000443) );
 		return false;
 	}
 
 	_grdHold->SetIsHint(false);
 	_grdHold->SetParent(ship);
-	_frmShipRoom->evtEscClose = _evtEscClose;	// °´ ESC ¹Ø±ÕÊÂ¼þ add by Philip.Wu  2006-06-22
+	_frmShipRoom->evtEscClose = _evtEscClose;	// ï¿½ï¿½ ESC ï¿½Ø±ï¿½ï¿½Â¼ï¿½ add by Philip.Wu  2006-06-22
 
-	// Èç¹ûÃ»ÓÐÊÂ¼þ£¬ÔòÎªÁÙÊ±´¬£¬²»ÄÜ×öÈÎºÎ²Ù×÷
+	// ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎºÎ²ï¿½ï¿½ï¿½
 	if( evt )
 	{
 		_grdHold->evtBeforeAccept = evt;
@@ -59,7 +59,7 @@ void CBoat::_evtHoldGridRMouse(CGuiData *pSender,CCommandObj* pItem,int nGridID)
 {
 	if (!pItem) return;  
 
-	//½»Ò×ËùÓÒ¼ü
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½
 	if (g_stUIBourse.GetForm()->GetIsShow())
 	{
 		CItemCommand* pkItemCmd = dynamic_cast<CItemCommand*>(pItem);
@@ -69,14 +69,14 @@ void CBoat::_evtHoldGridRMouse(CGuiData *pSender,CCommandObj* pItem,int nGridID)
 	}
 }
 
-void CBoat::Reset()  //  Èç¹û½ÇÉ«²»´æÔÚ¾ÍÇå³ýÓÃ»§´¬ÐÅÏ¢
+void CBoat::Reset()  //  ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½Ú¾ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 {
 	_chtBoat = NULL;
 	_grdHold->Clear();
 }
 
 
-// °´ ESC ¹Ø±Õ´°ÌåÊÂ¼þ£¬½«¸¸´°ÌåÒ²ÉèÖÃÎª²»ÏÔÊ¾  add by Philip.Wu  2006-06-22
+// ï¿½ï¿½ ESC ï¿½Ø±Õ´ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½Ê¾  add by Philip.Wu  2006-06-22
 void CBoat::_evtEscClose( CForm* pForm )
 {
 	if(pForm)
@@ -92,12 +92,12 @@ void CBoat::_evtEscClose( CForm* pForm )
 
 
 //---------------------------------------------------------------------------
-// class CBoatMgr ÓÃ»§´¬¹ÜÀíÀà
+// class CBoatMgr ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //---------------------------------------------------------------------------
-bool CBoatMgr::Init() // ÓÃ»§´¬¹ÜÀíÐÅÏ¢³õÊ¼»¯
+bool CBoatMgr::Init() // ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Ê¼ï¿½ï¿½
 {
 	CForm* frm[defMaxBoat+1] = { 0 }; 
-	CForm* frmShipRoom = _FindForm("frmShipRoom"); // ²éÕÒ´¬±íµ¥
+	CForm* frmShipRoom = _FindForm("frmShipRoom"); // ï¿½ï¿½ï¿½Ò´ï¿½ï¿½ï¿½ï¿½ï¿½
 	if(!frmShipRoom) return false;
 	frm[0] = frmShipRoom;
 
@@ -138,22 +138,22 @@ void CBoatMgr::End()
 bool CBoatMgr::AddBoat( CCharacter* pBoat )
 {
 	CBoat* p = GetFreeBoat();
-	if( !p ) return false; //ÒÑ¾­µÃµ½×î´óÊýÁ¿ ²»ÄÜÔÙ»ñµÃÃâ·ÑµÄ´¬Ö»
+	if( !p ) return false; //ï¿½Ñ¾ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ù»ï¿½ï¿½ï¿½ï¿½ÑµÄ´ï¿½Ö»
 
 	p->Link( pBoat );
 	return true;
 }
 
-CBoat*	CBoatMgr::GetFreeBoat()   // »ñµÃÃâ·Ñ´¬Ö»
+CBoat*	CBoatMgr::GetFreeBoat()   // ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½Ö»
 { 
-	for( int i=0; i<defMaxBoat; i++ ) // ¿É×î´ó»ñµÃ´¬Ö»
+	for( int i=0; i<defMaxBoat; i++ ) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã´ï¿½Ö»
 		if( !_cBoats[i].GetIsValid() )
 			return &_cBoats[i];
 
 	return NULL;
 }
 
-CBoat* CBoatMgr::FindBoat( unsigned int ulWorldID )  // ²éÕÒÓÃ»§ÓÐµÄÈ«²¿´¬
+CBoat* CBoatMgr::FindBoat( unsigned int ulWorldID )  // ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½Ðµï¿½È«ï¿½ï¿½ï¿½ï¿½
 {
 	for( int i=0; i<defMaxBoat; i++ )
 	{
@@ -166,7 +166,7 @@ CBoat* CBoatMgr::FindBoat( unsigned int ulWorldID )  // ²éÕÒÓÃ»§ÓÐµÄÈ«²¿´¬
 	return NULL;
 }
 
-CGoodsGrid*	CBoatMgr::FindGoodsGrid( unsigned int ulWorldID ) // ²éÕÒ´¬ÎïÆ·
+CGoodsGrid*	CBoatMgr::FindGoodsGrid( unsigned int ulWorldID ) // ï¿½ï¿½ï¿½Ò´ï¿½ï¿½ï¿½Æ·
 {
 	if( _pHuman && _pHuman->getAttachID()==ulWorldID )
 		return g_stUIEquip.GetGoodsGrid();
@@ -177,7 +177,7 @@ CGoodsGrid*	CBoatMgr::FindGoodsGrid( unsigned int ulWorldID ) // ²éÕÒ´¬ÎïÆ·
 	return NULL;
 }
 
-CCharacter*	CBoatMgr::FindCha( unsigned int ulWorldID ) // ²éÕÒ´¬Ö»Ö÷ÈË
+CCharacter*	CBoatMgr::FindCha( unsigned int ulWorldID ) // ï¿½ï¿½ï¿½Ò´ï¿½Ö»ï¿½ï¿½ï¿½ï¿½
 {
 	if( _pHuman && _pHuman->getAttachID()==ulWorldID ) return _pHuman;
 
@@ -187,7 +187,7 @@ CCharacter*	CBoatMgr::FindCha( unsigned int ulWorldID ) // ²éÕÒ´¬Ö»Ö÷ÈË
 	return NULL;
 }
 
-CCharacter* CBoatMgr::ChangeMainCha( unsigned int ulWorldID ) // ÇÐ»»Ö÷½Ç
+CCharacter* CBoatMgr::ChangeMainCha( unsigned int ulWorldID ) // ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½
 {
 	CCharacter* pCha = FindCha( ulWorldID );
 	if( pCha ) 
@@ -200,19 +200,19 @@ CCharacter* CBoatMgr::ChangeMainCha( unsigned int ulWorldID ) // ÇÐ»»Ö÷½Ç
 			pScene->SetMainCha( pCha->getID() );
 			g_stUIStart.ShowShipSailForm( pCha->IsBoat() );
 
-			// add by Philip.Wu  2006-07-03  ÇÐ»»µØÍ¼Ê±¹Ø±Õ½»Ò×ºÍ×°±¸´°Ìå£¨BUG´¦Àí£©
+			// add by Philip.Wu  2006-07-03  ï¿½Ð»ï¿½ï¿½ï¿½Í¼Ê±ï¿½Ø±Õ½ï¿½ï¿½×ºï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½å£¨BUGï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			g_stUITrade.CloseAllForm();
 			g_stUIEquip.CloseAllForm();
 		}
 	}
 	else
 	{
-		LG( "error", g_oLangRec.GetString(444), ulWorldID );
+		LG( "error", RES_STRING(CMISS_000444), ulWorldID );
 	}
 	return pCha;
 }
 
-void CBoatMgr::Clear()  //  Çå³ýÓÃ»§ËùÓÐ´¬ÐÅÏ¢
+void CBoatMgr::Clear()  //  ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½Ï¢
 {
 	_pHuman = NULL;
 	for( int i=0; i<defMaxBoat; i++ )
@@ -221,7 +221,7 @@ void CBoatMgr::Clear()  //  Çå³ýÓÃ»§ËùÓÐ´¬ÐÅÏ¢
 	}
 }
 
-CCharacter* CBoatMgr::FindCha( CGoodsGrid* pGoods ) // ÓÉ×°±¸Æ¥Åä²éÕÒ´¬Ö»µÄÖ÷ÈË
+CCharacter* CBoatMgr::FindCha( CGoodsGrid* pGoods ) // ï¿½ï¿½×°ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½Ò´ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 {
 	if( pGoods==g_stUIEquip.GetGoodsGrid() )
 		return _pHuman;

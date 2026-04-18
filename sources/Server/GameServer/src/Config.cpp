@@ -17,12 +17,16 @@ CGameConfig::CGameConfig()
 void CGameConfig::SetDefault()
 {
 	m_nGateCnt = 0;
-    m_nMapCnt  = 0;
+	m_nMapCnt = 0;
 	m_lSocketAlive = 1;
 	memset(m_btMapOK, 0, MAX_MAP);
-	strcpy(m_szDBIP,  "192.168.1.233");
-	strcpy(m_szDBUsr,  "usr");
-	strcpy(m_szDBPass, "22222"); 
+	//strcpy(m_szDBIP,  "192.168.1.233");
+	//strcpy(m_szDBUsr,  "usr");
+	//strcpy(m_szDBPass, "22222");
+	strncpy_s(m_szDBIP, sizeof(m_szDBIP), "127.0.0.1", _TRUNCATE);
+	strncpy_s(m_szDBUsr, sizeof(m_szDBUsr), "mothannakh", _TRUNCATE);
+	strncpy_s(m_szDBPass, sizeof(m_szDBPass), "EZCpyYOZVofugqDFBZrLKw==", _TRUNCATE);
+	strncpy_s(m_szDBName, sizeof(m_szDBName), "GameDb", _TRUNCATE);
 
 	// Add by lark.li 20080321 begin
 	memset(m_szTradeLogDBIP, 0, sizeof(m_szTradeLogDBIP));
@@ -31,39 +35,46 @@ void CGameConfig::SetDefault()
 	memset(m_szTradeLogDBPass, 0, sizeof(m_szTradeLogDBPass));
 	// End
 
-	memset( m_szEqument, 0, MAX_MAPNAME_LENGTH );
+	memset(m_szEqument, 0, MAX_MAPNAME_LENGTH);
 	m_nMaxPly = 3000;
 	m_nMaxCha = 15000;
-	m_nMaxItem = 10000;
-	m_nMaxTNpc = 300;
+	m_nMaxItem = 20000; // watsize: increase for 20000 records, default: 10000
+	m_nMaxTNpc = 500; // watsize: increase for 500, default: 300
+	m_nMaxShip = 1000; // 最大船只数 //本机调试GS，占用较少内存，从cfg读入max_ship数据(如果读不到，默认值为以前的1000) -Waiting Add 2009-03-23
+	m_nMaxRes = 1000;  // 最大资源数 //本机调试GS，占用较少内存，从cfg读入max_ship数据(如果读不到，默认值为以前的1000) -Waiting Add 2009-03-23
 
 	m_lItemShowTime = 300 * 1000;
-	m_lItemProtTime = 30  * 1000;
-	m_lSayInterval  =  3  * 1000;
+	m_lItemProtTime = 30 * 1000;
+	m_lSayInterval = 3 * 1000;
 
 	m_chMapMask = 1;
 	m_lDBSave = 20 * 60 * 1000;
 
-	strcpy(m_szResDir, "");
-	strcpy(m_szLogDir, "log\\");
+	//strcpy(m_szResDir, "");
+	strncpy_s(m_szResDir, sizeof(m_szResDir), "", _TRUNCATE);
+	//strcpy(m_szLogDir, "log\\");
+	strncpy_s(m_szLogDir, sizeof(m_szLogDir), "log\\", _TRUNCATE);
 
-	strcpy(m_szInfoIP, "");
+	//strcpy(m_szInfoIP, "");
+	//m_nInfoPort = 0;
+	//strcpy(m_szInfoPwd, "");
+	strncpy_s(m_szInfoIP, sizeof(m_szInfoIP), "", _TRUNCATE);
 	m_nInfoPort = 0;
-	strcpy(m_szInfoPwd, "");
+	strncpy_s(m_szInfoPwd, sizeof(m_szInfoPwd), "", _TRUNCATE);
 	m_nSection = 0;
 
-	m_bLogAI		= FALSE;	// 是否打开AI的log
-	m_bLogCha		= FALSE;	// 是否打开角色的log
-	m_bLogCal		= FALSE;	// 是否打开数值计算的log
-	m_bLogMission	= FALSE;	// 是否打开Mission的log
+	m_bLogAI = FALSE;	// 是否打开AI的log
+	m_bLogCha = FALSE;	// 是否打开角色的log
+	m_bLogCal = FALSE;	// 是否打开数值计算的log
+	m_bLogMission = FALSE;	// 是否打开Mission的log
 
-	m_bSuperCmd     = FALSE;
+	m_bSuperCmd = FALSE;
 
 	// Add by lark.li 20080731 begin
 	m_vGMCmd.clear();
 	// End
 
-	m_bLogDB        = FALSE;
+	m_bLogDB = FALSE;
 
 	m_bTradeLogIsConfig = FALSE;	// Add by lark.li 20080324
 
@@ -75,15 +86,15 @@ void CGameConfig::SetDefault()
 	m_bInstantIGS = FALSE;
 	m_lWeather = 120;
 	m_dwStallTime = 48;
-	m_cSaveState[32] = {0};
+	m_cSaveState[32] = { 0 };
 }
 
-bool CGameConfig::Load(char *pszFileName)
+bool CGameConfig::Load(char* pszFileName)
 {
 	LG("init", "Load Game Config File(Text Mode) [%s]\n", pszFileName);
-	
+
 	ifstream in(pszFileName);
-	if(in.is_open()==0)
+	if (in.is_open() == 0)
 	{
 		LG("init", "msgLoad Game Config File(Text Mode) [%s] error! \n", pszFileName);
 		return false;
@@ -92,12 +103,12 @@ bool CGameConfig::Load(char *pszFileName)
 	string strComment;
 	string strLine;
 	char szLine[255];
-	while(!in.eof())
+	while (!in.eof())
 	{
 		in.getline(szLine, 255);
 		strLine = szLine;
 		auto p = strLine.find("//");
-		if(p!= std::string::npos)
+		if (p != std::string::npos)
 		{
 			string strLeft = strLine.substr(0, p);
 			strComment = strLine.substr(p + 2, strLine.size() - p - 2);
@@ -108,43 +119,43 @@ bool CGameConfig::Load(char *pszFileName)
 			strComment = "";
 		}
 		Util_TrimString(strLine);
-		if(strLine.size()==0) continue;
-		if(strLine[0]=='[') 
+		if (strLine.size() == 0) continue;
+		if (strLine[0] == '[')
 		{
 			Log("\n%s\n", strLine.c_str());
 			continue;
 		}
-		
+
 		int n = Util_ResolveTextLine(strLine.c_str(), strPair, 2, '=');
-		if(n < 2) continue;
-        string strKey   = strPair[0];
+		if (n < 2) continue;
+		string strKey = strPair[0];
 		string strValue = strPair[1];
-		
-		if(strKey=="gate")
+
+		if (strKey == "gate")
 		{
 			string strList[2];
-            int nCnt = Util_ResolveTextLine(strValue.c_str(), strList, 2, ',');
-		    if(nCnt==2)
-            {
-                strcpy(m_szGateIP[m_nGateCnt], strList[0].c_str());
-                m_nGatePort[m_nGateCnt] = Str2Int(strList[1]);
+			int nCnt = Util_ResolveTextLine(strValue.c_str(), strList, 2, ',');
+			if (nCnt == 2)
+			{
+				strcpy(m_szGateIP[m_nGateCnt], strList[0].c_str());
+				m_nGatePort[m_nGateCnt] = Str2Int(strList[1]);
 				if (m_nGateCnt < MAX_GATE)
 					m_nGateCnt++;
-            }
-        }
-        else if(strKey=="info") // 解析InfoServer IP和port
-        {
-            string strList[4];
-            int nCnt = Util_ResolveTextLine(strValue.c_str(), strList, 4, ',');
-            if(nCnt==4)
-            {
-                strcpy(m_szInfoIP, strList[0].c_str());
-                m_nInfoPort = Str2Int(strList[1]);
+			}
+		}
+		else if (strKey == "info") // 解析InfoServer IP和port
+		{
+			string strList[4];
+			int nCnt = Util_ResolveTextLine(strValue.c_str(), strList, 4, ',');
+			if (nCnt == 4)
+			{
+				strcpy(m_szInfoIP, strList[0].c_str());
+				m_nInfoPort = Str2Int(strList[1]);
 				strcpy(m_szInfoPwd, strList[2].c_str());
 				m_nSection = Str2Int(strList[3].c_str());
-            }
-        }
-		else if(strKey == "persist_state")
+			}
+		}
+		else if (strKey == "persist_state")
 		{
 			string strList[32];
 			int nCnt = Util_ResolveTextLine(strValue.c_str(), strList, 32, ',');
@@ -153,18 +164,18 @@ bool CGameConfig::Load(char *pszFileName)
 				m_cSaveState[i] = Str2Int(strList[i]);
 			}
 		}
-		else if(strKey=="map") 
+		else if (strKey == "map")
 		{
-		    strcpy(m_szMapList[m_nMapCnt], strValue.c_str());
-            m_nMapCnt++;
-        }
-		else if(strKey=="equment" )
-		{
-			strncpy( m_szEqument, strValue.c_str(), MAX_MAPNAME_LENGTH - 1 );
+			strcpy(m_szMapList[m_nMapCnt], strValue.c_str());
+			m_nMapCnt++;
 		}
-		else if(strKey=="name")
+		else if (strKey == "equment")
 		{
-            strcpy(m_szName, strValue.c_str());
+			strncpy(m_szEqument, strValue.c_str(), MAX_MAPNAME_LENGTH - 1);
+		}
+		else if (strKey == "name")
+		{
+			strcpy(m_szName, strValue.c_str());
 		}
 		else if (strKey == "BaseID")
 		{
@@ -174,156 +185,172 @@ bool CGameConfig::Load(char *pszFileName)
 			else // 十进制值
 				sscanf(strValue.c_str(), "%d", &m_ulBaseID);
 		}
-		else if(strKey=="max_ply")
+		else if (strKey == "max_ply")
 		{
 			m_nMaxPly = Str2Int(strValue);
 		}
-		else if(strKey=="max_cha")
+		else if (strKey == "max_cha")
 		{
 			m_nMaxCha = Str2Int(strValue);
 		}
-		else if(strKey=="max_item")
+		else if (strKey == "max_item")
 		{
 			m_nMaxItem = Str2Int(strValue);
 		}
-		else if(strKey=="max_tnpc")
+		else if (strKey == "max_tnpc")
 		{
 			m_nMaxTNpc = Str2Int(strValue);
 		}
-		else if(strKey=="db_ip")
+		else if (strKey == "max_ship") // 最大船只数 //本机调试GS，占用较少内存，从cfg读入max_ship数据(如果读不到，默认值为以前的1000) -Waiting Add 2009-03-23
+		{
+			m_nMaxShip = Str2Int(strValue);
+		}
+		else if (strKey == "max_res") // 最大资源数 //本机调试GS，占用较少内存，从cfg读入max_ship数据(如果读不到，默认值为以前的1000) -Waiting Add 2009-03-23
+		{
+			m_nMaxRes = Str2Int(strValue);
+		}
+		else if (strKey == "db_ip")
 		{
 			strcpy(m_szDBIP, strValue.c_str());
 		}
-		else if(strKey=="db_usr")
+		else if (strKey == "db_usr")
 		{
 			strcpy(m_szDBUsr, strValue.c_str());
 		}
-		else if(strKey=="db_pass")
+		else if (strKey == "db_pass")
 		{
 			strcpy(m_szDBPass, strValue.c_str());
 		}
-		else if(strKey=="log_cha")
+		else if (strKey == "log_cha")
 		{
 			m_bLogCha = Str2Int(strValue);
 		}
-		else if(strKey=="db_name")
+		else if (strKey == "db_name")
 		{
-			strncpy_s( m_szDBName, sizeof(m_szDBName), strValue.c_str(), _TRUNCATE );
+			strncpy_s(m_szDBName, sizeof(m_szDBName), strValue.c_str(), _TRUNCATE);
 		}
-		else if(strKey=="log_ai")
+		else if (strKey == "log_ai")
 		{
 			m_bLogAI = Str2Int(strValue);
 		}
-		else if(strKey=="log_cal")
+		else if (strKey == "log_cal")
 		{
 			m_bLogCal = Str2Int(strValue);
 		}
-		else if(strKey=="log_mission")
+		else if (strKey == "log_mission")
 		{
 			m_bLogMission = Str2Int(strValue);
 		}
-		else if (strKey=="keep_alive")
+		else if (strKey == "keep_alive")
 		{
 			m_lSocketAlive = Str2Int(strValue);
-		}	
+		}
 		// Add by lark.li 20080731 begin
-		if(strKey=="gmcmd")
+		if (strKey == "gmcmd")
 		{
 			string strList[7];
-            int nCnt = Util_ResolveTextLine(strValue.c_str(), strList, 7, ',');
+			int nCnt = Util_ResolveTextLine(strValue.c_str(), strList, 7, ',');
 
-			for(int i=0;i<nCnt;i++)
+			for (int i = 0; i < nCnt; i++)
 			{
-                m_vGMCmd.push_back(Str2Int(strList[i]));
+				m_vGMCmd.push_back(Str2Int(strList[i]));
 			}
-       }
+		}
 		// End
-		else if(strKey=="supercmd")
+		else if (strKey == "supercmd")
 		{
 			m_bSuperCmd = Str2Int(strValue);
 		}
-		else if(strKey=="item_show_time")
+		else if (strKey == "item_show_time")
 		{
 			m_lItemShowTime = Str2Int(strValue);
 		}
-		else if(strKey=="item_prot_time")
+		else if (strKey == "item_prot_time")
 		{
 			m_lItemProtTime = Str2Int(strValue);
 		}
-		else if(strKey=="say_interval")
+		else if (strKey == "say_interval")
 		{
 			m_lSayInterval = Str2Int(strValue) * 1000;
 		}
-		else if(strKey=="res_dir")
+		else if (strKey == "res_dir")
 		{
 			strcpy(m_szResDir, strValue.c_str());
 		}
-		else if(strKey=="log_dir")
+		else if (strKey == "log_dir")
 		{
 			strcpy(m_szLogDir, strValue.c_str());
 			LG_SetDir(m_szLogDir);
 		}
-		else if(strKey=="db_mapmask")
+		else if (strKey == "db_mapmask")
 		{
 			m_chMapMask = Str2Int(strValue);
 		}
-		else if(strKey=="save_db")
+		else if (strKey == "save_db")
 		{
 			m_lDBSave = Str2Int(strValue) * 60 * 1000;
 		}
-		else if(strKey=="log_db")
+		else if (strKey == "log_db")
 		{
 			m_bLogDB = Str2Int(strValue);
 		} // Add by lark.li 20080324 begin
-		else if(strKey=="tradelog_db_ip")
+		else if (strKey == "tradelog_db_ip")
 		{
-			strcpy(m_szTradeLogDBIP, strValue.c_str());
+			//strcpy(m_szTradeLogDBIP, strValue.c_str());
+			strncpy_s(m_szTradeLogDBIP, sizeof(m_szTradeLogDBIP), strValue.c_str(), _TRUNCATE);
 		}
-		else if(strKey=="tradelog_db_name")
+		else if (strKey == "tradelog_db_name")
 		{
-			strcpy(m_szTradeLogDBName, strValue.c_str());
+			//strcpy(m_szTradeLogDBName, strValue.c_str());
+			strncpy_s(m_szTradeLogDBName, sizeof(m_szTradeLogDBName), strValue.c_str(), _TRUNCATE);
 		}
-		else if(strKey=="tradelog_db_usr")
+		else if (strKey == "tradelog_db_usr")
 		{
-			strcpy(m_szTradeLogDBUsr, strValue.c_str());
+			//strcpy(m_szTradeLogDBUsr, strValue.c_str());
+			strncpy_s(m_szTradeLogDBUsr, sizeof(m_szTradeLogDBUsr), strValue.c_str(), _TRUNCATE);
 		}
-		else if(strKey=="tradelog_db_pass")
+		else if (strKey == "tradelog_db_pass")
 		{
-			strcpy(m_szTradeLogDBPass, strValue.c_str());
-		}
-		else if(strKey=="guild_num")
+			//strcpy(m_szTradeLogDBPass, strValue.c_str());
+			strncpy_s(m_szTradeLogDBPass, sizeof(m_szTradeLogDBPass), strValue.c_str(), _TRUNCATE);
+		} // End
+		else if (strKey == "resetflag")
+		{
+			m_ResetFlag = Str2Int(strValue);
+		}// End
+		else if (strKey == "guild_num")
 		{
 			m_sGuildNum = Str2Int(strValue);
 		}
-		else if(strKey=="guild_try_num")
+		else if (strKey == "guild_try_num")
 		{
 			m_sGuildTryNum = Str2Int(strValue);
 		}
-		else if(strKey=="stall_offline")
+		else if (strKey == "stall_offline")
 		{
 			m_bOfflineMode = Str2Int(strValue);
 		}
-		else if(strKey=="igs_instant")
+		else if (strKey == "igs_instant")
 		{
 			m_bInstantIGS = Str2Int(strValue);
 		}
-		else if(strKey=="stall_empty_dc")
+		else if (strKey == "stall_empty_dc")
 		{
 			m_bDiscStall = Str2Int(strValue);
 		}
-		else if(strKey=="chaos_blind")
+		else if (strKey == "chaos_blind")
 		{
 			m_bBlindChaos = Str2Int(strValue);
 		}
-		else if(strKey=="weather_interval")
+		else if (strKey == "weather_interval")
 		{
 			m_lWeather = Str2Int(strValue);
 		}
-		else if(strKey=="chaos_map")
+		else if (strKey == "chaos_map")
 		{
-			strncpy_s( m_szChaosMap, sizeof(m_szChaosMap), strValue.c_str(), _TRUNCATE );
+			strncpy_s(m_szChaosMap, sizeof(m_szChaosMap), strValue.c_str(), _TRUNCATE);
 		}
-		else if(strKey=="stall_interval")
+		else if (strKey == "stall_interval")
 		{
 			m_dwStallTime = Str2Int(strValue);
 		}
@@ -331,19 +358,19 @@ bool CGameConfig::Load(char *pszFileName)
 	in.close();
 
 	// Add by lark.li 20080324 begin
-	if( strlen(g_Config.m_szTradeLogDBIP) > 0 && strlen(g_Config.m_szTradeLogDBName) > 0 && strlen(g_Config.m_szTradeLogDBUsr) > 0 && strlen(g_Config.m_szTradeLogDBPass) > 0 )
+	if (strlen(g_Config.m_szTradeLogDBIP) > 0 && strlen(g_Config.m_szTradeLogDBName) > 0 && strlen(g_Config.m_szTradeLogDBUsr) > 0 && strlen(g_Config.m_szTradeLogDBPass) > 0)
 		m_bTradeLogIsConfig = TRUE;
 	// End
 
 	return true;
 }
 
-bool CGameConfig::Reload(char *pszFileName)
+bool CGameConfig::Reload(char* pszFileName)
 {
 	LG("init", "Load Game Config File(Text Mode) [%s]\n", pszFileName);
-	
+
 	ifstream in(pszFileName);
-	if(in.is_open()==0)
+	if (in.is_open() == 0)
 	{
 		LG("init", "msgLoad Game Config File(Text Mode) [%s] error! \n", pszFileName);
 		return false;
@@ -352,12 +379,12 @@ bool CGameConfig::Reload(char *pszFileName)
 	string strComment;
 	string strLine;
 	char szLine[255];
-	while(!in.eof())
+	while (!in.eof())
 	{
 		in.getline(szLine, 255);
 		strLine = szLine;
 		auto p = strLine.find("//");
-		if(p!= std::string::npos)
+		if (p != std::string::npos)
 		{
 			string strLeft = strLine.substr(0, p);
 			strComment = strLine.substr(p + 2, strLine.size() - p - 2);
@@ -368,38 +395,38 @@ bool CGameConfig::Reload(char *pszFileName)
 			strComment = "";
 		}
 		Util_TrimString(strLine);
-		if(strLine.size()==0) continue;
-		if(strLine[0]=='[') 
+		if (strLine.size() == 0) continue;
+		if (strLine[0] == '[')
 		{
 			Log("\n%s\n", strLine.c_str());
 			continue;
 		}
-		
+
 		int n = Util_ResolveTextLine(strLine.c_str(), strPair, 2, '=');
-		if(n < 2) continue;
-        string strKey   = strPair[0];
+		if (n < 2) continue;
+		string strKey = strPair[0];
 		string strValue = strPair[1];
-		if(strKey=="guild_num")
+		if (strKey == "guild_num")
 		{
 			m_sGuildNum = Str2Int(strValue);
 		}
-		else if(strKey=="guild_try_num")
+		else if (strKey == "guild_try_num")
 		{
 			m_sGuildTryNum = Str2Int(strValue);
 		}
-		else if(strKey=="offline_stall")
+		else if (strKey == "offline_stall")
 		{
 			m_bOfflineMode = Str2Int(strValue);
 		}
-		else if(strKey=="instant_igs")
+		else if (strKey == "instant_igs")
 		{
 			m_bInstantIGS = Str2Int(strValue);
 		}
-		else if(strKey=="empty_disconnect")
+		else if (strKey == "empty_disconnect")
 		{
 			m_bDiscStall = Str2Int(strValue);
 		}
-		else if(strKey=="chaos_blind")
+		else if (strKey == "chaos_blind")
 		{
 			m_bBlindChaos = Str2Int(strValue);
 		}
@@ -450,13 +477,13 @@ void CGameCommand::SetDefault()
 	strcpy(m_cDistance, "distance");
 }
 
-bool CGameCommand::Load(const char *pszFileName)
+bool CGameCommand::Load(const char* pszFileName)
 {
 	//printf("Loading %s ", pszFileName);
 
 	LG("init", "Load Game Config File(Text Mode) [%s]\n", pszFileName);
 	ifstream in(pszFileName);
-	if(in.is_open()==0)
+	if (in.is_open() == 0)
 	{
 		LG("init", "msgLoad Game Config File(Text Mode) [%s] error! \n", pszFileName);
 		return false;
@@ -465,11 +492,11 @@ bool CGameCommand::Load(const char *pszFileName)
 	string strComment;
 	string strLine;
 	char szLine[255];
-	while(!in.eof()) {
+	while (!in.eof()) {
 		in.getline(szLine, 255);
 		strLine = szLine;
 		auto p = strLine.find("//");
-		if(p!= std::string::npos)
+		if (p != std::string::npos)
 		{
 			string strLeft = strLine.substr(0, p);
 			strComment = strLine.substr(p + 2, strLine.size() - p - 2);
@@ -480,15 +507,15 @@ bool CGameCommand::Load(const char *pszFileName)
 			strComment = "";
 		}
 		Util_TrimString(strLine);
-		if(strLine.size()==0)
+		if (strLine.size() == 0)
 			continue;
-		if(strLine[0]=='[')
+		if (strLine[0] == '[')
 		{
 			Log("\n%s\n", strLine.c_str());
 			continue;
 		}
 		int n = Util_ResolveTextLine(strLine.c_str(), strPair, 2, '=');
-		if(n < 2)
+		if (n < 2)
 			continue;
 
 		string strKey = strPair[0];
@@ -509,47 +536,47 @@ bool CGameCommand::Load(const char *pszFileName)
 			strcpy(m_cKick, strValue.c_str());
 		else if (strKey == "cmd_kick")
 			strcpy(m_cKick, strValue.c_str());
-		else if(strKey=="cmd_reload")
+		else if (strKey == "cmd_reload")
 			strcpy(m_cReload, strValue.c_str());
-		else if(strKey=="cmd_relive")
+		else if (strKey == "cmd_relive")
 			strcpy(m_cRelive, strValue.c_str());
-		else if(strKey=="cmd_qcha")
+		else if (strKey == "cmd_qcha")
 			strcpy(m_cQcha, strValue.c_str());
-		else if(strKey=="cmd_qitem")
+		else if (strKey == "cmd_qitem")
 			strcpy(m_cQitem, strValue.c_str());
-		else if(strKey=="cmd_call")
+		else if (strKey == "cmd_call")
 			strcpy(m_cCall, strValue.c_str());
-		else if(strKey=="cmd_move")
+		else if (strKey == "cmd_move")
 			strcpy(m_cMove, strValue.c_str());
-		else if(strKey=="cmd_gamesvrstop")
+		else if (strKey == "cmd_gamesvrstop")
 			strcpy(m_cGamesvrstop, strValue.c_str());
-		else if(strKey=="cmd_updateall")
+		else if (strKey == "cmd_updateall")
 			strcpy(m_cUpdateall, strValue.c_str());
-		else if(strKey=="cmd_misreload")
+		else if (strKey == "cmd_misreload")
 			strcpy(m_cMisreload, strValue.c_str());
-		else if(strKey=="cmd_summon")
+		else if (strKey == "cmd_summon")
 			strcpy(m_cSummon, strValue.c_str());
-		else if(strKey=="cmd_summonex")
+		else if (strKey == "cmd_summonex")
 			strcpy(m_cSummonex, strValue.c_str());
-		else if(strKey=="cmd_kill")
+		else if (strKey == "cmd_kill")
 			strcpy(m_cKill, strValue.c_str());
-		else if(strKey=="cmd_addmoney")
+		else if (strKey == "cmd_addmoney")
 			strcpy(m_cAddmoney, strValue.c_str());
-		else if(strKey=="cmd_addexp")
+		else if (strKey == "cmd_addexp")
 			strcpy(m_cAddexp, strValue.c_str());
-		else if(strKey=="cmd_attr")
+		else if (strKey == "cmd_attr")
 			strcpy(m_cAttr, strValue.c_str());
-		else if(strKey=="cmd_itemattr")
+		else if (strKey == "cmd_itemattr")
 			strcpy(m_cItemattr, strValue.c_str());
-		else if(strKey=="cmd_skill")
+		else if (strKey == "cmd_skill")
 			strcpy(m_cSkill, strValue.c_str());
-		else if(strKey=="cmd_delitem")
+		else if (strKey == "cmd_delitem")
 			strcpy(m_cDelitem, strValue.c_str());
-		else if(strKey=="cmd_lua_all")
+		else if (strKey == "cmd_lua_all")
 			strcpy(m_cLuaall, strValue.c_str());
-		else if(strKey=="cmd_addkb")
+		else if (strKey == "cmd_addkb")
 			strcpy(m_cAddkb, strValue.c_str());
-		else if(strKey=="cmd_lua")
+		else if (strKey == "cmd_lua")
 			strcpy(m_cLua, strValue.c_str());
 		else if (strKey == "cmd_addimp")
 			strcpy(m_cAddImp, strValue.c_str());

@@ -29,7 +29,7 @@ bool CSceneSign::Init( CGameScene* pScene )
 	}
     else
     {
-        LG( "init", g_oLangRec.GetString(377) );
+        LG( "init", RES_STRING(CMISS_000377) );
         return false;
     }
 
@@ -44,7 +44,7 @@ bool CSceneSign::Init( CGameScene* pScene )
 	}
     else
     {
-        LG( "init", g_oLangRec.GetString(378) );
+        LG( "init", RES_STRING(CMISS_000378) );
         return false;
     }
 
@@ -56,7 +56,7 @@ bool CSceneSign::Init( CGameScene* pScene )
     }
     else
     {
-        LG( "init", g_oLangRec.GetString(379) );
+        LG( "init", RES_STRING(CMISS_000379) );
         return false;
     }
 	return true;

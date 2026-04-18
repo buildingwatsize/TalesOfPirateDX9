@@ -155,7 +155,7 @@ private:
 	void _add_game(GameServer* game);
 	bool _exist_game(char const* game);
 	void _del_game(GameServer* game);
-	std::map<std::string, GameServer*> _map_game; // ´ÓµØÍ¼Ãû¶ÔÓ¦ GameServer ÃèÊö¶ÔÏó
+	std::map<std::string, GameServer*> _map_game; // Map name -> GameServer descriptor
 	std::recursive_mutex _mut_game;
 
 	IMPLEMENT_CDELETE(ToGameServer)
@@ -269,8 +269,8 @@ public:
 	dbc::uLong	volatile	m_dbid{};		// 当前角色的数据库ID
 	dbc::uLong	volatile	m_worldid{};	// 当前角色的内存唯一ID
 	dbc::uLong	volatile	m_pingtime{};
-	dbc::InterLockedLong gm_addr{}; // GameServer 上 Player 对象的指针
-	dbc::InterLockedLong gp_addr{}; // GroupServer 上 Player 对象的指针
+	dbc::InterLockedLongLong gm_addr{}; // GameServer 上 Player 对象的指针
+	dbc::InterLockedLongLong gp_addr{}; // GroupServer 上 Player 对象的指针
 	dbc::DataSocket* volatile m_datasock{}; // 此 Player 的 GateServer <-> Client 连接
 	GameServer* volatile game{}; // 此 Player 当前所在的 GameServer 描述对象
 	volatile bool enc{}; // 是否加密通信数据

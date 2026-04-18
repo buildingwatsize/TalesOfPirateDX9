@@ -271,7 +271,7 @@ void NetPC_GUILD_STOP()
 
 void NetMC_GUILD_MOTTO(cChar *motto)
 {
-	//´Ë»Øµ÷º¯ÊýÒÑ¾­ÎÞÐ§(±»È¡Ïû)-Arcol 2005.10.9
+	//ï¿½Ë»Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½Ð§(ï¿½ï¿½È¡ï¿½ï¿½)-Arcol 2005.10.9
 	CGuildData::SetGuildMottoName(motto);
 	CUIGuildMgr::RefreshAttribute();
 }
@@ -283,13 +283,13 @@ void NetMC_GUILD_INFO( DWORD dwCharID, DWORD dwGuildID, const char szGuildName[]
 
 	if( !CGameApp::GetCurScene() )
 	{
-		LG( "error", g_oLangRec.GetString(244) );
+		LG( "error", RES_STRING(CMISS_000244) );
 		return;
 	}
 
 	if( !CGameScene::GetMainCha() ) 
 	{
-		LG( "error", g_oLangRec.GetString(245) );
+		LG( "error", RES_STRING(CMISS_000245) );
 		return;
 	}
 
@@ -324,7 +324,7 @@ void NetMC_GUILD_INFO( DWORD dwCharID, DWORD dwGuildID, const char szGuildName[]
 
 		if( !pCha )
 		{
-			LG( "error", g_oLangRec.GetString(246), dwCharID );
+			LG( "error", RES_STRING(CMISS_000246), dwCharID );
 			return;
 		}
 

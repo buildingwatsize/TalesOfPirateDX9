@@ -11,22 +11,22 @@ using namespace std;
 
 SQLRETURN Exec_sql_direct(const char *pszSQL, cfl_rs *pTable)
 {
-	//LG("group_sql", "±í[%s], ¿ªÊ¼Ö´ÐÐSQLÓï¾ä[%s]\n", pTable->get_table(), pszSQL);
+	//LG("group_sql", "ï¿½ï¿½[%s], ï¿½ï¿½Ê¼Ö´ï¿½ï¿½SQLï¿½ï¿½ï¿½[%s]\n", pTable->get_table(), pszSQL);
 	LG("group_sql", "Table [%s], begin execute SQL [%s]\n", pTable->get_table(), pszSQL);
 	SQLRETURN r = pTable->exec_sql_direct(pszSQL);
 	if(DBOK(r))
 	{
-		//LG("group_sql", "³É¹¦Ö´ÐÐSQL!\n");
+		//LG("group_sql", "ï¿½É¹ï¿½Ö´ï¿½ï¿½SQL!\n");
 		LG("group_sql", "execute SQL success!");
 	}
 	else if(DBNODATA(r))
 	{
-		//LG("group_sql", "Ö´ÐÐSQL, µ«ÎÞ½á¹û·µ»Ø\n");
+		//LG("group_sql", "Ö´ï¿½ï¿½SQL, ï¿½ï¿½ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\n");
 		LG("group_sql", "execute SQL, no result \n");
 	}
 	else
 	{
-		//LG("group_sql", "Ö´ÐÐSQL, ³ö´í!\n");
+		//LG("group_sql", "Ö´ï¿½ï¿½SQL, ï¿½ï¿½ï¿½ï¿½!\n");
 		LG("group_sql", "execute SQL, failed!\n");
 	}
 	return r;
@@ -41,7 +41,7 @@ bool TBLAccounts::IsReady()
 	if(!DBOK(l_ret))
 	{
 		LogLine l_line(g_LogDB);
-		//l_line<<newln<<"SQLÓï¾ä:"<<sql<<"Ö´ÐÐÊ§°Ü£¡";
+		//l_line<<newln<<"SQLï¿½ï¿½ï¿½:"<<sql<<"Ö´ï¿½ï¿½Ê§ï¿½Ü£ï¿½";
 		l_line<<newln<<"SQL:"<<sql<<" execute failed !";
 	}
 	strcpy(sql,"drop trigger [TR_I_Character]");
@@ -49,7 +49,7 @@ bool TBLAccounts::IsReady()
 	if(!DBOK(l_ret))
 	{
 		LogLine l_line(g_LogDB);
-		//l_line<<newln<<"SQLÓï¾ä:"<<sql<<"Ö´ÐÐÊ§°Ü£¡";
+		//l_line<<newln<<"SQLï¿½ï¿½ï¿½:"<<sql<<"Ö´ï¿½ï¿½Ê§ï¿½Ü£ï¿½";
 		l_line<<newln<<"SQL:"<<sql<<" execute failed !";
 	}
 	strcpy(sql,"CREATE TRIGGER TR_D_Character_Friends ON character \n\
@@ -72,7 +72,7 @@ bool TBLAccounts::IsReady()
 	if(!DBOK(l_ret))
 	{
 		LogLine l_line(g_LogDB);
-		//l_line<<newln<<"SQLÓï¾ä:"<<sql<<"Ö´ÐÐÊ§°Ü£¡";
+		//l_line<<newln<<"SQLï¿½ï¿½ï¿½:"<<sql<<"Ö´ï¿½ï¿½Ê§ï¿½Ü£ï¿½";
 		l_line<<newln<<"SQL:"<<sql<<" execute failed !";
 		return false;
 	}
@@ -98,7 +98,7 @@ int TBLSystem::Increment()
 {
    char sql[SQL_MAXLEN];
 
-    // account_save ±íµÄ id ×Ö¶ÎÊÇÖ÷¼ü
+    // account_save ï¿½ï¿½ï¿½ï¿½ id ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     sprintf(sql, "update %s set group_startup =group_startup +1",
             _get_table());
     Exec_sql_direct(sql, this);
@@ -120,7 +120,7 @@ void TBLSystem::Decrement()
 {
    char sql[SQL_MAXLEN];
 
-    // account_save ±íµÄ id ×Ö¶ÎÊÇÖ÷¼ü
+    // account_save ï¿½ï¿½ï¿½ï¿½ id ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     sprintf(sql, "update %s set group_startup =group_startup -1",
             _get_table());
     Exec_sql_direct(sql, this);
@@ -131,7 +131,7 @@ void TBLAccounts::AddStatLog(long login,long play,long wgplay)
 {
     char sql[SQL_MAXLEN];
 
-    // account_save ±íµÄ id ×Ö¶ÎÊÇÖ÷¼ü
+    // account_save ï¿½ï¿½ï¿½ï¿½ id ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     sprintf(sql, "insert stat_log (login_num , play_num, wgplay_num) values (%d, %d, %d)", login , play, wgplay);
     Exec_sql_direct(sql, this);
 }
@@ -139,7 +139,7 @@ bool TBLAccounts::SetDiscInfo(int actid,const char *cli_ip,const char *reason)
 {
 	char sql[SQL_MAXLEN];
 
-	// account_save ±íµÄ id ×Ö¶ÎÊÇÖ÷¼ü
+	// account_save ï¿½ï¿½ï¿½ï¿½ id ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	sprintf(sql, "update %s set last_ip='%s',disc_reason ='%s',last_leave =getdate() where ato_id =%d",
 			_get_table(), cli_ip, reason, actid);
 	SQLRETURN l_ret =Exec_sql_direct(sql, this);
@@ -166,7 +166,7 @@ bool TBLAccounts::InsertRow(int ato_id,const char *ato_nome,const char *ator_ids
 		dwActID = 1;
 	}
 
-    // account_save ±íµÄ id ×Ö¶ÎÊÇÖ÷¼ü
+    // account_save ï¿½ï¿½ï¿½ï¿½ id ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     sprintf(sql, "insert %s (ato_id, ato_nome, ator_ids) values (%d, '%s', '%s')",
             _get_table(), dwActID, ato_nome, ator_ids);
     SQLRETURN l_ret =Exec_sql_direct(sql, this);
@@ -177,7 +177,7 @@ bool TBLAccounts::UpdateRow(int ato_id,const char *ator_ids)
 {
 	char sql[SQL_MAXLEN];
 
-	// account_save ±íµÄ id ×Ö¶ÎÊÇÖ÷¼ü
+	// account_save ï¿½ï¿½ï¿½ï¿½ id ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	sprintf(sql, "update %s set ator_ids='%s' where ato_id=%d",
 			_get_table(), ator_ids, ato_id);
 	SQLRETURN l_ret =Exec_sql_direct(sql, this);
@@ -187,7 +187,7 @@ bool TBLAccounts::UpdatePassword( int ato_id, const char szPassword[] )
 {
 	char sql[SQL_MAXLEN];
 
-	// account_save ±íµÄ id ×Ö¶ÎÊÇÖ÷¼ü
+	// account_save ï¿½ï¿½ï¿½ï¿½ id ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	sprintf(sql, "update %s set password='%s' where ato_id=%d",
 			_get_table(), szPassword, ato_id);
 	SQLRETURN l_ret =Exec_sql_direct(sql, this);
@@ -241,7 +241,7 @@ bool TBLCharacters::ZeroAddr()
 {
 	char sql[SQL_MAXLEN];
 
-	// account_save ±íµÄ id ×Ö¶ÎÊÇÖ÷¼ü
+	// account_save ï¿½ï¿½ï¿½ï¿½ id ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	sprintf(sql, "update %s set endeMem =0 where endeMem != 0",_get_table());
 	SQLRETURN l_ret =Exec_sql_direct(sql, this);
 	return (DBOK(l_ret))?true:false;
@@ -253,7 +253,7 @@ bool TBLCharacters::ZeroAddr()
 //
 //	for( int i = 0; i < 200; i++ )
 //	{
-//		// account_save ±íµÄ id ×Ö¶ÎÊÇÖ÷¼ü
+//		// account_save ï¿½ï¿½ï¿½ï¿½ id ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //		int nMinID = i * 10000;
 //		int nMaxID = (i + 1) * 10000;
 //		sprintf(sql, "update %s set mem_addr = 0 where cha_id > %d and cha_id < %d and mem_addr != 0",_get_table(), nMinID, nMaxID );
@@ -270,7 +270,7 @@ bool TBLCharacters::SetAddr(long atorID,long addr)
 {
 	char sql[SQL_MAXLEN];
 
-	// account_save ±íµÄ id ×Ö¶ÎÊÇÖ÷¼ü
+	// account_save ï¿½ï¿½ï¿½ï¿½ id ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	sprintf(sql, "update %s set endeMem =%d where atorID =%d",_get_table(),addr,atorID);
 	SQLRETURN l_ret =Exec_sql_direct(sql, this);
 	return (DBOK(l_ret))?true:false;
@@ -279,7 +279,7 @@ bool TBLCharacters::InsertRow(const char *atorNome,int ato_id,const char *birth,
 {
 	char sql[SQL_MAXLEN];
 
-	// account_save ±íµÄ id ×Ö¶ÎÊÇÖ÷¼ü
+	// account_save ï¿½ï¿½ï¿½ï¿½ id ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	sprintf(sql, "insert %s (atorNome, ato_id, birth,map,olhe) values ('%s', %d, '%s','%s', '%s')",
 			_get_table(), atorNome, ato_id, birth, map,olhe);
 	SQLRETURN l_ret =Exec_sql_direct(sql, this);
@@ -289,7 +289,7 @@ bool TBLCharacters::UpdateInfo(unsigned long atorID,unsigned short icon,const ch
 {
 	char sql[SQL_MAXLEN];
 
-	// account_save ±íµÄ id ×Ö¶ÎÊÇÖ÷¼ü
+	// account_save ï¿½ï¿½ï¿½ï¿½ id ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	sprintf(sql, "update %s set icon =%d,motto ='%s' where atorID =%d",_get_table(),icon,motto,atorID);
 	SQLRETURN l_ret =Exec_sql_direct(sql, this);
 	return (DBOK(l_ret))?true:false;
@@ -442,7 +442,7 @@ int TBLCharacters::FetchRowByChaID(int atorID)
 /*
 	char* param = "c.atorNome,c.motto,c.icon,\
 				  case when c.guild_stat =0 then c.guild_id else 0 end,\
-				  case when c.guild_stat <>0 or c.guild_id =0 then '[ÎÞ]' else g.guild_name end,\
+				  case when c.guild_stat <>0 or c.guild_id =0 then '[ï¿½ï¿½]' else g.guild_name end,\
 				  c.job,c.degree,c.map,c.map_x,c.map_y,c.look,c.str,c.dex,c.agi,c.con,c.sta,c.luk\
 				  ";
 */
@@ -461,7 +461,7 @@ int TBLCharacters::FetchRowByChaID(int atorID)
 		l_bret	=_get_row(m_buf, CHA_MAXCOL, const_cast<char*>(param.c_str()), filter,&l_retrow);
 	}catch(...)
 	{
-		//LG("group_sql", "TBLCharacters::FetchRowByChaIDÖ´ÐÐSQL, ·¢ÉúÒì³£!,atorID =%d\n", atorID);
+		//LG("group_sql", "TBLCharacters::FetchRowByChaIDÖ´ï¿½ï¿½SQL, ï¿½ï¿½ï¿½ï¿½ï¿½ì³£!,atorID =%d\n", atorID);
 		LG("group_sql", "TBLCharacters::FetchRowByChaID execute SQL, failed!,atorID =%d\n", atorID);
 	}
 	_tbl_name	=l_tblname;
@@ -499,24 +499,24 @@ bool TBLCharacters::BackupRow(int atorID)
 		byType = atoi(buf[1].c_str());
 		if( dwGuildID > 0 )
 		{
-			// ¼õÉÙ¹«»áÐÅÏ¢¼ÆÊý
+			// ï¿½ï¿½ï¿½Ù¹ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½
 			if( byType == emGldMembStatNormal )
 			{
-				// ÒÑ¾­ÊÇ»áÔ±
+				// ï¿½Ñ¾ï¿½ï¿½Ç»ï¿½Ô±
 				sprintf(sql,"update guild set member_total =member_total -1 where guild_id =%d and member_total > 0", dwGuildID );
 				SQLRETURN l_sqlret = Exec_sql_direct(sql, this);
 				if( !DBOK(l_sqlret) )
 				{
-					//LG( "¹«»áÏµÍ³", "1>Reject:É¾³ý½ÇÉ«£¬µ«ÊÇ¸üÐÂ¼õÉÙ¹«»á³ÉÔ±ÈË¼ÆÊý²Ù×÷Ê§°Ü£¡Êý¾Ý¿âsql´íÎó.ret = ", l_sqlret );
-					LG( "GuildSystem", "1>Reject:delete cha£¬update guild count failed! database sql failed .ret = ", l_sqlret );
+					//LG( "ï¿½ï¿½ï¿½ï¿½ÏµÍ³", "1>Reject:É¾ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½Â¼ï¿½ï¿½Ù¹ï¿½ï¿½ï¿½ï¿½Ô±ï¿½Ë¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½sqlï¿½ï¿½ï¿½ï¿½.ret = ", l_sqlret );
+					LG( "GuildSystem", "1>Reject:delete chaï¿½ï¿½update guild count failed! database sql failed .ret = ", l_sqlret );
 					return false;
 				}
 				else
 				{
 					if(get_affected_rows() !=1)
 					{
-						//LG( "¹«»áÏµÍ³", "2>Reject:É¾³ý½ÇÉ«£¬µ«ÊÇ¸üÐÂ¼õÉÙ¹«»á³ÉÔ±ÈË¼ÆÊý²Ù×÷Ê§°Ü£¡Êý¾Ý¿âsql´íÎó.ret = ", l_sqlret );
-					LG( "GuildSystem", "2>Reject:delete cha£¬update guild count failed! database sql failed .ret = ", l_sqlret );
+						//LG( "ï¿½ï¿½ï¿½ï¿½ÏµÍ³", "2>Reject:É¾ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½Â¼ï¿½ï¿½Ù¹ï¿½ï¿½ï¿½ï¿½Ô±ï¿½Ë¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½sqlï¿½ï¿½ï¿½ï¿½.ret = ", l_sqlret );
+					LG( "GuildSystem", "2>Reject:delete chaï¿½ï¿½update guild count failed! database sql failed .ret = ", l_sqlret );
 						return false;
 
 					}
@@ -527,21 +527,21 @@ bool TBLCharacters::BackupRow(int atorID)
 			}
 			else
 			{
-				// ÕýÔÚÉêÇë
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				sprintf(sql,"update guild set try_total =try_total -1 where guild_id =%d and try_total > 0", dwGuildID);
 				SQLRETURN l_sqlret = Exec_sql_direct(sql, this);
 				if( !DBOK(l_sqlret) )
 				{
-					//LG( "¹«»áÏµÍ³", "1>BackupRow:É¾³ý½ÇÉ«£¬µ«ÊÇ¸üÐÂ¼õÉÙ¹«»áÉêÇëÈË¼ÆÊý²Ù×÷Ê§°Ü£¡Êý¾Ý¿âsql´íÎó.ret = ", l_sqlret );
-					LG( "GuildSystem", "1>BackupRow:delete cha£¬update guild count failed! database sql failed .ret = ", l_sqlret );
+					//LG( "ï¿½ï¿½ï¿½ï¿½ÏµÍ³", "1>BackupRow:É¾ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½Â¼ï¿½ï¿½Ù¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½sqlï¿½ï¿½ï¿½ï¿½.ret = ", l_sqlret );
+					LG( "GuildSystem", "1>BackupRow:delete chaï¿½ï¿½update guild count failed! database sql failed .ret = ", l_sqlret );
 					return false;
 				}
 				else
 				{
 					if(get_affected_rows() !=1)
 					{
-						//LG( "¹«»áÏµÍ³", "2>BackupRow:É¾³ý½ÇÉ«£¬µ«ÊÇ¸üÐÂ¼õÉÙ¹«»áÉêÇëÈË¼ÆÊý²Ù×÷Ê§°Ü£¡Êý¾Ý¿âsql´íÎó.ret = ", l_sqlret );
-						LG( "GuildSystem", "2>BackupRow:delete cha£¬update guild count failed! database sql failed .ret = ", l_sqlret );
+						//LG( "ï¿½ï¿½ï¿½ï¿½ÏµÍ³", "2>BackupRow:É¾ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½Â¼ï¿½ï¿½Ù¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½sqlï¿½ï¿½ï¿½ï¿½.ret = ", l_sqlret );
+						LG( "GuildSystem", "2>BackupRow:delete chaï¿½ï¿½update guild count failed! database sql failed .ret = ", l_sqlret );
 						return false;
 					}
 					else
@@ -553,14 +553,14 @@ bool TBLCharacters::BackupRow(int atorID)
 		}
 	}else
 	{
-		//LG( "¹«»áÏµÍ³", "BackupRow:É¾³ý½ÇÉ«£¬»ñÈ¡½ÇÉ«¹«»áÐÅÏ¢Ê§°Ü£¡Êý¾Ý¿âsql´íÎó.atorID = ", atorID );
-		LG( "GuildSystem", "BackupRow:delete cha£¬get guild info failed! database sql failed.atorID = ", atorID );
+		//LG( "ï¿½ï¿½ï¿½ï¿½ÏµÍ³", "BackupRow:É¾ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½sqlï¿½ï¿½ï¿½ï¿½.atorID = ", atorID );
+		LG( "GuildSystem", "BackupRow:delete chaï¿½ï¿½get guild info failed! database sql failed.atorID = ", atorID );
 		return false;
 	}
 
 
 	//sprintf(sql, "delete from %s where atorID=%d",_get_table(), atorID);
-	sprintf(sql, "update %s set delflag =1,deldate =getdate() where atorID=%d",_get_table(), atorID);   //  É¾³ýÊ±¼ä¶ÀÁ¢
+	sprintf(sql, "update %s set delflag =1,deldate =getdate() where atorID=%d",_get_table(), atorID);   //  É¾ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½
 	SQLRETURN l_ret =Exec_sql_direct(sql, this);
 	return (DBOK(l_ret))?true:false;
 }
@@ -754,6 +754,30 @@ bool TBLMaster::FinishMaster(long atorID)
 	return (DBOK(l_ret))?true:false;
 }
 
+static bool TryCreateMasterTable(SQLHDBC hdbc, const char* tableName)
+{
+	char sql[SQL_MAXLEN];
+	sprintf(sql,
+		"IF OBJECT_ID('%s','U') IS NULL "
+		"CREATE TABLE %s ("
+		"cha_id1 int NOT NULL, "
+		"cha_id2 int NOT NULL, "
+		"PRIMARY KEY (cha_id1, cha_id2))",
+		tableName, tableName);
+
+	SQLHSTMT hstmt = SQL_NULL_HSTMT;
+	SQLRETURN sr = SQLAllocHandle(SQL_HANDLE_STMT, hdbc, &hstmt);
+	if (sr != SQL_SUCCESS && sr != SQL_SUCCESS_WITH_INFO) return false;
+
+	sr = SQLExecDirect(hstmt, (SQLCHAR*)sql, SQL_NTS);
+	bool ok = (sr == SQL_SUCCESS || sr == SQL_SUCCESS_WITH_INFO);
+	SQLFreeHandle(SQL_HANDLE_STMT, hstmt);
+	if (ok) {
+		printf("[GP] Created missing table '%s'\n", tableName); fflush(stdout);
+	}
+	return ok;
+}
+
 bool TBLMaster::InitMasterRelation(map<uLong, uLong> &mapMasterRelation)
 {
 	static char const query_master_format[SQL_MAXLEN] =
@@ -763,69 +787,77 @@ bool TBLMaster::InitMasterRelation(map<uLong, uLong> &mapMasterRelation)
 	char sql[SQL_MAXLEN];
 	sprintf(sql, query_master_format,_get_table());
 
-	// Ö´ÐÐ²éÑ¯²Ù×÷
 	SQLRETURN sqlret;
 	SQLHSTMT hstmt = SQL_NULL_HSTMT;
 	SQLSMALLINT col_num = 0;
-	bool found = true;
 
-	try
+	for (int attempt = 0; attempt < 2 && !ret; ++attempt)
 	{
-		do
+		try
 		{
-			sqlret = SQLAllocHandle(SQL_HANDLE_STMT, _hdbc, &hstmt);
-			if ((sqlret != SQL_SUCCESS) && (sqlret != SQL_SUCCESS_WITH_INFO))
+			do
 			{
-				handle_err(_hdbc, SQL_HANDLE_DBC, sqlret);
-				throw 1;
+				sqlret = SQLAllocHandle(SQL_HANDLE_STMT, _hdbc, &hstmt);
+				if ((sqlret != SQL_SUCCESS) && (sqlret != SQL_SUCCESS_WITH_INFO))
+				{
+					handle_err(_hdbc, SQL_HANDLE_DBC, sqlret);
+					throw 1;
+				}
+
+				sqlret = SQLExecDirect(hstmt, (SQLCHAR *)sql, SQL_NTS);
+				if (sqlret != SQL_SUCCESS)
+				{
+					handle_err(hstmt, SQL_HANDLE_STMT, sqlret);
+					if (sqlret != SQL_SUCCESS_WITH_INFO)
+						throw 2;
+				}
+
+				sqlret = SQLNumResultCols(hstmt, &col_num);
+				col_num = min(col_num, MAX_COL);
+				col_num = min(col_num, _max_col);
+
+				for (int i = 0; i < col_num; ++ i)
+				{
+					SQLBindCol(hstmt, UWORD(i + 1), SQL_C_CHAR, _buf[i], MAX_DATALEN, &_buf_len[i]);
+				}
+
+				for (int i = 0; ((sqlret = SQLFetch(hstmt)) == SQL_SUCCESS) || (sqlret == SQL_SUCCESS_WITH_INFO); ++ i)
+				{
+					if (sqlret != SQL_SUCCESS) handle_err(hstmt, SQL_HANDLE_STMT, sqlret, sql);
+
+					uLong ulPID = atoi((char const *)_buf[0]);
+					uLong ulMID = atoi((char const *)_buf[1]);
+
+					mapMasterRelation[ulPID] = ulMID;
+				}
+
+				SQLFreeStmt(hstmt, SQL_CLOSE);
+				SQLFreeStmt(hstmt, SQL_RESET_PARAMS);
+				SQLFreeStmt(hstmt, SQL_UNBIND);
+				ret = true;
+
+			} while (0);
+		}
+		catch (...)
+		{
+			LogLine	l_line(g_LogMaster);
+			l_line<<newln<<"Exception in InitMasterRelation() attempt "<<(attempt+1);
+
+			if (attempt == 0) {
+				if (hstmt != SQL_NULL_HSTMT) {
+					SQLFreeHandle(SQL_HANDLE_STMT, hstmt);
+					hstmt = SQL_NULL_HSTMT;
+				}
+				TryCreateMasterTable(_hdbc, _get_table());
+				continue;
 			}
+		}
 
-			sqlret = SQLExecDirect(hstmt, (SQLCHAR *)sql, SQL_NTS);
-			if (sqlret != SQL_SUCCESS)
-			{
-				handle_err(hstmt, SQL_HANDLE_STMT, sqlret);
-				if (sqlret != SQL_SUCCESS_WITH_INFO)
-					throw 2;
-			}
-
-			sqlret = SQLNumResultCols(hstmt, &col_num);
-			col_num = min(col_num, MAX_COL);
-			col_num = min(col_num, _max_col);
-
-			// Bind Column
-			for (int i = 0; i < col_num; ++ i)
-			{
-				SQLBindCol(hstmt, UWORD(i + 1), SQL_C_CHAR, _buf[i], MAX_DATALEN, &_buf_len[i]);
-			}
-
-			// Fetch each Row
-			for (int i = 0; ((sqlret = SQLFetch(hstmt)) == SQL_SUCCESS) || (sqlret == SQL_SUCCESS_WITH_INFO); ++ i)
-			{
-				if (sqlret != SQL_SUCCESS) handle_err(hstmt, SQL_HANDLE_STMT, sqlret, sql);
-
-				uLong ulPID = atoi((char const *)_buf[0]);
-				uLong ulMID = atoi((char const *)_buf[1]);
-
-				mapMasterRelation[ulPID] = ulMID;
-			}
-
-			SQLFreeStmt(hstmt, SQL_CLOSE);
-			SQLFreeStmt(hstmt, SQL_RESET_PARAMS);
-			SQLFreeStmt(hstmt, SQL_UNBIND);
-			ret = true;
-
-		} while (0);
-	}
-	catch (...)
-	{
-		LogLine	l_line(g_LogMaster);
-		l_line<<newln<<"Unknown Exception raised when InitMasterRelation()";
-	}
-
-	if (hstmt != SQL_NULL_HSTMT)
-	{
-		SQLFreeHandle(SQL_HANDLE_STMT, hstmt);
-		hstmt = SQL_NULL_HSTMT;
+		if (hstmt != SQL_NULL_HSTMT)
+		{
+			SQLFreeHandle(SQL_HANDLE_STMT, hstmt);
+			hstmt = SQL_NULL_HSTMT;
+		}
 	}
 
 	return ret;
@@ -855,7 +887,7 @@ bool TBLMaster::GetMasterData(master_dat* farray, int& array_num, unsigned int a
 	char sql[SQL_MAXLEN];
 	sprintf(sql, query_master_format, atorID,atorID, atorID);
 
-	// Ö´ÐÐ²éÑ¯²Ù×÷
+	// Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
 	SQLRETURN sqlret;
 	SQLHSTMT hstmt = SQL_NULL_HSTMT;
 	SQLSMALLINT col_num = 0;
@@ -959,7 +991,7 @@ bool TBLMaster::GetPrenticeData(master_dat* farray, int& array_num, unsigned int
 	char sql[SQL_MAXLEN];
 	sprintf(sql, query_prentice_format, atorID, atorID, atorID);
 
-	// Ö´ÐÐ²éÑ¯²Ù×÷
+	// Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
 	SQLRETURN sqlret;
 	SQLHSTMT hstmt = SQL_NULL_HSTMT;
 	SQLSMALLINT col_num = 0;
@@ -1013,7 +1045,7 @@ bool TBLMaster::GetPrenticeData(master_dat* farray, int& array_num, unsigned int
 				farray[i].motto = (char const *)_buf[5];
 			}
 
-			array_num = i; // È¡³öµÄÐÐÊý
+			array_num = i; // È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 			SQLFreeStmt(hstmt, SQL_CLOSE);
 			SQLFreeStmt(hstmt, SQL_RESET_PARAMS);
@@ -1085,15 +1117,15 @@ bool TBLGuilds::Disband(uLong gldid)
 		if(DBNODATA(l_sqlret))
 		{
 			LogLine	l_line(g_LogGuild);
-			//l_line<<newln<<"½âÉ¢¹«»áSQL²Ù×÷Ê§°Ü2£¡¹«»áID:"<<gldid;
+			//l_line<<newln<<"ï¿½ï¿½É¢ï¿½ï¿½ï¿½ï¿½SQLï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID:"<<gldid;
 			l_line<<newln<<"dismiss guild SQL failed2! guild ID:"<<gldid;
 			return false;
 		}else
 		{
 			LogLine	l_line(g_LogGuild);
-			//l_line<<newln<<"½âÉ¢¹«»áSQL²Ù×÷Ê§°Ü1£¡¹«»áID:"<<gldid;
+			//l_line<<newln<<"ï¿½ï¿½É¢ï¿½ï¿½ï¿½ï¿½SQLï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID:"<<gldid;
 			l_line<<newln<<"dismiss guild SQL failed1! guild ID:"<<gldid;
-			return false;	//ÆÕÍ¨SQL´íÎó
+			return false;	//ï¿½ï¿½Í¨SQLï¿½ï¿½ï¿½ï¿½
 		}
 	}
 	sprintf(sql,	"update character set guild_id =0 ,guild_stat =0,guild_permission =0\
@@ -1103,9 +1135,9 @@ bool TBLGuilds::Disband(uLong gldid)
 	if(!DBOK(l_sqlret))
 	{
 		LogLine	l_line(g_LogGuild);
-		//l_line<<newln<<"½âÉ¢¹«»áSQL²Ù×÷Ê§°Ü3£¡¹«»áID:"<<gldid;
+		//l_line<<newln<<"ï¿½ï¿½É¢ï¿½ï¿½ï¿½ï¿½SQLï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID:"<<gldid;
 		l_line<<newln<<"dismiss guild SQL failed3! guild ID:"<<gldid;
-		return false;	//ÆÕÍ¨SQL´íÎó
+		return false;	//ï¿½ï¿½Í¨SQLï¿½ï¿½ï¿½ï¿½
 	}
 
 	return true;
@@ -1122,8 +1154,8 @@ bool TBLGuilds::InitAllGuilds(char disband_days)
 		sql_syntax =
 			"	select g.guild_id, g.guild_name, g.motto, g.leader_id,g.type,g.stat,\
 						g.money, g.exp, g.member_total, g.try_total,g.disband_date,\
-						case when g.stat>0 then DATEDIFF(mi,g.disband_date,GETDATE()) else 0 end  ½âÉ¢¿¼²ìÀÛ¼Æ·ÖÖÓ,\
-						case when g.stat>0 then %d*24*60 -DATEDIFF(mi,g.disband_date,GETDATE()) else 0 end ½âÉ¢¿¼²ìÊ£Óà·ÖÖÓ\
+						case when g.stat>0 then DATEDIFF(mi,g.disband_date,GETDATE()) else 0 end  ï¿½ï¿½É¢ï¿½ï¿½ï¿½ï¿½ï¿½Û¼Æ·ï¿½ï¿½ï¿½,\
+						case when g.stat>0 then %d*24*60 -DATEDIFF(mi,g.disband_date,GETDATE()) else 0 end ï¿½ï¿½É¢ï¿½ï¿½ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½ï¿½\
 					from guild As g\
 					where (g.guild_id >0)\
 			";
@@ -1138,7 +1170,7 @@ bool TBLGuilds::InitAllGuilds(char disband_days)
 	char sql[SQL_MAXLEN];
 	sprintf(sql, sql_syntax.c_str(), disband_days);
 
-	// Ö´ÐÐ²éÑ¯²Ù×÷
+	// Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
 	SQLRETURN sqlret;
 	SQLHSTMT hstmt	= SQL_NULL_HSTMT;
 	SQLSMALLINT col_num = 0;
@@ -1171,7 +1203,7 @@ bool TBLGuilds::InitAllGuilds(char disband_days)
 			SQLBindCol(hstmt, UWORD(i + 1), SQL_C_CHAR, _buf[i], MAX_DATALEN, &_buf_len[i]);
 		}
 
-		// Fetch each Row	int i; // È¡³öµÄÐÐÊý
+		// Fetch each Row	int i; // È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		for (int f_row = 1; (sqlret = SQLFetch(hstmt)) == SQL_SUCCESS || sqlret == SQL_SUCCESS_WITH_INFO; ++ f_row)
 		{
 			if (sqlret != SQL_SUCCESS)
@@ -1179,11 +1211,11 @@ bool TBLGuilds::InitAllGuilds(char disband_days)
 				handle_err(hstmt, SQL_HANDLE_STMT, sqlret);
 			}
 			Guild* l_gld = Guild::Alloc();
-			l_gld->m_id = atol((cChar*) _buf[0]);			//¹«»áID
-			strcpy(l_gld->m_name, (cChar*)_buf[1]);			//¹«»áÃû
-			strcpy(l_gld->m_motto,(cChar*)_buf[2]);			//¹«»á×ùÓÒÃú
-			l_gld->m_leaderID = atol((cChar*)_buf[3]);		//»á³¤ID
-			l_gld->m_remain_minute = atol((cChar*)_buf[7]);	//¹«»á½âÉ¢Ê£Óà·ÖÖÓÊý
+			l_gld->m_id = atol((cChar*) _buf[0]);			//ï¿½ï¿½ï¿½ï¿½ID
+			strcpy(l_gld->m_name, (cChar*)_buf[1]);			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			strcpy(l_gld->m_motto,(cChar*)_buf[2]);			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			l_gld->m_leaderID = atol((cChar*)_buf[3]);		//ï¿½á³¤ID
+			l_gld->m_remain_minute = atol((cChar*)_buf[7]);	//ï¿½ï¿½ï¿½ï¿½ï¿½É¢Ê£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			l_gld->m_tick = GetTickCount();
 
 			l_gld->BeginRun();
@@ -1194,7 +1226,7 @@ bool TBLGuilds::InitAllGuilds(char disband_days)
 	}catch(int&e)
 	{
 		LogLine	l_line(g_LogGuild);
-		//l_line<<newln<<"³õÊ¼»¯¹«»á¹ý³ÌODBC ½Ó¿Úµ÷ÓÃ´íÎó£¬InitAllGuilds()Î»ÖÃÂë£º"<<e;
+		//l_line<<newln<<"ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ODBC ï¿½Ó¿Úµï¿½ï¿½Ã´ï¿½ï¿½ï¿½InitAllGuilds()Î»ï¿½ï¿½ï¿½ë£º"<<e;
 		l_line<<newln<<"init guild ODBC interface failed, InitAllGuilds() error:"<<e;
 	}catch (...)
 	{
@@ -1214,11 +1246,11 @@ bool TBLGuilds::SendGuildInfo(Player *ply)
 {
 	WPacket l_togmSelf  =g_gpsvr->GetWPacket();
 	l_togmSelf.WriteCmd( CMD_PM_GUILDINFO );
-	l_togmSelf.WriteLong( ply->m_chaid[ply->m_currcha] ); // ½ÇÉ«DBID
-	l_togmSelf.WriteLong(ply->m_guild[ply->m_currcha]);	//¹«»áID	
-	l_togmSelf.WriteLong(ply->GetGuild()->m_leaderID);	//»á³¤ID	
-	l_togmSelf.WriteString(ply->GetGuild()->m_name);	//¹«»áname
-	l_togmSelf.WriteString(ply->GetGuild()->m_motto);	//¹«»á×ùÓÓÃû
+	l_togmSelf.WriteLong( ply->m_chaid[ply->m_currcha] ); // ï¿½ï¿½É«DBID
+	l_togmSelf.WriteLong(ply->m_guild[ply->m_currcha]);	//ï¿½ï¿½ï¿½ï¿½ID	
+	l_togmSelf.WriteLong(ply->GetGuild()->m_leaderID);	//ï¿½á³¤ID	
+	l_togmSelf.WriteString(ply->GetGuild()->m_name);	//ï¿½ï¿½ï¿½ï¿½name
+	l_togmSelf.WriteString(ply->GetGuild()->m_motto);	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ply->m_gate->GetDataSock()->SendData( l_togmSelf );
 	return true;
 }
@@ -1245,7 +1277,7 @@ bool TBLGuilds::InitGuildMember(Player *ply,uLong chaid,uLong gldid,int mode)
 					where (c.guild_stat =0) and (c.guild_id =%d) and (c.delflag = 0)\
 			";
 		sprintf(sql, sql_syntax, gldid);
-		// Ö´ÐÐ²éÑ¯²Ù×÷
+		// Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
 		SQLRETURN sqlret;
 		SQLHSTMT hstmt	= SQL_NULL_HSTMT;
 		SQLSMALLINT col_num = 0;
@@ -1304,7 +1336,7 @@ bool TBLGuilds::InitGuildMember(Player *ply,uLong chaid,uLong gldid,int mode)
 
 			long lPacketNum = 0;
 
-			// Fetch each Row	int i; // È¡³öµÄÐÐÊý
+			// Fetch each Row	int i; // È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			int f_row = 1;
 			for (; (sqlret = SQLFetch(hstmt)) == SQL_SUCCESS || sqlret == SQL_SUCCESS_WITH_INFO; ++ f_row)
 			{
@@ -1319,9 +1351,9 @@ bool TBLGuilds::InitGuildMember(Player *ply,uLong chaid,uLong gldid,int mode)
 				if(ply && !l_hrd)
 				{
 					l_hrd	=true;
-					l_toSelf.WriteLong(ply->m_guild[ply->m_currcha]);	//¹«»áID
-					l_toSelf.WriteString(ply->GetGuild()->m_name);		//¹«»áname
-					l_toSelf.WriteLong(ply->GetGuild()->m_leaderID);	//»á³¤ID
+					l_toSelf.WriteLong(ply->m_guild[ply->m_currcha]);	//ï¿½ï¿½ï¿½ï¿½ID
+					l_toSelf.WriteString(ply->GetGuild()->m_name);		//ï¿½ï¿½ï¿½ï¿½name
+					l_toSelf.WriteLong(ply->GetGuild()->m_leaderID);	//ï¿½á³¤ID
 				}
 				uLong l_memaddr		=atol((cChar *)_buf[0]);
 				if(l_memaddr)
@@ -1355,7 +1387,7 @@ bool TBLGuilds::InitGuildMember(Player *ply,uLong chaid,uLong gldid,int mode)
 				{
 					l_toSelf.WriteLong(lPacketNum);
 					lPacketNum++;
-					l_toSelf.WriteChar(((f_row-1)%20)+1);	//±¾´Î°üÀ¨µÄÌõÊý
+					l_toSelf.WriteChar(((f_row-1)%20)+1);	//ï¿½ï¿½ï¿½Î°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					g_gpsvr->SendToClient(ply,l_toSelf);
 				}
 			}
@@ -1366,9 +1398,9 @@ bool TBLGuilds::InitGuildMember(Player *ply,uLong chaid,uLong gldid,int mode)
 			if(ply && !l_hrd)
 			{
 				l_hrd	=true;
-				l_toSelf.WriteLong(ply->m_guild[ply->m_currcha]);	//¹«»áID
-				l_toSelf.WriteString(ply->GetGuild()->m_name);		//¹«»áname
-				l_toSelf.WriteLong(ply->GetGuild()->m_leaderID);	//»á³¤ID
+				l_toSelf.WriteLong(ply->m_guild[ply->m_currcha]);	//ï¿½ï¿½ï¿½ï¿½ID
+				l_toSelf.WriteString(ply->GetGuild()->m_name);		//ï¿½ï¿½ï¿½ï¿½name
+				l_toSelf.WriteLong(ply->GetGuild()->m_leaderID);	//ï¿½á³¤ID
 			}
 			if(ply)
 			{
@@ -1378,7 +1410,7 @@ bool TBLGuilds::InitGuildMember(Player *ply,uLong chaid,uLong gldid,int mode)
 				g_gpsvr->SendToClient(ply,l_toSelf);
 			}
 			LogLine	l_line(g_LogGuild);
-			//l_line<<newln<<"ÉÏÏßÍ¨ÖªµÄ»áÓÑÊý£º"<<l_plynum<<endln;
+			//l_line<<newln<<"ï¿½ï¿½ï¿½ï¿½Í¨Öªï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"<<l_plynum<<endln;
 			l_line<<newln<<"online guild num:"<<l_plynum<<endln;
 			g_gpsvr->SendToClient(l_plylst,l_plynum,l_toGuild);
 
@@ -1387,7 +1419,7 @@ bool TBLGuilds::InitGuildMember(Player *ply,uLong chaid,uLong gldid,int mode)
 		}catch(int&e)
 		{
 			LogLine	l_line(g_LogGuild);
-			//l_line<<newln<<"³õÊ¼»¯¹«»á¹ý³ÌODBC ½Ó¿Úµ÷ÓÃ´íÎó£¬InitGuildMember()Î»ÖÃÂë£º"<<e;
+			//l_line<<newln<<"ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ODBC ï¿½Ó¿Úµï¿½ï¿½Ã´ï¿½ï¿½ï¿½InitGuildMember()Î»ï¿½ï¿½ï¿½ë£º"<<e;
 			l_line<<newln<<"init guild ODBC interface failed, InitGuildMember() error:"<<e;
 
 			l_line<<newln<<sql;
@@ -1415,7 +1447,7 @@ bool TBLParam::InitParam(void)
 
 	SQLRETURN sqlret;
 	SQLHSTMT hstmt	= SQL_NULL_HSTMT;
-	SQLINTEGER buf_len[MAXORDERNUM+MAXORDERNUM];
+	SQLLEN buf_len[MAXORDERNUM+MAXORDERNUM];
 //	SQLINTEGER		nID = 0,nlen;
 	bool found		= true;
 
@@ -1465,7 +1497,7 @@ bool TBLParam::InitParam(void)
 	catch(int&e)
 	{
 		LogLine	l_line(g_LogGarner2);
-		//l_line<<newln<<"³õÊ¼»¯¹«»á¹ý³ÌODBC ½Ó¿Úµ÷ÓÃ´íÎó£¬InitParam()Î»ÖÃÂë£º"<<e;
+		//l_line<<newln<<"ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ODBC ï¿½Ó¿Úµï¿½ï¿½Ã´ï¿½ï¿½ï¿½InitParam()Î»ï¿½ï¿½ï¿½ë£º"<<e;
 		l_line<<newln<<"init guild ODBC interface failed, InitParam() error:"<<e;
 	}catch (...)
 	{
@@ -1503,8 +1535,8 @@ bool TBLParam::InitParam(void)
 				if(sqlret == SQL_NO_DATA)
 				{
 					LogLine	l_line(g_LogGarner2);
-					//l_line<<newln<<"½ÇÉ«Ãû²éÑ¯³ö´íÁË¡£½ÇÉ«ID£º"<<m_nOrder[n].nid;
-					l_line<<newln<<"cha name query failed .cha ID£º"<<m_nOrder[n].nid;
+					//l_line<<newln<<"ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½É«IDï¿½ï¿½"<<m_nOrder[n].nid;
+					l_line<<newln<<"cha name query failed .cha IDï¿½ï¿½"<<m_nOrder[n].nid;
 					continue;
 
 				}
@@ -1515,7 +1547,7 @@ bool TBLParam::InitParam(void)
 				if(buf_len[0] >20 )
 				{
 					LogLine	l_line(g_LogGarner2);
-					//l_line<<newln<<"½ÇÉ«Ãû²éÑ¯³ö´íÁË¡£";
+					//l_line<<newln<<"ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½";
 					l_line<<newln<<"cha name query failed.";
 					return false;
 				}
@@ -1533,7 +1565,7 @@ bool TBLParam::InitParam(void)
 	catch(int&e)
 	{
 		LogLine	l_line(g_LogGarner2);
-		//l_line<<newln<<"³õÊ¼»¯¹«»á¹ý³ÌODBC ½Ó¿Úµ÷ÓÃ´íÎó£¬InitParam()Î»ÖÃÂë£º"<<e;
+		//l_line<<newln<<"ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ODBC ï¿½Ó¿Úµï¿½ï¿½Ã´ï¿½ï¿½ï¿½InitParam()Î»ï¿½ï¿½ï¿½ë£º"<<e;
 		l_line<<newln<<"init guild ODBC interface failed, InitParam() erro :"<<e;
 	}catch (...)
 	{
@@ -1638,7 +1670,7 @@ void TBLParam::UpdateOrder(ORDERINFO &Order)
 				}
 			}
 			LogLine	l_line(g_LogGarner2);			
-			//l_line<<newln<<"·´¶·°×ÒøÅÅÃû±äÁË";
+			//l_line<<newln<<"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
 			l_line<<newln<<"order chaned";
 			break;
 		}

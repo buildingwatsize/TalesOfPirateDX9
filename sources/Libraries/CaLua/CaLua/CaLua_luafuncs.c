@@ -28,15 +28,14 @@ int Handler(lua_State* vm)
 	int				fIndex;		//functions index
 	CStack*			stack;
 	
-	//Variables used for the assembly loop
+	// Variables used for the assembly loop
 	int				stackSize;
-	int				dataLocation;
-	int				funcLoc;
+	uintptr_t		dataLocation;
+	uintptr_t		funcLoc;
 
-	//registers used to pass arguments back
-	int				a;			//EAX register
-	int				d;			//EDX register
-	double			f;			//Floating Stack pop
+	intptr_t		a;          // EAX register
+	intptr_t		d;          // EDX register
+	double			f;          // Floating Stack pop
 
 	// First argument off the stack is the functions registered name
 	fName = (char*)lua_tostring(vm, 1);
@@ -47,22 +46,25 @@ int Handler(lua_State* vm)
 		return(0);
 	}
 	
-	PushVM(vm);		// Set vm as our working virtual machine
+	PushVM(vm);     // Set vm as our working virtual machine
 
 	stack = PrepareStack(fIndex);
 	if(!stack)
 	{
 		CLU_Error("Error converting stacks, aborting call...");
+		PopVM();
 		return(0);
 	}
 
 	// More the stack pointer ourself, then move our stack stream onto the stack
 	// one byte at a time.
-	
-	dataLocation = (int)&stack->data[0];
-	stackSize = stack->dataLength;
-	funcLoc = (int)funcs[fIndex]->fPtr;
+	dataLocation = (uintptr_t)&stack->data[0]; // Address of the stack data
+	stackSize = stack->dataLength; // Size of the stack data
+	funcLoc = (uintptr_t)funcs[fIndex]->fPtr; // Address of the function to call
 
+	a = 0; d = 0; f = 0.0; // Initialize the registers
+
+#ifndef _M_X64
 	__asm
 	{
 		cmp stackSize,0;
@@ -85,13 +87,206 @@ int Handler(lua_State* vm)
 
 	if(funcs[fIndex]->callType == CLU_CDECL)
 		__asm add esp, stackSize;
+#else
+	{
+		int nArgs = funcs[fIndex]->numPassArgs;
+		void* fp = funcs[fIndex]->fPtr;
+		int retBase = CLU_C_BASE_TYPE(funcs[fIndex]->retType);
+		int isFloatRet = (retBase == CLU_FLOAT || retBase == CLU_DOUBLE);
+
+		intptr_t args[16] = {0};
+		int argIsFloat[16] = {0};
+		int ai = 0;
+		int off = 0;
+
+		if(CLU_IS_STRUCTURE(funcs[fIndex]->retType))
+		{
+			args[ai++] = *(intptr_t*)&stack->data[off];
+			off += (int)sizeof(void*);
+		}
+
+		for(int p = 0; p < nArgs && ai < 16; p++)
+		{
+			int ptype = funcs[fIndex]->passType[p];
+			int pbase = CLU_C_BASE_TYPE(ptype);
+			if(CLU_IS_POINTER(ptype) || pbase == CLU_POINTER || pbase == CLU_STRING)
+			{
+				if(off + (int)sizeof(void*) <= stackSize) {
+					args[ai] = *(intptr_t*)&stack->data[off];
+					off += (int)sizeof(void*);
+				}
+			}
+			else if(pbase == CLU_DOUBLE)
+			{
+				if(off + (int)sizeof(double) <= stackSize) {
+					memcpy(&args[ai], &stack->data[off], sizeof(double));
+					off += (int)sizeof(double);
+					argIsFloat[ai] = 1;
+				}
+			}
+			else if(pbase == CLU_FLOAT)
+			{
+				if(off + 4 <= stackSize) {
+					float fv;
+					memcpy(&fv, &stack->data[off], sizeof(float));
+					if(ai < 4) {
+						double dv = (double)fv;
+						memcpy(&args[ai], &dv, sizeof(double));
+					} else {
+						args[ai] = 0;
+						memcpy(&args[ai], &fv, sizeof(float));
+					}
+					off += To4ByteBoundary(4);
+					argIsFloat[ai] = 1;
+				}
+			}
+			else
+			{
+				if(off + 4 <= stackSize) {
+					args[ai] = *(int*)&stack->data[off];
+					off += To4ByteBoundary(4);
+				}
+			}
+			ai++;
+		}
+
+		{
+			static FILE* _clu_trace = NULL;
+			static int _clu_trace_count = 0;
+			if(_clu_trace_count < 50000) {
+				if(!_clu_trace) _clu_trace = fopen("log\\calua_trace.log","w");
+				if(_clu_trace) {
+					fprintf(_clu_trace, "CLU_Call[%d] '%s' nArgs=%d ai=%d fp=%p",
+						_clu_trace_count, fName ? fName : "(null)", nArgs, ai, fp);
+					for(int _ti=0;_ti<ai&&_ti<8;_ti++)
+						fprintf(_clu_trace, " a%d=%llx%s", _ti, (unsigned long long)args[_ti], argIsFloat[_ti]?"(f)":"");
+					fprintf(_clu_trace, "\n");
+					fflush(_clu_trace);
+					_clu_trace_count++;
+				}
+			}
+		}
+
+#define CLU_X64_FMASK ((argIsFloat[0]?1:0)|(argIsFloat[1]?2:0)|(argIsFloat[2]?4:0)|(argIsFloat[3]?8:0))
+#define SA args[4],args[5],args[6],args[7],args[8],args[9],args[10],args[11],args[12],args[13],args[14],args[15]
+#define XP ,intptr_t,intptr_t,intptr_t,intptr_t,intptr_t,intptr_t,intptr_t,intptr_t,intptr_t,intptr_t,intptr_t,intptr_t
+
+		if(isFloatRet)
+		{
+			typedef double (*frd_iiii)(intptr_t,intptr_t,intptr_t,intptr_t XP);
+			typedef double (*frd_diii)(double,  intptr_t,intptr_t,intptr_t XP);
+			typedef double (*frd_idii)(intptr_t,double,  intptr_t,intptr_t XP);
+			typedef double (*frd_ddii)(double,  double,  intptr_t,intptr_t XP);
+			typedef double (*frd_iidi)(intptr_t,intptr_t,double,  intptr_t XP);
+			typedef double (*frd_didi)(double,  intptr_t,double,  intptr_t XP);
+			typedef double (*frd_iddi)(intptr_t,double,  double,  intptr_t XP);
+			typedef double (*frd_dddi)(double,  double,  double,  intptr_t XP);
+			typedef double (*frd_iiid)(intptr_t,intptr_t,intptr_t,double   XP);
+			typedef double (*frd_diid)(double,  intptr_t,intptr_t,double   XP);
+			typedef double (*frd_idid)(intptr_t,double,  intptr_t,double   XP);
+			typedef double (*frd_ddid)(double,  double,  intptr_t,double   XP);
+			typedef double (*frd_iidd)(intptr_t,intptr_t,double,  double   XP);
+			typedef double (*frd_didd)(double,  intptr_t,double,  double   XP);
+			typedef double (*frd_iddd)(intptr_t,double,  double,  double   XP);
+			typedef double (*frd_dddd)(double,  double,  double,  double   XP);
+
+			int fm = CLU_X64_FMASK;
+			double da0, da1, da2, da3;
+			if(argIsFloat[0]) memcpy(&da0, &args[0], 8); else da0 = 0;
+			if(argIsFloat[1]) memcpy(&da1, &args[1], 8); else da1 = 0;
+			if(argIsFloat[2]) memcpy(&da2, &args[2], 8); else da2 = 0;
+			if(argIsFloat[3]) memcpy(&da3, &args[3], 8); else da3 = 0;
+			switch(fm)
+			{
+			case 0x0: f = ((frd_iiii)fp)(args[0],args[1],args[2],args[3],SA); break;
+			case 0x1: f = ((frd_diii)fp)(da0,    args[1],args[2],args[3],SA); break;
+			case 0x2: f = ((frd_idii)fp)(args[0],da1,    args[2],args[3],SA); break;
+			case 0x3: f = ((frd_ddii)fp)(da0,    da1,    args[2],args[3],SA); break;
+			case 0x4: f = ((frd_iidi)fp)(args[0],args[1],da2,    args[3],SA); break;
+			case 0x5: f = ((frd_didi)fp)(da0,    args[1],da2,    args[3],SA); break;
+			case 0x6: f = ((frd_iddi)fp)(args[0],da1,    da2,    args[3],SA); break;
+			case 0x7: f = ((frd_dddi)fp)(da0,    da1,    da2,    args[3],SA); break;
+			case 0x8: f = ((frd_iiid)fp)(args[0],args[1],args[2],da3,    SA); break;
+			case 0x9: f = ((frd_diid)fp)(da0,    args[1],args[2],da3,    SA); break;
+			case 0xA: f = ((frd_idid)fp)(args[0],da1,    args[2],da3,    SA); break;
+			case 0xB: f = ((frd_ddid)fp)(da0,    da1,    args[2],da3,    SA); break;
+			case 0xC: f = ((frd_iidd)fp)(args[0],args[1],da2,    da3,    SA); break;
+			case 0xD: f = ((frd_didd)fp)(da0,    args[1],da2,    da3,    SA); break;
+			case 0xE: f = ((frd_iddd)fp)(args[0],da1,    da2,    da3,    SA); break;
+			case 0xF: f = ((frd_dddd)fp)(da0,    da1,    da2,    da3,    SA); break;
+			}
+		}
+		else
+		{
+			typedef intptr_t (*fri_iiii)(intptr_t,intptr_t,intptr_t,intptr_t XP);
+			typedef intptr_t (*fri_diii)(double,  intptr_t,intptr_t,intptr_t XP);
+			typedef intptr_t (*fri_idii)(intptr_t,double,  intptr_t,intptr_t XP);
+			typedef intptr_t (*fri_iidi)(intptr_t,intptr_t,double,  intptr_t XP);
+			typedef intptr_t (*fri_iiid)(intptr_t,intptr_t,intptr_t,double   XP);
+			typedef intptr_t (*fri_ddii)(double,  double,  intptr_t,intptr_t XP);
+			typedef intptr_t (*fri_didi)(double,  intptr_t,double,  intptr_t XP);
+			typedef intptr_t (*fri_diid)(double,  intptr_t,intptr_t,double   XP);
+			typedef intptr_t (*fri_iddi)(intptr_t,double,  double,  intptr_t XP);
+			typedef intptr_t (*fri_idid)(intptr_t,double,  intptr_t,double   XP);
+			typedef intptr_t (*fri_iidd)(intptr_t,intptr_t,double,  double   XP);
+			typedef intptr_t (*fri_dddi)(double,  double,  double,  intptr_t XP);
+			typedef intptr_t (*fri_ddid)(double,  double,  intptr_t,double   XP);
+			typedef intptr_t (*fri_didd)(double,  intptr_t,double,  double   XP);
+			typedef intptr_t (*fri_iddd)(intptr_t,double,  double,  double   XP);
+			typedef intptr_t (*fri_dddd)(double,  double,  double,  double   XP);
+
+			int fm = CLU_X64_FMASK;
+			double da0, da1, da2, da3;
+			if(argIsFloat[0]) memcpy(&da0, &args[0], 8); else da0 = 0;
+			if(argIsFloat[1]) memcpy(&da1, &args[1], 8); else da1 = 0;
+			if(argIsFloat[2]) memcpy(&da2, &args[2], 8); else da2 = 0;
+			if(argIsFloat[3]) memcpy(&da3, &args[3], 8); else da3 = 0;
+
+			switch(fm)
+			{
+			case 0x0: a = ((fri_iiii)fp)(args[0],args[1],args[2],args[3],SA); break;
+			case 0x1: a = ((fri_diii)fp)(da0,    args[1],args[2],args[3],SA); break;
+			case 0x2: a = ((fri_idii)fp)(args[0],da1,    args[2],args[3],SA); break;
+			case 0x3: a = ((fri_ddii)fp)(da0,    da1,    args[2],args[3],SA); break;
+			case 0x4: a = ((fri_iidi)fp)(args[0],args[1],da2,    args[3],SA); break;
+			case 0x5: a = ((fri_didi)fp)(da0,    args[1],da2,    args[3],SA); break;
+			case 0x6: a = ((fri_iddi)fp)(args[0],da1,    da2,    args[3],SA); break;
+			case 0x7: a = ((fri_dddi)fp)(da0,    da1,    da2,    args[3],SA); break;
+			case 0x8: a = ((fri_iiid)fp)(args[0],args[1],args[2],da3,    SA); break;
+			case 0x9: a = ((fri_diid)fp)(da0,    args[1],args[2],da3,    SA); break;
+			case 0xA: a = ((fri_idid)fp)(args[0],da1,    args[2],da3,    SA); break;
+			case 0xB: a = ((fri_ddid)fp)(da0,    da1,    args[2],da3,    SA); break;
+			case 0xC: a = ((fri_iidd)fp)(args[0],args[1],da2,    da3,    SA); break;
+			case 0xD: a = ((fri_didd)fp)(da0,    args[1],da2,    da3,    SA); break;
+			case 0xE: a = ((fri_iddd)fp)(args[0],da1,    da2,    da3,    SA); break;
+			case 0xF: a = ((fri_dddd)fp)(da0,    da1,    da2,    da3,    SA); break;
+			}
+		}
+#undef CLU_X64_FMASK
+#undef SA
+#undef XP
+
+		{
+			static FILE* _pt = NULL;
+			static int _pc = 0;
+			if(_pc < 50000) {
+				if(!_pt) _pt = fopen("log\\calua_post.log","w");
+				if(_pt) {
+					fprintf(_pt, "RET[%d] '%s' a=%llx\n", _pc, fName ? fName : "?", (unsigned long long)a);
+					fflush(_pt);
+					_pc++;
+				}
+			}
+		}
+	}
+#endif
 
 	if(funcs[fIndex]->numRetArgs)
 		ParseReturnArgument( funcs[fIndex]->retType, a, d, f);
 
 	FreeCStack(stack);
 
-	PopVM();	// Go back to our original virtual machine
+	PopVM();    // Go back to our original virtual machine
 	
 return(funcs[fIndex]->numRetArgs);
 }
@@ -262,7 +457,7 @@ void* PopInitArrayTable(int type, int* n)
 			ThrowLuaError(virtualMachine);
 		}
 
-		memcpy( (void*)((int)ret + ((i-1)*dataSize)), tmp, dataSize);
+		memcpy( (void*)((uintptr_t)ret + ((i-1)*dataSize)), tmp, dataSize);
 
 		SAFE_FREE(tmp);
 	}
@@ -389,7 +584,7 @@ int	Array_Get(lua_State* vm)
 	}
 
 	PushVM(vm);
-		CToLuaData(a->type, (void*)((int)a->data + (a->elementSize*i)) );
+		CToLuaData(a->type, (void*)((uintptr_t)a->data + (a->elementSize*i)) );
 	PopVM();
 
 	SAFE_FREE(a);

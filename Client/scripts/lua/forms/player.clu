@@ -19,7 +19,7 @@ labTitle = UI_CreateCompent( frmPlayertrade, LABELEX_TYPE, "labTitle", 400, 150,
 UI_LoadImage( imgBakTitle, "texture/ui/word.dds", NORMAL, 48, 13, 36, 29 )
 
 labPlayertradeName = UI_CreateCompent( frmPlayertrade, LABELEX_TYPE, "labPlayertradeName", 95, 11, 90, 29 )
-UI_SetCaption( labPlayertradeName, "Wuwuwuw��Ah��Tatatata" )
+UI_SetCaption( labPlayertradeName, "WuwuwuwAhTatatata" )
 UI_SetTextColor( labPlayertradeName, COLOR_BLACK )
 UI_SetLabelExFont( labPlayertradeName, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
@@ -242,7 +242,7 @@ UI_AddFormToTemplete( frmTeamMenber4, FORM_MAIN )
 UI_FormSetIsEscClose( frmTeamMenber4, FALSE )
 
 labMenber4Name = UI_CreateCompent( frmTeamMenber4, LABELEX_TYPE, "labMenber4Name", 1, 1, 61, 5 )
-UI_SetCaption( labMenber4Name, "�;;;;;;;�" )
+UI_SetCaption( labMenber4Name, "" )
 UI_SetTextColor( labMenber4Name, COLOR_WHITE )
 UI_SetLabelExFont( labMenber4Name, DEFAULT_FONT, TRUE, COLOR_BLACK )
 
@@ -340,7 +340,7 @@ UI_AddFormToTemplete( frmTeamMenber3, FORM_MAIN )
 UI_FormSetIsEscClose( frmTeamMenber3, FALSE )
 
 labMenber3Name = UI_CreateCompent( frmTeamMenber3, LABELEX_TYPE, "labMenber3Name", 1, 1, 61, 5 )
-UI_SetCaption( labMenber3Name, "�;;;;;;;�" )
+UI_SetCaption( labMenber3Name, "" )
 UI_SetTextColor( labMenber3Name, COLOR_WHITE )
 UI_SetLabelExFont( labMenber3Name, DEFAULT_FONT, TRUE, COLOR_BLACK )
 
@@ -407,7 +407,7 @@ UI_AddFormToTemplete( frmTeamMenber2, FORM_MAIN )
 UI_FormSetIsEscClose( frmTeamMenber2, FALSE )
 
 labMenber2Name = UI_CreateCompent( frmTeamMenber2, LABELEX_TYPE, "labMenber2Name", 1, 1, 61, 5 )
-UI_SetCaption( labMenber2Name, "�;;;;;;;�" )
+UI_SetCaption( labMenber2Name, "" )
 UI_SetTextColor( labMenber2Name, COLOR_WHITE )
 UI_SetLabelExFont( labMenber2Name, DEFAULT_FONT, TRUE, COLOR_BLACK )
 
@@ -474,7 +474,7 @@ UI_AddFormToTemplete( frmTeamMenber1, FORM_MAIN )
 UI_FormSetIsEscClose( frmTeamMenber1, FALSE )
 
 labMenber1Name = UI_CreateCompent( frmTeamMenber1, LABELEX_TYPE, "labMenber1Name", 1, 1, 61, 5 )
-UI_SetCaption( labMenber1Name, "�;;;;;;;�" )
+UI_SetCaption( labMenber1Name, "" )
 UI_SetTextColor( labMenber1Name, COLOR_WHITE )
 UI_SetLabelExFont( labMenber1Name, DEFAULT_FONT, TRUE, COLOR_BLACK )
 
@@ -533,10 +533,10 @@ UI_SetFormStyle( frmRelive, 0 )
 UI_SetIsDrag( frmRelive, TRUE )
  UI_FormSetIsEscClose( frmRelive, FALSE )
 --UI_SetAlpha( frmRelive, 200 )
---UI_FormSetHotKey( frmRelive, ALT_KEY, HOTKEY_X ) 
+--UI_FormSetHotKey( frmRelive, ALT_KEY, HOTKEY_X )
 
-labReCity = UI_CreateCompent( frmRelive, LABELEX_TYPE, "labReCity", 1, 1, 38, 40 )
-UI_SetCaption( labReCity, "Do you want to Revive in town" )
+labReCity = UI_CreateCompent( frmRelive, LABELEX_TYPE, "labReCity", 1, 1, 34, 34 )
+UI_SetCaption( labReCity, "Revive \nin town?" )
 UI_SetTextColor( labReCity, COLOR_BLACK)
 UI_SetLabelExFont( labReCity, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
@@ -545,8 +545,22 @@ UI_SetCaption( labTitle, "Revive")
 UI_SetTextColor( labTitle, COLOR_BLACK )
 UI_SetLabelExFont( labTitle, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
-btnReCity = UI_CreateCompent( frmRelive, BUTTON_TYPE, "btnReCity", 41, 19, 74, 78 )
+btnReCity = UI_CreateCompent( frmRelive, BUTTON_TYPE, "btnReCity", 41, 19, 34, 78 )
 UI_LoadButtonImage( btnReCity, "texture/ui/SystemBotton3.tga", 41, 19, 169, 39, FALSE )
+
+btnReSpot = UI_CreateCompent( frmRelive, BUTTON_TYPE, "btnReSpot", 76, 19, 94, 78 )
+UI_LoadButtonImage( btnReSpot, "texture/ui/Store8.tga", 76, 19, 0, 0, FALSE )
+
+labReSpot = UI_CreateCompent( frmRelive, LABELEX_TYPE, "labReSpot", 41, 19, 104, 81 )
+UI_SetCaption( labReSpot, "Resurrect")
+UI_SetTextColor( labReSpot, COLOR_BLACK )
+UI_SetLabelExFont( labReSpot, DEFAULT_FONT, TRUE, COLOR_WHITE )
+
+imgResurrectItem = UI_CreateCompent( frmRelive, IMAGE_TYPE, "imgResurrectItem", 36, 36, 112 , 30 )
+UI_LoadImage( imgResurrectItem, "texture/ui/Store6.tga", NORMAL, 36, 36, 157, 76 )
+
+cmdResurrectItem = UI_CreateCompent( frmRelive, COMMAND_ONE_TYPE, "cmdResurrectItem", 32, 32, 114, 32 )
+UI_SetIsShow( cmdResurrectItem, false )
 
 -----------------------------------------------------------------------
 -- revive ui
@@ -560,17 +574,17 @@ UI_SetIsDrag( frmTime, TRUE )
 --UI_SetAlpha( frmTime, 200 )
 --UI_FormSetHotKey( frmTime, ALT_KEY, HOTKEY_X ) 
 
---����ѯ����ʾ
+--
 labTime = UI_CreateCompent( frmTime, LABELEX_TYPE, "labTime", 1, 1, 58, 40 )
 --UI_SetCaption( labTime, "Do you want to Revive in town" )
 UI_SetTextColor( labTime, COLOR_BLACK)
 UI_SetLabelExFont( labTime, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
--- ���ؽ���title
+-- title
 imgTime = UI_CreateCompent( frmTime, IMAGE_TYPE, "imgTime", 36, 13, 8, 4 )
 UI_LoadImage( imgTime, "texture/ui/Word.dds", NORMAL, 36, 13, 211, 161 )
 
---����ȡ����ť
+--
 btnNo = UI_CreateCompent( frmTime, BUTTON_TYPE, "btnNo", 41, 19, 74, 78 )
 UI_LoadButtonImage( btnNo, "texture/ui/PublicC.tga", 41, 19, 0, 20, TRUE )
 
@@ -602,7 +616,7 @@ UI_LoadButtonImage( btnClose, "texture/ui/PublicC.tga", 14, 14, 116, 175, TRUE )
 UI_SetButtonModalResult( btnClose, BUTTON_CLOSE )
 
 lblOwnerName = UI_CreateCompent( frmBooth, LABELEX_TYPE, "lblOwnerName", 94, 31, 111, 23 )
-UI_SetCaption( lblOwnerName, "�;;;;;;;�" )
+UI_SetCaption( lblOwnerName, "" )
 UI_SetTextColor( lblOwnerName, COLOR_BLACK )
 UI_SetLabelExFont( lblOwnerName, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
@@ -722,7 +736,7 @@ frmTeamPK = UI_CreateForm( "frmTeamPK", FALSE, 376, 431, 159, 468, TRUE, FALSE )
 UI_ShowForm( frmTeamPK, TRUE )
 UI_SetIsDrag( frmTeamPK, TRUE )
 UI_AddFormToTemplete( frmTeamPK, FORM_MAIN )
-UI_SetFormStyle( frmTeamPK, 1 )---���Ҿ���
+UI_SetFormStyle( frmTeamPK, 1 )---
 UI_FormSetIsEscClose( frmTeamPK, TRUE )
 
 imgBakTop1 = UI_CreateCompent( frmTeamPK, IMAGE_TYPE, "imgBakTop1", 256, 256, 0, 0 )

@@ -117,3 +117,76 @@ LONG InterLockedLong::CompareAssign(LONG Comperand,LONG newval)		//ÏàµÈÊ±ºò²Å¸³Ö
 		return -1;
 	}*/
 }
+
+// =======================
+
+InterLockedLongLong::InterLockedLongLong(LLong lInitVal)
+{
+	if (!g_isSuportAcquire)
+	{
+		isSuportAcquire();
+	}
+	InterlockedExchange64(&m_plVal, lInitVal);
+}
+InterLockedLongLong::InterLockedLongLong(const InterLockedLongLong& val)
+{
+	if (!g_isSuportAcquire)
+	{
+		isSuportAcquire();
+	}
+	InterlockedExchange64(&m_plVal, val);
+}
+LLong InterLockedLongLong::Increment() //The return value is the resulting incremented value
+{
+	LLong l_ret = 0;
+	if (g_isSuportAcquire > 0)
+	{
+		return InterlockedIncrementAcquire64(&m_plVal);
+	}
+	else if (g_isSuportAcquire < 0)
+	{
+		return InterlockedIncrement64(&m_plVal);
+	}
+	else
+	{
+		return -1;
+	}
+}
+LLong InterLockedLongLong::Decrement() //The return value is the resulting decremented value
+{
+	if (g_isSuportAcquire > 0)
+	{
+		return InterlockedDecrementAcquire64(&m_plVal);
+	}
+	else if (g_isSuportAcquire < 0)
+	{
+		return InterlockedDecrement64(&m_plVal);
+	}
+	else
+	{
+		return -1;
+	}
+}
+LLong InterLockedLongLong::Add(LLong Value) //The return value is the initial value
+{
+	return InterlockedExchangeAdd64(&m_plVal, Value);
+}
+LLong InterLockedLongLong::Assign(LLong newval) //The return value is the initial value
+{
+	return InterlockedExchange64(&m_plVal, newval);
+}
+LLong InterLockedLongLong::CompareAssign(LLong Comperand, LLong newval) //ÏàµÈÊ±ºò²Å¸³Öµ,The return value is the initial value
+{
+	if (g_isSuportAcquire > 0)
+	{
+		return InterlockedCompareExchangeAcquire64(&m_plVal, newval, Comperand);
+	}
+	else if (g_isSuportAcquire < 0)
+	{
+		return InterlockedCompareExchange64(&m_plVal, newval, Comperand);
+	}
+	else
+	{
+		return -1;
+	}
+}

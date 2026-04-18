@@ -22,67 +22,67 @@ namespace GUI
 	//	CBankMgr 's Members
 	//=======================================================================
 
-	bool CBankMgr::Init()  //ÓÃ»§ÒøÐÐÐÅÏ¢³õÊ¼»¯
+	bool CBankMgr::Init()  //ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Ê¼ï¿½ï¿½
 	{
 		CFormMgr &mgr = CFormMgr::s_Mgr;
 
-		frmBank = mgr.Find("frmNPCstorage");// ²éÕÒNPCÒøÐÐ´æ´¢±íµ¥ 
+		frmBank = mgr.Find("frmNPCstorage");// ï¿½ï¿½ï¿½ï¿½NPCï¿½ï¿½ï¿½Ð´æ´¢ï¿½ï¿½ï¿½ï¿½ 
 		if ( !frmBank)
 		{
-			LG("gui", g_oLangRec.GetString(438));
+			LG("gui", RES_STRING(CMISS_000438));
 			return false;
 		}
 		frmBank->evtClose = _evtOnClose; 
 
 		grdBank = dynamic_cast<CGoodsGrid*>(frmBank->Find("grdNPCstorage"));
 		if (!grdBank) 
-			return Error(g_oLangRec.GetString(439),
+			return Error(RES_STRING(CMISS_000439),
 						 frmBank->GetName(), "grdNPCstorage");
-		grdBank->evtBeforeAccept = CUIInterface::_evtDragToGoodsEvent;// ÏûÏ¢µÄ´¦Àí ÓÐÍÏÈëÒøÐÐ¾Í»áµ÷ÓÃ CUIInterface::_evtDragToGoodsEvent
+		grdBank->evtBeforeAccept = CUIInterface::_evtDragToGoodsEvent;// ï¿½ï¿½Ï¢ï¿½Ä´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¾Í»ï¿½ï¿½ï¿½ï¿½ CUIInterface::_evtDragToGoodsEvent
 		grdBank->evtSwapItem = _evtBankToBank;
 		labCharName = dynamic_cast<CLabel*>(frmBank->Find("labOwnerName"));
 		if (!grdBank) 
-			return Error(g_oLangRec.GetString(439),
+			return Error(RES_STRING(CMISS_000439),
 						 frmBank->GetName(), "labOwnerName");
 
 		return true;
 	}
 
-	void CBankMgr::_evtOnClose( CForm* pForm, bool& IsClose )  // ¹Ø±ÕÓÃ»§ÒøÐÐ
+	void CBankMgr::_evtOnClose( CForm* pForm, bool& IsClose )  // ï¿½Ø±ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		CS_BeginAction(g_stUIBoat.GetHuman(), enumACTION_CLOSE_BANK, NULL); 
 
-		CFormMgr::s_Mgr.SetEnableHotKey(HOTKEY_BANK, true);		// Î÷ÃÅÎÄµµÐÞ¸Ä
+		CFormMgr::s_Mgr.SetEnableHotKey(HOTKEY_BANK, true);		// ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½Þ¸ï¿½
 	}
 
 
 	//-------------------------------------------------------------------------
-	void CBankMgr::ShowBank() // ÏÔÊ¾ÎïÆ·
+	void CBankMgr::ShowBank() // ï¿½ï¿½Ê¾ï¿½ï¿½Æ·
 	{
-		// ±£´æ·þÎñÆ÷´«À´µÄÎïÆ·
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 
-		if (!g_stUIBoat.GetHuman()) // ÕÒÈËÎï 
+		if (!g_stUIBoat.GetHuman()) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 			return;
 
 		char szBuf[32];
-		sprintf(szBuf, "%s%s", g_stUIBoat.GetHuman()->getName(), g_oLangRec.GetString(440));//ÏÔÊ¾ÈËÎïÃû¼°×¨ÓÃ
-		labCharName->SetCaption(szBuf);//ÉèÖÃ±êÌâÃû×Ö
+		sprintf(szBuf, "%s%s", g_stUIBoat.GetHuman()->getName(), RES_STRING(CL_LANGUAGE_MATCH_805));//ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¨ï¿½ï¿½
+		labCharName->SetCaption(szBuf);//ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 		frmBank->Show();
 
-		// ´ò¿ªÍæ¼ÒµÄÎïÆ·À¸
+		// ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½Æ·ï¿½ï¿½
 		if (!g_stUIEquip.GetItemForm()->GetIsShow())
 		{
 			int nLeft, nTop;
 			nLeft = frmBank->GetX2();
 			nTop = frmBank->GetY();
 
-			g_stUIEquip.GetItemForm()->SetPos(nLeft, nTop); //ÎïÆ··ÅÖÃÎ»ÖÃ
-			g_stUIEquip.GetItemForm()->Refresh(); //¸üÐÂÎïÆ·À¸		
-			g_stUIEquip.GetItemForm()->Show();  //±£´æÔÚÎïÆ·À¸
+			g_stUIEquip.GetItemForm()->SetPos(nLeft, nTop); //ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+			g_stUIEquip.GetItemForm()->Refresh(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½		
+			g_stUIEquip.GetItemForm()->Show();  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½
 		}
 
-		CFormMgr::s_Mgr.SetEnableHotKey(HOTKEY_BANK, false);		// Î÷ÃÅÎÄµµÐÞ¸Ä
+		CFormMgr::s_Mgr.SetEnableHotKey(HOTKEY_BANK, false);		// ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½Þ¸ï¿½
 	}
 
 	//-------------------------------------------------------------------------
@@ -91,14 +91,14 @@ namespace GUI
 #define EQUIP_TYPE 0
 #define BANK_TYPE 1
 
-		// ÉèÖÃ·¢ËÍÍÏ¶¯ÎïÆ·µÄ·þÎñÆ÷ÐÅÏ¢
+		// ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ï¿½ï¿½Æ·ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 		m_kNetBank.chSrcType = EQUIP_TYPE;
 		m_kNetBank.sSrcID = rkDrag.GetDragIndex();
-		//m_kNetBank.sSrcNum = ; ÊýÁ¿ÔÚ»Øµ÷º¯ÊýÖÐÉèÖÃ
+		//m_kNetBank.sSrcNum = ; ï¿½ï¿½ï¿½ï¿½ï¿½Ú»Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		m_kNetBank.chTarType = BANK_TYPE;
 		m_kNetBank.sTarID = nGridID;
 
-		// ÅÐ¶ÏÎïÆ·ÊÇ·ñÊÇ¿ÉÖØµþµÄÎïÆ·
+		// ï¿½Ð¶ï¿½ï¿½ï¿½Æ·ï¿½Ç·ï¿½ï¿½Ç¿ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 		CItemCommand* pkItemCmd = dynamic_cast<CItemCommand*>(&rkItem);
 		if (!pkItemCmd)	return false;
 		CItemRecord* pkItemRecord = pkItemCmd->GetItemInfo();
@@ -106,24 +106,24 @@ namespace GUI
 
 		//if(pkItemRecord->sType == 59 && m_kNetBank.sSrcID == 1)
 		//{
-		//	g_pGameApp->MsgBox("ÄúµÄ¾«ÁéÕýÔÚÊ¹ÓÃÖÐ\nÇë¸ü»»µ½ÆäËüÎ»ÖÃ²Å¿É·ÅÈë²Ö¿â");
-		//	return false;	// µÚ¶þ¸ñµÄ¾«Áé²»ÔÊÐíÍÏÈëÒøÐÐ
+		//	g_pGameApp->MsgBox("ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã²Å¿É·ï¿½ï¿½ï¿½Ö¿ï¿½");
+		//	return false;	// ï¿½Ú¶ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½é²»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		//}
 
 		// if(pkItemRecord->lID == 2520 || pkItemRecord->lID == 2521)
 		if( pkItemRecord->lID == 2520 || pkItemRecord->lID == 2521 || pkItemRecord->lID == 6341 || pkItemRecord->lID == 6343
 		 || pkItemRecord->lID == 6347 || pkItemRecord->lID == 6359 || pkItemRecord->lID == 6370 || pkItemRecord->lID == 6371
 		 || pkItemRecord->lID == 6373 || pkItemRecord->lID >= 6376 && pkItemRecord->lID <= 6378
-		 || pkItemRecord->lID >= 6383 && pkItemRecord->lID <= 6385 )// modify by ning.yan 20080820 ²ß»®ÃàÑò¡¢ÀîºãµÈÌáÐèÇó£¬Ôö¼ÓÒ»Ð©µÀ¾ß²»×¼´æÒøÐÐ
+		 || pkItemRecord->lID >= 6383 && pkItemRecord->lID <= 6385 )// modify by ning.yan 20080820 ï¿½ß»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ð©ï¿½ï¿½ï¿½ß²ï¿½×¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
-			//g_pGameApp->MsgBox(g_oLangRec.GetString(958));	// "¸ÃµÀ¾ß²»ÔÊÐí´æÈëÒøÐÐ£¡ÇëÖØÐÂÑ¡Ôñ"
-			g_pGameApp->MsgBox(g_oLangRec.GetString(958));	// "¸ÃµÀ¾ß²»ÔÊÐí´æÈëÒøÐÐ£¡ÇëÖØÐÂÑ¡Ôñ"
+			//g_pGameApp->MsgBox(RES_STRING(CMISS_000958));	// "ï¿½Ãµï¿½ï¿½ß²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½"
+			g_pGameApp->MsgBox(RES_STRING(CMISS_000958));	// "ï¿½Ãµï¿½ï¿½ß²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½"
 			return false;
 		}
 		if ( pkItemCmd->GetItemInfo()->GetIsPile() && pkItemCmd->GetTotalNum() > 1 )
-		{	/*´æ·Å¶à¸öÎïÆ·*/
+		{	/*ï¿½ï¿½Å¶ï¿½ï¿½ï¿½ï¿½Æ·*/
 			m_pkNumberBox = 
-				g_stUIBox.ShowNumberBox(_MoveItemsEvent, pkItemCmd->GetTotalNum(), g_oLangRec.GetString(441), false);
+				g_stUIBox.ShowNumberBox(_MoveItemsEvent, pkItemCmd->GetTotalNum(), RES_STRING(CMISS_000441), false);
 
 			if (m_pkNumberBox->GetNumber() < pkItemCmd->GetTotalNum())
 				return false;
@@ -131,12 +131,12 @@ namespace GUI
 				return true;
 		}
 		else
-		{	/*´æ·Åµ¥¸öÎïÆ·*/
+		{	/*ï¿½ï¿½Åµï¿½ï¿½ï¿½ï¿½ï¿½Æ·*/
 			g_stUIBank.m_kNetBank.sSrcNum = 1;
 			CS_BeginAction(g_stUIBoat.GetHuman(), enumACTION_BANK, (void*)&(g_stUIBank.m_kNetBank));
 			return true;
 			//char buf[256] = { 0 };
-			//sprintf(buf, "ÄúÈ·ÈÏ·ÅÈëÒøÐÐ\n[%s]?", pkItemCmd->GetName());
+			//sprintf(buf, "ï¿½ï¿½È·ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\n[%s]?", pkItemCmd->GetName());
 			//g_stUIBox.ShowSelectBox(_MoveAItemEvent, buf, true);
 			//return true;
 		}
@@ -145,22 +145,22 @@ namespace GUI
 	//-------------------------------------------------------------------------
 	bool CBankMgr::PopFromBank(CGoodsGrid& rkDrag, CGoodsGrid& rkSelf, int nGridID, CCommandObj& rkItem)
 	{
-		// ÉèÖÃ·¢ËÍÍÏ¶¯ÎïÆ·µÄ·þÎñÆ÷ÐÅÏ¢
+		// ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ï¿½ï¿½Æ·ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 		m_kNetBank.chSrcType = BANK_TYPE ;
 		m_kNetBank.sSrcID = rkDrag.GetDragIndex();
-		//m_kNetBank.sSrcNum = ; ÊýÁ¿ÔÚ»Øµôº¯ÊýÖÐÉèÖÃ
+		//m_kNetBank.sSrcNum = ; ï¿½ï¿½ï¿½ï¿½ï¿½Ú»Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		m_kNetBank.chTarType = EQUIP_TYPE;
 		m_kNetBank.sTarID = nGridID;
 
 
-		// ÅÐ¶ÏÎïÆ·ÊÇ·ñÊÇ¿ÉÖØµþµÄÎïÆ·
+		// ï¿½Ð¶ï¿½ï¿½ï¿½Æ·ï¿½Ç·ï¿½ï¿½Ç¿ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 		CItemCommand* pkItemCmd = dynamic_cast<CItemCommand*>(&rkItem);
 		if (!pkItemCmd)	return false;
 
 		if ( pkItemCmd->GetItemInfo()->GetIsPile() && pkItemCmd->GetTotalNum() > 1 )
-		{	/*È¡³ö¶à¸öÎïÆ·*/
+		{	/*È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·*/
 			m_pkNumberBox = 
-				g_stUIBox.ShowNumberBox( _MoveItemsEvent, pkItemCmd->GetTotalNum(), g_oLangRec.GetString(442), false);
+				g_stUIBox.ShowNumberBox( _MoveItemsEvent, pkItemCmd->GetTotalNum(), RES_STRING(CL_LANGUAGE_MATCH_442), false);
 
 			if (m_pkNumberBox->GetNumber() < pkItemCmd->GetTotalNum())
 				return false;
@@ -168,26 +168,26 @@ namespace GUI
 				return true;
 		}
 		else
-		{	/*´æ·Åµ¥¸öÎïÆ·*/
+		{	/*ï¿½ï¿½Åµï¿½ï¿½ï¿½ï¿½ï¿½Æ·*/
 			g_stUIBank.m_kNetBank.sSrcNum = 1;
 			CS_BeginAction(g_stUIBoat.GetHuman(), enumACTION_BANK, (void*)&(g_stUIBank.m_kNetBank));
 			return true;
 
 			//char buf[256] = { 0 };
-			//sprintf(buf, "ÄúÈ·ÈÏÈ¡³ö\n[%s]?", pkItemCmd->GetName());
+			//sprintf(buf, "ï¿½ï¿½È·ï¿½ï¿½È¡ï¿½ï¿½\n[%s]?", pkItemCmd->GetName());
 			//g_stUIBox.ShowSelectBox(_MoveAItemEvent, buf, true);
 			//return true;
 		}
 	}
 
 	//-------------------------------------------------------------------------
-	void CBankMgr::_MoveItemsEvent(CCompent *pSender, int nMsgType, int x, int y, DWORD dwKey) // ¶à¸öÎïÆ·ÒÆ¶¯
+	void CBankMgr::_MoveItemsEvent(CCompent *pSender, int nMsgType, int x, int y, DWORD dwKey) // ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½Æ¶ï¿½
 	{
-		if(nMsgType != CForm::mrYes)  // Íæ¼ÒÊÇ·ñÍ¬ÒâÍÏ¶¯
+		if(nMsgType != CForm::mrYes)  // ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Í¬ï¿½ï¿½ï¿½Ï¶ï¿½
 			return;
 
 
-		int num =  g_stUIBank.m_pkNumberBox->GetNumber();// ÍÏ¶¯ÎïÆ·Êý 
+		int num =  g_stUIBank.m_pkNumberBox->GetNumber();// ï¿½Ï¶ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ 
 		if ( num > 0 )
 		{
 			g_stUIBank.m_kNetBank.sSrcNum = num;
@@ -196,17 +196,17 @@ namespace GUI
 	}
 
 	//-------------------------------------------------------------------------
-	void CBankMgr::_MoveAItemEvent(CCompent *pSender, int nMsgType, int x, int y, DWORD dwKey) // µ¥¸öµÀ¾ßÒÆ¶¯
+	void CBankMgr::_MoveAItemEvent(CCompent *pSender, int nMsgType, int x, int y, DWORD dwKey) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
 	{
 		if(nMsgType != CForm::mrYes) 
 			return;
 
 		g_stUIBank.m_kNetBank.sSrcNum = 1;
-		CS_BeginAction(g_stUIBoat.GetHuman(), enumACTION_BANK, (void*)&(g_stUIBank.m_kNetBank));//¸üÐÂÒøÐÐÐÅÏ¢
+		CS_BeginAction(g_stUIBoat.GetHuman(), enumACTION_BANK, (void*)&(g_stUIBank.m_kNetBank));//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	}
 	
 	//-------------------------------------------------------------------------
-	void CBankMgr::CloseForm()  // ¹Ø±ÕµÀ¾ßÀ¸±íµ¥ 
+	void CBankMgr::CloseForm()  // ï¿½Ø±Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 	{
 		if (frmBank->GetIsShow())
 		{
@@ -216,7 +216,7 @@ namespace GUI
 	}
 
 	//-------------------------------------------------------------------------
-	void CBankMgr::_evtBankToBank(CGuiData *pSender,int nFirst, int nSecond, bool& isSwap) // ÓÃÓÚÓÃ»§ÒøÐÐ±íµ¥ÖÐµÀ¾ß»¥»»
+	void CBankMgr::_evtBankToBank(CGuiData *pSender,int nFirst, int nSecond, bool& isSwap) // ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ß»ï¿½ï¿½ï¿½
 	{
 		isSwap = false;
 		if( !g_stUIBoat.GetHuman() ) return;

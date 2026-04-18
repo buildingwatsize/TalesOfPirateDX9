@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
 	C_TITLE("GateServer.exe")
 	C_PRINT("Loading GateServer.cfg...\n");
 
-	SEHTranslator translator;
+	// SEHTranslator translator; // disabled for x64
 
 	T_B
 
@@ -45,16 +45,26 @@ int main(int argc, char* argv[])
 		g_ddos = 0;
 		g_rsaaes = 0;
 	}
-	// Add by lark.li 20080731 begin
-	pi_Memory m;
-	m.startMonitor(1);
-	// End
+	printf("[GS] config loaded wpe=%d ddos=%d rsa=%d\n", g_wpe, g_ddos, g_rsaaes); fflush(stdout);
 
-	::SetLGDir("logfile/log");
+	// pi_Memory disabled for x64 debugging
+	// pi_Memory m;
+	// m.startMonitor(1);
+
+	printf("[GS] before SetLGDir\n"); fflush(stdout);
+	try {
+		::SetLGDir("logfile/log");
+	} catch (...) {
+		printf("[GS] SetLGDir exception, skipping\n"); fflush(stdout);
+	}
+	printf("[GS] logdir set\n"); fflush(stdout);
 
 	try {
+		printf("[GS] creating GateServerApp\n"); fflush(stdout);
 		GateServerApp app;
+		printf("[GS] ServiceStart\n"); fflush(stdout);
 		app.ServiceStart();
+		printf("[GS] running\n"); fflush(stdout);
 		g_gtsvr->RunLoop();
 		app.ServiceStop();
 	}
@@ -77,10 +87,9 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	// Add by lark.li 20080731 begin
-	m.stopMonitor();
-	m.wait();
-	// End
+	// pi_Memory disabled for x64
+	// m.stopMonitor();
+	// m.wait();
 
 	T_FINAL
 	return 0;

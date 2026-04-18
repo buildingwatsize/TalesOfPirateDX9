@@ -54,11 +54,11 @@ long Connection::Process()
 {
 	if(m_timeout)
 	{
-		LG( "connect", g_oLangRec.GetString(34), m_hostname );
+		LG( "connect", RES_STRING(CMISS_000034), m_hostname );
 		m_datasock	=m_netif->Connect(m_hostname,m_port,&m_sock);
 	}else
 	{
-		LG( "connect", g_oLangRec.GetString(34), m_hostname );
+		LG( "connect", RES_STRING(CMISS_000034), m_hostname );
         m_datasock	=m_netif->Connect(m_hostname,m_port);
 	}
 	auto const l_lock = std::lock_guard{m_mtx};

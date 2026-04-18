@@ -8,6 +8,8 @@
 #include "Algo.h"
 #include "procirculate.h"
 #include "GameConfig.h"
+#include <vector>
+#include <string>
 #include "ProCirculate.h"
 //=============��������ͷ�ļ�BEGIN=============
 #include "PacketCmd.h"
@@ -45,6 +47,7 @@ BOOL NetIF::HandlePacketMessage(DataSocket *datasock,LPRPACKET pk)
 		
 	if (!static_cast<bool>(pk)) return FALSE;
 	unsigned short sCmdType = pk.ReadCmd();
+	{FILE*_f=fopen("log\\connect.log","a");if(_f){fprintf(_f,"[HPM] cmd=%d\n",(int)sCmdType);fflush(_f);fclose(_f);}}
 
 #ifdef _TEST_CLIENT
     m_connect.SwitchSocket( datasock, Connection::CNST_CONNECTED );
@@ -372,27 +375,39 @@ NetIF::NetIF(ThreadPool *comm):TcpClientApp(this,0,comm),RPCMGR(this),PKQueue(fa
 ,m_maxdelay(0),m_curdelay(0),m_mindelay(0),m_pingid(0),m_connect(this)
 ,m_ulCurStatistic(0),m_ulPacketCount(1), _enc(false), _comm_enc(0)
 {
+#define _NIF_TRACE(msg) {FILE*_f=fopen("log\\netif_trace.log","a");if(_f){fprintf(_f,"%s\n",msg);fflush(_f);fclose(_f);}}
+	_NIF_TRACE("[NIF] entered ctor");
 	TcpCommApp::WSAStartup();
+	_NIF_TRACE("[NIF] post WSAStartup");
 
-    // ��ʼ�����ܲ���
     memset(_key, 0, sizeof _key);
     _key_len = 0;
+	_NIF_TRACE("[NIF] pre init_lua");
     g_rLvm = init_lua();
     g_sLvm = init_lua();
+	_NIF_TRACE("[NIF] pre load_luc");
     load_luc(g_rLvm, "scripts/lua/apple.luc");
     load_luc(g_sLvm, "scripts/lua/apple.luc");
     load_luc(g_rLvm, "scripts/lua/pear.luc");
     load_luc(g_sLvm, "scripts/lua/pear.luc");
+	_NIF_TRACE("[NIF] post load_luc");
 
 	handshakeDone = false;
 	memset(m_ulDelayTime, 0, sizeof(dbc::uLong) * 4);
+	_NIF_TRACE("[NIF] pre SetPKParse");
 	SetPKParse(0,2,64*1024,100);
+	_NIF_TRACE("[NIF] pre BeginWork");
 	BeginWork( g_Config.m_nSendHeartbeat );
+	_NIF_TRACE("[NIF] post BeginWork");
 
-	// Generate and initialize AES key
+	cliPrivateKey.resize(16);
+	{FILE*_f=fopen("log\\netif_trace.log","a");if(_f){fprintf(_f,"[NIF] rng=%p key=%p size=%zu\n",(void*)&rng,cliPrivateKey.data(),(size_t)cliPrivateKey.size());fflush(_f);fclose(_f);}}
 	rng.GenerateBlock(cliPrivateKey.data(), cliPrivateKey.size());
+	_NIF_TRACE("[NIF] post rng.GenerateBlock");
 
 	m_pCProCir = new CProCirculateCC( this );
+	_NIF_TRACE("[NIF] ctor done");
+#undef _NIF_TRACE
 }
 
 NetIF::~NetIF()
@@ -488,6 +503,7 @@ bool	NetIF::OnConnect(DataSocket *datasock)
 //reasonֵ:0-���س��������˳���-1-Socket����-3-���类�Է��رգ�-5-�����ȳ������ơ�
 void	NetIF::OnDisconnect(DataSocket *datasock,int reason)
 {
+	{FILE*_f=fopen("log\\connect.log","a");if(_f){fprintf(_f,"[DISC] reason=%d tick=%u\n",reason,GetCurrentTick());fflush(_f);fclose(_f);}}
 	LG("connect","\tOnDisconnect, Reason:%d, Tick:%u,recvTime:%u  \n", reason, GetCurrentTick(),GetRecvTime(datasock) );
 
     if( g_pGameApp )
@@ -514,7 +530,7 @@ std::string NetIF::GetDisconnectErrText(int reason) const
 		switch (reason)
 		{
 		case -33: return "Offline mode has been successfully established, you may now close the client";
-		default: return g_oLangRec.GetString(138);
+		default: return RES_STRING(CL_LANGUAGE_MATCH_138);
 		}
 	}();
 }
@@ -554,10 +570,12 @@ extern char g_szRecvKey[4];
 
 bool NetIF::OnEncrypt(dbc::DataSocket *datasock,char *ciphertext, uLong ciphertext_len, const char *text,unsigned long& len)
 {
-	//TcpCommApp::OnEncrypt(datasock, ciphertext, text, len);
 	if (_comm_enc > 0 && g_NetIF->handshakeDone)
 	{
-		return EncryptAES(ciphertext, ciphertext_len, text, len, g_NetIF->cliPrivateKey);
+		{FILE*_f=fopen("log\\connect.log","a");if(_f){fprintf(_f,"[ENC] pre AES len=%lu\n",len);fflush(_f);fclose(_f);}}
+		bool r = EncryptAES(ciphertext, ciphertext_len, text, len, g_NetIF->cliPrivateKey);
+		{FILE*_f=fopen("log\\connect.log","a");if(_f){fprintf(_f,"[ENC] post AES ok=%d newLen=%lu\n",r,len);fflush(_f);fclose(_f);}}
+		return r;
 	}
 
 	if (ciphertext == text)
@@ -572,16 +590,14 @@ bool NetIF::OnEncrypt(dbc::DataSocket *datasock,char *ciphertext, uLong cipherte
 
 bool NetIF::OnDecrypt(dbc::DataSocket *datasock,char *ciphertext,unsigned long& len)
  {
-    //TcpCommApp::OnDecrypt(datasock, ciphertext, len);
 	try
 	{
-
 		if (_comm_enc > 0 && g_NetIF->handshakeDone)
 		{
-
-			return DecryptAES(ciphertext, ciphertext, len, g_NetIF->cliPrivateKey);
-			// Note: iv begins after the last ciphertext char.
-
+			{FILE*_f=fopen("log\\connect.log","a");if(_f){fprintf(_f,"[DEC] pre AES len=%lu\n",len);fflush(_f);fclose(_f);}}
+			bool r = DecryptAES(ciphertext, ciphertext, len, g_NetIF->cliPrivateKey);
+			{FILE*_f=fopen("log\\connect.log","a");if(_f){fprintf(_f,"[DEC] post AES ok=%d newLen=%lu\n",r,len);fflush(_f);fclose(_f);}}
+			return r;
 		}
 		else {
 			return false;
@@ -589,9 +605,8 @@ bool NetIF::OnDecrypt(dbc::DataSocket *datasock,char *ciphertext,unsigned long& 
 	}
     catch (...)
     {
-        LG("dec", "Exception raised from OnDecrypt()\n");
+        {FILE*_f=fopen("log\\connect.log","a");if(_f){fprintf(_f,"[DEC] exception\n");fflush(_f);fclose(_f);}}
 	}
-
 	return false;
 }
 
@@ -666,124 +681,143 @@ dbc::RPacket NetIF::SyncSendPacketMessage(LPWPACKET pk,unsigned long timeout)
 
 
 
-bool NetIF::EncryptAES(char* ciphertext, uLong ciphertext_len, cChar* plaintext, unsigned long& ciphersize, const CryptoPP::SecByteBlock& key) {
+static const char _b64e[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+static const unsigned char _b64d[256] = {
+	255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,
+	255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,
+	255,255,255,255,255,255,255,255,255,255,255, 62,255,255,255, 63,
+	 52, 53, 54, 55, 56, 57, 58, 59, 60, 61,255,255,255,  0,255,255,
+	255,  0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14,
+	 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25,255,255,255,255,255,
+	255, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+	 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51,255,255,255,255,255,
+	255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,
+	255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,
+	255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,
+	255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,
+	255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,
+	255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,
+	255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,
+	255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255
+};
 
-	try
-	{
-		CryptoPP::SecByteBlock iv(CryptoPP::AES::BLOCKSIZE);
-		rng.GenerateBlock(iv.data(), CryptoPP::AES::BLOCKSIZE); // Generate random initialization vector
-
-		string output;
-		string cipher;
-		CryptoPP::GCM<CryptoPP::AES>::Encryption e;
-		
-		e.SetKeyWithIV(key.data(), key.size(), iv.data(), CryptoPP::AES::BLOCKSIZE);			// Set key and IV pair
-		CryptoPP::StringSource ss((CryptoPP::byte*)plaintext, ciphersize, true, new CryptoPP::AuthenticatedEncryptionFilter(e, new CryptoPP::StringSink(output), false, 12));
-		// Encrypt from byte pointer, ciphersize bytes long, towards output.
-		// plaintext might contain null-terminated values, so we got to use the ciphersize provided by operator<< definition.
-		CryptoPP::StringSource ss1(output, true, new CryptoPP::Base64Encoder(new CryptoPP::StringSink(cipher), false));
-		// Encode the output using Base64.
-
-		if (ciphertext_len + (CryptoPP::AES::BLOCKSIZE + 1) < cipher.size())
-		{
-			// cipher wont fit in the buffer
-			return false;
-		}
-
-		std::memcpy(ciphertext, cipher.c_str(), cipher.size());	// This does not copy the null-terminated char.
-		// Copy the Base64 output to the ciphertext pointer.
-		ciphersize = cipher.size();								
-		// Update cipher size
-
-
-		//Data from text gets encrypted using key provided, then Base64Encoded. The result is char array, copied to ciphertext pointer.
-		//The text length provided also gets updated. New length is the ciphertext length, not including the null-terminated char.
-
-		std::memcpy(ciphertext + ciphersize + 1, iv.data(), CryptoPP::AES::BLOCKSIZE);
-		// Copy initialization vector to ciphertext char array. Do not overwrite the last char.
-		ciphersize += CryptoPP::AES::BLOCKSIZE + 1;
-
-
-		return true;
+static std::string Base64Encode(const unsigned char* src, size_t len) {
+	std::string out;
+	out.reserve(((len + 2) / 3) * 4);
+	for (size_t i = 0; i < len; i += 3) {
+		unsigned int n = (unsigned int)src[i] << 16;
+		if (i + 1 < len) n |= (unsigned int)src[i + 1] << 8;
+		if (i + 2 < len) n |= (unsigned int)src[i + 2];
+		out += _b64e[(n >> 18) & 0x3F];
+		out += _b64e[(n >> 12) & 0x3F];
+		out += (i + 1 < len) ? _b64e[(n >> 6) & 0x3F] : '=';
+		out += (i + 2 < len) ? _b64e[n & 0x3F] : '=';
 	}
-	catch (CryptoPP::BufferedTransformation::NoChannelSupport& e)
-	{
-		// The tag must go in to the default channel:
-		//  "unknown: this object doesn't support multiple channels"
-		cerr << "Caught NoChannelSupport..." << endl;
-		cerr << e.what() << endl;
-		cerr << endl;
-		return false;
-	}
-	catch (CryptoPP::AuthenticatedSymmetricCipher::BadState& e)
-	{
-		// Pushing PDATA before ADATA results in:
-		//  "GMC/AES: Update was called before State_IVSet"
-		cerr << "Caught BadState..." << endl;
-		cerr << e.what() << endl;
-		cerr << endl;
-		return false;
-	}
-	catch (CryptoPP::InvalidArgument& e)
-	{
-		cerr << "Caught InvalidArgument..." << endl;
-		cerr << e.what() << endl;
-		cerr << endl;
-		return false;
-	}
-
-	return false;
+	return out;
 }
 
-bool NetIF::DecryptAES(cChar* ciphertext, char* plaintext, uLong& ciphersize, const CryptoPP::SecByteBlock& key)
+static std::vector<unsigned char> Base64Decode(const unsigned char* src, size_t len) {
+	std::vector<unsigned char> out;
+	out.reserve((len / 4) * 3);
+	for (size_t i = 0; i + 3 < len; i += 4) {
+		unsigned int a = _b64d[src[i]], b = _b64d[src[i+1]], c = _b64d[src[i+2]], d = _b64d[src[i+3]];
+		if (a == 255 || b == 255) break;
+		out.push_back((unsigned char)((a << 2) | (b >> 4)));
+		if (c != 255 && src[i+2] != '=') { out.push_back((unsigned char)(((b & 0xF) << 4) | (c >> 2))); }
+		if (d != 255 && src[i+3] != '=') { out.push_back((unsigned char)(((c & 0x3) << 6) | d)); }
+	}
+	return out;
+}
+
+bool NetIF::EncryptAES(char* ciphertext, uLong ciphertext_len, cChar* plaintext, unsigned long& ciphersize, const std::vector<uint8_t>& key) {
+	const ULONG TAG_LEN = 12;
+	BYTE iv[16];
+	rng.GenerateBlock(iv, 16);
+
+	BCRYPT_ALG_HANDLE hAlg = NULL;
+	NTSTATUS st = BCryptOpenAlgorithmProvider(&hAlg, BCRYPT_AES_ALGORITHM, NULL, 0);
+	if (st != 0) return false;
+
+	st = BCryptSetProperty(hAlg, BCRYPT_CHAINING_MODE, (PUCHAR)BCRYPT_CHAIN_MODE_GCM, sizeof(BCRYPT_CHAIN_MODE_GCM), 0);
+	if (st != 0) { BCryptCloseAlgorithmProvider(hAlg, 0); return false; }
+
+	BCRYPT_KEY_HANDLE hKey = NULL;
+	st = BCryptGenerateSymmetricKey(hAlg, &hKey, NULL, 0, (PUCHAR)key.data(), (ULONG)key.size(), 0);
+	if (st != 0) { BCryptCloseAlgorithmProvider(hAlg, 0); return false; }
+
+	BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO authInfo;
+	BCRYPT_INIT_AUTH_MODE_INFO(authInfo);
+	authInfo.pbNonce = iv;
+	authInfo.cbNonce = 16;
+
+	BYTE tag[12];
+	authInfo.pbTag = tag;
+	authInfo.cbTag = TAG_LEN;
+
+	ULONG cbResult = 0;
+	std::vector<BYTE> encrypted(ciphersize + TAG_LEN);
+	st = BCryptEncrypt(hKey, (PUCHAR)plaintext, ciphersize, &authInfo, NULL, 0, encrypted.data(), (ULONG)ciphersize, &cbResult, 0);
+	BCryptDestroyKey(hKey);
+	BCryptCloseAlgorithmProvider(hAlg, 0);
+	if (st != 0) return false;
+
+	std::vector<BYTE> combined(cbResult + TAG_LEN);
+	memcpy(combined.data(), encrypted.data(), cbResult);
+	memcpy(combined.data() + cbResult, tag, TAG_LEN);
+
+	std::string b64 = Base64Encode(combined.data(), cbResult + TAG_LEN);
+
+	if (ciphertext_len < b64.size() + 16 + 1) return false;
+
+	memcpy(ciphertext, b64.c_str(), b64.size());
+	ciphersize = (unsigned long)b64.size();
+	memcpy(ciphertext + ciphersize + 1, iv, 16);
+	ciphersize += 16 + 1;
+
+	return true;
+}
+
+bool NetIF::DecryptAES(cChar* ciphertext, char* plaintext, uLong& ciphersize, const std::vector<uint8_t>& key)
 {
-	try
-	{
-		// Update ciphertext length
-		if (ciphersize < (CryptoPP::AES::BLOCKSIZE + 1))
-		{
-			// NOTE(Ogge): This must be the IV key
-			return false;
-		}
+	const ULONG TAG_LEN = 12;
+	if (ciphersize < 17) return false;
 
-		ciphersize -= (CryptoPP::AES::BLOCKSIZE + 1);
-		CryptoPP::SecByteBlock iv((CryptoPP::byte*)ciphertext + (ciphersize + 1), CryptoPP::AES::BLOCKSIZE);
+	ciphersize -= 17;
+	const BYTE* iv = (const BYTE*)ciphertext + ciphersize + 1;
 
+	auto decoded = Base64Decode((const unsigned char*)ciphertext, ciphersize);
+	if (decoded.size() < TAG_LEN) return false;
 
-		CryptoPP::GCM<CryptoPP::AES>::Decryption d;
-		string base64decoded;
-		string plain;
-		d.SetKeyWithIV(key.data(), key.size(), iv.data(), CryptoPP::AES::BLOCKSIZE);
-		CryptoPP::StringSource ss((CryptoPP::byte*)ciphertext, ciphersize, true, new CryptoPP::Base64Decoder(new CryptoPP::StringSink(base64decoded)));
-		CryptoPP::AuthenticatedDecryptionFilter df(d, new CryptoPP::StringSink(plain), CryptoPP::AuthenticatedDecryptionFilter::DEFAULT_FLAGS, 12);
-		CryptoPP::StringSource ss2(base64decoded, true, new CryptoPP::Redirector(df));
-		std::memcpy(plaintext, plain.c_str(), plain.size());
-		ciphersize = plain.size();
-		if (!df.GetLastResult()) return false;
+	ULONG dataLen = (ULONG)(decoded.size() - TAG_LEN);
+	BYTE tag[12];
+	memcpy(tag, decoded.data() + dataLen, TAG_LEN);
 
-		return true;
+	BCRYPT_ALG_HANDLE hAlg = NULL;
+	NTSTATUS st = BCryptOpenAlgorithmProvider(&hAlg, BCRYPT_AES_ALGORITHM, NULL, 0);
+	if (st != 0) return false;
 
-	}
-	catch (CryptoPP::InvalidArgument& e)
-	{
-		cerr << "Caught InvalidArgument..." << endl;
-		cerr << e.what() << endl;
-		cerr << endl;
-	}
-	catch (CryptoPP::AuthenticatedSymmetricCipher::BadState& e)
-	{
-		// Pushing PDATA before ADATA results in:
-		//  "GMC/AES: Update was called before State_IVSet"
-		cerr << "Caught BadState..." << endl;
-		cerr << e.what() << endl;
-		cerr << endl;
-	}
-	catch (CryptoPP::HashVerificationFilter::HashVerificationFailed& e)
-	{
-		cerr << "Caught HashVerificationFailed..." << endl;
-		cerr << e.what() << endl;
-		cerr << endl;
-	}
+	st = BCryptSetProperty(hAlg, BCRYPT_CHAINING_MODE, (PUCHAR)BCRYPT_CHAIN_MODE_GCM, sizeof(BCRYPT_CHAIN_MODE_GCM), 0);
+	if (st != 0) { BCryptCloseAlgorithmProvider(hAlg, 0); return false; }
 
-	return false;
+	BCRYPT_KEY_HANDLE hKey = NULL;
+	st = BCryptGenerateSymmetricKey(hAlg, &hKey, NULL, 0, (PUCHAR)key.data(), (ULONG)key.size(), 0);
+	if (st != 0) { BCryptCloseAlgorithmProvider(hAlg, 0); return false; }
+
+	BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO authInfo;
+	BCRYPT_INIT_AUTH_MODE_INFO(authInfo);
+	authInfo.pbNonce = (PUCHAR)iv;
+	authInfo.cbNonce = 16;
+	authInfo.pbTag = tag;
+	authInfo.cbTag = TAG_LEN;
+
+	ULONG cbResult = 0;
+	std::vector<BYTE> decrypted(dataLen);
+	st = BCryptDecrypt(hKey, decoded.data(), dataLen, &authInfo, NULL, 0, decrypted.data(), dataLen, &cbResult, 0);
+	BCryptDestroyKey(hKey);
+	BCryptCloseAlgorithmProvider(hAlg, 0);
+	if (st != 0) return false;
+
+	memcpy(plaintext, decrypted.data(), cbResult);
+	ciphersize = cbResult;
+	return true;
 }

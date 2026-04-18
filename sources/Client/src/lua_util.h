@@ -1,5 +1,28 @@
 #include <strstream>
 
+// Added by watsize
+inline int lua_GetResString(lua_State* L)
+{
+    BOOL bValid = lua_gettop(L) == 1 && lua_isstring(L, 1);
+    if (!bValid)
+    {
+        PARAM_ERROR;
+        return 0;
+    }
+
+    const char* pszID = lua_tostring(L, 1);
+    if (pszID == NULL)
+    {
+        PARAM_ERROR;
+        return 0;
+    }
+    const char* text = CResourceBundleManage::Instance()->LoadResString(pszID);
+
+    lua_pushstring(L, text);
+
+    return 1;
+}
+
 inline int lua_MsgBox(lua_State *L)
 {
     const char *pszContent = lua_tostring(L, 1);

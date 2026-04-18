@@ -1,0 +1,186 @@
+=== TableData.cpp ===
+1: #include <TableData.h>
+2: 
+3: BOOL CRawDataSet::_LoadRawDataInfo_Bin(const char* pszFileName)
+4: {
+5: 
+6: 	const unsigned char cluTableKey[] = { 0x32, 0x72, 0x35, 0x75, 0x38, 0x78, 0x2f, 0x41, 0x3f, 0x44, 0x28, 0x47, 0x2b, 0x4b, 0x62, 0x50 };
+7: 	const unsigned char cluTableIV[] =	{ 0x43, 0x2a, 0x46, 0x29, 0x4a, 0x40, 0x4e, 0x63, 0x52, 0x66, 0x55, 0x6a, 0x58, 0x6e, 0x32, 0x72 };
+8: 
+9: 	FILE* fp = fopen(pszFileName, "rb");
+10: 	char szMsg[MAX_PATH] = { 0 };
+11: 
+12: 	if (fp == NULL)
+13: 	{
+14: 		LG2("error", "Load Raw Data Info Bin File [%s] Failed!\n", pszFileName);
+15: 		//sprintf(szMsg, "�򿪱����ļ�ʧ�ܣ�%s\n���򼴽��˳�!\n", pszFileName);
+16: 		//MessageBox(NULL, szMsg, "����", MB_OK | MB_ICONERROR);
+17: 		sprintf(szMsg, "Open table file failed:%s\nProgram will exit!\n", pszFileName);
+18: 		MessageBox(NULL, szMsg, "Error", MB_OK | MB_ICONERROR);
+19: 		return FALSE;
+20: 	}
+21: 
+22: 	int nSize = Util_GetFileSize(fp);
+23: 	int nInfoSize = _GetRawDataInfoSize();
+24: 
+25: 
+26: 	LPBYTE pbtResInfo = new BYTE[nSize];
+27: 
+28: 	fread(pbtResInfo, sizeof(char), nSize, fp);
+29: 	//DWORD dwInfoSize = 0;
+30: 	//fread(&dwInfoSize, 4, 1, fp);
+31: 	/*
+32: 	if(dwInfoSize!=_GetRawDataInfoSize())
+33: 	{
+34: 		//sprintf(szMsg, "dwInfoSize: %d\n_GetRawDataInfoSize: %d!\n", dwInfoSize, _GetRawDataInfoSize());
+35: 		//MessageBox(NULL, szMsg, "Error2", MB_OK | MB_ICONERROR);
+36: 		//LG2("table", "msg��ȡ�����ļ�[%s]ʱ, ���ְ汾��һ��!\n", pszFileName);
+37: 		LG2("table", "msg read table file [%s], version can't match!\n", pszFileName);
+38: 		fclose(fp);
+39: 		//sprintf(szMsg, "��ȡ�����ļ�����%s\n���򼴽��˳�!\n", pszFileName);
+40: 		//MessageBox(NULL, szMsg, "����", MB_OK | MB_ICONERROR);
+41: 		sprintf(szMsg, "Open table file failed:%s\nProgram will exit!\n", pszFileName);
+42: 		MessageBox(NULL, szMsg, "Error", MB_OK | MB_ICONERROR);
+43: 		exit(0);
+44: 		return FALSE;
+45: 	}
+46: 	*/
+47: 
+48: 	std::string sink;
+49: 	CryptoPP::GCM<CryptoPP::AES>::Decryption d;
+50: 	d.SetKeyWithIV(cluTableKey, 16, cluTableIV, 16);
+51: 
+52: 
+53: 	CryptoPP::AuthenticatedDecryptionFilter df(d, new CryptoPP::StringSink(sink), CryptoPP::AuthenticatedDecryptionFilter::DEFAULT_FLAGS, 12);
+54: 	CryptoPP::StringSource ss(pbtResInfo, nSize, true, new CryptoPP::Redirector(df));
+55: 
+56: 	//if (sink.size() != nSize - 12) {
+57: 	//	sprintf(szMsg, "Size:%d\n, expected:%d\n", sink.size(), (nInfoSize * _nIDCnt) + 12);
+58: 	//	MessageBox(NULL, szMsg, "Error", MB_OK | MB_ICONERROR);
+59: 	//}
+60: 	memset(pbtResInfo, 0, nSize);
+61: 	memcpy(pbtResInfo, sink.c_str(), sink.size());
+62: 
+63: 	int nResCnt = sink.size() / nInfoSize;
+64: 	for (int i = 0; i < nResCnt; i++)
+65: 	{
+66: 		CRawDataInfo* pInfo = (CRawDataInfo*)(pbtResInfo + i * _GetRawDataInfoSize());
+67: 		// modify by lark.li 20080424 begin
+68: 		//strcpy(pInfo->szDataName, ConvertResString(pInfo->szDataName));
+69: 		// End
+70: 
+71: 		if (pInfo->bExist != 1) continue;
+72: 		if (IsValidID(i) == FALSE) continue;
+73: 
+74: 		CRawDataInfo* pCurInfo = _GetRawDataInfo(pInfo->nID);
+75: 		memcpy(pCurInfo, pInfo, nInfoSize); // ���ԭ�е���Ϣ
+76: 		_IDIdx[pCurInfo->szDataName] = pCurInfo;
+77: 		//vector<string> ParamList; _ReadRawDataInfo(pCurInfo, ParamList);
+78: 		_ProcessRawDataInfo(pCurInfo);
+79: 		LG2("debug", "Load Bin RawData [%s] = %d\n", pCurInfo->szDataName, pCurInfo->nID);
+80: 	}
+81: 
+82: 	delete pbtResInfo;
+83: 
+84: 	fclose(fp);
+85: 	return TRUE;
+86: }
+87: 
+88: void CRawDataSet::_WriteRawDataInfo_Bin(const char* pszFileName)
+89: {
+90: 
+91: 	const unsigned char cluTableKey[] = { 0x32, 0x72, 0x35, 0x75, 0x38, 0x78, 0x2f, 0x41, 0x3f, 0x44, 0x28, 0x47, 0x2b, 0x4b, 0x62, 0x50 };
+92: 	const unsigned char cluTableIV[] =	{ 0x43, 0x2a, 0x46, 0x29, 0x4a, 0x40, 0x4e, 0x63, 0x52, 0x66, 0x55, 0x6a, 0x58, 0x6e, 0x32, 0x72 };
+93: 	FILE* fp = fopen(pszFileName, "wb");
+94: 	if (fp == NULL) return;
+95: 	char szMsg[MAX_PATH] = { 0 };
+96: 	DWORD dwInfoSize = _GetRawDataInfoSize();
+97: 
+98: 	//fwrite(&dwInfoSize, 4, 1, fp);
+99: 	auto buffer = std::make_unique<BYTE[]>(dwInfoSize * _nIDCnt);
+100: 	for (int i = 0; i < _nIDCnt; i++) {
+101: 		CRawDataInfo* pInfo = (CRawDataInfo*)((LPBYTE)_RawDataArray + i * _GetRawDataInfoSize());
+102: 		if (pInfo->bExist)
+103: 		{
+104: 			memcpy(buffer.get() + (i * dwInfoSize), pInfo, dwInfoSize);
+105: 		}
+106: 
+107: 	}
+108: 
+109: 	CryptoPP::GCM<CryptoPP::AES>::Encryption e;
+110: 	std::string sink;
+111: 	std::string base64;
+112: 	e.SetKeyWithIV(cluTableKey, 16, cluTableIV, 16);
+113: 	CryptoPP::StringSource ss(buffer.get(), (size_t)(dwInfoSize * _nIDCnt), true, new CryptoPP::AuthenticatedEncryptionFilter(e, new CryptoPP::StringSink(sink), false, 12));
+114: 	//CryptoPP::StringSource(sink, true, new CryptoPP::Base64Encoder(new CryptoPP::StringSink(base64), false));
+115: 	fwrite(sink.c_str(), sizeof(char), (dwInfoSize*_nIDCnt) + 12, fp);
+116: 
+117: 	//if (sink.size() != (dwInfoSize * _nIDCnt) + 12) {
+118: 	//	sprintf(szMsg, "Size:%d\n, expected:%d\n", sink.size(), (dwInfoSize * _nIDCnt) + 12);
+119: 	//	MessageBox(NULL, szMsg, "Error", MB_OK | MB_ICONERROR);
+120: 	//}
+121: 	fclose(fp);
+122: }
+
+=== MPResData.h lines 370-430 ===
+370:     delete this;
+371: }
+372: 
+373: inline BOOL CRawDataSet::_LoadRawDataInfo_Bin(const char *pszFileName)
+374: {
+375: 	FILE* fp = fopen(pszFileName, "rb");
+376: 	if(fp==NULL)
+377: 	{
+378: 		LG("error", "Load Raw Data Info Bin File [%s] Failed!\n", pszFileName);
+379: 		return FALSE;
+380: 	}
+381: 
+382:     int nSize     = Util_GetFileSize(fp);
+383:     int nInfoSize = _GetRawDataInfoSize();
+384:     int nResCnt   = nSize / nInfoSize;
+385: 
+386:     LPBYTE pbtResInfo = new BYTE[nSize];
+387: 
+388:     fread(pbtResInfo, nSize, 1, fp);
+389: 
+390: 	for (int i = 0; i < nSize; ++i)
+391:     {
+392: 		// Shift back chars
+393:         pbtResInfo[i] -= 15;
+394:     }
+395: 
+396:     for(int i = 0; i < nResCnt; i++)
+397:     {
+398:         CRawDataInfo *pInfo = (CRawDataInfo*)(pbtResInfo + i * _GetRawDataInfoSize());
+399:         if(!pInfo->bExist) continue;
+400:         CRawDataInfo *pCurInfo = GetRawDataInfo(pInfo->nID);
+401:         memcpy(pCurInfo, pInfo, nInfoSize); // ���ԭ�е���Ϣ
+402:         _IDIdx[pCurInfo->szDataName] = pCurInfo;
+403:         vector<string> ParamList; _ReadRawDataInfo(pCurInfo, ParamList);
+404:         LG("debug", "Load Bin RawData [%s] = %d\n", pCurInfo->szDataName, pCurInfo->nID);
+405:     }
+406: 
+407:     delete pbtResInfo;
+408: 
+409:     fclose(fp);
+410: 	return TRUE;
+411: }
+412: 
+413: inline void CRawDataSet::_WriteRawDataInfo_Bin(const char *pszFileName)
+414: {
+415: 	FILE* fp = fopen(pszFileName, "wb");
+416: 	if(fp==NULL) return;
+417: 
+418: 	for(int i = 0; i < _nIDCnt; i++)
+419:     {
+420:         CRawDataInfo *pInfo = (CRawDataInfo*)((LPBYTE)_RawDataArray + i * _GetRawDataInfoSize());
+421:         if(pInfo->bExist)
+422:         {
+423: 			LPBYTE scramble = (LPBYTE)pInfo;
+424: 			for(int k = 0; k < _GetRawDataInfoSize(); k++){
+425: 			// Let's scramble chars here
+426: 			// Don't care about over/underflows, it will just loop on 0-255
+427: 			scramble[k]  += 15; // value pointed is shifted in the ascii table
+428: 			}
+429: 			//}
+430: 			//Done, let client/engine save it.

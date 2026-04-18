@@ -27,10 +27,11 @@ _DBC_USING
 
 // ��maincha���ø�����
 bool CCharacter::Cmd_EnterMap(cChar* l_map, Long lMapCopyNO, uLong l_x, uLong l_y, Char chLogin)
-{T_B
-	Short	sErrCode = ERR_MC_ENTER_ERROR;
+{
+	T_B
+		Short	sErrCode = ERR_MC_ENTER_ERROR;
 	Char	chEnterType = enumENTER_MAP_CARRY;
-	CPlayer	*pCPlayer = GetPlayer();
+	CPlayer* pCPlayer = GetPlayer();
 
 	WPACKET pkret = GETWPACKET();
 	WRITE_CMD(pkret, CMD_MC_ENTERMAP);
@@ -281,7 +282,7 @@ bool CCharacter::Cmd_EnterMap(cChar* l_map, Long lMapCopyNO, uLong l_x, uLong l_
 
 			WRITE_CHAR(pkret, chLogin);
 			WRITE_LONG(pkret, g_pGameApp->m_dwPlayerCnt);
-			WRITE_LONG(pkret, ToAddress(pCPlayer));	//����GateServer�Լ���Player�����ṹ��ַ
+			WRITE_LONGLONG(pkret, ToAddress(pCPlayer));	//����GateServer�Լ���Player�����ṹ��ַ
 			ReflectINFof(this, pkret);
 
 			if (bNewCha)
@@ -314,21 +315,23 @@ Error:
 	//LG("enter_map", "������Ϸ����ʧ�� %s(%s)\n", GetLogName(), GetPlyCtrlCha()->GetLogName());
 	LG("enter_map", "enter game scene failed %s(%s)\n", GetLogName(), GetPlyCtrlCha()->GetLogName());
 	return false;
-T_E}
+	T_E
+}
 
 //=============================================================================
 // ������sPing Ԥ�ƶ�ʱ�䣨���룩��
 //       pPath ����Ŀ���·���յ㣻
 //       chPointNum ·���յ���������ֵdefMOVE_INFLEXION_NUM��
 //=============================================================================
-void CCharacter::Cmd_BeginMove(Short sPing, Point *pPath, Char chPointNum, Char chStopState)
-{T_B
-if (!IsLiveing()) {
-	return;
-}
+void CCharacter::Cmd_BeginMove(Short sPing, Point* pPath, Char chPointNum, Char chStopState)
+{
+	T_B
+		if (!IsLiveing()) {
+			return;
+		}
 	if (!GetActControl(enumACTCONTROL_MOVE))
 	{
-		
+
 		FailedActionNoti(enumACTION_MOVE, enumFACTION_ACTFORBID);
 		//m_CLog.Log("���Ϸ����ƶ������󣨴��ڲ����ƶ���״̬��[PacketID: %u]\n", m_ulPacketID);
 		m_CLog.Log("unlawful move request(being can't move state)[PacketID: %u]\n", m_ulPacketID);
@@ -337,7 +340,7 @@ if (!IsLiveing()) {
 
 	if (GetMoveState() == enumMSTATE_ON && GetMoveStopState() == enumEXISTS_SLEEPING) // ��Ҫ����
 	{
-		
+
 		FailedActionNoti(enumACTION_MOVE, enumFACTION_ACTFORBID);
 		//m_CLog.Log("���Ϸ����ƶ������󣨽�ɫ��׼�����ߣ�[PacketID: %u]\n", m_ulPacketID);
 		m_CLog.Log("unlawful move request(character is prepare dormancy)[PacketID: %u]\n", m_ulPacketID);
@@ -346,7 +349,7 @@ if (!IsLiveing()) {
 
 	if (GetMoveState() == enumMSTATE_ON && GetMoveEndPos() == pPath[chPointNum - 1]) // �����ƶ������յ���ͬ
 	{
-		
+
 		//m_CLog.Log("�ƶ���Ŀ����뵱ǰ�ƶ���ͬ�����󱻺���[PacketID: %u]\n", m_ulPacketID);
 		m_CLog.Log("the aim point of move is currently move point,request be ignore [PacketID: %u]\n", m_ulPacketID);
 		return;
@@ -354,7 +357,7 @@ if (!IsLiveing()) {
 
 	if (m_CChaAttr.GetAttr(ATTR_MSPD) == 0)
 	{
-		
+
 		FailedActionNoti(enumACTION_MOVE, enumFACTION_ACTFORBID);
 		//m_CLog.Log("���Ϸ����ƶ��������ƶ��ٶ�Ϊ0��[PacketID: %u]\n", m_ulPacketID);
 		m_CLog.Log("unlawful move request(move speed is zero)[PacketID: %u]\n", m_ulPacketID);
@@ -364,7 +367,7 @@ if (!IsLiveing()) {
 	for (Char chPCount = 0; chPCount < chPointNum; chPCount++)
 		if (!m_submap->IsValidPos(pPath[chPCount].x, pPath[chPCount].y))
 		{
-			
+
 			FailedActionNoti(enumACTION_MOVE, enumFACTION_MOVEPATH);
 			//m_CLog.Log("�ƶ�·������·�����зǷ�\n");
 			m_CLog.Log("move path error��pathID is unlawful\n");
@@ -383,34 +386,37 @@ if (!IsLiveing()) {
 	{
 		m_CAction.End();
 		m_CAction.Add(enumACTION_MOVE, &MoveInit);
-		
+
 	}
 	else if (m_CAction.GetActionNum() == 0)
 	{
 		m_CAction.Add(enumACTION_MOVE, &MoveInit);
 		m_CAction.DoNext();
-		
+
 	}
 	else
 	{
 		m_CAction.End();
 	}
-T_E}
+	T_E
+}
 
 //=============================================================================
 // ������Ŀ��ʵ��
 //=============================================================================
-void CCharacter::Cmd_BeginMoveDirect(Entity *pTar)
-{T_B
-	if (!pTar || !g_pGameApp->IsLiveingEntity(pTar->GetID(), pTar->GetHandle())) // ������Ч
-	{
-		//m_CLog.Log("ʵ�岻����\n");
-		m_CLog.Log("entity is inexistence\n");
-		return;
-	}
-	Point	Path[2] = {GetPos(), pTar->GetPos()};
+void CCharacter::Cmd_BeginMoveDirect(Entity* pTar)
+{
+	T_B
+		if (!pTar || !g_pGameApp->IsLiveingEntity(pTar->GetID(), pTar->GetHandle())) // ������Ч
+		{
+			//m_CLog.Log("ʵ�岻����\n");
+			m_CLog.Log("entity is inexistence\n");
+			return;
+		}
+	Point	Path[2] = { GetPos(), pTar->GetPos() };
 	Cmd_BeginMove(0, Path, 2);
-T_E}
+	T_E
+}
 
 //=============================================================================
 // ������sPing Ԥ�ƶ�ʱ�䣨���룩��
@@ -423,11 +429,12 @@ T_E}
 //             �������pSkill��������ʽ��ʵ�壬��ֱ��ʾID(GetID()), Handle(GetHandle())
 //             �������lSkillNo��������ʽ�����꣬��ֱ��ʾ�����x,y
 //=============================================================================
-void CCharacter::Cmd_BeginSkill(Short sPing, Point *pPath, Char chPointNum,
-								CSkillRecord *pSkill, Long lSkillLv, Long lTarInfo1, Long lTarInfo2, Char chStopState)
-{T_B
-	if (!IsLiveing() || !pSkill || !pPath )
-		return;
+void CCharacter::Cmd_BeginSkill(Short sPing, Point* pPath, Char chPointNum,
+	CSkillRecord* pSkill, Long lSkillLv, Long lTarInfo1, Long lTarInfo2, Char chStopState)
+{
+	T_B
+		if (!IsLiveing() || !pSkill || !pPath)
+			return;
 
 	if (GetMoveState() == enumMSTATE_ON && GetMoveStopState() == enumEXISTS_SLEEPING) // ��Ҫ����
 	{
@@ -453,26 +460,26 @@ void CCharacter::Cmd_BeginSkill(Short sPing, Point *pPath, Char chPointNum,
 		return;
 	}
 
-	SSkillGrid	*pSSkillCont = m_CSkillBag.GetSkillContByID(pSkill->sID);
-	if(!pSSkillCont)
+	SSkillGrid* pSSkillCont = m_CSkillBag.GetSkillContByID(pSkill->sID);
+	if (!pSSkillCont)
 	{
 		if (IsBoat())
 			pSSkillCont = GetPlayer()->GetMainCha()->m_CSkillBag.GetSkillContByID(pSkill->sID);
-		if(!pSSkillCont)
+		if (!pSSkillCont)
 		{
 			short sItemID = atoi(pSkill->szDescribeHint);
-			if(sItemID > 10)
+			if (sItemID > 10)
 			{
-				CItemRecord* pItemRec = GetItemRecordInfo( sItemID );
-				if(pItemRec)
+				CItemRecord* pItemRec = GetItemRecordInfo(sItemID);
+				if (pItemRec)
 				{
-					CSkillRecord *pSkillRec = GetSkillRecordInfo(pSkill->sID);
-					if(pSkillRec && !pSkillRec->IsShow())
+					CSkillRecord* pSkillRec = GetSkillRecordInfo(pSkill->sID);
+					if (pSkillRec && !pSkillRec->IsShow())
 					{
-						BOOL bRet = GetPlayer()->GetMainCha()->LearnSkill( pSkill->sID, 1, true, false, true );
+						BOOL bRet = GetPlayer()->GetMainCha()->LearnSkill(pSkill->sID, 1, true, false, true);
 						//LG("���߼���", "��ɫ��%s\tѧϰ�˵��߼���(SkillID: %u)\n", GetLogName(), pSkill->sID);
 						LG("Item skill", "character:%s\tstudy Item skill(SkillID: %u)\n", GetLogName(), pSkill->sID);
-						if(bRet)
+						if (bRet)
 						{
 							pSSkillCont = m_CSkillBag.GetSkillContByID(pSkill->sID);
 						}
@@ -499,7 +506,7 @@ void CCharacter::Cmd_BeginSkill(Short sPing, Point *pPath, Char chPointNum,
 			return;
 		}
 	}
-	CSkillTempData	*pCSkillTData = g_pGameApp->GetSkillTData(pSSkillCont->sID, pSSkillCont->chLv);
+	CSkillTempData* pCSkillTData = g_pGameApp->GetSkillTData(pSSkillCont->sID, pSSkillCont->chLv);
 	if (!pCSkillTData)
 	{
 		//LG("���ܴ���", "��ɫ��%s\tû��ȡ���ü���(SkillID: %u, SkillLv: %u)����ʱ����\n", GetLogName(), pSSkillCont->sID, pSSkillCont->chLv);
@@ -537,7 +544,7 @@ void CCharacter::Cmd_BeginSkill(Short sPing, Point *pPath, Char chPointNum,
 
 	if (SkillTarIsEntity(pSkill)) // ���ö�����ID
 	{
-		Entity *pTarEnt = g_pGameApp->IsMapEntity(lTarInfo1, lTarInfo2);
+		Entity* pTarEnt = g_pGameApp->IsMapEntity(lTarInfo1, lTarInfo2);
 		if (!pTarEnt) // ���󲻴���
 		{
 			FailedActionNoti(enumACTION_SKILL, enumFACTION_NOOBJECT);
@@ -618,18 +625,20 @@ void CCharacter::Cmd_BeginSkill(Short sPing, Point *pPath, Char chPointNum,
 	{
 		m_CAction.End();
 	}
-T_E}
+	T_E
+}
 
-void CCharacter::Cmd_BeginSkillDirect(Long lSkillNo, Entity *pTar, bool bIntelligent)
-{T_B
-	if (!pTar || !g_pGameApp->IsMapEntity(pTar->GetID(), pTar->GetHandle())) // ������Ч
-	{
-		//m_CLog.Log("ʵ�岻����\n");
-		m_CLog.Log("entity is inexistence\n");
-		return;
-	}
+void CCharacter::Cmd_BeginSkillDirect(Long lSkillNo, Entity* pTar, bool bIntelligent)
+{
+	T_B
+		if (!pTar || !g_pGameApp->IsMapEntity(pTar->GetID(), pTar->GetHandle())) // ������Ч
+		{
+			//m_CLog.Log("ʵ�岻����\n");
+			m_CLog.Log("entity is inexistence\n");
+			return;
+		}
 
-	CSkillRecord *pSkill = GetSkillRecordInfo(lSkillNo);
+	CSkillRecord* pSkill = GetSkillRecordInfo(lSkillNo);
 	if (pSkill == NULL)
 	{
 		//m_CLog.Log("���ܣ�ID: %u��������\n", lSkillNo);
@@ -638,10 +647,10 @@ void CCharacter::Cmd_BeginSkillDirect(Long lSkillNo, Entity *pTar, bool bIntelli
 	}
 
 	Long	lTarInfo1, lTarInfo2;
-	Point	Path[2] = {GetPos(), pTar->GetPos()};
+	Point	Path[2] = { GetPos(), pTar->GetPos() };
 	if (bIntelligent)
 	{
-		CCharacter	*pCTarCha = pTar->IsCharacter();
+		CCharacter* pCTarCha = pTar->IsCharacter();
 		if (pCTarCha && pCTarCha->GetMoveState() == enumMSTATE_ON)
 			Path[1].move(pCTarCha->GetAngle(), 400);
 	}
@@ -656,11 +665,13 @@ void CCharacter::Cmd_BeginSkillDirect(Long lSkillNo, Entity *pTar, bool bIntelli
 		lTarInfo2 = pTar->GetPos().y;
 	}
 	Cmd_BeginSkill(0, Path, 2, pSkill, 1, lTarInfo1, lTarInfo2);
-T_E}
+	T_E
+}
 
 void CCharacter::Cmd_BeginSkillDirect2(Long lSkillNo, Long lSkillLv, Long lPosX, Long lPosY)
-{T_B
-	CSkillRecord *pSkill = GetSkillRecordInfo(lSkillNo);
+{
+	T_B
+		CSkillRecord* pSkill = GetSkillRecordInfo(lSkillNo);
 	if (pSkill == NULL)
 	{
 		//m_CLog.Log("���ܣ�ID: %u��������\n", lSkillNo);
@@ -680,34 +691,36 @@ void CCharacter::Cmd_BeginSkillDirect2(Long lSkillNo, Long lSkillLv, Long lPosX,
 	}
 
 	Cmd_BeginSkill(0, Path, 2, pSkill, lSkillLv, lPosX, lPosY);
-T_E}
+	T_E
+}
 
 //=============================================================================
 // ʹ�õ���
 //=============================================================================
 Short CCharacter::Cmd_UseItem(Short sSrcKbPage, Short sSrcKbGrid, Short sTarKbPage, Short sTarKbGrid)
-{T_B
-	if (m_CKitbag.IsLock()) // ����������
+{
+	T_B
+		if (m_CKitbag.IsLock()) // ����������
+			return enumITEMOPT_ERROR_KBLOCK;
+	if (GetPlyMainCha()->m_CKitbag.IsPwdLocked()) //��������
 		return enumITEMOPT_ERROR_KBLOCK;
-    if (GetPlyMainCha()->m_CKitbag.IsPwdLocked()) //��������
-        return enumITEMOPT_ERROR_KBLOCK;
 	//add by ALLEN 2007-10-16
-    if (GetPlyMainCha()->IsReadBook()) //����״̬
-        return enumITEMOPT_ERROR_KBLOCK;
-   
-    if(GetPlyMainCha()->GetStallData())     //  ����BUG, ��̯״̬
-    {
-        return enumITEMOPT_ERROR_KBLOCK;
-    }
+	if (GetPlyMainCha()->IsReadBook()) //����״̬
+		return enumITEMOPT_ERROR_KBLOCK;
 
-	SItemGrid	*pSGridCont = m_CKitbag.GetGridContByID(sSrcKbGrid);
+	if (GetPlyMainCha()->GetStallData())     //  ����BUG, ��̯״̬
+	{
+		return enumITEMOPT_ERROR_KBLOCK;
+	}
 
-	
+	SItemGrid* pSGridCont = m_CKitbag.GetGridContByID(sSrcKbGrid);
+
+
 
 	Short	sItemID = m_CKitbag.GetID(sSrcKbGrid, sSrcKbPage);
 	if (sItemID <= 0)
 		return enumITEMOPT_ERROR_NONE;
-	CItemRecord	*pCItemRec = GetItemRecordInfo(sItemID);
+	CItemRecord* pCItemRec = GetItemRecordInfo(sItemID);
 	if (!pCItemRec)
 		return enumITEMOPT_ERROR_NONE;
 
@@ -723,21 +736,23 @@ Short CCharacter::Cmd_UseItem(Short sSrcKbPage, Short sSrcKbGrid, Short sTarKbPa
 	if (pCItemRec->szAbleLink[0] == -1) // ������
 		sUseRet = Cmd_UseExpendItem(sSrcKbPage, sSrcKbGrid, sTarKbPage, sTarKbGrid);
 	else // װ����
-		sUseRet = Cmd_UseEquipItem(sSrcKbPage, sSrcKbGrid, true, sTarKbGrid==-2);
+		sUseRet = Cmd_UseEquipItem(sSrcKbPage, sSrcKbGrid, true, sTarKbGrid == -2);
 
 	if (sUseRet == enumITEMOPT_SUCCESS && pCItemRec->IsSendUseItem())
 		SynItemUseSuc(sItemID);
 
 	return sUseRet;
-T_E}
+	T_E
+}
 
 //=============================================================================
 // ʹ��װ�������
 //=============================================================================
 Short CCharacter::Cmd_UseEquipItem(Short sKbPage, Short sKbGrid, bool bRefresh, bool rightHand)
-{T_B
-	if (!GetActControl(enumACTCONTROL_ITEM_OPT))
-		return enumITEMOPT_ERROR_STATE;
+{
+	T_B
+		if (!GetActControl(enumACTCONTROL_ITEM_OPT))
+			return enumITEMOPT_ERROR_STATE;
 
 	if (bRefresh)
 	{
@@ -748,7 +763,7 @@ Short CCharacter::Cmd_UseEquipItem(Short sKbPage, Short sKbGrid, bool bRefresh, 
 		m_CKitbag.SetChangeFlag(false, sKbPage);
 	}
 
-	SItemGrid	*pSEquipIt = m_CKitbag.GetGridContByID(sKbGrid, sKbPage);
+	SItemGrid* pSEquipIt = m_CKitbag.GetGridContByID(sKbGrid, sKbPage);
 	if (!pSEquipIt)
 		return enumITEMOPT_ERROR_NONE;
 	//if (!pSEquipIt->IsValid())
@@ -756,7 +771,7 @@ Short CCharacter::Cmd_UseEquipItem(Short sKbPage, Short sKbGrid, bool bRefresh, 
 	Short	sItemId = pSEquipIt->sID;
 	Short	sItemNum = pSEquipIt->sNum;
 
-	CItemRecord	*pCItemRec = GetItemRecordInfo(sItemId);
+	CItemRecord* pCItemRec = GetItemRecordInfo(sItemId);
 	if (!pCItemRec)
 	{
 		return enumITEMOPT_ERROR_NONE;
@@ -764,12 +779,12 @@ Short CCharacter::Cmd_UseEquipItem(Short sKbPage, Short sKbGrid, bool bRefresh, 
 
 	// Modify by ning.yan 20080821  Begin
 	//if( sItemId >= 5000 && pCItemRec->sType != enumItemTypeBoat && pSEquipIt->GetFusionItemID() )
-	CItemRecord * pItem = GetItemRecordInfo(sItemId);
-	if(CItemRecord::IsVaildFusionID(pItem) && pCItemRec->sType != enumItemTypeBoat && pSEquipIt->GetFusionItemID() ) // ning.yan  end
+	CItemRecord* pItem = GetItemRecordInfo(sItemId);
+	if (CItemRecord::IsVaildFusionID(pItem) && pCItemRec->sType != enumItemTypeBoat && pSEquipIt->GetFusionItemID()) // ning.yan  end
 	{
-		Short sEquipCon = CanEquipItemNew( sItemId, (Short)pSEquipIt->GetFusionItemID() );
+		Short sEquipCon = CanEquipItemNew(sItemId, (Short)pSEquipIt->GetFusionItemID());
 		Short expired = IsItemExpired(pSEquipIt);
-		
+
 		if (sEquipCon != enumITEMOPT_SUCCESS)
 		{
 			return sEquipCon;
@@ -815,26 +830,26 @@ Short CCharacter::Cmd_UseEquipItem(Short sKbPage, Short sKbGrid, bool bRefresh, 
 
 	Short	sUnfixRet = enumITEMOPT_ERROR_NONE;
 
-	if (rightHand == true){
+	if (rightHand == true) {
 		int slot = -1;
-		switch (pCItemRec->sType){
-			case 1:{
-				slot = 6;
-				break;
-			}
-			case 26:{
-				slot = 8;
-				break;
-			}
+		switch (pCItemRec->sType) {
+		case 1: {
+			slot = 6;
+			break;
 		}
-		for (int i = 0; i < enumEQUIP_NUM; i++){
-			if (pCItemRec->szAbleLink[i] == slot){
+		case 26: {
+			slot = 8;
+			break;
+		}
+		}
+		for (int i = 0; i < enumEQUIP_NUM; i++) {
+			if (pCItemRec->szAbleLink[i] == slot) {
 				chEquipPos = slot;
 				break;
 			}
 		}
 	}
-	
+
 	if (!bOccupied)			// Check inventory capacity only if equipped slot isn't occupied
 	{
 		short sFreeNum = m_CKitbag.GetCapacity() - m_CKitbag.GetUseGridNum();
@@ -843,7 +858,7 @@ Short CCharacter::Cmd_UseEquipItem(Short sKbPage, Short sKbGrid, bool bRefresh, 
 	}
 
 	SItemGrid SGridCont;
-    if (KbPopItem(false, false, &SGridCont, sKbGrid, sKbPage) != enumKBACT_SUCCESS) 
+	if (KbPopItem(false, false, &SGridCont, sKbGrid, sKbPage) != enumKBACT_SUCCESS)
 		return enumITEMOPT_ERROR_NONE;
 
 	if (pCItemRec->szNeedLink[0] == -1)
@@ -866,7 +881,7 @@ Short CCharacter::Cmd_UseEquipItem(Short sKbPage, Short sKbGrid, bool bRefresh, 
 		}
 	}
 	if (sUnfixRet == enumITEMOPT_SUCCESS)
-	{		
+	{
 		if (pCItemRec->szNeedLink[0] != -1)
 		{
 			Short	sVal;
@@ -887,7 +902,8 @@ Short CCharacter::Cmd_UseEquipItem(Short sKbPage, Short sKbGrid, bool bRefresh, 
 		m_SChaPart.SLink[chEquipPos] = SGridCont;
 		m_SChaPart.SLink[chEquipPos].SetChange();
 		ChangeItem(true, &SGridCont, chEquipPos);
-	} else {
+	}
+	else {
 		// Add item back if equip fails.
 		KbPushItem(true, false, &SGridCont, sKbGrid);
 	}
@@ -919,16 +935,18 @@ Short CCharacter::Cmd_UseEquipItem(Short sKbPage, Short sKbGrid, bool bRefresh, 
 	AfterEquipItem(sItemId, 0);
 
 	return sUnfixRet;
-T_E}
+	T_E
+}
 
 //=============================================================================
 // ʹ�����������
 //=============================================================================
 Short CCharacter::Cmd_UseExpendItem(Short sKbPage, Short sKbGrid, Short sTarKbPage, Short sTarKbGrid, bool bRefresh)
-{T_B
-	static DWORD dwLastTime = GetTickCount();
+{
+	T_B
+		static DWORD dwLastTime = GetTickCount();
 	DWORD dwCurTime = GetTickCount();
-	if( dwCurTime - dwLastTime < 200 )
+	if (dwCurTime - dwLastTime < 200)
 	{
 		return enumITEMOPT_SUCCESS;
 	}
@@ -940,13 +958,13 @@ Short CCharacter::Cmd_UseExpendItem(Short sKbPage, Short sKbGrid, Short sTarKbPa
 	if (!GetActControl(enumACTCONTROL_USE_ITEM))
 		return enumITEMOPT_ERROR_STATE;
 
-	SItemGrid	*pSGridCont = m_CKitbag.GetGridContByID(sKbGrid, sKbPage);
+	SItemGrid* pSGridCont = m_CKitbag.GetGridContByID(sKbGrid, sKbPage);
 	if (!pSGridCont)
 		return enumITEMOPT_ERROR_NONE;
 
-	SItemGrid	*pSTarGridCont = m_CKitbag.GetGridContByID(sTarKbGrid, sTarKbPage);
+	SItemGrid* pSTarGridCont = m_CKitbag.GetGridContByID(sTarKbGrid, sTarKbPage);
 
-	if (pSTarGridCont && pSTarGridCont->dwDBID != 0){
+	if (pSTarGridCont && pSTarGridCont->dwDBID != 0) {
 		SystemNotice("Target item is locked.");
 		return enumITEMOPT_ERROR_NONE;
 	}
@@ -985,13 +1003,14 @@ Short CCharacter::Cmd_UseExpendItem(Short sKbPage, Short sKbGrid, Short sTarKbPa
 		}
 
 		g_chUseItemFailed[0] = 0;
-		
+
 		// Add by lark.li 20080721 begin
 		g_chUseItemGiveMission[0] = 0;
 		// End
 
-		g_CParser.DoString(pCItemRec->szAttrEffect, enumSCRIPT_RETURN_NONE, 0, enumSCRIPT_PARAM_LIGHTUSERDATA, 3, this, pSGridCont, pSTarGridCont, DOSTRING_PARAM_END);
-		
+		if (strcmp(pCItemRec->szAttrEffect, "0"))
+			g_CParser.DoString(pCItemRec->szAttrEffect, enumSCRIPT_RETURN_NONE, 0, enumSCRIPT_PARAM_LIGHTUSERDATA, 3, this, pSGridCont, pSTarGridCont, DOSTRING_PARAM_END);
+
 		if (g_chUseItemFailed[0] == 1) // ʹ�õ���ʧ��
 			bUseSuccess = false;
 		else
@@ -1021,7 +1040,7 @@ Short CCharacter::Cmd_UseExpendItem(Short sKbPage, Short sKbGrid, Short sTarKbPa
 		return enumITEMOPT_ERROR_NONE;
 
 	// ˢ��������߼���
-	RefreshNeedItem( SGridCont.sID );
+	RefreshNeedItem(SGridCont.sID);
 
 	char	szPlyName[100];
 	if (IsBoat())
@@ -1052,7 +1071,8 @@ Short CCharacter::Cmd_UseExpendItem(Short sKbPage, Short sKbGrid, Short sTarKbPa
 	}
 
 	return enumITEMOPT_SUCCESS;
-T_E}
+	T_E
+}
 
 //=============================================================================
 // ж��װ��
@@ -1062,23 +1082,24 @@ T_E}
 // 1 ����������ʱ[lParam1��lParam2]��ʾ������ҳ�ź�λ�ţ������������������ʧ�ܣ�
 // 2 ɾ�����ߣ�
 //=============================================================================
-Short CCharacter::Cmd_UnfixItem(Char chLinkID, Short *psItemNum, Char chDir, Long lParam1, Long lParam2, bool bPriority, bool bRefresh, bool bForcible)
-{T_B
-	//mothannakh cooldown	//this cooldown needed since the spam of this packet crash all players clients 
-	//DWORD dwLastTime = GetTickCount();	//static 
-	//if (GetPlyMainCha()->SwitchItemColD > dwLastTime)
-	//{
-	//	BickerNotice("Please Calm Down Don't Spam! ");
-	//	return enumITEMOPT_ERROR_PROTECT;	//return false 
-	//}
-	//cooldown end end
-	//fix if invnetory full delete the switch item @mothannakh
-	if (GetPlyMainCha()->m_CKitbag.IsFull())
-	{
-		BickerNotice("Please Make Sure You Have 5 slots Empty ! ");
-		return enumITEMOPT_ERROR_KBFULL;
-	}
-	
+Short CCharacter::Cmd_UnfixItem(Char chLinkID, Short* psItemNum, Char chDir, Long lParam1, Long lParam2, bool bPriority, bool bRefresh, bool bForcible)
+{
+	T_B
+		//mothannakh cooldown	//this cooldown needed since the spam of this packet crash all players clients 
+		//DWORD dwLastTime = GetTickCount();	//static 
+		//if (GetPlyMainCha()->SwitchItemColD > dwLastTime)
+		//{
+		//	BickerNotice("Please Calm Down Don't Spam! ");
+		//	return enumITEMOPT_ERROR_PROTECT;	//return false 
+		//}
+		//cooldown end end
+		//fix if invnetory full delete the switch item @mothannakh
+		if (GetPlyMainCha()->m_CKitbag.IsFull())
+		{
+			BickerNotice("Please Make Sure You Have 5 slots Empty ! ");
+			return enumITEMOPT_ERROR_KBFULL;
+		}
+
 	//fix end
 	if (!bForcible)
 	{
@@ -1105,7 +1126,7 @@ Short CCharacter::Cmd_UnfixItem(Char chLinkID, Short *psItemNum, Char chDir, Lon
 	}
 
 	Short	sItemID = m_SChaPart.SLink[chLinkID].sID;
-	CItemRecord	*pCItemRec = GetItemRecordInfo(sItemID);
+	CItemRecord* pCItemRec = GetItemRecordInfo(sItemID);
 	if (!pCItemRec)
 		return enumITEMOPT_ERROR_NONE;
 
@@ -1138,12 +1159,12 @@ Short CCharacter::Cmd_UnfixItem(Char chLinkID, Short *psItemNum, Char chDir, Lon
 	SItemGrid	SUnfixCont = m_SChaPart.SLink[chLinkID];
 	SUnfixCont.sNum = *psItemNum;
 
-	CCharacter	*pCCtrlCha = GetPlyCtrlCha(), *pCMainCha = GetPlyMainCha();
-    if (GetPlyMainCha()->m_CKitbag.IsPwdLocked()) //��������,����ж�ص�������
-        return enumITEMOPT_ERROR_KBLOCK;
+	CCharacter* pCCtrlCha = GetPlyCtrlCha(), * pCMainCha = GetPlyMainCha();
+	if (GetPlyMainCha()->m_CKitbag.IsPwdLocked()) //��������,����ж�ص�������
+		return enumITEMOPT_ERROR_KBLOCK;
 	//add by ALLEN 2007-10-16
-		if (GetPlyMainCha()->IsReadBook()) //����,����ж�ص�������
-        return enumITEMOPT_ERROR_KBLOCK;
+	if (GetPlyMainCha()->IsReadBook()) //����,����ж�ص�������
+		return enumITEMOPT_ERROR_KBLOCK;
 	if (chDir == 1) // �����жװ���������������Ƿ���Է���
 	{
 		Short sKbPushRet = KbPushItem(false, false, &SUnfixCont, (Short&)lParam2, (Short)lParam1);
@@ -1161,15 +1182,15 @@ Short CCharacter::Cmd_UnfixItem(Char chLinkID, Short *psItemNum, Char chDir, Lon
 		pCItemRec = GetItemRecordInfo(SUnfixCont.sID);
 		if (!pCItemRec)
 			return enumITEMOPT_ERROR_NONE;
-		if(pCItemRec->chIsThrow != 1 || !SUnfixCont.GetInstAttr(ITEMATTR_TRADABLE) ) // ���ɶ���
+		if (pCItemRec->chIsThrow != 1 || !SUnfixCont.GetInstAttr(ITEMATTR_TRADABLE)) // ���ɶ���
 			return enumITEMOPT_ERROR_UNTHROW;
 
-		if(	SUnfixCont.dwDBID	)
+		if (SUnfixCont.dwDBID)
 		{
 			return	enumITEMOPT_ERROR_UNTHROW;
 		};
 
-		SubMap	*pCMap = pCCtrlCha->GetSubMapFar();
+		SubMap* pCMap = pCCtrlCha->GetSubMapFar();
 		if (!pCMap)
 			return enumITEMOPT_ERROR_KBLOCK;
 		pCMap->ItemSpawn(&SUnfixCont, lParam1, lParam2, enumITEM_APPE_THROW, pCCtrlCha->GetID(), pCMainCha->GetID(), pCMainCha->GetHandle());
@@ -1247,10 +1268,11 @@ Short CCharacter::Cmd_UnfixItem(Char chLinkID, Short *psItemNum, Char chDir, Lon
 	}
 	//if all went fine add our cooldown
 		//GetPlyMainCha()->SwitchItemColD = dwLastTime + 100;
-		game_db.SavePlayer(GetPlayer(), enumSAVE_TYPE_TIMER);
+	game_db.SavePlayer(GetPlayer(), enumSAVE_TYPE_TIMER);
 	//cooldown end 
 	return enumITEMOPT_SUCCESS;
-T_E}
+	T_E
+}
 
 //=================================================================================================
 // �����
@@ -1258,34 +1280,35 @@ T_E}
 #include "item.h"
 //=================================================================================================
 Short CCharacter::Cmd_PickupItem(uLong ulID, Long lHandle)
-{T_B
-	if (!GetActControl(enumACTCONTROL_ITEM_OPT))
-		return enumITEMOPT_ERROR_STATE;
+{
+	T_B
+		if (!GetActControl(enumACTCONTROL_ITEM_OPT))
+			return enumITEMOPT_ERROR_STATE;
 
-	Entity	*pCEnt = g_pGameApp->IsLiveingEntity(ulID, lHandle);
+	Entity* pCEnt = g_pGameApp->IsLiveingEntity(ulID, lHandle);
 	if (!pCEnt)
 		return enumITEMOPT_ERROR_NONE;
-	CItem	*pCItem = pCEnt->IsItem();
+	CItem* pCItem = pCEnt->IsItem();
 	if (!pCItem)
 		return enumITEMOPT_ERROR_NONE;
-	CItemRecord* pItem = GetItemRecordInfo( pCItem->m_SGridContent.sID );
-	if( pItem == NULL )
+	CItemRecord* pItem = GetItemRecordInfo(pCItem->m_SGridContent.sID);
+	if (pItem == NULL)
 		return enumITEMOPT_ERROR_NONE;
 
-	if(pItem->chIsPick != 1) // ����ʰȡ
+	if (pItem->chIsPick != 1) // ����ʰȡ
 		return enumITEMOPT_ERROR_UNPICKUP;
 
-	CCharacter	*pCCtrlCha = GetPlyCtrlCha(), *pCMainCha = GetPlyMainCha();
+	CCharacter* pCCtrlCha = GetPlyCtrlCha(), * pCMainCha = GetPlyMainCha();
 	// �ж�ʰȡ���
-	SubMap	*pCMap = pCCtrlCha->GetSubMapFar();
+	SubMap* pCMap = pCCtrlCha->GetSubMapFar();
 	if (!pCMap)
 		return enumITEMOPT_ERROR_KBLOCK;
 	uShort	usAreaAttr = pCMap->GetAreaAttr(pCEnt->GetPos());
 	if ((g_IsLand(usAreaAttr) != g_IsLand(GetAreaAttr())) && (g_IsLand(usAreaAttr))) //��ɫ���ڵ�����ͬ�ڵ���
 		return enumITEMOPT_ERROR_AREA;
 
-	CCharacter	*pKitbagCha = this;
-	CKitbag	*pCKitbag = &m_CKitbag;
+	CCharacter* pKitbagCha = this;
+	CKitbag* pCKitbag = &m_CKitbag;
 	if (!g_IsLand(usAreaAttr)) // ����
 	{
 		if (!IsBoat())
@@ -1300,12 +1323,12 @@ Short CCharacter::Cmd_PickupItem(uLong ulID, Long lHandle)
 	if (pCKitbag->IsLock())
 		return enumITEMOPT_ERROR_KBLOCK;
 
-    if (GetPlyMainCha()->m_CKitbag.IsPwdLocked()) //��������
-        return enumITEMOPT_ERROR_KBLOCK;
+	if (GetPlyMainCha()->m_CKitbag.IsPwdLocked()) //��������
+		return enumITEMOPT_ERROR_KBLOCK;
 
 	//add by ALLEN 2007-10-16
 	if (GetPlyMainCha()->IsReadBook()) //����״̬
-        return enumITEMOPT_ERROR_KBLOCK;
+		return enumITEMOPT_ERROR_KBLOCK;
 
 	if (pCItem->GetProtChaID() != 0) // ���߱�����
 	{
@@ -1314,10 +1337,10 @@ Short CCharacter::Cmd_PickupItem(uLong ulID, Long lHandle)
 			if (pCItem->GetProtType() == enumITEM_PROT_OWN)
 				return enumITEMOPT_ERROR_PROTECT;
 
-			Entity	*pBelongEnt = g_pGameApp->IsLifeEntity(pCItem->GetProtChaID(), pCItem->GetProtChaHandle());
+			Entity* pBelongEnt = g_pGameApp->IsLifeEntity(pCItem->GetProtChaID(), pCItem->GetProtChaHandle());
 			if (pBelongEnt)
 			{
-				CPlayer	*pBelongPlayer = pBelongEnt->IsCharacter()->GetPlayer();
+				CPlayer* pBelongPlayer = pBelongEnt->IsCharacter()->GetPlayer();
 				if (pBelongPlayer && (!pBelongPlayer->getTeamLeaderID() || pBelongPlayer->getTeamLeaderID() != GetPlayer()->getTeamLeaderID()))
 				{
 					return enumITEMOPT_ERROR_PROTECT;
@@ -1327,12 +1350,12 @@ Short CCharacter::Cmd_PickupItem(uLong ulID, Long lHandle)
 	}
 
 	// �ж�ʰȡ����֤��
-	if( pItem->sType == enumItemTypeBoat )
+	if (pItem->sType == enumItemTypeBoat)
 	{
-		if( GetPlayer()->IsBoatFull() )
+		if (GetPlayer()->IsBoatFull())
 		{
 			//SystemNotice( "������Я���Ĵ�ֻ������������������ʰȡ��Ʒ��%s��!", pItem->szName );
-			SystemNotice( RES_STRING(GM_CHARACTERCMD_CPP_00003), pItem->szName );
+			SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00003), pItem->szName);
 			return enumITEMOPT_ERROR_UNUSE;
 		}
 	}
@@ -1361,33 +1384,33 @@ Short CCharacter::Cmd_PickupItem(uLong ulID, Long lHandle)
 	}
 
 	// ����ɫ������ƷЯ���Ĵ�ֻ
-	if( pItem->sType == enumItemTypeBoat )
+	if (pItem->sType == enumItemTypeBoat)
 	{
-		DWORD dwBoatID = pCItem->m_SGridContent.GetDBParam( enumITEMDBP_INST_ID );
+		DWORD dwBoatID = pCItem->m_SGridContent.GetDBParam(enumITEMDBP_INST_ID);
 		// �������ݿ����
 		if (SaveAssets())
 		{
-			if( !game_db.SaveBoatTempData( dwBoatID, this->GetPlayer()->GetDBChaId() ) )
+			if (!game_db.SaveBoatTempData(dwBoatID, this->GetPlayer()->GetDBChaId()))
 			{
 				//LG( "ʰȡ��Ʒ����", "��ɫ��%s��ID[0x%X]ʰȡ�˴���֤�������Ǵ�ֻ���ݴ洢ʧ��!��ֻ����ID[0x%X]", 
-				LG( "pick up goods error", "character��%s��ID[0x%X]pick up captain prove��but boat data storage failed!boat data ID[0x%X]", 
-					this->GetName(), this->GetPlayer()->GetDBChaId(), dwBoatID );
+				LG("pick up goods error", "character��%s��ID[0x%X]pick up captain prove��but boat data storage failed!boat data ID[0x%X]",
+					this->GetName(), this->GetPlayer()->GetDBChaId(), dwBoatID);
 			}
 		}
 		else
 		{
 			//LG( "ʰȡ��Ʒ����", "��ɫ��%s��ID[0x%X]ʰȡ�˴���֤�������Ǳ������ݴ洢ʧ��!��ֻ����ID[0x%X]", 
-			LG( "pick up goods error", "character��%s��ID[0x%X]pick up captain prove��but kitbag data storage failed!boat data ID[0x%X]", 
-				this->GetName(), this->GetPlayer()->GetDBChaId(), dwBoatID );
+			LG("pick up goods error", "character��%s��ID[0x%X]pick up captain prove��but kitbag data storage failed!boat data ID[0x%X]",
+				this->GetName(), this->GetPlayer()->GetDBChaId(), dwBoatID);
 		}
 
-		if( !BoatAdd( dwBoatID ) )
+		if (!BoatAdd(dwBoatID))
 		{
 			//SystemNotice( "ʰȡ����֤�������Ӵ�ֻʧ��!ID[0x%X]", dwBoatID );
-			SystemNotice( RES_STRING(GM_CHARACTERCMD_CPP_00004), dwBoatID );
+			SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00004), dwBoatID);
 			//LG( "ʰȡ��Ʒ����", "��ɫ��%s��ID[0x%X]ʰȡ�˴���֤�������Ӵ�ֻʧ��!��ֻ����ID[0x%X]", 
-			LG( "pick up goods error", "character��%s��ID[0x%X]pick up captain prove��add boat failed!boat dataID[0x%X]", 
-				this->GetName(), this->GetPlayer()->GetDBChaId(), dwBoatID );
+			LG("pick up goods error", "character��%s��ID[0x%X]pick up captain prove��add boat failed!boat dataID[0x%X]",
+				this->GetName(), this->GetPlayer()->GetDBChaId(), dwBoatID);
 		}
 	}
 
@@ -1432,55 +1455,57 @@ Short CCharacter::Cmd_PickupItem(uLong ulID, Long lHandle)
 	pKitbagCha->LogAssets(enumLASSETS_PICKUP);
 
 	return enumITEMOPT_SUCCESS;
-T_E}
+	T_E
+}
 
 //�Ϸ���ʱ�����ĵ���(sSrcGrid:��ʱ������λ��   sSrcNum:����   sTarGrid:������λ��)
 Short CCharacter::Cmd_DragItem(Short sSrcGrid, Short sSrcNum, Short sTarGrid)
 {
-    if (GetPlyMainCha()->m_CKitbag.IsPwdLocked()) //��������
-        return enumITEMOPT_ERROR_KBLOCK;
+	if (GetPlyMainCha()->m_CKitbag.IsPwdLocked()) //��������
+		return enumITEMOPT_ERROR_KBLOCK;
 
 	//add by ALLEN 2007-10-16
 	if (GetPlyMainCha()->IsReadBook()) //����״̬
-        return enumITEMOPT_ERROR_KBLOCK;
+		return enumITEMOPT_ERROR_KBLOCK;
 
-    USHORT sItemID = m_pCKitbagTmp->GetID(sSrcGrid, 0);
-    if (sItemID <= 0)
+	USHORT sItemID = m_pCKitbagTmp->GetID(sSrcGrid, 0);
+	if (sItemID <= 0)
 		return enumITEMOPT_ERROR_NONE;
-    CItemRecord* pItem = GetItemRecordInfo( sItemID );
-	if( pItem == NULL )
+	CItemRecord* pItem = GetItemRecordInfo(sItemID);
+	if (pItem == NULL)
 		return enumITEMOPT_ERROR_NONE;
 
-    SItemGrid Grid;
-    Grid.sNum = sSrcNum;
-    m_pCKitbagTmp->Pop(&Grid, sSrcGrid);
+	SItemGrid Grid;
+	Grid.sNum = sSrcNum;
+	m_pCKitbagTmp->Pop(&Grid, sSrcGrid);
 
-    m_CKitbag.Push(&Grid, sTarGrid);
-    SynKitbagNew(enumSYN_KITBAG_SWITCH);
-    if(Grid.sNum > 0)
-    {
-       // SystemNotice("����������!");
-		 SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00007));
-        m_pCKitbagTmp->Push(&Grid, sSrcGrid);
-        SynKitbagTmpNew(enumSYN_KITBAG_SWITCH);
-        return enumITEMOPT_ERROR_KBFULL;
-    }
+	m_CKitbag.Push(&Grid, sTarGrid);
+	SynKitbagNew(enumSYN_KITBAG_SWITCH);
+	if (Grid.sNum > 0)
+	{
+		// SystemNotice("����������!");
+		SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00007));
+		m_pCKitbagTmp->Push(&Grid, sSrcGrid);
+		SynKitbagTmpNew(enumSYN_KITBAG_SWITCH);
+		return enumITEMOPT_ERROR_KBFULL;
+	}
 
-    SynKitbagTmpNew(enumSYN_KITBAG_SWITCH);
-    
-    return enumITEMOPT_SUCCESS;
+	SynKitbagTmpNew(enumSYN_KITBAG_SWITCH);
+
+	return enumITEMOPT_SUCCESS;
 }
 
 // �ӵ���
 // psThrowNum �ӳ���Ŀ��0Ϊȫ���ӳ����ɹ������󷵻�ʵ�������
-Short CCharacter::Cmd_ThrowItem(Short sKbPage, Short sKbGrid, Short *psThrowNum, Long lPosX, Long lPosY, bool bRefresh, bool bForcible)
-{T_B
-    if (GetPlyMainCha()->m_CKitbag.IsPwdLocked()) //��������
-        return enumITEMOPT_ERROR_KBLOCK;
+Short CCharacter::Cmd_ThrowItem(Short sKbPage, Short sKbGrid, Short* psThrowNum, Long lPosX, Long lPosY, bool bRefresh, bool bForcible)
+{
+	T_B
+		if (GetPlyMainCha()->m_CKitbag.IsPwdLocked()) //��������
+			return enumITEMOPT_ERROR_KBLOCK;
 
 	//add by ALLEN 2007-10-16
-    if (GetPlyMainCha()->IsReadBook()) //����״̬
-        return enumITEMOPT_ERROR_KBLOCK;
+	if (GetPlyMainCha()->IsReadBook()) //����״̬
+		return enumITEMOPT_ERROR_KBLOCK;
 
 	if (!bForcible)
 	{
@@ -1490,53 +1515,53 @@ Short CCharacter::Cmd_ThrowItem(Short sKbPage, Short sKbGrid, Short *psThrowNum,
 			return enumITEMOPT_ERROR_KBLOCK;
 	}
 
-	Point	STarP = {lPosX, lPosY};
+	Point	STarP = { lPosX, lPosY };
 	if (!IsRangePoint(STarP, defTHROW_DISTANCE))
 		return enumITEMOPT_ERROR_DISTANCE;
 
 	USHORT sItemID = m_CKitbag.GetID(sKbGrid, sKbPage);
-	CItemRecord* pItem = GetItemRecordInfo( sItemID );
-	if( pItem == NULL )
+	CItemRecord* pItem = GetItemRecordInfo(sItemID);
+	if (pItem == NULL)
 		return enumITEMOPT_ERROR_NONE;
 
-    //  ���ϲ����������������
-    if(IsBoat())
-    {
-        if(enumITEM_PICKTO_KITBAG == pItem->chPickTo)
-        {
-            return enumITEMOPT_ERROR_UNTHROW;
-        }
-    }
+	//  ���ϲ����������������
+	if (IsBoat())
+	{
+		if (enumITEM_PICKTO_KITBAG == pItem->chPickTo)
+		{
+			return enumITEMOPT_ERROR_UNTHROW;
+		}
+	}
 
-	if(pItem->chIsThrow != 1 || !m_CKitbag.GetGridContByID(sKbGrid)->GetInstAttr(ITEMATTR_TRADABLE)) // ���ɶ���
+	if (pItem->chIsThrow != 1 || !m_CKitbag.GetGridContByID(sKbGrid)->GetInstAttr(ITEMATTR_TRADABLE)) // ���ɶ���
 		return enumITEMOPT_ERROR_UNTHROW;
 
-	SItemGrid*	grid	=	m_CKitbag.GetGridContByID(	sKbGrid		);
-	if(	grid	&&	grid->dwDBID	)
+	SItemGrid* grid = m_CKitbag.GetGridContByID(sKbGrid);
+	if (grid && grid->dwDBID)
 	{
 		return	enumITEMOPT_ERROR_UNTHROW;
 	};
 
 	// �ж϶�������֤��
-	if( pItem->sType == enumItemTypeBoat )
+	if (pItem->sType == enumItemTypeBoat)
 	{
-		DWORD dwBoatID = m_CKitbag.GetDBParam( enumITEMDBP_INST_ID, sKbGrid ); 
-		CCharacter* pBoat = this->GetPlayer()->GetBoat( dwBoatID );
-		if( pBoat )
+		DWORD dwBoatID = m_CKitbag.GetDBParam(enumITEMDBP_INST_ID, sKbGrid);
+		CCharacter* pBoat = this->GetPlayer()->GetBoat(dwBoatID);
+		if (pBoat)
 		{
-			game_db.SaveBoat( *pBoat, enumSAVE_TYPE_TIMER );
+			game_db.SaveBoat(*pBoat, enumSAVE_TYPE_TIMER);
 		}
 
-		if( !BoatClear( dwBoatID ) )
+		if (!BoatClear(dwBoatID))
 		{
 			//SystemNotice( "������%s��ʧ�ܣ�������ʹ�øô�!", pItem->szName );
-			SystemNotice( RES_STRING(GM_CHARACTERCMD_CPP_00008), pItem->szName );
+			SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00008), pItem->szName);
 			return enumITEMOPT_ERROR_UNUSE;
 		}
 	}
 
-	CCharacter	*pCCtrlCha = GetPlyCtrlCha(), *pCMainCha = GetPlyMainCha();
-	SubMap	*pCMap = pCCtrlCha->GetSubMapFar();
+	CCharacter* pCCtrlCha = GetPlyCtrlCha(), * pCMainCha = GetPlyMainCha();
+	SubMap* pCMap = pCCtrlCha->GetSubMapFar();
 	if (!pCMap)
 		return enumITEMOPT_ERROR_KBLOCK;
 	uShort	usAreaAttr = pCMap->GetAreaAttr(lPosX, lPosY);
@@ -1557,12 +1582,12 @@ Short CCharacter::Cmd_ThrowItem(Short sKbPage, Short sKbGrid, Short *psThrowNum,
 	SItemGrid GridCont;
 	GridCont.sNum = *psThrowNum;
 	Short sRet = KbPopItem(bRefresh, bRefresh, &GridCont, sKbGrid, sKbPage); // �����������ɹ�
-	if( sRet != enumKBACT_SUCCESS )
+	if (sRet != enumKBACT_SUCCESS)
 		return enumITEMOPT_ERROR_NONE;
 	*psThrowNum = GridCont.sNum;
 
 	// ˢ��������߼���
-	RefreshNeedItem( sItemID );
+	RefreshNeedItem(sItemID);
 
 	// ֪ͨ���ǵ���������
 	if (bRefresh)
@@ -1583,23 +1608,25 @@ Short CCharacter::Cmd_ThrowItem(Short sKbPage, Short sKbGrid, Short *psThrowNum,
 	LogAssets(enumLASSETS_THROW);
 
 	return enumITEMOPT_SUCCESS;
-T_E}
+	T_E
+}
 
 // ���ߵĻ�λ���ϲ������.
 Short CCharacter::Cmd_ItemSwitchPos(Short sKbPage, Short sSrcGrid, Short sSrcNum, Short sTarGrid)
-{T_B
-	if (!GetActControl(enumACTCONTROL_ITEM_OPT))
-		return enumITEMOPT_ERROR_STATE;
+{
+	T_B
+		if (!GetActControl(enumACTCONTROL_ITEM_OPT))
+			return enumITEMOPT_ERROR_STATE;
 
 	if (m_CKitbag.IsLock()) // ����������
 		return enumITEMOPT_ERROR_KBLOCK;
 
-    if (GetPlyMainCha()->m_CKitbag.IsPwdLocked()) //��������
-        return enumITEMOPT_ERROR_KBLOCK;
+	if (GetPlyMainCha()->m_CKitbag.IsPwdLocked()) //��������
+		return enumITEMOPT_ERROR_KBLOCK;
 
 	//add by ALLEN 2007-10-16
 	if (GetPlyMainCha()->IsReadBook()) //����״̬
-        return enumITEMOPT_ERROR_KBLOCK;
+		return enumITEMOPT_ERROR_KBLOCK;
 
 	m_CKitbag.SetChangeFlag(false, sKbPage);
 	Short	sKbOptRet = KbRegroupItem(true, true, sSrcGrid, sSrcNum, sTarGrid);
@@ -1611,40 +1638,42 @@ Short CCharacter::Cmd_ItemSwitchPos(Short sKbPage, Short sSrcGrid, Short sSrcNum
 		return enumITEMOPT_ERROR_NONE;
 
 	return enumITEMOPT_SUCCESS;
-T_E}
+	T_E
+}
 
 // ɾ������
 // psThrowNum ɾ����Ŀ��0Ϊȫ��ɾ�����ɹ������󷵻�ʵ�������
-Short CCharacter::Cmd_DelItem(Short sKbPage, Short sKbGrid, dbc::Short *psThrowNum, bool bRefresh, bool bForcible)
-{T_B
-	if (!bForcible)
-	{	
-		//	2008-9-8	yangyinyu	add	begin!
-		//	���	<�����к���ҵı���ʵ���������ģ��޷������κεĲ��������ڸù�����Ч������ҿ��Զ�����ɾ����Ʒ>	���е��޸ġ�
-		if(	GetPlyMainCha()->m_CKitbag.IsLock()	)
-			return	enumITEMOPT_ERROR_KBLOCK;
-		//	2008-9-8	yangyinyu	add	end!
+Short CCharacter::Cmd_DelItem(Short sKbPage, Short sKbGrid, dbc::Short* psThrowNum, bool bRefresh, bool bForcible)
+{
+	T_B
+		if (!bForcible)
+		{
+			//	2008-9-8	yangyinyu	add	begin!
+			//	���	<�����к���ҵı���ʵ���������ģ��޷������κεĲ��������ڸù�����Ч������ҿ��Զ�����ɾ����Ʒ>	���е��޸ġ�
+			if (GetPlyMainCha()->m_CKitbag.IsLock())
+				return	enumITEMOPT_ERROR_KBLOCK;
+			//	2008-9-8	yangyinyu	add	end!
 
-		if (GetPlyMainCha()->m_CKitbag.IsPwdLocked()) //��������
-			return enumITEMOPT_ERROR_KBLOCK;
+			if (GetPlyMainCha()->m_CKitbag.IsPwdLocked()) //��������
+				return enumITEMOPT_ERROR_KBLOCK;
 
-		if (!GetActControl(enumACTCONTROL_ITEM_OPT))
-			return enumITEMOPT_ERROR_STATE;
-		//add by ALLEN 2007-10-16
-		if (GetPlyMainCha()->IsReadBook()) //����״̬
-			return enumITEMOPT_ERROR_KBLOCK;
-		if (m_CKitbag.IsLock()) // ����������
-			return enumITEMOPT_ERROR_KBLOCK;
-	}
+			if (!GetActControl(enumACTCONTROL_ITEM_OPT))
+				return enumITEMOPT_ERROR_STATE;
+			//add by ALLEN 2007-10-16
+			if (GetPlyMainCha()->IsReadBook()) //����״̬
+				return enumITEMOPT_ERROR_KBLOCK;
+			if (m_CKitbag.IsLock()) // ����������
+				return enumITEMOPT_ERROR_KBLOCK;
+		}
 
 	USHORT sItemID = m_CKitbag.GetID(sKbGrid, sKbPage);
 	USHORT sItemNum = m_CKitbag.GetNum(sKbGrid, sKbPage);
 	// �ж��Ƿ񴬳�֤������
-	CItemRecord* pItem = GetItemRecordInfo( sItemID );
-	if( pItem == NULL )
+	CItemRecord* pItem = GetItemRecordInfo(sItemID);
+	if (pItem == NULL)
 		return enumITEMOPT_ERROR_NONE;
 
-	if(pItem->chIsDel != 1) // ��������
+	if (pItem->chIsDel != 1) // ��������
 		return enumITEMOPT_ERROR_UNDEL;
 
 	/*	2008-8-13	�߳�֪ͨ�������١�
@@ -1656,18 +1685,18 @@ Short CCharacter::Cmd_DelItem(Short sKbPage, Short sKbGrid, dbc::Short *psThrowN
 	};
 	//	2008-8-1	yangyinyu	add	end!
 */
-	//if(pItem->sType == enumItemTypeMission)
-	//	return enumITEMOPT_ERROR_UNTHROW;
+//if(pItem->sType == enumItemTypeMission)
+//	return enumITEMOPT_ERROR_UNTHROW;
 
 	DWORD dwBoatID;
 	// �ж϶�������֤��
-	if( pItem->sType == enumItemTypeBoat )
+	if (pItem->sType == enumItemTypeBoat)
 	{
-		dwBoatID = m_CKitbag.GetDBParam( enumITEMDBP_INST_ID, sKbGrid );
-		if( !BoatClear( dwBoatID ) )
+		dwBoatID = m_CKitbag.GetDBParam(enumITEMDBP_INST_ID, sKbGrid);
+		if (!BoatClear(dwBoatID))
 		{
 			//SystemNotice( "���١�%s��ʧ�ܣ�������ʹ�øô�!", pItem->szName );
-			SystemNotice( RES_STRING(GM_CHARACTERCMD_CPP_00010), pItem->szName );
+			SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00010), pItem->szName);
 			return enumITEMOPT_ERROR_UNUSE;
 		}
 	}
@@ -1685,8 +1714,8 @@ Short CCharacter::Cmd_DelItem(Short sKbPage, Short sKbGrid, dbc::Short *psThrowN
 		m_CKitbag.SetChangeFlag(false, sKbPage);
 
 	CKitbag& Bag = GetPlyMainCha()->m_CKitbag;
-	SItemGrid* pGridCont = Bag.GetGridContByID( sKbGrid );
-	if(	pGridCont->dwDBID )
+	SItemGrid* pGridCont = Bag.GetGridContByID(sKbGrid);
+	if (pGridCont->dwDBID)
 	{
 		//SystemNotice( "Item is bind, cannot be traded!" );
 		return enumITEMOPT_ERROR_UNDEL;
@@ -1695,22 +1724,22 @@ Short CCharacter::Cmd_DelItem(Short sKbPage, Short sKbGrid, dbc::Short *psThrowN
 	SItemGrid GridCont;
 	GridCont.sNum = *psThrowNum;
 	Short sRet = KbPopItem(bRefresh, bRefresh, &GridCont, sKbGrid, sKbPage); // �����������ɹ�
-	if( sRet != enumKBACT_SUCCESS )
+	if (sRet != enumKBACT_SUCCESS)
 		return enumITEMOPT_ERROR_NONE;
 	*psThrowNum = GridCont.sNum;
 
 	// ˢ��������߼���
-	RefreshNeedItem( sItemID );
+	RefreshNeedItem(sItemID);
 
 	if (bRefresh)
 		SynKitbagNew(enumSYN_KITBAG_THROW);
 
-	if( pItem->sType == enumItemTypeBoat )
+	if (pItem->sType == enumItemTypeBoat)
 	{
 		// �������ݿ����
 		if (SaveAssets())
 		{
-			game_db.SaveBoatTempData( dwBoatID, this->GetPlayer()->GetDBChaId(), 1 );
+			game_db.SaveBoatTempData(dwBoatID, this->GetPlayer()->GetDBChaId(), 1);
 		}
 	}
 
@@ -1727,44 +1756,47 @@ Short CCharacter::Cmd_DelItem(Short sKbPage, Short sKbGrid, dbc::Short *psThrowN
 	LogAssets(enumLASSETS_DELETE);
 
 	return enumITEMOPT_SUCCESS;
-T_E}
+	T_E
+}
 
-Short CCharacter::Cmd_GuildBankOper(Char chSrcType, Short sSrcGridID, Short sSrcNum, Char chTarType, Short sTarGridID){
+Short CCharacter::Cmd_GuildBankOper(Char chSrcType, Short sSrcGridID, Short sSrcNum, Char chTarType, Short sTarGridID) {
 	CKitbag	pCSrcBag, pCTarBag;
-	CCharacter	*pCMainCha = GetPlyMainCha();
+	CCharacter* pCMainCha = GetPlyMainCha();
 
 	int guildID = pCMainCha->GetGuildID();
-	if (guildID == 0){
+	if (guildID == 0) {
 		return enumITEMOPT_ERROR_KBLOCK; // todo, different ret code.
 	}
-	
-	int canTake = (emGldPermTakeBank&pCMainCha->guildPermission);
-	int canGive = (emGldPermDepoBank&pCMainCha->guildPermission);
 
-	if (chSrcType != 0 && canTake != emGldPermTakeBank){
+	int canTake = (emGldPermTakeBank & pCMainCha->guildPermission);
+	int canGive = (emGldPermDepoBank & pCMainCha->guildPermission);
+
+	if (chSrcType != 0 && canTake != emGldPermTakeBank) {
 		return enumITEMOPT_ERROR_KBLOCK;
 	}
-	else if (chTarType != 0 && canGive != emGldPermDepoBank){
+	else if (chTarType != 0 && canGive != emGldPermDepoBank) {
 		return enumITEMOPT_ERROR_KBLOCK;
 	}
 
-	if (chSrcType == 0){
+	if (chSrcType == 0) {
 		pCSrcBag = pCMainCha->m_CKitbag;
-	}else{
+	}
+	else {
 		game_db.GetGuildBank(guildID, &pCSrcBag);
 	}
-	if (chSrcType == chTarType){
+	if (chSrcType == chTarType) {
 		pCTarBag = pCSrcBag;
-	}else{
-		if (chTarType == 0){
+	}
+	else {
+		if (chTarType == 0) {
 			pCTarBag = pCMainCha->m_CKitbag;
 		}
-		else{
-			game_db.GetGuildBank(guildID, &pCTarBag); 
+		else {
+			game_db.GetGuildBank(guildID, &pCTarBag);
 		}
 	}
 
-	if (pCSrcBag.IsLock() || pCTarBag.IsLock() || pCSrcBag.IsPwdLocked() || pCMainCha->IsReadBook()){
+	if (pCSrcBag.IsLock() || pCTarBag.IsLock() || pCSrcBag.IsPwdLocked() || pCMainCha->IsReadBook()) {
 		return enumITEMOPT_ERROR_KBLOCK;
 	}
 	//else if (!GetPlayer()->GetBankNpc()){
@@ -1778,7 +1810,7 @@ Short CCharacter::Cmd_GuildBankOper(Char chSrcType, Short sSrcGridID, Short sSrc
 	{
 		if (chSrcType == 0)
 		{
-			if (!pCMainCha->KbRegroupItem(true, true, sSrcGridID, sSrcNum, sTarGridID) == enumKBACT_SUCCESS) 
+			if (!pCMainCha->KbRegroupItem(true, true, sSrcGridID, sSrcNum, sTarGridID) == enumKBACT_SUCCESS)
 				return enumITEMOPT_ERROR_NONE;
 		}
 		else
@@ -1794,17 +1826,17 @@ Short CCharacter::Cmd_GuildBankOper(Char chSrcType, Short sSrcGridID, Short sSrc
 		CItemRecord* pItem = GetItemRecordInfo(sSrcItemID);
 		if (pItem == NULL)
 			return enumITEMOPT_ERROR_NONE;
-		if (chSrcType == 0 && chTarType == 1){
+		if (chSrcType == 0 && chTarType == 1) {
 			// kong@pkodev.net 09.22.2017
-			SItemGrid *pGridCont = pCSrcBag.GetGridContByID(sSrcGridID);
-			if (pGridCont->dwDBID){
+			SItemGrid* pGridCont = pCSrcBag.GetGridContByID(sSrcGridID);
+			if (pGridCont->dwDBID) {
 				return enumITEMOPT_ERROR_TYPE;
 			}
 			if (g_CParser.DoString("OnBankItem", enumSCRIPT_RETURN_NUMBER, 1, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, pCMainCha, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, pGridCont, DOSTRING_PARAM_END)) {
 				if (!g_CParser.GetReturnNumber(0))
 					return enumITEMOPT_ERROR_TYPE;
 			}
-			if (!pItem->chIsTrade || !pCSrcBag.GetGridContByID(sSrcGridID)->GetInstAttr(ITEMATTR_TRADABLE)){
+			if (!pItem->chIsTrade || !pCSrcBag.GetGridContByID(sSrcGridID)->GetInstAttr(ITEMATTR_TRADABLE)) {
 				return enumITEMOPT_ERROR_TYPE;
 			}
 		}
@@ -1863,13 +1895,13 @@ Short CCharacter::Cmd_GuildBankOper(Char chSrcType, Short sSrcGridID, Short sSrc
 		}
 	}
 
-	if (chSrcType != 0){
+	if (chSrcType != 0) {
 		game_db.UpdateGuildBank(guildID, &pCSrcBag);
 	}
-	else{
+	else {
 		game_db.UpdateGuildBank(guildID, &pCTarBag);
 	}
-	
+
 	WPACKET WtPk = GETWPACKET();
 	WRITE_CMD(WtPk, CMD_MM_UPDATEGUILDBANK);
 	WRITE_LONG(WtPk, pCMainCha->m_ID);
@@ -1881,9 +1913,10 @@ Short CCharacter::Cmd_GuildBankOper(Char chSrcType, Short sSrcGridID, Short sSrc
 
 // ������ز����������������ڵ��ߵĻ�λ���ϲ������.�������ڵ��ߵĻ�λ���ϲ������.�Լ������������м���ߵĽ�����
 Short CCharacter::Cmd_BankOper(Char chSrcType, Short sSrcGridID, Short sSrcNum, Char chTarType, Short sTarGridID)
-{T_B
-	CKitbag	*pCSrcBag, *pCTarBag;
-	CCharacter	*pCMainCha = GetPlyMainCha();
+{
+	T_B
+		CKitbag* pCSrcBag, * pCTarBag;
+	CCharacter* pCMainCha = GetPlyMainCha();
 	if (chSrcType == 0)
 		pCSrcBag = &pCMainCha->m_CKitbag;
 	else
@@ -1900,11 +1933,11 @@ Short CCharacter::Cmd_BankOper(Char chSrcType, Short sSrcGridID, Short sSrcNum, 
 	if (pCSrcBag->IsLock() || pCTarBag->IsLock()) // ����������
 		return enumITEMOPT_ERROR_KBLOCK;
 
-    if (pCSrcBag->IsPwdLocked()) //��������
-        return enumITEMOPT_ERROR_KBLOCK;
+	if (pCSrcBag->IsPwdLocked()) //��������
+		return enumITEMOPT_ERROR_KBLOCK;
 	//add by ALLEN 2007-10-16
 	if (pCMainCha->IsReadBook()) //����״̬
-        return enumITEMOPT_ERROR_KBLOCK;
+		return enumITEMOPT_ERROR_KBLOCK;
 
 	// �ڴ�����ʱ���о�����
 	if (!GetPlayer()->GetBankNpc())
@@ -1931,7 +1964,7 @@ Short CCharacter::Cmd_BankOper(Char chSrcType, Short sSrcGridID, Short sSrcNum, 
 		Short	sSrcItemID = pCSrcBag->GetID(sSrcGridID);
 
 		CItemRecord* pItem = GetItemRecordInfo(sSrcItemID);
-		if(pItem == NULL)
+		if (pItem == NULL)
 			return enumITEMOPT_ERROR_NONE;
 		if (chSrcType == 0 && chTarType == 1) // �ӵ�����������
 		{
@@ -1939,9 +1972,9 @@ Short CCharacter::Cmd_BankOper(Char chSrcType, Short sSrcGridID, Short sSrcNum, 
 				//return enumITEMOPT_ERROR_TYPE;
 
 			// kong@pkodev.net 09.22.2017
-			SItemGrid *pGridCont = pCSrcBag->GetGridContByID(sSrcGridID);
+			SItemGrid* pGridCont = pCSrcBag->GetGridContByID(sSrcGridID);
 			if (g_CParser.DoString("OnBankItem", enumSCRIPT_RETURN_NUMBER, 1, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, pCMainCha, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, pGridCont, DOSTRING_PARAM_END)) {
-				if(!g_CParser.GetReturnNumber(0))
+				if (!g_CParser.GetReturnNumber(0))
 					return enumITEMOPT_ERROR_TYPE;
 			}
 		}
@@ -2011,11 +2044,13 @@ Short CCharacter::Cmd_BankOper(Char chSrcType, Short sSrcGridID, Short sSrcNum, 
 	}
 
 	return enumITEMOPT_SUCCESS;
-T_E}
+	T_E
+}
 
-void CCharacter::Cmd_ReassignAttr(RPACKET &pk)
-{T_B
-	m_CChaAttr.ResetChangeFlag();
+void CCharacter::Cmd_ReassignAttr(RPACKET& pk)
+{
+	T_B
+		m_CChaAttr.ResetChangeFlag();
 	SetBoatAttrChangeFlag(false);
 
 	const char chAttrNum = READ_CHAR(pk);
@@ -2026,7 +2061,7 @@ void CCharacter::Cmd_ReassignAttr(RPACKET &pk)
 		return;
 	}
 
-	Long	lBaseAttr[ATTR_LUK - ATTR_STR + 1] = {0};
+	Long	lBaseAttr[ATTR_LUK - ATTR_STR + 1] = { 0 };
 	Long	lBaseAttrBalanceVal[ATTR_LUK - ATTR_STR + 1] =
 	{
 		(long)m_CChaAttr.GetAttrMaxVal(ATTR_BSTR) - (long)m_CChaAttr.GetAttr(ATTR_BSTR),
@@ -2078,7 +2113,8 @@ void CCharacter::Cmd_ReassignAttr(RPACKET &pk)
 	}
 
 	SynAttr(enumATTRSYN_REASSIGN);
-T_E}
+	T_E
+}
 
 // �Ƴ�����
 // lItemNum �Ƴ��� 0Ϊ��Ӧ������sFromID����ȫ����Ŀ
@@ -2087,29 +2123,30 @@ T_E}
 // chToType Ŀ�겿λ 0���Ƴ�������.1����������.2��ɾ�����京��ͬCmd_UnfixItem������chDir������
 // bForcible���Ƿ�ǿ���Ƴ�������������������ڲ��ܲ������ߵ�״̬ʱ��ʹ�ô˲����ɺ�����Щ����
 Short CCharacter::Cmd_RemoveItem(Long lItemID, Long lItemNum, Char chFromType, Short sFromID, Char chToType, Short sToID, bool bRefresh, bool bForcible)
-{T_B
-    
-    
-	if (!bForcible)
-	{	
-		//	2008-9-8	yangyinyu	add	begin!
-		//	���	<�����к���ҵı���ʵ���������ģ��޷������κεĲ��������ڸù�����Ч������ҿ��Զ�����ɾ����Ʒ>	���е��޸ġ�
-		if(	GetPlyMainCha()->m_CKitbag.IsLock()	)
-			return	enumITEMOPT_ERROR_KBLOCK;
-		//	2008-9-8	yangyinyu	add	end!
+{
+	T_B
 
-		if (GetPlyMainCha()->m_CKitbag.IsPwdLocked()) //��������
-			 return enumITEMOPT_ERROR_KBLOCK;
 
-		//add by ALLEN 2007-10-16
-		if (GetPlyMainCha()->IsReadBook()) //����״̬
-        return enumITEMOPT_ERROR_KBLOCK;
+		if (!bForcible)
+		{
+			//	2008-9-8	yangyinyu	add	begin!
+			//	���	<�����к���ҵı���ʵ���������ģ��޷������κεĲ��������ڸù�����Ч������ҿ��Զ�����ɾ����Ʒ>	���е��޸ġ�
+			if (GetPlyMainCha()->m_CKitbag.IsLock())
+				return	enumITEMOPT_ERROR_KBLOCK;
+			//	2008-9-8	yangyinyu	add	end!
 
-		if (!GetActControl(enumACTCONTROL_ITEM_OPT))
-			return enumITEMOPT_ERROR_STATE;
-		if (m_CKitbag.IsLock()) // ����������
-			return enumITEMOPT_ERROR_KBLOCK;
-	}
+			if (GetPlyMainCha()->m_CKitbag.IsPwdLocked()) //��������
+				return enumITEMOPT_ERROR_KBLOCK;
+
+			//add by ALLEN 2007-10-16
+			if (GetPlyMainCha()->IsReadBook()) //����״̬
+				return enumITEMOPT_ERROR_KBLOCK;
+
+			if (!GetActControl(enumACTCONTROL_ITEM_OPT))
+				return enumITEMOPT_ERROR_STATE;
+			if (m_CKitbag.IsLock()) // ����������
+				return enumITEMOPT_ERROR_KBLOCK;
+		}
 
 	bool	bEquipChange = false;
 
@@ -2271,12 +2308,14 @@ ItemRemoveEnd:
 	}
 
 	return enumITEMOPT_SUCCESS;
-T_E}
+	T_E
+}
 
 // ��ս���󣨵�����������ս��
 void CCharacter::Cmd_FightAsk(dbc::Char chType, dbc::Long lTarID, dbc::Long lTarHandle)
-{T_B
-	CDynMapEntryCell	*pCTeamFightEntry = g_CDMapEntry.GetEntry(g_szTFightMapName);
+{
+	T_B
+		CDynMapEntryCell* pCTeamFightEntry = g_CDMapEntry.GetEntry(g_szTFightMapName);
 	if (!pCTeamFightEntry) // û�����
 	{
 		//SystemNotice("����ͼ������PK���󣬻��Ӧ��ͼû������!");
@@ -2284,8 +2323,8 @@ void CCharacter::Cmd_FightAsk(dbc::Char chType, dbc::Long lTarID, dbc::Long lTar
 		return;
 	}
 
-	Entity	*pCTarEnti = g_pGameApp->IsValidEntity(lTarID, lTarHandle);
-	CCharacter	*pCTarCha;
+	Entity* pCTarEnti = g_pGameApp->IsValidEntity(lTarID, lTarHandle);
+	CCharacter* pCTarCha;
 	if (!pCTarEnti || !(pCTarCha = pCTarEnti->IsCharacter()))
 	{
 		//SystemNotice("������Ч!");
@@ -2298,7 +2337,7 @@ void CCharacter::Cmd_FightAsk(dbc::Char chType, dbc::Long lTarID, dbc::Long lTar
 		SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00018));
 		return;
 	}
-	SubMap	*pCMap = GetSubMap(), *pCTarMap = pCTarCha->GetSubMap();
+	SubMap* pCMap = GetSubMap(), * pCTarMap = pCTarCha->GetSubMap();
 	if (!pCMap || !(pCMap->GetAreaAttr(GetPos()) & enumAREA_TYPE_FIGHT_ASK))
 	{
 		//SystemNotice("�뵽ָ������������!");
@@ -2312,7 +2351,7 @@ void CCharacter::Cmd_FightAsk(dbc::Char chType, dbc::Long lTarID, dbc::Long lTar
 		return;
 	}
 
-	CPlayer	*pCPly = GetPlayer(), *pCTarPly = pCTarCha->GetPlayer();
+	CPlayer* pCPly = GetPlayer(), * pCTarPly = pCTarCha->GetPlayer();
 	if (!pCPly || !pCTarPly)
 	{
 		//SystemNotice("����ҽ�ɫ!");
@@ -2380,7 +2419,7 @@ void CCharacter::Cmd_FightAsk(dbc::Char chType, dbc::Long lTarID, dbc::Long lTar
 		}
 	}
 
-	WPACKET WtPk	= GETWPACKET();
+	WPACKET WtPk = GETWPACKET();
 	WRITE_CMD(WtPk, CMD_MC_TEAM_FIGHT_ASK);
 
 	Char	chObjStart = 2;
@@ -2404,8 +2443,8 @@ void CCharacter::Cmd_FightAsk(dbc::Char chType, dbc::Long lTarID, dbc::Long lTar
 	chSrcObjNum++;
 	if (chType == enumFIGHT_TEAM)
 	{
-		CPlayer	*pCTeamMem;
-		CCharacter	*pCTeamCha;
+		CPlayer* pCTeamMem;
+		CCharacter* pCTeamCha;
 		pCPly->BeginGetTeamPly();
 		while (pCTeamMem = pCPly->GetNextTeamPly())
 		{
@@ -2472,8 +2511,8 @@ void CCharacter::Cmd_FightAsk(dbc::Char chType, dbc::Long lTarID, dbc::Long lTar
 	chTarObjNum++;
 	if (chType == enumFIGHT_TEAM)
 	{
-		CPlayer	*pCTeamMem;
-		CCharacter	*pCTeamCha;
+		CPlayer* pCTeamMem;
+		CCharacter* pCTeamCha;
 		pCTarPly->BeginGetTeamPly();
 		while (pCTeamMem = pCTarPly->GetNextTeamPly())
 		{
@@ -2533,12 +2572,14 @@ void CCharacter::Cmd_FightAsk(dbc::Char chType, dbc::Long lTarID, dbc::Long lTar
 
 	pCPly->SetChallengeParam(0, chSrcObjNum + chTarObjNum);
 	pCPly->SetChallengeParam(1, 0);
-T_E}
+	T_E
+}
 
 // ��սӦ��
 void CCharacter::Cmd_FightAnswer(bool bFight)
-{T_B
-	CPlayer	*pCPly = GetPlayer();
+{
+	T_B
+		CPlayer* pCPly = GetPlayer();
 	if (!pCPly->HasChallengeObj())
 	{
 		//SystemNotice("û���ܹ�����!");
@@ -2551,7 +2592,7 @@ void CCharacter::Cmd_FightAnswer(bool bFight)
 	lHandle = pCPly->GetChallengeParam(3);
 	Long	lFightType = pCPly->GetChallengeType();
 
-	CPlayer	*pCSrcPly, *pCTarPly;
+	CPlayer* pCSrcPly, * pCTarPly;
 	pCSrcPly = g_pGameApp->IsValidPlayer(lID, lHandle);
 	if (!pCSrcPly || !pCSrcPly->HasChallengeObj())
 	{
@@ -2560,7 +2601,7 @@ void CCharacter::Cmd_FightAnswer(bool bFight)
 		return;
 	}
 	Char	chObjNum = (Char)pCSrcPly->GetChallengeParam(0);
-	pCTarPly = g_pGameApp->IsValidPlayer(pCSrcPly->GetChallengeParam(2 + (chObjNum -1) * 2), pCSrcPly->GetChallengeParam(2 + (chObjNum -1) * 2 + 1));
+	pCTarPly = g_pGameApp->IsValidPlayer(pCSrcPly->GetChallengeParam(2 + (chObjNum - 1) * 2), pCSrcPly->GetChallengeParam(2 + (chObjNum - 1) * 2 + 1));
 	if (!pCTarPly || !pCTarPly->HasChallengeObj())
 	{
 		//SystemNotice("�������Ѿ���Ч!");
@@ -2590,9 +2631,9 @@ void CCharacter::Cmd_FightAnswer(bool bFight)
 		std::string	strNoti = GetName();
 		//strNoti += " ȡ����PK����!";
 		strNoti += RES_STRING(GM_CHARACTERCMD_CPP_00033);
-		WPACKET WtPk	= GETWPACKET();
+		WPACKET WtPk = GETWPACKET();
 		WRITE_CMD(WtPk, CMD_MC_SYSINFO);
-		WRITE_SEQ(WtPk, strNoti.c_str(), (Short)strNoti.length() + 1 );
+		WRITE_SEQ(WtPk, strNoti.c_str(), (Short)strNoti.length() + 1);
 		pCSrcPly->GetCtrlCha()->ReflectINFof(this, WtPk);
 		if (lFightType == enumFIGHT_TEAM)
 		{
@@ -2607,14 +2648,14 @@ void CCharacter::Cmd_FightAnswer(bool bFight)
 	if (pCSrcPly->GetChallengeParam(0) != pCSrcPly->GetChallengeParam(1)) // ����û��ͬ��PK���������
 		return;
 
-	CDynMapEntryCell	*pCTeamFightEntry = g_CDMapEntry.GetEntry(g_szTFightMapName);
+	CDynMapEntryCell* pCTeamFightEntry = g_CDMapEntry.GetEntry(g_szTFightMapName);
 	if (!pCTeamFightEntry) // û�ж���PK��ͼ
 	{
 		//std::string	strNoti = "����ͼ������PK���󣬻��Ӧ��ͼû������!";
 		std::string	strNoti = RES_STRING(GM_CHARACTERCMD_CPP_00034);
-		WPACKET WtPk	= GETWPACKET();
+		WPACKET WtPk = GETWPACKET();
 		WRITE_CMD(WtPk, CMD_MC_SYSINFO);
-		WRITE_SEQ(WtPk, strNoti.c_str(), (Short)strNoti.length() + 1 );
+		WRITE_SEQ(WtPk, strNoti.c_str(), (Short)strNoti.length() + 1);
 		pCSrcPly->GetCtrlCha()->ReflectINFof(this, WtPk);
 		if (lFightType == enumFIGHT_TEAM)
 		{
@@ -2628,14 +2669,14 @@ void CCharacter::Cmd_FightAnswer(bool bFight)
 
 	// ȡ�ø������������ʧ�����Ӧ�÷�������
 	CMapEntryCopyCell	CMCpyCell(20, 0);
-	CMapEntryCopyCell	*pCMCpyCell;
+	CMapEntryCopyCell* pCMCpyCell;
 	if (!(pCMCpyCell = pCTeamFightEntry->AddCopy(&CMCpyCell)))
 	{
 		//std::string	strNoti = "��ǰû�п��г��أ����Ժ����!";
 		std::string	strNoti = RES_STRING(GM_CHARACTERCMD_CPP_00035);
-		WPACKET WtPk	= GETWPACKET();
+		WPACKET WtPk = GETWPACKET();
 		WRITE_CMD(WtPk, CMD_MC_SYSINFO);
-		WRITE_SEQ(WtPk, strNoti.c_str(), (Short)strNoti.length() + 1 );
+		WRITE_SEQ(WtPk, strNoti.c_str(), (Short)strNoti.length() + 1);
 		ReflectINFof(this, WtPk);
 		pCSrcPly->GetCtrlCha()->ReflectINFof(this, WtPk);
 		if (lFightType == enumFIGHT_TEAM)
@@ -2651,9 +2692,9 @@ void CCharacter::Cmd_FightAnswer(bool bFight)
 	{
 		//std::string	strNoti = "���󳡵��������������Ժ����!";
 		std::string	strNoti = RES_STRING(GM_CHARACTERCMD_CPP_00036);
-		WPACKET WtPk	= GETWPACKET();
+		WPACKET WtPk = GETWPACKET();
 		WRITE_CMD(WtPk, CMD_MC_SYSINFO);
-		WRITE_SEQ(WtPk, strNoti.c_str(), (Short)strNoti.length() + 1 );
+		WRITE_SEQ(WtPk, strNoti.c_str(), (Short)strNoti.length() + 1);
 		ReflectINFof(this, WtPk);
 		pCSrcPly->GetCtrlCha()->ReflectINFof(this, WtPk);
 		if (lFightType == enumFIGHT_TEAM)
@@ -2672,8 +2713,8 @@ void CCharacter::Cmd_FightAnswer(bool bFight)
 	g_CParser.DoString(strScript1.c_str(), enumSCRIPT_RETURN_NONE, 0, enumSCRIPT_PARAM_LIGHTUSERDATA, 3, pCMCpyCell, pCSrcPly, pCTarPly, enumSCRIPT_PARAM_NUMBER, 1, lFightType, DOSTRING_PARAM_END);
 	pCTeamFightEntry->SynCopyParam((Short)pCMCpyCell->GetPosID());
 	// ��ʼ����PK��ͼ
-	CPlayer	*pCFightMem;
-	CCharacter	*pCFightCha;
+	CPlayer* pCFightMem;
+	CCharacter* pCFightCha;
 
 	string	strScript = "begin_enter_";
 	strScript += pCTeamFightEntry->GetTMapName();
@@ -2681,7 +2722,7 @@ void CCharacter::Cmd_FightAnswer(bool bFight)
 	strScript2 += pCTeamFightEntry->GetTMapName();
 
 	bool	bSide1 = false, bSide2 = false;
-	CCharacter	*pCEnterCha[MAX_TEAM_MEMBER * 2];
+	CCharacter* pCEnterCha[MAX_TEAM_MEMBER * 2];
 	Long	lEnterChaNum = 0;
 	pCSrcPly->ClearChallengeObj();
 	for (Char i = 0; i < chLoop; i++)
@@ -2768,12 +2809,14 @@ void CCharacter::Cmd_FightAnswer(bool bFight)
 	pCTeamFightEntry->SynCopyRun((Short)pCMCpyCell->GetPosID(), enumMAPCOPY_START_CDT_PLYNUM, lEnterChaNum);
 
 	return;
-T_E}
+	T_E
+}
 
 // ������������
 void CCharacter::Cmd_ItemRepairAsk(dbc::Char chPosType, dbc::Char chPosID)
-{T_B
-	CPlayer	*pCPly = GetPlayer();
+{
+	T_B
+		CPlayer* pCPly = GetPlayer();
 	if (!pCPly)
 		return;
 	if (pCPly->IsInRepair())
@@ -2783,7 +2826,7 @@ void CCharacter::Cmd_ItemRepairAsk(dbc::Char chPosType, dbc::Char chPosID)
 		return;
 	}
 
-	CCharacter	*pCRepairman = pCPly->GetRepairman();
+	CCharacter* pCRepairman = pCPly->GetRepairman();
 	if (!pCRepairman)
 		return;
 	if (!IsRangePoint(pCRepairman->GetPos(), 6 * 100))
@@ -2798,7 +2841,7 @@ void CCharacter::Cmd_ItemRepairAsk(dbc::Char chPosType, dbc::Char chPosID)
 		SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00046));
 		return;
 	}
-	CItemRecord	*pCItemRec = GetItemRecordInfo(pCPly->GetRepairItem()->sID);
+	CItemRecord* pCItemRec = GetItemRecordInfo(pCPly->GetRepairItem()->sID);
 	if (!pCItemRec)
 	{
 		//SystemNotice("��Ч�ĵ���!");
@@ -2819,19 +2862,21 @@ void CCharacter::Cmd_ItemRepairAsk(dbc::Char chPosType, dbc::Char chPosID)
 	}
 	g_CParser.DoString("get_item_repair_money", enumSCRIPT_RETURN_NUMBER, 1, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, pCPly->GetRepairItem(), DOSTRING_PARAM_END);
 
-	WPACKET WtPk	= GETWPACKET();
+	WPACKET WtPk = GETWPACKET();
 	WRITE_CMD(WtPk, CMD_MC_ITEM_REPAIR_ASK);
 	WRITE_STRING(WtPk, pCItemRec->szName);
 	WRITE_LONG(WtPk, g_CParser.GetReturnNumber(0));
 	ReflectINFof(this, WtPk);
 
 	pCPly->SetInRepair();
-T_E}
+	T_E
+}
 
 // ��������Ӧ��
 void CCharacter::Cmd_ItemRepairAnswer(bool bRepair)
-{T_B
-	CPlayer	*pCPly = GetPlayer();
+{
+	T_B
+		CPlayer* pCPly = GetPlayer();
 	if (!pCPly)
 		return;
 	if (!pCPly->IsInRepair())
@@ -2843,7 +2888,7 @@ void CCharacter::Cmd_ItemRepairAnswer(bool bRepair)
 
 	if (bRepair)
 	{
-		CCharacter	*pCRepairman = pCPly->GetRepairman();
+		CCharacter* pCRepairman = pCPly->GetRepairman();
 		if (!pCRepairman)
 			goto EndItemRepair;
 		if (!IsRangePoint(pCRepairman->GetPos(), 6 * 100))
@@ -2909,27 +2954,29 @@ void CCharacter::Cmd_ItemRepairAnswer(bool bRepair)
 
 EndItemRepair:
 	pCPly->SetInRepair(false);
-T_E}
+	T_E
+}
 
 // ���߾�������
-void CCharacter::Cmd_ItemForgeAsk(dbc::Char chType, SForgeItem *pSItem)
-{T_B
-	CPlayer	*pCPly = GetPlayer();
+void CCharacter::Cmd_ItemForgeAsk(dbc::Char chType, SForgeItem* pSItem)
+{
+	T_B
+		CPlayer* pCPly = GetPlayer();
 
-    if(m_CKitbag.IsPwdLocked())
-    {
-        //SystemNotice("������������!");
+	if (m_CKitbag.IsPwdLocked())
+	{
+		//SystemNotice("������������!");
 		SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00050));
 		goto EndItemForgeAsk;
-    }
+	}
 
 	//add by ALLEN 2007-10-16
-	if(IsReadBook())
-    {
-       // SystemNotice("����״̬�����ܾ���!");
-		 SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00051));
+	if (IsReadBook())
+	{
+		// SystemNotice("����״̬�����ܾ���!");
+		SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00051));
 		goto EndItemForgeAsk;
-    }
+	}
 
 	if (!pSItem)
 		goto EndItemForgeAsk;
@@ -2941,7 +2988,7 @@ void CCharacter::Cmd_ItemForgeAsk(dbc::Char chType, SForgeItem *pSItem)
 		goto EndItemForgeAsk;
 	}
 
-	if( pCPly->GetStallData() || pCPly->GetMainCha()->GetTradeData() )
+	if (pCPly->GetStallData() || pCPly->GetMainCha()->GetTradeData())
 	{
 		//SystemNotice("����ʧ��!");
 		SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00053));
@@ -2949,24 +2996,24 @@ void CCharacter::Cmd_ItemForgeAsk(dbc::Char chType, SForgeItem *pSItem)
 	}
 
 	{
-	CCharacter	*pCForgeman = pCPly->GetForgeman();
-	if (!pCForgeman)
-		goto EndItemForgeAsk;
-	if (!IsRangePoint(pCForgeman->GetPos(), 6 * 100))
-	{
-		//SystemNotice("����̫Զ!");
-		SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00045));
-		goto EndItemForgeAsk;
-	}
+		CCharacter* pCForgeman = pCPly->GetForgeman();
+		if (!pCForgeman)
+			goto EndItemForgeAsk;
+		if (!IsRangePoint(pCForgeman->GetPos(), 6 * 100))
+		{
+			//SystemNotice("����̫Զ!");
+			SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00045));
+			goto EndItemForgeAsk;
+		}
 
-	if (!CheckForgeItem(pSItem))
-	{
-		//SystemNotice("�ύ��������ӵ�е��߲����ϣ����󱻾ܾ�!");
-		SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00054));
-		goto EndItemForgeAsk;
-	}
+		if (!CheckForgeItem(pSItem))
+		{
+			//SystemNotice("�ύ��������ӵ�е��߲����ϣ����󱻾ܾ�!");
+			SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00054));
+			goto EndItemForgeAsk;
+		}
 
-	pCPly->SetForgeInfo(chType, pSItem);
+		pCPly->SetForgeInfo(chType, pSItem);
 
 		SItemGrid* sig_ = NULL;
 		for (int i = 0; i < defMAX_ITEM_FORGE_GROUP; i++)
@@ -3092,19 +3139,21 @@ void CCharacter::Cmd_ItemForgeAsk(dbc::Char chType, SForgeItem *pSItem)
 	}
 
 EndItemForgeAsk:
-	WPACKET WtPk	= GETWPACKET();
+	WPACKET WtPk = GETWPACKET();
 	WRITE_CMD(WtPk, CMD_MC_ITEM_FORGE_ASR);
 	WRITE_CHAR(WtPk, chType);
 	WRITE_CHAR(WtPk, 0);
 	ReflectINFof(this, WtPk);
 
 	ForgeAction(false);
-T_E}
+	T_E
+}
 
 // Add by lark.li 20080515 begin
-void CCharacter::Cmd_ItemLotteryAsk(SLotteryItem *pSItem)
-{T_B
-	CPlayer	*pCPly = GetPlayer();
+void CCharacter::Cmd_ItemLotteryAsk(SLotteryItem* pSItem)
+{
+	T_B
+		CPlayer* pCPly = GetPlayer();
 
 	if (!pSItem)
 		goto EndItemLotteryAsk;
@@ -3164,11 +3213,11 @@ void CCharacter::Cmd_ItemLotteryAsk(SLotteryItem *pSItem)
 		}
 	}
 EndItemLotteryAsk:
-	WPACKET WtPk	= GETWPACKET();
+	WPACKET WtPk = GETWPACKET();
 	WRITE_CMD(WtPk, CMD_MC_ITEM_LOTTERY_ASR);
 	WRITE_CHAR(WtPk, 0);
 	ReflectINFof(this, WtPk);
-T_E
+	T_E
 }
 
 void CCharacter::Cmd_ItemLotteryAnswer(bool bLottery)
@@ -3176,41 +3225,42 @@ void CCharacter::Cmd_ItemLotteryAnswer(bool bLottery)
 	SynKitbagNew(enumSYN_KITBAG_EQUIP);
 	SynAttrToSelf(enumATTRSYN_ITEM_EQUIP);
 
-	WPACKET WtPk	= GETWPACKET();
+	WPACKET WtPk = GETWPACKET();
 	WRITE_CMD(WtPk, CMD_MC_ITEM_LOTTERY_ASR);
 	WRITE_CHAR(WtPk, 0);
 	ReflectINFof(this, WtPk);
 }
 // End
 
-void CCharacter::Cmd_LifeSkillItemAsk(long dwType, SLifeSkillItem *pSItem)
-{T_B
-	if(m_CKitbag.IsPwdLocked())
-	{
-		//SystemNotice("���������������ܽ�����ز���.");
-		SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00057));
-		return;
-	}
+void CCharacter::Cmd_LifeSkillItemAsk(long dwType, SLifeSkillItem* pSItem)
+{
+	T_B
+		if (m_CKitbag.IsPwdLocked())
+		{
+			//SystemNotice("���������������ܽ�����ز���.");
+			SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00057));
+			return;
+		}
 
 	//add by ALLEN 2007-10-16
-	if(IsReadBook())
+	if (IsReadBook())
 	{
 		//SystemNotice("����״̬�����ܽ�����ز���.");
 		SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00058));
 		return;
 	}
 
-	CPlayer	*pCPly = GetPlayer();
-	if(pCPly == NULL || pSItem == NULL)
+	CPlayer* pCPly = GetPlayer();
+	if (pCPly == NULL || pSItem == NULL)
 	{
 		return;
 	}
 
 	string& strLifeSkillinfo = GetPlayer()->GetLifeSkillinfo();
 
-	long lCheckCan = 0,lOptMoney =-1;
+	long lCheckCan = 0, lOptMoney = -1;
 
-	if(m_CKitbag.IsPwdLocked())
+	if (m_CKitbag.IsPwdLocked())
 	{
 		//SystemNotice("������������!");
 		SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00050));
@@ -3223,40 +3273,40 @@ void CCharacter::Cmd_LifeSkillItemAsk(long dwType, SLifeSkillItem *pSItem)
 	}
 
 
-	if( pCPly->GetStallData() || pCPly->GetMainCha()->GetTradeData() )
+	if (pCPly->GetStallData() || pCPly->GetMainCha()->GetTradeData())
 	{
 		//SystemNotice("����ʧ��!");
 		SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00053));
 		goto EndItemForgeAsk;
 	}
 
-	pCPly->SetLifeSkillInfo(dwType,pSItem);
+	pCPly->SetLifeSkillInfo(dwType, pSItem);
 	const char* szCheckCanScript;
 	const char* szGetMoneyScript;
 
-	switch(dwType)
+	switch (dwType)
 	{
-		case 0:
-		case 3:			
-		case 2:
-			{	
-				szCheckCanScript = "can_manufacture_item";
-				szGetMoneyScript = "end_manufacture_item";
-				break;
-			}
-		case 1:
-			{
-				szCheckCanScript = "can_fenjie_item";
-				szGetMoneyScript = "end_fenjie_item";
-				break;
-			}
-		default:
-		{
-			//SystemNotice( "�������ʹ���!%d", dwType );
-			SystemNotice( RES_STRING(GM_CHARACTERCMD_CPP_00055), dwType );
-			goto EndItemForgeAsk;
-			break;
-		}
+	case 0:
+	case 3:
+	case 2:
+	{
+		szCheckCanScript = "can_manufacture_item";
+		szGetMoneyScript = "end_manufacture_item";
+		break;
+	}
+	case 1:
+	{
+		szCheckCanScript = "can_fenjie_item";
+		szGetMoneyScript = "end_fenjie_item";
+		break;
+	}
+	default:
+	{
+		//SystemNotice( "�������ʹ���!%d", dwType );
+		SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00055), dwType);
+		goto EndItemForgeAsk;
+		break;
+	}
 
 	}
 
@@ -3278,49 +3328,51 @@ void CCharacter::Cmd_LifeSkillItemAsk(long dwType, SLifeSkillItem *pSItem)
 	}
 
 	pCPly->SetInLifeSkill(false);
-	
-	if(-1 == lOptMoney)
+
+	if (-1 == lOptMoney)
 		SynKitbagNew(enumSYN_KITBAG_FORGEF);
 	else
 		SynKitbagNew(enumSYN_KITBAG_FORGES);
 
 EndItemForgeAsk:
 	pCPly->SetInLifeSkill(false);
-	WPACKET WtPk	= GETWPACKET();
+	WPACKET WtPk = GETWPACKET();
 	WRITE_CMD(WtPk, CMD_MC_LIFESKILL_ASK);
 	WRITE_LONG(WtPk, dwType);
 	WRITE_SHORT(WtPk, (short)lOptMoney);
-	if(1==dwType)
+	if (1 == dwType)
 	{
 		string	strVer[2];
-		Util_ResolveTextLine(strLifeSkillinfo.c_str(),strVer,2,',');
-		WRITE_STRING(WtPk,strVer[1].c_str());
+		Util_ResolveTextLine(strLifeSkillinfo.c_str(), strVer, 2, ',');
+		WRITE_STRING(WtPk, strVer[1].c_str());
 	}
 	else
-		WRITE_STRING(WtPk,strLifeSkillinfo.c_str());
+		WRITE_STRING(WtPk, strLifeSkillinfo.c_str());
 	ReflectINFof(this, WtPk);
-T_E}
+	T_E
+}
 
-void CCharacter::Cmd_LifeSkillItemAsR(long dwType, SLifeSkillItem *pSItem)
-{T_B
-	if(m_CKitbag.IsPwdLocked())
-	{
-		//SystemNotice("���������������ܽ�����ز���.");
-		SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00057));
-		return;
-	}
+void CCharacter::Cmd_LifeSkillItemAsR(long dwType, SLifeSkillItem* pSItem)
+{
+	T_B
+		if (m_CKitbag.IsPwdLocked())
+		{
+			//SystemNotice("���������������ܽ�����ز���.");
+			SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00057));
+			return;
+		}
 	//add by ALLEN 2007-10-16
-	if(IsReadBook())
+	if (IsReadBook())
 	{
 		//SystemNotice("����״̬�����ܽ�����ز���.");
 		SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00058));
 		return;
 	}
 
-	CPlayer	*pCPly = GetPlayer();
-	if(pCPly == NULL || pSItem == NULL)
+	CPlayer* pCPly = GetPlayer();
+	if (pCPly == NULL || pSItem == NULL)
 		return;
-	long lCheckCan = 0,lOptMoney =-1;
+	long lCheckCan = 0, lOptMoney = -1;
 
 	if (pCPly->IsInLifeSkill())
 	{
@@ -3329,7 +3381,7 @@ void CCharacter::Cmd_LifeSkillItemAsR(long dwType, SLifeSkillItem *pSItem)
 		return;
 	}
 
-	if(m_CKitbag.IsPwdLocked())
+	if (m_CKitbag.IsPwdLocked())
 	{
 		//SystemNotice("������������!");
 		SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00050));
@@ -3344,7 +3396,7 @@ void CCharacter::Cmd_LifeSkillItemAsR(long dwType, SLifeSkillItem *pSItem)
 	}
 
 
-	if( pCPly->GetStallData() || pCPly->GetMainCha()->GetTradeData() )
+	if (pCPly->GetStallData() || pCPly->GetMainCha()->GetTradeData())
 	{
 		SystemNotice("����ʧ��!");
 		return;
@@ -3355,44 +3407,44 @@ void CCharacter::Cmd_LifeSkillItemAsR(long dwType, SLifeSkillItem *pSItem)
 
 
 	const char* cszFunc;
-	switch(dwType)
+	switch (dwType)
 	{
-		case 0:
-			cszFunc =  "begin_manufacture_item";
-			break;
-		case 1:
-			cszFunc =  "begin_manufacture3_item";
-			break;
-		case 2:
-			cszFunc =  "begin_manufacture1_item";
-			break;
-		case 3:
-			cszFunc =  "begin_manufacture2_item";
-			break;
+	case 0:
+		cszFunc = "begin_manufacture_item";
+		break;
+	case 1:
+		cszFunc = "begin_manufacture3_item";
+		break;
+	case 2:
+		cszFunc = "begin_manufacture1_item";
+		break;
+	case 3:
+		cszFunc = "begin_manufacture2_item";
+		break;
 	}
 
-	lua_getglobal(g_pLuaState,cszFunc);
-	if(!lua_isfunction(g_pLuaState,-1))
+	lua_getglobal(g_pLuaState, cszFunc);
+	if (!lua_isfunction(g_pLuaState, -1))
 	{
-		lua_pop(g_pLuaState,1);
+		lua_pop(g_pLuaState, 1);
 		SystemNotice("begin_manufacture_item��������");
-		return ;
+		return;
 	}
 	int	nParamNum = 0;
 	int nRetNum = 1;
 
 	lua_pushlightuserdata(g_pLuaState, this);
 	nParamNum++;
-	lua_pushnumber(g_pLuaState,pSItem->sbagCount);
+	lua_pushnumber(g_pLuaState, pSItem->sbagCount);
 	nParamNum++;
 
 	for (int i = 0; i < pSItem->sbagCount; i++)
 	{
 		lua_pushnumber(g_pLuaState, pSItem->sGridID[i]);
-		nParamNum ++;
+		nParamNum++;
 	}
 
-	lua_pushnumber(g_pLuaState,pSItem->sReturn);
+	lua_pushnumber(g_pLuaState, pSItem->sReturn);
 	nParamNum++;
 	int nState = lua_pcall(g_pLuaState, nParamNum, LUA_MULTRET, 0);
 	if (nState != 0)
@@ -3400,7 +3452,7 @@ void CCharacter::Cmd_LifeSkillItemAsR(long dwType, SLifeSkillItem *pSItem)
 		LG("lua_err", "DoString %s\n", cszFunc);
 		lua_callalert(g_pLuaState, nState);
 		lua_settop(g_pLuaState, 0);
-		return ;
+		return;
 	}
 
 
@@ -3410,97 +3462,107 @@ void CCharacter::Cmd_LifeSkillItemAsR(long dwType, SLifeSkillItem *pSItem)
 	//sprintf(time,"time == %d",stime);
 	//SystemNotice(time);
 	//----------
-	const char * cszContent = lua_tostring(g_pLuaState,-1);
+	const char* cszContent = lua_tostring(g_pLuaState, -1);
 	string& strLifeSkillinfo = GetPlayer()->GetLifeSkillinfo();
 	strLifeSkillinfo = cszContent;
 	lua_settop(g_pLuaState, 0);
-		
-	if(stime != 0)
+
+	if (stime != 0)
 		pCPly->SetInLifeSkill();
 
-	WPACKET	l_wpk =GETWPACKET();
-	WRITE_CMD(l_wpk,CMD_MC_LIFESKILL_ASR);
-	WRITE_LONG(l_wpk,dwType);
-	WRITE_SHORT(l_wpk,stime);
-	if(1==dwType)
+	WPACKET	l_wpk = GETWPACKET();
+	WRITE_CMD(l_wpk, CMD_MC_LIFESKILL_ASR);
+	WRITE_LONG(l_wpk, dwType);
+	WRITE_SHORT(l_wpk, stime);
+	if (1 == dwType)
 	{
 		string	strVer[2];
-		Util_ResolveTextLine(cszContent,strVer,2,',');
-		WRITE_STRING(l_wpk,strVer[0].c_str());
+		Util_ResolveTextLine(cszContent, strVer, 2, ',');
+		WRITE_STRING(l_wpk, strVer[0].c_str());
 	}
 	else
-		WRITE_STRING(l_wpk,"");
-	ReflectINFof(this,l_wpk);
-T_E}
+		WRITE_STRING(l_wpk, "");
+	ReflectINFof(this, l_wpk);
+	T_E
+}
 //��������
 void CCharacter::Cmd_LockKitbag()
-{T_B
-    Char sState;//0:δ���� 1:������
-    cChar *szPwd = GetPlayer()->GetPassword();
-    if(!m_CKitbag.IsPwdLocked()){ 
+{
+	T_B
+		Char sState;//0:δ���� 1:������
+	cChar* szPwd = GetPlayer()->GetPassword();
+	if (!m_CKitbag.IsPwdLocked()) {
 		m_CKitbag.PwdLock();
-    }
-    sState = m_CKitbag.IsPwdLocked() ? 1 : 0;
+	}
+	sState = m_CKitbag.IsPwdLocked() ? 1 : 0;
 
-    WPACKET WtPk	= GETWPACKET();
+	WPACKET WtPk = GETWPACKET();
 	WRITE_CMD(WtPk, CMD_MC_KITBAG_CHECK_ASR);
-    WRITE_CHAR(WtPk, sState);
+	WRITE_CHAR(WtPk, sState);
 	ReflectINFof(this, WtPk);
-T_E}
+	T_E
+}
 
 //��������
-void CCharacter::Cmd_UnlockKitbag( const char szPassword[] )
-{T_B
-    Char sState;//0:δ���� 1:������
+void CCharacter::Cmd_UnlockKitbag(const char szPassword[])
+{
+	T_B
+		Char sState;//0:δ���� 1:������
 
-    CPlayer	*pCply = GetPlayer();
-    cChar *szPwd2 = pCply->GetPassword();
+	CPlayer* pCply = GetPlayer();
+	cChar* szPwd2 = pCply->GetPassword();
 
-    if((szPwd2[0] == 0) || (!strcmp(szPassword, szPwd2)))
-    {
-        m_CKitbag.PwdUnlock();
-    }
-    sState = m_CKitbag.IsPwdLocked() ? 1 : 0;
+	if ((szPwd2[0] == 0) || (!strcmp(szPassword, szPwd2)))
+	{
+		m_CKitbag.PwdUnlock();
+	}
+	sState = m_CKitbag.IsPwdLocked() ? 1 : 0;
 
-    WPACKET WtPk	= GETWPACKET();
+	WPACKET WtPk = GETWPACKET();
 	WRITE_CMD(WtPk, CMD_MC_KITBAG_CHECK_ASR);
-    WRITE_CHAR(WtPk, sState);
+	WRITE_CHAR(WtPk, sState);
 	ReflectINFof(this, WtPk);
-T_E}
+	T_E
+}
 
 //��鱳��״̬
 void CCharacter::Cmd_CheckKitbagState()
-{T_B
-    Char sState;//0:δ���� 1:������
-    sState = m_CKitbag.IsPwdLocked() ? 1 : 0;
+{
+	T_B
+		Char sState;//0:δ���� 1:������
+	sState = m_CKitbag.IsPwdLocked() ? 1 : 0;
 
-    WPACKET WtPk	= GETWPACKET();
+	WPACKET WtPk = GETWPACKET();
 	WRITE_CMD(WtPk, CMD_MC_KITBAG_CHECK_ASR);
-    WRITE_CHAR(WtPk, sState);
+	WRITE_CHAR(WtPk, sState);
 	ReflectINFof(this, WtPk);
-T_E}
+	T_E
+}
 
 void CCharacter::Cmd_SetKitbagAutoLock(Char cAuto)
-{T_B
-    m_CKitbag.PwdAutoLock(cAuto);
-    //game_db.SavePlayer(GetPlayer(), enumSAVE_TYPE_TRADE);
-    if(cAuto == 0)
-        SystemNotice(RES_STRING(GM_CHARACTER_CPP_00133));
-    else
-        SystemNotice(RES_STRING(GM_CHARACTER_CPP_00134));
-T_E}
+{
+	T_B
+		m_CKitbag.PwdAutoLock(cAuto);
+	//game_db.SavePlayer(GetPlayer(), enumSAVE_TYPE_TRADE);
+	if (cAuto == 0)
+		SystemNotice(RES_STRING(GM_CHARACTER_CPP_00133));
+	else
+		SystemNotice(RES_STRING(GM_CHARACTER_CPP_00134));
+	T_E
+}
 
 BOOL CCharacter::Cmd_AddVolunteer()
-{T_B
-	// check if level is higher than 10
-	if (GetLevel() < 8) {
-		PopupNotice("Only players lv8 and above can volunteer!");
-		return false;
-	}
+{
+	T_B
+		// check if level is higher than 10
+		if (GetLevel() < 8) {
+			PopupNotice("Only players lv8 and above can volunteer!");
+			return false;
+		}
 	// check if map is garner2
 
 	BOOL ret = g_pGameApp->AddVolunteer(this);
-	if(!ret)
+	if (!ret)
 	{
 		SystemNotice(RES_STRING(GM_CHARACTER_CPP_00135));
 	}
@@ -3509,12 +3571,14 @@ BOOL CCharacter::Cmd_AddVolunteer()
 		SystemNotice(RES_STRING(GM_CHARACTER_CPP_00136));
 	}
 	return ret;
-T_E}
+	T_E
+}
 
 BOOL CCharacter::Cmd_DelVolunteer()
-{T_B
-	BOOL ret = g_pGameApp->DelVolunteer(this);
-	if(!ret)
+{
+	T_B
+		BOOL ret = g_pGameApp->DelVolunteer(this);
+	if (!ret)
 	{
 		SystemNotice(RES_STRING(GM_CHARACTER_CPP_00137));
 	}
@@ -3523,28 +3587,33 @@ BOOL CCharacter::Cmd_DelVolunteer()
 		SystemNotice(RES_STRING(GM_CHARACTER_CPP_00138));
 	}
 	return ret;
-T_E}
+	T_E
+}
 
 void CCharacter::Cmd_ListVolunteer(short sPage, short sNum)
-{T_B
-T_E}
-
-BOOL CCharacter::Cmd_ApplyVolunteer(const char *szName)
-{T_B
-	return true;
-T_E}
-
-CCharacter* CCharacter::FindVolunteer(const char *szName)
 {
-	SVolunteer *pVolInfo = g_pGameApp->FindVolunteer(szName);
-	if(!pVolInfo)
+	T_B
+		T_E
+}
+
+BOOL CCharacter::Cmd_ApplyVolunteer(const char* szName)
+{
+	T_B
+		return true;
+	T_E
+}
+
+CCharacter* CCharacter::FindVolunteer(const char* szName)
+{
+	SVolunteer* pVolInfo = g_pGameApp->FindVolunteer(szName);
+	if (!pVolInfo)
 	{
 		return NULL;
 	}
 
-	CCharacter *pCha = NULL;
-	CPlayer *pPly = g_pGameApp->GetPlayerByDBID(pVolInfo->ulID);
-	if(pPly)
+	CCharacter* pCha = NULL;
+	CPlayer* pPly = g_pGameApp->GetPlayerByDBID(pVolInfo->ulID);
+	if (pPly)
 	{
 		pCha = pPly->GetMainCha();
 	}
@@ -3554,33 +3623,34 @@ CCharacter* CCharacter::FindVolunteer(const char *szName)
 
 // ���߾���Ӧ��
 void CCharacter::Cmd_ItemForgeAnswer(bool bForge)
-{T_B
-	CPlayer	*pCPly = GetPlayer();
+{
+	T_B
+		CPlayer* pCPly = GetPlayer();
 	Char	chType = pCPly->GetForgeType();
 
-    if(m_CKitbag.IsPwdLocked())
-    {
-        //SystemNotice("������������!");
+	if (m_CKitbag.IsPwdLocked())
+	{
+		//SystemNotice("������������!");
 		SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00050));
 		goto EndItemForge;
-    }
+	}
 
 	//add by ALLEN 2007-10-16
-	if(IsReadBook())
-    {
-        //SystemNotice("����״̬�����ܽ�����ز���!");
+	if (IsReadBook())
+	{
+		//SystemNotice("����״̬�����ܽ�����ز���!");
 		SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00058));
 		goto EndItemForge;
-    }
+	}
 
-    if (!pCPly->IsInForge())
+	if (!pCPly->IsInForge())
 	{
 		//SystemNotice("û���κ�����!");
 		SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00059));
 		goto EndItemForge;
 	}
 
-	if( pCPly->GetStallData() || pCPly->GetMainCha()->GetTradeData() )
+	if (pCPly->GetStallData() || pCPly->GetMainCha()->GetTradeData())
 	{
 		//SystemNotice("����ʧ��!");
 		SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00060));
@@ -3708,7 +3778,7 @@ void CCharacter::Cmd_ItemForgeAnswer(bool bForge)
 	}
 
 EndItemForge:
-	WPACKET WtPk	= GETWPACKET();
+	WPACKET WtPk = GETWPACKET();
 	WRITE_CMD(WtPk, CMD_MC_ITEM_FORGE_ASR);
 	WRITE_CHAR(WtPk, chType);
 	WRITE_CHAR(WtPk, 0);
@@ -3716,24 +3786,25 @@ EndItemForge:
 
 	pCPly->SetInForge(false);
 	ForgeAction(false);
-T_E}
+	T_E
+}
 void CCharacter::Cmd_Garner2_Reorder(short index)
 {
-	SItemGrid *pSGridCont =  m_CKitbag.GetGridContByID(index);
-	if(3849 != pSGridCont->sID)
+	SItemGrid* pSGridCont = m_CKitbag.GetGridContByID(index);
+	if (3849 != pSGridCont->sID)
 	{
 		//SystemNotice("�Բ���,��û������֤֮,��ȥ�Ҷ�����Ա����ȡ����֤֮.");
 		SystemNotice(RES_STRING(GM_CHARACTERCMD_CPP_00061));
 	}
 	else
 	{
-		WPACKET pk	=GETWPACKET();
-		WRITE_CMD(pk,CMD_MP_GARNER2_UPDATE);
-		WRITE_LONG(pk,GetPlayer()->GetDBChaId());
-		WRITE_STRING(pk,GetName());
-		WRITE_LONG(pk,GetLevel());
-		WRITE_STRING(pk,g_szJobName[getAttr( ATTR_JOB )]);
-		WRITE_SHORT(pk,pSGridCont->GetInstAttr(ITEMATTR_MAXENERGY));
-		ReflectINFof(this,pk);
+		WPACKET pk = GETWPACKET();
+		WRITE_CMD(pk, CMD_MP_GARNER2_UPDATE);
+		WRITE_LONG(pk, GetPlayer()->GetDBChaId());
+		WRITE_STRING(pk, GetName());
+		WRITE_LONG(pk, GetLevel());
+		WRITE_STRING(pk, g_szJobName[getAttr(ATTR_JOB)]);
+		WRITE_SHORT(pk, pSGridCont->GetInstAttr(ITEMATTR_MAXENERGY));
+		ReflectINFof(this, pk);
 	}
 }

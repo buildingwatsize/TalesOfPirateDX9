@@ -18,10 +18,10 @@ class GateServer;
 struct uplayer
 {
     uplayer() {}
-    uplayer(char const* gt_name, unsigned long gt_addr, DWORD atorID)
+    uplayer(char const* gt_name, LONG64 gt_addr, DWORD atorID)
     {Init(gt_name, gt_addr, atorID);}
 
-    void Init(char const* gt_name, unsigned long gt_addr, DWORD atorID);
+    void Init(char const* gt_name, LONG64 gt_addr, DWORD atorID);
 
     uplayer& operator =(uplayer const& up)
     {
@@ -31,11 +31,10 @@ struct uplayer
         return *this;
     }
 
-    DWORD m_dwDBChaId; // 唯一ID
+    DWORD m_dwDBChaId;
 
-    // 确定这个Player
     GateServer* pGate;
-    unsigned long m_ulGateAddr; // 在 GateServer 进程中的虚拟地址
+    LONG64 m_ulGateAddr;
 };
 
 struct GatePlayer
@@ -48,8 +47,8 @@ public:
     void SetGate(GateServer* gt) {ply.pGate = gt;}
     GateServer* GetGate() const {return ply.pGate;}
 
-    void SetGateAddr(unsigned long gt_addr) {ply.m_ulGateAddr = gt_addr;}    
-    unsigned long GetGateAddr() const {return ply.m_ulGateAddr;}
+    void SetGateAddr(LONG64 gt_addr) {ply.m_ulGateAddr = gt_addr;}    
+    LONG64 GetGateAddr() const {return ply.m_ulGateAddr;}
 
     void SetDBChaId(DWORD dwDBChaId) {ply.m_dwDBChaId = dwDBChaId;}
     DWORD GetDBChaId(void) {return ply.m_dwDBChaId;}
@@ -66,7 +65,7 @@ private:
 
     uplayer ply;
 
-    GatePlayer* m_tmplist; // 特定发包接口之用，名称以后可能会调整
+    GatePlayer* m_tmplist; // ????????????????????????????
 };
 
 

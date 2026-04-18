@@ -48,9 +48,9 @@ end
 function EightyLv_ExpAdd(cha, expadd)
     if ValidCha(cha) == 1 then
         if ChaIsBoat(cha) == 0 then
-            if Lv(cha) >= 80 then
-                expadd = math.floor(expadd / 50)
-            end
+            -- if Lv(cha) >= 80 then
+            --     expadd = math.floor(expadd / 50)
+            -- end
             if expadd == 0 then
                 SystemNotice(TurnToCha(cha), "Distance is too far to obtain any EXP")
             end
@@ -2129,21 +2129,22 @@ function MGPK_Dead_Punish_Exp(dead)
         exp_red = exp_per
     end
 
-    if Lv(dead) >= 80 then
-        exp_red = math.floor(exp_red / 50)
-        exp_red_80 = exp_red * 50
-        SystemNotice(dead, "Death penalty. EXP lost:" .. exp_red_80)
-    else
-        SystemNotice(dead, "Death penalty. EXP lost:" .. exp_red)
-    end
+    -- if Lv(dead) >= 80 then
+    --     exp_red = math.floor(exp_red / 50)
+    --     exp_red_80 = exp_red * 50
+    --     SystemNotice(dead, "Death penalty. EXP lost:" .. exp_red_80)
+    -- else
+    --     SystemNotice(dead, "Death penalty. EXP lost:" .. exp_red)
+    -- end
 
-    exp = Exp(dead) - exp_red
+    -- exp = Exp(dead) - exp_red
 
     SetChaAttrI(dead, ATTR_CEXP, exp)
 
     local name = GetChaDefaultName(dead)
 
-    LG("PKdie_exp", "Character Name", name, "Current Lv= ", lv, "Death EXP penalty= ", exp_red)
+    -- LG("PKdie_exp", "Character Name", name, "Current Lv= ", lv, "Death EXP penalty= ", exp_red)
+    LG("PKdie_exp", "Character Name", name, "Current Lv= ", lv, "Death EXP penalty= ", 0)
 end
 
 function Add_ItemAttr_RYZ(Cha_role, Player, attrtype, Num)
@@ -5251,7 +5252,7 @@ function Givecrab(character)
     SetItemAttr(Item_CRAB, ITEMATTR_MAXENERGY, CRAB_NOW)
     SetItemAttr(Item_CRAB, ITEMATTR_ENERGY, CRAB_NOW)
     RefreshCha(character)
-    SystemNotice(character, "з���������ڱ�������2��Ż���׳�ɳ���?")
+    SystemNotice(character, "з���������ڱ�������2��Ż���׳�ɳ���?")
 end
 
 function crablife(character)
@@ -5295,49 +5296,49 @@ function GiveZNZItem(role)
         local el1 = math.random(1, 5)
         if el1 == 1 then
             GiveItem(role, 0, 0863, 1, 4)
-            local message = cha_name .. "��Ʒ����,������˲ر�ͼ̽����?����"
+            local message = cha_name .. "��Ʒ����,������˲ر�ͼ̽����?����"
             Notice(message)
         elseif el1 == 2 then
             GiveItem(role, 0, 0860, 1, 4)
-            local message1 = cha_name .. "��Ʒ����,������˲ر�ͼ̽����?����ʯ"
+            local message1 = cha_name .. "��Ʒ����,������˲ر�ͼ̽����?����ʯ"
             Notice(message1)
         elseif el1 == 3 then
             GiveItem(role, 0, 0861, 1, 4)
-            local message2 = cha_name .. "��Ʒ����,������˲ر�ͼ̽����?ӥ��ʯ"
+            local message2 = cha_name .. "��Ʒ����,������˲ر�ͼ̽����?ӥ��ʯ"
             Notice(message2)
         elseif el1 == 4 then
             GiveItem(role, 0, 0862, 1, 4)
-            local message3 = cha_name .. "��Ʒ����,������˲ر�ͼ̽����?����"
+            local message3 = cha_name .. "��Ʒ����,������˲ر�ͼ̽����?����"
             Notice(message3)
         elseif el1 == 5 then
             GiveItem(role, 0, 1028, 1, 4)
-            local message4 = cha_name .. "��Ʒ����,������˲ر�ͼ̽����?Ħ����ʯ"
+            local message4 = cha_name .. "��Ʒ����,������˲ر�ͼ̽����?Ħ����ʯ"
             Notice(message4)
         end
     elseif star >= 9801 and star <= 9998 then
         local el2 = math.random(1, 100)
         if el2 <= 50 then
             GiveItem(role, 0, 0992, 1, 4)
-            local message5 = cha_name .. "��Ʒ����,������˲ر�ͼ̽����?�ɳ����?"
+            local message5 = cha_name .. "��Ʒ����,������˲ر�ͼ̽����?�ɳ����?"
             Notice(message5)
         elseif el2 >= 51 and el2 <= 74 then
             GiveItem(role, 0, 0853, 1, 4)
-            local message6 = cha_name .. "��Ʒ����,������˲ر�ͼ̽����?���ڻ�����־"
+            local message6 = cha_name .. "��Ʒ����,������˲ر�ͼ̽����?���ڻ�����־"
             Notice(message6)
         elseif el2 >= 75 and el2 <= 100 then
             GiveItem(role, 0, 1012, 1, 4)
-            local message7 = cha_name .. "��Ʒ����,������˲ر�ͼ̽����?����֮��"
+            local message7 = cha_name .. "��Ʒ����,������˲ر�ͼ̽����?����֮��"
             Notice(message7)
         end
     elseif star >= 9899 and star <= 10000 then
         local el3 = math.random(1, 100)
         if el3 == 63 then
             GiveItem(role, 0, 0096, 1, 4)
-            local message8 = cha_name .. "��Ʒ����,������˲ر�ͼ̽����?����֮��"
+            local message8 = cha_name .. "��Ʒ����,������˲ر�ͼ̽����?����֮��"
             Notice(message8)
         elseif el3 == 98 then
             GiveItem(role, 0, 0094, 1, 4)
-            local message9 = cha_name .. "��Ʒ����,������˲ر�ͼ̽����?Ԫ˧֮��"
+            local message9 = cha_name .. "��Ʒ����,������˲ر�ͼ̽����?Ԫ˧֮��"
             Notice(message9)
         end
     end
@@ -5571,7 +5572,7 @@ function AuctionEnd(role)
     end
     local Item_CanGet = GetChaFreeBagGridNum(role)
     if Item_CanGet < 2 then
-        SystemNotice(role, "��ȷ����2��ʣ��ռ�?")
+        SystemNotice(role, "��ȷ����2��ʣ��ռ�?")
         return 0
     end
     GiveItem(role, 0, 3666, 10, 4)
@@ -5748,7 +5749,7 @@ end
 function YORN(role)
     local Item_CanGet = GetChaFreeBagGridNum(role)
     if Item_CanGet < 2 then
-        SystemNotice(role, "��ȷ����2��ʣ��ռ�?")
+        SystemNotice(role, "��ȷ����2��ʣ��ռ�?")
         return 0
     end
 
@@ -5760,7 +5761,7 @@ function YORN(role)
 
     local item_number2 = CheckBagItem(role, 3078)
     if item_number2 >= 1 then
-        SystemNotice(role, "��ȷ��������û�����?")
+        SystemNotice(role, "��ȷ��������û�����?")
         return 0
     end
 
@@ -5874,7 +5875,7 @@ function AddChaHJ(character)
     SetItemAttr(Item_Rwine, ITEMATTR_MAXENERGY, Rwine_NOW)
     SetItemAttr(Item_Rwine, ITEMATTR_ENERGY, Rwine_NOW)
     RefreshCha(character)
-    SystemNotice(character, "�����Ʊ�������ڱ�������?��Ż���Ӵ���")
+    SystemNotice(character, "�����Ʊ�������ڱ�������?��Ż���Ӵ���")
 end
 
 function CheckHJ(character)
@@ -5926,11 +5927,11 @@ function CheckBBBB(role)
 
             return LUA_TRUE
         else
-            SystemNotice(role, "��Ѻ�͵Ķ�������������߰�?")
+            SystemNotice(role, "��Ѻ�͵Ķ�������������߰�?")
             return LUA_FALSE
         end
     else
-        SystemNotice(role, "��Ѻ�͵Ķ�������������߰�?")
+        SystemNotice(role, "��Ѻ�͵Ķ�������������߰�?")
         return LUA_FALSE
     end
 end
@@ -5940,7 +5941,7 @@ function AddExpNextLv1(role)
     local cha_name = GetChaDefaultName(role)
     SetChaAttrI(role, ATTR_CEXP, exp_add)
     RefreshCha(role)
-    Notice("���?" .. cha_name .. "�����㣬˫�޳ɹ����ȼ�����1��")
+    Notice("���?" .. cha_name .. "�����㣬˫�޳ɹ����ȼ�����1��")
     return LUA_TRUE
 end
 
@@ -5949,7 +5950,7 @@ function AddExpNextLv2(role)
     local cha_name = GetChaDefaultName(role)
     SetChaAttrI(role, ATTR_CEXP, exp_add)
     RefreshCha(role)
-    Notice("���?" .. cha_name .. "�����㣬���˺�һ���ȼ�����1��")
+    Notice("���?" .. cha_name .. "�����㣬���˺�һ���ȼ�����1��")
     return LUA_TRUE
 end
 
@@ -6174,9 +6175,9 @@ end
 
 function FairyFreq(Level)
     local Frequency = 60
-    if Level > 27 then
-        Frequency = Frequency + (Level - 27) * 5
-    end
+    -- if Level > 27 then
+    --     Frequency = Frequency + (Level - 27) * 5
+    -- end
     return Frequency
 end
 
@@ -6305,7 +6306,7 @@ end
 function Take_ElfURE(Player, Item, Num)
     local Stamina = GetItemAttr(Item, ITEMATTR_URE)
 	if Stamina > 49 then
-		Stamina = math.max((Stamina - Num), 49)
+		-- Stamina = math.max((Stamina - Num), 49)
 		SetItemAttr(Item, ITEMATTR_URE, Stamina)
 	else
 		SetChaKbItemValid2(Player, Item, 0, 1)
@@ -6357,7 +6358,8 @@ function FairyLevel(Player, Fairy, AttrType, Level, False)
     if FairyLv >= 42 then
         a = a
     end
-    local b = Percentage_Random(a)
+    local b = 1
+    -- local b = Percentage_Random(a)
     local FairyEXP = GetItemAttr(Fairy, ITEMATTR_ENERGY)
     if b == 1 then
         AddItemEffect(Player, Fairy, 0)
@@ -6789,105 +6791,135 @@ end
 
 GetExp = {}
 GetExp[1] = 0
-GetExp[2] = 5
-GetExp[3] = 15
-GetExp[4] = 35
-GetExp[5] = 101
-GetExp[6] = 250
-GetExp[7] = 500
-GetExp[8] = 1000
-GetExp[9] = 1974
-GetExp[10] = 3208
-GetExp[11] = 4986
-GetExp[12] = 7468
-GetExp[13] = 10844
-GetExp[14] = 15338
-GetExp[15] = 21210
-GetExp[16] = 28766
-GetExp[17] = 38356
-GetExp[18] = 50382
-GetExp[19] = 65306
-GetExp[20] = 83656
-GetExp[21] = 106032
-GetExp[22] = 133112
-GetExp[23] = 165668
-GetExp[24] = 204564
-GetExp[25] = 250780
-GetExp[26] = 305412
-GetExp[27] = 369692
-GetExp[28] = 444998
-GetExp[29] = 532870
-GetExp[30] = 635026
-GetExp[31] = 753378
-GetExp[32] = 890062
-GetExp[33] = 1047438
-GetExp[34] = 1228138
-GetExp[35] = 1435074
-GetExp[36] = 1671470
-GetExp[37] = 1940892
-GetExp[38] = 2247288
-GetExp[39] = 2595010
-GetExp[40] = 2988860
-GetExp[41] = 3434132
-GetExp[42] = 3936658
-GetExp[43] = 4502856
-GetExp[44] = 5139778
-GetExp[45] = 5855180
-GetExp[46] = 6657576
-GetExp[47] = 7556310
-GetExp[48] = 8561630
-GetExp[49] = 9684764
-GetExp[50] = 10938016
-GetExp[51] = 12334856
-GetExp[52] = 13890020
-GetExp[53] = 15619622
-GetExp[54] = 17541282
-GetExp[55] = 19674240
-GetExp[56] = 22039516
-GetExp[57] = 24660044
-GetExp[58] = 27560852
-GetExp[59] = 30769230
-GetExp[60] = 37746418
-GetExp[61] = 45876427
-GetExp[62] = 59571153
-GetExp[63] = 75703638
-GetExp[64] = 94615279
-GetExp[65] = 116688304
-GetExp[66] = 155291059
-GetExp[67] = 186418013
-GetExp[68] = 238159614
-GetExp[69] = 298622278
-GetExp[70] = 368975850
-GetExp[71] = 450525549
-GetExp[72] = 568409779
-GetExp[73] = 679324744
-GetExp[74] = 806544569
-GetExp[75] = 952091724
-GetExp[76] = 1188099236
-GetExp[77] = 1480429211
-GetExp[78] = 1776125584
-GetExp[79] = 2091634902
-GetExp[80] = 2425349810
-GetExp[81] = 2440895086
-GetExp[82] = 2458896515
-GetExp[83] = 2479742169
-GetExp[84] = 2503881436
-GetExp[85] = 2531834707
-GetExp[86] = 2564204594
-GetExp[87] = 2601688923
-GetExp[88] = 2645095775
-GetExp[89] = 2695360909
-GetExp[90] = 2753567934
-GetExp[91] = 2820971668
-GetExp[92] = 2899025191
-GetExp[93] = 2989411170
-GetExp[94] = 3094078133
-GetExp[95] = 3215282476
-GetExp[96] = 3355637105
-GetExp[97] = 3518167765
-GetExp[98] = 3706378269
-GetExp[99] = 3924326032
-GetExp[100] = 4176709541
+GetExp[2] = 15
+GetExp[3] = 18
+GetExp[4] = 22
+GetExp[5] = 27
+GetExp[6] = 33
+GetExp[7] = 41
+GetExp[8] = 51
+GetExp[9] = 63
+GetExp[10] = 78
+GetExp[11] = 97
+GetExp[12] = 121
+GetExp[13] = 151
+GetExp[14] = 188
+GetExp[15] = 235
+GetExp[16] = 293
+GetExp[17] = 366
+GetExp[18] = 457
+GetExp[19] = 571
+GetExp[20] = 713
+GetExp[21] = 891
+GetExp[22] = 1113
+GetExp[23] = 1391
+GetExp[24] = 1738
+GetExp[25] = 2172
+GetExp[26] = 2715
+GetExp[27] = 3393
+GetExp[28] = 4241
+GetExp[29] = 5301
+GetExp[30] = 6626
+GetExp[31] = 8282
+GetExp[32] = 10352
+GetExp[33] = 12940
+GetExp[34] = 16175
+GetExp[35] = 20218
+GetExp[36] = 25272
+GetExp[37] = 31590
+GetExp[38] = 39487
+GetExp[39] = 49358
+GetExp[40] = 61697
+GetExp[41] = 77121
+GetExp[42] = 96401
+GetExp[43] = 120501
+GetExp[44] = 150626
+GetExp[45] = 184516
+GetExp[46] = 226032
+GetExp[47] = 276889
+GetExp[48] = 339189
+GetExp[49] = 415506
+GetExp[50] = 508994
+GetExp[51] = 623517
+GetExp[52] = 763808
+GetExp[53] = 935664
+GetExp[54] = 1146188
+GetExp[55] = 1375425
+GetExp[56] = 1650510
+GetExp[57] = 1980612
+GetExp[58] = 2376734
+GetExp[59] = 2852080
+GetExp[60] = 3422496
+GetExp[61] = 4106995
+GetExp[62] = 4928394
+GetExp[63] = 5914072
+GetExp[64] = 7096886
+GetExp[65] = 8338841
+GetExp[66] = 9798138
+GetExp[67] = 11512812
+GetExp[68] = 13527554
+GetExp[69] = 15894875
+GetExp[70] = 18676478
+GetExp[71] = 21944861
+GetExp[72] = 25785211
+GetExp[73] = 30297622
+GetExp[74] = 35599705
+GetExp[75] = 40939660
+GetExp[76] = 47080609
+GetExp[77] = 54142700
+GetExp[78] = 62264105
+GetExp[79] = 71603720
+GetExp[80] = 82344278
+GetExp[81] = 94695919
+GetExp[82] = 108900306
+GetExp[83] = 125235351
+GetExp[84] = 144020653
+GetExp[85] = 161303131
+GetExp[86] = 180659506
+GetExp[87] = 202338646
+GetExp[88] = 226619283
+GetExp[89] = 253813596
+GetExp[90] = 284271227
+GetExp[91] = 318383774
+GetExp[92] = 356589826
+GetExp[93] = 399380605
+GetExp[94] = 447306277
+GetExp[95] = 489800373
+GetExp[96] = 536331408
+GetExp[97] = 587282891
+GetExp[98] = 643074765
+GetExp[99] = 704166867
+GetExp[100] = 771062719
+GetExp[101] = 844313677
+GetExp[102] = 924523476
+GetExp[103] = 1012353206
+GetExp[104] = 1108526760
+GetExp[105] = 1180580999
+GetExp[106] = 1257318763
+GetExp[107] = 1339044482
+GetExp[108] = 1426082373
+GetExp[109] = 1518777727
+GetExp[110] = 1617498279
+GetExp[111] = 1722635667
+GetExp[112] = 1834606985
+GetExp[113] = 1953856439
+GetExp[114] = 2080857107
+GetExp[115] = 2216112818
+GetExp[116] = 2360160151
+GetExp[117] = 2513570560
+GetExp[118] = 2676952646
+GetExp[119] = 2850954567
+GetExp[120] = 2957865363
+GetExp[121] = 3068785314
+GetExp[122] = 3183864763
+GetExp[123] = 3303259691
+GetExp[124] = 3427131929
+GetExp[125] = 3555649376
+GetExp[126] = 3688986227
+GetExp[127] = 3827323210
+GetExp[128] = 3970847830
+GetExp[129] = 4119754623
+GetExp[130] = 4200000000
 
 HexatlonActive = true
 function HexatlonTime(character)

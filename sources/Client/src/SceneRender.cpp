@@ -109,6 +109,25 @@ LW_RESULT __SceneTranspObjRenderProc(MPIPrimitive* obj, void* param)
 
 void CGameScene::_Render()
 {
+    static int _render_diag_counter = 0;
+    _render_diag_counter++;
+    if(_render_diag_counter <= 10)
+    {
+        int validCha = 0, validObj = 0;
+        for(int _d = 0; _d < _nChaCnt; _d++) { if(_pChaArray[_d].IsValid() && !_pChaArray[_d].IsHide()) validCha++; }
+        for(int _d = 0; _d < _nSceneObjCnt; _d++) { if(_pSceneObjArray[_d].IsValid() && !_pSceneObjArray[_d].IsHide()) validObj++; }
+
+        CCameraCtrl* _dcam = g_pGameApp->GetMainCam();
+        CCharacter* _dmc = GetMainCha();
+
+        LG("render_diag", "#%d terrain=%p show=%d validCha=%d/%d validObj=%d/%d showObj=%d cam=(%0.1f,%0.1f,%0.1f)->(%0.1f,%0.1f,%0.1f) mainCha=%p\n",
+            _render_diag_counter, _pTerrain.get(), (int)m_bShowTerrain,
+            validCha, _nChaCnt, validObj, _nSceneObjCnt, (int)_bShowSceneObj,
+            _dcam ? _dcam->m_EyePos.x : -1, _dcam ? _dcam->m_EyePos.y : -1, _dcam ? _dcam->m_EyePos.z : -1,
+            _dcam ? _dcam->m_RefPos.x : -1, _dcam ? _dcam->m_RefPos.y : -1, _dcam ? _dcam->m_RefPos.z : -1,
+            _dmc);
+    }
+
     MPIDeviceObject* dev_obj = g_Render.GetInterfaceMgr()->dev_obj;
     RenderStateMgr* rsm = g_pGameApp->GetRenderStateMgr();
 
@@ -183,6 +202,9 @@ void CGameScene::_Render()
 
             _pTerrain->EnableNormalLight(0); // 0 = terrtain lighting : 1 = disable
             _pTerrain->Render();
+            if(_render_diag_counter <= 10)
+                LG("render_diag", "  terrain rendered OK showCenter=(%0.1f,%0.1f)\n",
+                    _pTerrain->GetShowCenterX(), _pTerrain->GetShowCenterY());
         }
     }
 
@@ -288,10 +310,6 @@ void CGameScene::_Render()
             CSceneObj *pObj = &_pSceneObjArray[nArrayID];
             if(pObj->IsValid() && pObj->IsHide()==FALSE)
 		    {
-                pObj->GetObject()->CullPrimitive();
-                if(pObj->GetObject()->GetCullingPrimitiveNum() == pObj->GetObject()->GetPrimitiveNum())
-                    continue;
-
                 CSceneObjInfo* info = GetSceneObjInfo( pObj->getTypeID() );
                 
                 BOOL light_enable = info->bEnableEnvLight | info->bEnablePointLight | info->bShadeFlag;
@@ -416,6 +434,9 @@ void CGameScene::_Render()
         }
 
         rsm->EndSceneObject();
+
+        if(_render_diag_counter <= 10)
+            LG("render_diag", "  sceneObj rendered=%lu\n", m_dwValidSceneObjCnt);
 
         g_pGameApp->m_dwRenderScneObjTime = t.End();
 
@@ -761,6 +782,12 @@ void CGameScene::_Render()
 
         g_pGameApp->m_dwRenderChaTime = t.End();
 
+        if(_render_diag_counter <= 10)
+        {
+            extern bool g_IsShowModel;
+            LG("render_diag", "  chaRendered=%lu showModel=%d\n", m_dwValidChaCnt, (int)g_IsShowModel);
+        }
+
         g_Render.SetLight(0, &env_light_old);
         g_Render.SetRenderState(D3DRS_AMBIENT, env_color_old);
 
@@ -1038,18 +1065,6 @@ void	CGameScene::RenderSMallMap()
 			CSceneObj *pObj = &_pSceneObjArray[nArrayID];
 			if(pObj->IsValid() && pObj->IsHide()==FALSE)
 			{
-				//pObj->SetCullingFlag(0);
-				if( !pObj->_isRBO() )
-				{
-					pObj->GetObject()->CullPrimitive();
-					if(pObj->GetObject()->GetCullingPrimitiveNum() == pObj->GetObject()->GetPrimitiveNum())
-						continue;
-				}
-				else
-				{
-					int a =0;
-					a = 10;
-				}
 
 				CSceneObjInfo* info = GetSceneObjInfo( pObj->getTypeID() );
 

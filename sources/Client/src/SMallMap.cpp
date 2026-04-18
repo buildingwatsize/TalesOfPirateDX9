@@ -2993,7 +2993,7 @@ void	CLargerMap::RenderScene()
 		static char psz[128] = { 0 };
 		// Modify by sunny.sun 20080904 ����Ҫ��ȥ��̽����
 		//mothannakh fix compass in minimap
-		sprintf(psz, g_oLangRec.GetString(394), _nCenterX / 100, _nCenterY / 100, fInf);
+		sprintf(psz, RES_STRING(CMISS_000394), _nCenterX / 100, _nCenterY / 100, fInf);
 		pfont->DrawTextShadow(psz, _rcWnd.left + 350, _rcWnd.top + 30, _rcWnd.left + 351, _rcWnd.top + 31, 0xff808000, 0xffffff00);
 	}
 }

@@ -1,30 +1,30 @@
 #pragma once
 
-// Raw Data : Ô­Ê¼Êý¾Ý
-// Raw Data Set : ÊÊÓÃÓÚÊµ¼ÊÊý¾ÝÖ»ÓÐÒ»·Ý, Ê¹ÓÃ¸ÃÊý¾ÝµÄÊµÀýÈ´¿ÉÒÔ´´½¨¶à¸öµÄÓ¦ÓÃ³¡ºÏ
-// ÀýÈç : MeshÄ£ÐÍÊý¾Ý, ÌùÍ¼Êý¾Ý, ¹Ç¼ÜÊý¾ÝµÈµÈ,  Ò²¿ÉÒÔÓÃÔÚ·ÇÓÎÏ·µÄ¸÷ÖÖÈí¼þÀï
+// Raw Data : Ô­Ê¼ï¿½ï¿½ï¿½ï¿½
+// Raw Data Set : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½Ò»ï¿½ï¿½, Ê¹ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½Ýµï¿½Êµï¿½ï¿½È´ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ã³ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½ : MeshÄ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½, ï¿½Ç¼ï¿½ï¿½ï¿½ï¿½ÝµÈµï¿½,  Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú·ï¿½ï¿½ï¿½Ï·ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-// RawDataSetÀàµÄÖ÷Òª¹¦ÄÜ
-//1. Ô­Ê¼Êý¾ÝµÄ×ÊÔ´ÃèÊö¶ÁÈë(ÎÄ±¾,¶þ½øÖÆ)
-//2. Í¨¹ýIDË÷ÒýÊý¾Ý
-//3. ¶¯Ì¬ÊÍ·Å
-//4  ×ÊÔ´´ò°üºÍ°üÊý¾Ý´æÈ¡
+// RawDataSetï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
+//1. Ô­Ê¼ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½Ä±ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+//2. Í¨ï¿½ï¿½IDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//3. ï¿½ï¿½Ì¬ï¿½Í·ï¿½
+//4  ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½Í°ï¿½ï¿½ï¿½ï¿½Ý´ï¿½È¡
 
-// Ä¿Ç°µÄÓ¦ÓÃ»¹Ö»ÄÜÎªÒ»Ð©×ÊÔ´ÃèÊö¸ñÊ½½ÏÎª¼òµ¥µÄÊý¾Ý×ö»ùÀà½Ó¿Ú
-// ÀýÈç:  ID  Êý¾ÝÀ´Ô´(ÎÄ¼þÃû) ¼òµ¥²ÎÊý¼¯ºÏ ÕâÀàµÄ¸ñÊ½
+// Ä¿Ç°ï¿½ï¿½Ó¦ï¿½Ã»ï¿½Ö»ï¿½ï¿½ÎªÒ»Ð©ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½Îªï¿½òµ¥µï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½
+// ï¿½ï¿½ï¿½ï¿½:  ID  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´(ï¿½Ä¼ï¿½ï¿½ï¿½) ï¿½òµ¥²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½Ê½
 
-// Ë÷Òý·½Ê½:
-// ÀàÐÍID = Êý×éÏÂ±ê
-// Í¨¹ýÀàÐÍIDË÷Òýµ½Ô­Ê¼Êý¾Ý
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½:
+// ï¿½ï¿½ï¿½ï¿½ID = ï¿½ï¿½ï¿½ï¿½ï¿½Â±ï¿½
+// Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­Ê¼ï¿½ï¿½ï¿½ï¿½
 
 
-// ×ÓÀàÔÚÊ¹ÓÃÇ°, ±ØÐë¼Ì³ÐÒÔÏÂµÄ·½·¨
-// virtual int				_GetRawDataInfoSize()										      // Ã¿¸ö×ÓÀàµÄRawDataInfo¶¼ÓÐ²»Í¬, È¡µÃRawDataInfoµÄÊý¾Ý³ß´ç
-// virtual void*			_CreateNewRawData(CRawDataInfo *pRawInfo)		    		      // È¡µÃÐÂµÄRawDataÊý¾Ý, ¿ÉÄÜÄ£ÐÍÊý¾ÝÖ¸Õë£¬Ò²¿ÉÒÔÊÇÌùÍ¼±íÃæÖ¸Õë
-// virtual void				_ReadRawDataInfo(CRawDataInfo *pRawInfo, list<string> &ParamList) // ×ÊÔ´ÎÄ¼þÃ¿¶Áµ½ÐÂµÄÒ»ÐÐ, ×ÓÀà¿ÉÒÔµÃµ½µÄ»Øµ÷´¦Àí
-// virtual void				_DeleteRawData(void *pData);								      // É¾³ý×ÊÔ´, ×ÊÔ´µÄÉ¾³ý·½Ê½¿ÉÄÜ×ÓÀà¸÷ÓÐ²»Í¬	
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½Ç°, ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ï¿½ï¿½ï¿½ÂµÄ·ï¿½ï¿½ï¿½
+// virtual int				_GetRawDataInfoSize()										      // Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½RawDataInfoï¿½ï¿½ï¿½Ð²ï¿½Í¬, È¡ï¿½ï¿½RawDataInfoï¿½ï¿½ï¿½ï¿½ï¿½Ý³ß´ï¿½
+// virtual void*			_CreateNewRawData(CRawDataInfo *pRawInfo)		    		      // È¡ï¿½ï¿½ï¿½Âµï¿½RawDataï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ë£¬Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
+// virtual void				_ReadRawDataInfo(CRawDataInfo *pRawInfo, list<string> &ParamList) // ï¿½ï¿½Ô´ï¿½Ä¼ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½Ò»ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÔµÃµï¿½ï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½
+// virtual void				_DeleteRawData(void *pData);								      // É¾ï¿½ï¿½ï¿½ï¿½Ô´, ï¿½ï¿½Ô´ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½Í¬	
 
-// ÁíÍâ, ×ÓÀà±ØÐëÔÚ×Ô¼ºµÄ¹¹ÔìÀïµ÷ÓÃ_Init()º¯Êý
+// ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½_Init()ï¿½ï¿½ï¿½ï¿½
 
 
 #include <fstream>
@@ -47,16 +47,16 @@ public:
 		strcpy(szDataName, "");	
 	}
 	
-    BOOL	bExist;				// ×ÊÔ´ÊÇ·ñ´æÔÚ
-	int		nIndex;				// ÔÚArrayÖÐµÄÎ»ÖÃ				
-	char	szDataName[72];		// Êý¾ÝÀ´Ô´(Í¨³£ÊÇÊý¾ÝÎÄ¼þÃû)
-	DWORD	dwLastUseTick;		// ÉÏ´ÎÊ¹ÓÃµÄÊ±¼ä
-	BOOL	bEnable;			// ÊÇ·ñÓÐÐ§, ¿ÉÒÔ¶¯Ì¬ÉèÖÃ
-	void*   pData;				// Êµ¼ÊÊý¾Ý
-	DWORD   dwPackOffset;		// ÔÚ°üÎÄ¼þÖÐµÄÊý¾ÝÆ«ÒÆ
-	DWORD   dwDataSize;			// Ô­Ê¼Êý¾Ý³ß´ç(ÎÄ¼þ³ß´ç)
+    BOOL	bExist;				// ï¿½ï¿½Ô´ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
+	int		nIndex;				// ï¿½ï¿½Arrayï¿½Ðµï¿½Î»ï¿½ï¿½				
+	char	szDataName[72];		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´(Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½)
+	DWORD	dwLastUseTick;		// ï¿½Ï´ï¿½Ê¹ï¿½Ãµï¿½Ê±ï¿½ï¿½
+	BOOL	bEnable;			// ï¿½Ç·ï¿½ï¿½ï¿½Ð§, ï¿½ï¿½ï¿½Ô¶ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½
+	void*   pData;				// Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD   dwPackOffset;		// ï¿½Ú°ï¿½ï¿½Ä¼ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½Æ«ï¿½ï¿½
+	DWORD   dwDataSize;			// Ô­Ê¼ï¿½ï¿½ï¿½Ý³ß´ï¿½(ï¿½Ä¼ï¿½ï¿½ß´ï¿½)
 	int     nID;				// ID
-    DWORD   dwLoadCnt;          // ×ÊÔ´¶ÁÈ¡´ÎÊý
+    DWORD   dwLoadCnt;          // ï¿½ï¿½Ô´ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 };
 
 
@@ -66,7 +66,7 @@ class MINDPOWER_API CRawDataSet
 
 protected:
 
-	CRawDataSet(int nIDStart, int nIDCnt) // Ò»¶¨Òª¼Ì³ÐÊ¹ÓÃ
+	CRawDataSet(int nIDStart, int nIDCnt) // Ò»ï¿½ï¿½Òªï¿½Ì³ï¿½Ê¹ï¿½ï¿½
 	:_nIDStart(nIDStart),
 	_nIDCnt(nIDCnt),
 	_bEnablePack(FALSE),
@@ -74,11 +74,11 @@ protected:
 	_nUnusedIndex(0),
 	_RawDataArray(NULL)
 	{
-		_dwReleaseInterval  = 1000 * 60 * 1;		// Ä¬ÈÏ1·ÖÖÓÃ»ÓÐÊ¹ÓÃµ½µÄ»á±»Çå³ý
-		// _dwReleaseInterval  = 1000 * 30;			// Ä¬ÈÏ30ÃëÃ»ÓÐÊ¹ÓÃµ½µÄ»á±»Çå³ý
-		_nMaxRawDataCnt          = 50;				// Ä¬ÈÏÄÚ´æÖÐ³¬¹ý50¸öRawDataÊ±, »á°´Ê±¼äÊÍ·ÅÃ»ÓÐÊ¹ÓÃµÄRawData
+		_dwReleaseInterval  = 1000 * 60 * 1;		// Ä¬ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½Ê¹ï¿½Ãµï¿½ï¿½Ä»á±»ï¿½ï¿½ï¿½
+		// _dwReleaseInterval  = 1000 * 30;			// Ä¬ï¿½ï¿½30ï¿½ï¿½Ã»ï¿½ï¿½Ê¹ï¿½Ãµï¿½ï¿½Ä»á±»ï¿½ï¿½ï¿½
+		_nMaxRawDataCnt          = 50;				// Ä¬ï¿½ï¿½ï¿½Ú´ï¿½ï¿½Ð³ï¿½ï¿½ï¿½50ï¿½ï¿½RawDataÊ±, ï¿½á°´Ê±ï¿½ï¿½ï¿½Í·ï¿½Ã»ï¿½ï¿½Ê¹ï¿½Ãµï¿½RawData
 		_nLoadedRawDataCnt       = 0;
-        _dwMaxFrameRawDataSize   = 0;                // µ¥¸öFrame¶ÁÈëµÄ×î´ó³ß´ç, 0±íÊ¾ÎÞÏÞÖÆ
+        _dwMaxFrameRawDataSize   = 0;                // ï¿½ï¿½ï¿½ï¿½Frameï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß´ï¿½, 0ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         _bEnableRequest          = FALSE;
    	}
 
@@ -95,7 +95,7 @@ public:
 	
 	BOOL			IsValidID(int nID);
 	
-	// ¶ÔÓÚ¶¯Ì¬ÊÍ·ÅµÄ²ÎÊýÉèÖÃ
+	// ï¿½ï¿½ï¿½Ú¶ï¿½Ì¬ï¿½Í·ÅµÄ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     void			SetReleaseInterval(DWORD dwInterval)	{ _dwReleaseInterval = dwInterval;	}
 	void			SetMaxRawData(int nDataCnt)				{ _nMaxRawDataCnt	 = nDataCnt;	}
 	
@@ -104,13 +104,13 @@ public:
 	void			Release();
     void            FrameLoad(int nFrameLoad = 2);
 
-	// ´ò°üÓÐ¹Ø
-    void			EnablePack(const char *pszPackName);	// ½öÔÚ¶ÁÈë¶þ½øÖÆ×ÊÔ´ÃèÊöÎÄ¼þºóÓÐÐ§
+	// ï¿½ï¿½ï¿½ï¿½Ð¹ï¿½
+    void			EnablePack(const char *pszPackName);	// ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Ð§
 	void            Pack(const char *pszPackName, const char *pszBinName);
     void			PackFromDirectory(list<string> &DirList, const char *pszPackName, const char *pszBinName);
     BOOL            IsEnablePack()              { return _bEnablePack; } 
 	
-    // ×ÊÔ´¶ÁÈ¡
+    // ï¿½ï¿½Ô´ï¿½ï¿½È¡
     LPBYTE			LoadRawFileData(CRawDataInfo *pInfo);
 	
     void            EnableRequest(BOOL bEnable)   { _bEnableRequest = bEnable; }
@@ -176,7 +176,7 @@ inline CRawDataInfo* CRawDataSet::GetRawDataInfo(const char *pszDataName)
 {
 	map<string, CRawDataInfo*>::iterator it = _IDIdx.find(pszDataName);
 
-	if(it!=_IDIdx.end()) // ´ËIDÒÑ¾­´æÔÚ
+	if(it!=_IDIdx.end()) // ï¿½ï¿½IDï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		return (*it).second;
     }
@@ -212,13 +212,13 @@ inline void* CRawDataSet::GetRawData(int nID, BOOL bRequest)
 	return pInfo->pData;
 }
 
-inline int CRawDataSet::GetRawDataID(const char *pszDataName) // ´ÓÃû×Ö»ñÈ¡ID, Èç¹ûÃ»ÓÐÔò·ÖÅäÒ»¸ö
+inline int CRawDataSet::GetRawDataID(const char *pszDataName) // ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½È¡ID, ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 {
 	CRawDataInfo *pInfo;
 
     map<string, CRawDataInfo*>::iterator it = _IDIdx.find(pszDataName);
 
-	if(it!=_IDIdx.end()) // ´ËIDÒÑ¾­´æÔÚ
+	if(it!=_IDIdx.end()) // ï¿½ï¿½IDï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		pInfo = (*it).second;
 	}
@@ -259,7 +259,7 @@ inline BOOL CRawDataSet::IsValidID(int nID)
 }
 
 
-inline BOOL CRawDataSet::LoadRawDataInfo(const char *pszFile, BOOL bBinary)
+__declspec(noinline) BOOL CRawDataSet::LoadRawDataInfo(const char *pszFile, BOOL bBinary)
 {
 	char szTxtName[255], szBinName[255];
 
@@ -267,20 +267,12 @@ inline BOOL CRawDataSet::LoadRawDataInfo(const char *pszFile, BOOL bBinary)
 	
 	sprintf(szTxtName, "%s.txt", pszFile);
 	sprintf(szBinName, "%s.bin", pszFile);
-	if(bBinary) 
-	{
-		return _LoadRawDataInfo_Bin(szBinName);
-	}
-	else
-	{
-		BOOL bLoad = _LoadRawDataInfo_Txt(szTxtName);
-		if(bLoad)
-		{
-			_WriteRawDataInfo_Bin(szBinName);
-		}
-		return bLoad;
-	}
-	return TRUE;
+
+	{FILE*_lf=fopen("log\\table_load.log","a");if(_lf){fprintf(_lf,"[LRI] file=%s bBin=%d forcing txt mode\n",pszFile,bBinary);fflush(_lf);fclose(_lf);}}
+
+	BOOL bLoad = _LoadRawDataInfo_Txt(szTxtName);
+	{FILE*_lf=fopen("log\\table_load.log","a");if(_lf){fprintf(_lf,"[LRI] txt done=%d\n",bLoad);fflush(_lf);fclose(_lf);}}
+	return bLoad;
 }
 
 inline void CRawDataSet::FrameLoad(int nFrameLoad)
@@ -370,89 +362,122 @@ inline void CRawDataSet::Release()
     delete this;
 }
 
-inline BOOL CRawDataSet::_LoadRawDataInfo_Bin(const char *pszFileName)
+__declspec(noinline) BOOL CRawDataSet::_LoadRawDataInfo_Bin(const char *pszFileName)
 {
+	const unsigned char cluTableKey[] = { 0x32, 0x72, 0x35, 0x75, 0x38, 0x78, 0x2f, 0x41, 0x3f, 0x44, 0x28, 0x47, 0x2b, 0x4b, 0x62, 0x50 };
+	const unsigned char cluTableIV[]  = { 0x43, 0x2a, 0x46, 0x29, 0x4a, 0x40, 0x4e, 0x63, 0x52, 0x66, 0x55, 0x6a, 0x58, 0x6e, 0x32, 0x72 };
+
+	{FILE*_tf=fopen("log\\table_load.log","a");if(_tf){fprintf(_tf,"[BIN] enter file=%s\n",pszFileName);fflush(_tf);fclose(_tf);}}
+
 	FILE* fp = fopen(pszFileName, "rb");
-	if(fp==NULL) 
+	char szMsg[MAX_PATH] = { 0 };
+
+	if (fp == NULL)
 	{
-		LG("error", "Load Raw Data Info Bin File [%s] Failed!\n", pszFileName);
+		LG2("error", "Load Raw Data Info Bin File [%s] Failed!\n", pszFileName);
+		sprintf(szMsg, "Open table file failed:%s\nProgram will exit!\n", pszFileName);
+		MessageBox(NULL, szMsg, "Error", MB_OK | MB_ICONERROR);
 		return FALSE;
 	}
-	
-    int nSize     = Util_GetFileSize(fp);
-    int nInfoSize = _GetRawDataInfoSize();
-    int nResCnt   = nSize / nInfoSize;
 
-    LPBYTE pbtResInfo = new BYTE[nSize];
-    
-    fread(pbtResInfo, nSize, 1, fp);
+	int nSize     = Util_GetFileSize(fp);
+	int nInfoSize = _GetRawDataInfoSize();
 
-	for (int i = 0; i < nSize; ++i)
-    {
-		// Shift back chars
-        pbtResInfo[i] -= 15;
-    }
+	{FILE*_tf=fopen("log\\table_load.log","a");if(_tf){fprintf(_tf,"[BIN] fileSize=%d infoSize=%d idStart=%d idCnt=%d\n",nSize,nInfoSize,_nIDStart,_nIDCnt);fflush(_tf);fclose(_tf);}}
 
-    for(int i = 0; i < nResCnt; i++)
-    {
-        CRawDataInfo *pInfo = (CRawDataInfo*)(pbtResInfo + i * _GetRawDataInfoSize());
-        if(!pInfo->bExist) continue;
-        CRawDataInfo *pCurInfo = GetRawDataInfo(pInfo->nID);
-        memcpy(pCurInfo, pInfo, nInfoSize); // Ìæ´úÔ­ÓÐµÄÐÅÏ¢
-        _IDIdx[pCurInfo->szDataName] = pCurInfo;
-        vector<string> ParamList; _ReadRawDataInfo(pCurInfo, ParamList);
-        LG("debug", "Load Bin RawData [%s] = %d\n", pCurInfo->szDataName, pCurInfo->nID);
-    }
-    
-    delete pbtResInfo;
-    
-    fclose(fp);
+	LPBYTE pbtResInfo = new BYTE[nSize];
+	fread(pbtResInfo, sizeof(char), nSize, fp);
+	fclose(fp);
+
+	{FILE*_tf=fopen("log\\table_load.log","a");if(_tf){fprintf(_tf,"[BIN] pre decrypt\n");fflush(_tf);fclose(_tf);}}
+
+	std::string sink;
+	CryptoPP::GCM<CryptoPP::AES>::Decryption d;
+	d.SetKeyWithIV(cluTableKey, 16, cluTableIV, 16);
+
+	CryptoPP::AuthenticatedDecryptionFilter df(d, new CryptoPP::StringSink(sink),
+		CryptoPP::AuthenticatedDecryptionFilter::DEFAULT_FLAGS, 12);
+	CryptoPP::StringSource ss(pbtResInfo, nSize, true, new CryptoPP::Redirector(df));
+
+	{FILE*_tf=fopen("log\\table_load.log","a");if(_tf){fprintf(_tf,"[BIN] decrypted sinkSize=%llu\n",(unsigned long long)sink.size());fflush(_tf);fclose(_tf);}}
+
+	memset(pbtResInfo, 0, nSize);
+	memcpy(pbtResInfo, sink.c_str(), sink.size());
+
+	int nResCnt = (int)sink.size() / nInfoSize;
+	{FILE*_tf=fopen("log\\table_load.log","a");if(_tf){fprintf(_tf,"[BIN] resCnt=%d loop begin\n",nResCnt);fflush(_tf);fclose(_tf);}}
+
+	int nLoaded = 0;
+	for (int i = 0; i < nResCnt; i++)
+	{
+		CRawDataInfo *pInfo = (CRawDataInfo*)(pbtResInfo + i * nInfoSize);
+		if (pInfo->bExist != 1) continue;
+		if (IsValidID(pInfo->nID) == FALSE) continue;
+		CRawDataInfo *pCurInfo = _GetRawDataInfo(pInfo->nID);
+		memcpy(pCurInfo, pInfo, nInfoSize);
+		_IDIdx[pCurInfo->szDataName] = pCurInfo;
+		_ProcessRawDataInfo(pCurInfo);
+		nLoaded++;
+		LG2("debug", "Load Bin RawData [%s] = %d\n", pCurInfo->szDataName, pCurInfo->nID);
+	}
+
+	{FILE*_tf=fopen("log\\table_load.log","a");if(_tf){fprintf(_tf,"[BIN] loop done loaded=%d pre-delete\n",nLoaded);fflush(_tf);fclose(_tf);}}
+
+	delete[] pbtResInfo;
+
+	{FILE*_tf=fopen("log\\table_load.log","a");if(_tf){fprintf(_tf,"[BIN] post-delete returning TRUE\n");fflush(_tf);fclose(_tf);}}
+
 	return TRUE;
 }
-
 inline void CRawDataSet::_WriteRawDataInfo_Bin(const char *pszFileName)
 {
 	FILE* fp = fopen(pszFileName, "wb");
 	if(fp==NULL) return;
+
+	int infoSize = _GetRawDataInfoSize();
+	LPBYTE tmpBuf = new BYTE[infoSize];
 	
 	for(int i = 0; i < _nIDCnt; i++)
     {
-        CRawDataInfo *pInfo = (CRawDataInfo*)((LPBYTE)_RawDataArray + i * _GetRawDataInfoSize());
+        CRawDataInfo *pInfo = (CRawDataInfo*)((LPBYTE)_RawDataArray + i * infoSize);
         if(pInfo->bExist)
         {
-			LPBYTE scramble = (LPBYTE)pInfo;
-			for(int k = 0; k < _GetRawDataInfoSize(); k++){
-			// Let's scramble chars here
-			// Don't care about over/underflows, it will just loop on 0-255
-			scramble[k]  += 15; // value pointed is shifted in the ascii table
+			memcpy(tmpBuf, pInfo, infoSize);
+			for(int k = 0; k < infoSize; k++){
+				tmpBuf[k] += 15;
 			}
-			//}
-			//Done, let client/engine save it.
-            fwrite(pInfo, _GetRawDataInfoSize(), 1, fp);
+            fwrite(tmpBuf, infoSize, 1, fp);
         }
     }
+	delete[] tmpBuf;
 	fclose(fp);
 }
 
 
-inline BOOL CRawDataSet::_LoadRawDataInfo_Txt(const char *pszFileName)
+__declspec(noinline) BOOL CRawDataSet::_LoadRawDataInfo_Txt(const char *pszFileName)
 {
+	printf("[TXT] Opening %s\n", pszFileName); fflush(stdout);
 	ifstream in(pszFileName);
     if(in.is_open()==0)
     {
+        printf("[TXT] FAILED to open\n"); fflush(stdout);
         LG("error", "msgLoad Raw Data Info Txt File [%s] Fail!\n", pszFileName);
         return FALSE;
     }
+	printf("[TXT] Opened OK\n"); fflush(stdout);
 	
-	char szLine[255];
+	char szLine[4096];
     string strList[16];
 	string strComment;
 
 	vector<string> ParamList;
+	int lineNum = 0;
     
     while(!in.eof())
     {
-		in.getline(szLine, 255);
+		in.getline(szLine, sizeof(szLine));
+		lineNum++;
+		if(in.fail() && !in.eof()) { in.clear(); in.ignore(0x7fffffff, '\n'); continue; }
 		string strLine = szLine;
 		
 		int p = (int)strLine.find("//");
@@ -473,7 +498,10 @@ inline BOOL CRawDataSet::_LoadRawDataInfo_Txt(const char *pszFileName)
 
         int	nID = Str2Int(strList[0]);
 
+		if(lineNum <= 3) { printf("[TXT] line=%d nID=%d n=%d\n", lineNum, nID, n); fflush(stdout); }
+
         CRawDataInfo *pInfo = GetRawDataInfo(nID);
+		if(!pInfo) { printf("[TXT] NULL pInfo for ID=%d\n", nID); fflush(stdout); continue; }
 		pInfo->bExist = TRUE;
 		
         ParamList.clear();
@@ -482,7 +510,7 @@ inline BOOL CRawDataSet::_LoadRawDataInfo_Txt(const char *pszFileName)
         {
 			ParamList.push_back(strList[i + 2]);
 		}
-		for(i = 0; i < 15; i++) ParamList.push_back(""); // ·ÅÖÃ¿Õ´®,Èç¹û±»ºóÃæ´úÂë¶Áµ½, ±íÊ¾¸ñÊ½²»¶Ô
+		for(i = 0; i < 15; i++) ParamList.push_back("");
 		
 		Util_TrimString(strList[1]);
 		strcpy(pInfo->szDataName, strList[1].c_str());
@@ -491,12 +519,14 @@ inline BOOL CRawDataSet::_LoadRawDataInfo_Txt(const char *pszFileName)
         free(pszDataName);
 
 		_IDIdx[pInfo->szDataName] = pInfo;
+		if(lineNum <= 3) { printf("[TXT] calling _ReadRawDataInfo ID=%d paramSize=%zu\n", nID, ParamList.size()); fflush(stdout); }
         if(!_ReadRawDataInfo(pInfo, ParamList))
         {
-            LG("error", "msg½âÎö×ÊÔ´ÎÄ¼þ[%s]Ê§°Ü, Çë¼ì²é¸ñÊ½ºÍ°æ±¾!\n", pszFileName);
+            LG("error", "msg load resource [%s] failed!\n", pszFileName);
             in.close();
 	        return FALSE;
         }
+		if(lineNum <= 3) { printf("[TXT] _ReadRawDataInfo done for ID=%d\n", nID); fflush(stdout); }
 	}
     in.close();
 	return TRUE;
@@ -504,7 +534,7 @@ inline BOOL CRawDataSet::_LoadRawDataInfo_Txt(const char *pszFileName)
 
 
 //----------------------------------------------------------------------------------------------------------
-//												´ò°üÏà¹Ø´¦Àí
+//												ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½
 //----------------------------------------------------------------------------------------------------------
 inline LPBYTE Util_LoadFile(const char *pszFileName, DWORD* pdwFileSize)
 {
@@ -559,13 +589,13 @@ inline void CRawDataSet::Pack(const char *pszPackName, const char *pszBinName)
 	}
 	fclose(fp);
 	
-	_WriteRawDataInfo_Bin(pszBinName); // ´ò°üÖ®ºóÖØÐ´RawDataSet BinÎÄ¼þ
+	_WriteRawDataInfo_Bin(pszBinName); // ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½Ð´RawDataSet Binï¿½Ä¼ï¿½
 }
 
 
 //--------------------------------------------
-//  ´ÓÄ¿Â¼ÖÐ¶ÁÈ¡ÎÄ¼þ, Ã¿¸öÎÄ¼þ×÷ÎªÒ»¸ö×ÊÔ´, ²¢
-//  Éú³É×ÊÔ´ÃèÊöÐÅÏ¢ÎÄ¼þ xxx.bin
+//  ï¿½ï¿½Ä¿Â¼ï¿½Ð¶ï¿½È¡ï¿½Ä¼ï¿½, Ã¿ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ÎªÒ»ï¿½ï¿½ï¿½ï¿½Ô´, ï¿½ï¿½
+//  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Ä¼ï¿½ xxx.bin
 //--------------------------------------------
 inline void	CRawDataSet::PackFromDirectory(list<string> &DirList, const char *pszPackName, const char *pszBinName)
 {
@@ -606,7 +636,7 @@ inline void	CRawDataSet::PackFromDirectory(list<string> &DirList, const char *ps
 	
 	fclose(fp);
 	
-	_WriteRawDataInfo_Bin(pszBinName); // ´ò°üÖ®ºóÖØÐ´RawDataSet BinÎÄ¼þ
+	_WriteRawDataInfo_Bin(pszBinName); // ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½Ð´RawDataSet Binï¿½Ä¼ï¿½
 }	
 
 inline void CRawDataSet::EnablePack(const char *pszPackName)
@@ -625,14 +655,14 @@ inline void CRawDataSet::EnablePack(const char *pszPackName)
 
 
 //-----------------------------------------------------------------------------
-// ¶ÁÈ¡RawDataÊý¾Ýµ½ÄÚ´æ(Ò»°ãÓÃÔÚ°ÑÕû¸öÎÄ¼þ¶ÁÈë, »ò´Ó°üÖÐÈ¡³öÍêÕûÎÄ¼þÄÚÈÝµÄ³¡ºÏ
-// ×ÓÀàÊÓ×ÔÉíÐèÒªÀ´Ê¹ÓÃ´Ëº¯Êý, Ò²¿ÉÒÔÍêÈ«²»ÓÃ)
+// ï¿½ï¿½È¡RawDataï¿½ï¿½ï¿½Ýµï¿½ï¿½Ú´ï¿½(Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½Ó°ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ÝµÄ³ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ê¹ï¿½Ã´Ëºï¿½ï¿½ï¿½, Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½)
 //-----------------------------------------------------------------------------
 inline LPBYTE CRawDataSet::LoadRawFileData(CRawDataInfo *pInfo)
 {
 	LPBYTE pbtBuf    = NULL;
 	DWORD  dwBufSize = 0;
-	if(_bEnablePack) // ´Ó°üÖÐ¶ÁÈ¡
+	if(_bEnablePack) // ï¿½Ó°ï¿½ï¿½Ð¶ï¿½È¡
 	{
 		pbtBuf    = Util_LoadFilePart(_szPackName, pInfo->dwPackOffset, pInfo->dwDataSize);
 		dwBufSize = pInfo->dwDataSize;

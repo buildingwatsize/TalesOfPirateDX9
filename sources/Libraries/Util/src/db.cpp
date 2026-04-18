@@ -134,7 +134,7 @@ bool cfl_db::_reconnt()
 		LG2("util_db_error", "reconnect database...\n");
 	}
 
-	printf( "reconnect database success£¡\n" );
+	printf( "reconnect database successï¿½ï¿½\n" );
 	LG2("util_db_error", "reconnect database success!\n");
 	if (g_cchLogUtilDb == 1)
 		LG2("util_db", "reconnect database successfully\n");
@@ -150,7 +150,7 @@ bool cfl_db::_reconnt()
 		++ it;
 	}
 
-	printf( "reconnect database ok£¡\n" );
+	printf( "reconnect database okï¿½ï¿½\n" );
 	LG2("util_db_error", "reconnect database ok!\n");
 	return true;
 }
@@ -530,10 +530,10 @@ int cfl_rs::get_affected_rows()
 	_tbl_name			=l_tbl_name;
 	if(!l_ret)
 	{
-		return -1;	//SQL´íÎó
+		return -1;	//SQLï¿½ï¿½ï¿½ï¿½
 	}else if(l_affected_rows !=1)
 	{
-		return -2;	//»ñÈ¡ÖµÐÐÊý´íÎó
+		return -2;	//ï¿½ï¿½È¡Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}
 	return atoi(l_buf[0].c_str());
 }
@@ -548,10 +548,10 @@ int cfl_rs::get_identity()
 	_tbl_name			=l_tbl_name;
 	if(!l_ret)
 	{
-		return -1;	//SQL´íÎó
+		return -1;	//SQLï¿½ï¿½ï¿½ï¿½
 	}else if(l_affected_rows !=1)
 	{
-		return -2;	//»ñÈ¡ÖµÐÐÊý´íÎó
+		return -2;	//ï¿½ï¿½È¡Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}
 	return atoi(l_buf[0].c_str());
 }
@@ -597,7 +597,7 @@ bool cfl_rs::_get_bin_field(char* field_text, int& len, char* param, char* filte
 
 RECONNECT:
 
-    // Ö´ÐÐ²éÑ¯²Ù×÷
+    // Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
     SQLRETURN sqlret;
     SQLHSTMT hstmt = SQL_NULL_HSTMT;
     SQLSMALLINT col_num = 0;
@@ -645,7 +645,7 @@ RECONNECT:
                 break;
             }
 
-                SQLBindCol(hstmt, UWORD(1), SQL_C_BINARY, _buf[0], len, &_buf_len[0]);
+                SQLBindCol(hstmt, UWORD(1), SQL_C_BINARY, _buf[0], len, (SQLLEN*)&_buf_len[0]);
 
         } catch (...) {if (g_cchLogUtilDb == 1) LG2("util_db", "exception raised from _get_row bind\n"); break;}
 
@@ -668,10 +668,10 @@ RECONNECT:
         } catch (...) {if (g_cchLogUtilDb == 1) LG2("util_db", "exception raised from _get_row fetch\n"); break;}
 
         try {
-            // ¿½±´Êý¾Ý
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             if (found)
             {
-                // È¡Êý¾Ý
+                // È¡ï¿½ï¿½ï¿½ï¿½
 				len = _buf_len[0];
                 if (len == SQL_NULL_DATA)
                 {
@@ -687,7 +687,7 @@ RECONNECT:
             }
             else
             {
-                // Ã»ÓÐÈ¡µ½Êý¾Ý
+                // Ã»ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 if (affect_rows != NULL)
                     *affect_rows = 0;
             }
@@ -752,7 +752,7 @@ bool cfl_rs::_get_row(string field_text[], int field_max_cnt, const char* param,
 
 RECONNECT:
 
-    // Ö´ÐÐ²éÑ¯²Ù×÷
+    // Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
     SQLRETURN sqlret;
     SQLHSTMT hstmt = SQL_NULL_HSTMT;
     SQLSMALLINT col_num = 0;
@@ -805,7 +805,7 @@ RECONNECT:
             for (i = 0; i < col_num; ++ i)
             {
                 SQLBindCol(hstmt, UWORD(i + 1), SQL_C_CHAR, _buf[i],
-                        MAX_DATALEN, &_buf_len[i]);
+                        MAX_DATALEN, (SQLLEN*)&_buf_len[i]);
             }
         } catch (...) {if (g_cchLogUtilDb == 1) LG2("util_db", "exception raised from _get_row bind\n"); break;}
 
@@ -828,10 +828,10 @@ RECONNECT:
         } catch (...) {if (g_cchLogUtilDb == 1) LG2("util_db", "exception raised from _get_row fetch\n"); break;}
 
         try {
-            // ¿½±´Êý¾Ý
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             if (found)
             {
-                // È¡Êý¾Ý
+                // È¡ï¿½ï¿½ï¿½ï¿½
                 for (i = 0; i < col_num; ++ i)
                 {
                     if (_buf_len[i] == SQL_NULL_DATA)
@@ -849,7 +849,7 @@ RECONNECT:
             }
             else
             {
-                // Ã»ÓÐÈ¡µ½Êý¾Ý
+                // Ã»ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 if (affect_rows != NULL)
                     *affect_rows = 0;
             }
@@ -910,7 +910,7 @@ bool cfl_rs::_get_row3(string field_text[], int field_max_cnt, const char* param
 
 RECONNECT:
 
-    // Ö´ÐÐ²éÑ¯²Ù×÷
+    // Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
     SQLRETURN sqlret;
     SQLHSTMT hstmt = SQL_NULL_HSTMT;
     SQLSMALLINT col_num = 0;
@@ -964,7 +964,7 @@ RECONNECT:
             for (i = 0; i < col_num; ++ i)
             {
                 SQLBindCol(hstmt, UWORD(i + 1), SQL_C_CHAR, _buf[i],
-                    MAX_DATALEN, &_buf_len[i]);
+                    MAX_DATALEN, (SQLLEN*)&_buf_len[i]);
             }
         } catch (...) {if (g_cchLogUtilDb == 1) LG2("util_db", "exception raised from _get_row3 bind\n"); break;}
 
@@ -987,10 +987,10 @@ RECONNECT:
         } catch (...) {if (g_cchLogUtilDb == 1) LG2("util_db", "exception raised from _get_row3 fetch\n"); break;}
 
         try {
-            // ¿½±´Êý¾Ý
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             if (found)
             {
-                // È¡Êý¾Ý
+                // È¡ï¿½ï¿½ï¿½ï¿½
                 for (i = 0; i < col_num; ++ i)
                 {
                     if (_buf_len[i] == SQL_NULL_DATA)
@@ -1014,7 +1014,7 @@ RECONNECT:
             }
             else
             {
-                // Ã»ÓÐÈ¡µ½Êý¾Ý
+                // Ã»ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 if (affect_rows != NULL)
                     *affect_rows = 0;
             }
@@ -1076,7 +1076,7 @@ bool cfl_rs::_get_rowOderby(string field_text[], int field_max_cnt, const char* 
 
 RECONNECT:
 
-    // Ö´ÐÐ²éÑ¯²Ù×÷
+    // Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
     SQLRETURN sqlret;
     SQLHSTMT hstmt = SQL_NULL_HSTMT;
     SQLSMALLINT col_num = 0;
@@ -1130,7 +1130,7 @@ RECONNECT:
             for (i = 0; i < col_num; ++ i)
             {
                 SQLBindCol(hstmt, UWORD(i + 1), SQL_C_CHAR, _buf[i],
-                    MAX_DATALEN, &_buf_len[i]);
+                    MAX_DATALEN, (SQLLEN*)&_buf_len[i]);
             }
         } catch (...) {if (g_cchLogUtilDb == 1) LG2("util_db", "exception raised from _get_row3 bind\n"); break;}
 
@@ -1153,10 +1153,10 @@ RECONNECT:
         } catch (...) {if (g_cchLogUtilDb == 1) LG2("util_db", "exception raised from _get_row3 fetch\n"); break;}
 
         try {
-            // ¿½±´Êý¾Ý
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             if (found)
             {
-                // È¡Êý¾Ý
+                // È¡ï¿½ï¿½ï¿½ï¿½
                 for (i = 0; i < col_num; ++ i)
                 {
                     if (_buf_len[i] == SQL_NULL_DATA)
@@ -1180,7 +1180,7 @@ RECONNECT:
             }
             else
             {
-                // Ã»ÓÐÈ¡µ½Êý¾Ý
+                // Ã»ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 if (affect_rows != NULL)
                     *affect_rows = 0;
             }
@@ -1267,7 +1267,7 @@ RECONNECT:
 
     SQLRETURN sqlret;
     SQLHSTMT hstmt = SQL_NULL_HSTMT;
-    SQLINTEGER data_len = SQL_NTS;
+    SQLLEN data_len = SQL_NTS;
 
     do
     {
@@ -1347,7 +1347,7 @@ RECONNECT:
 
     SQLRETURN sqlret;
     SQLHSTMT hstmt = SQL_NULL_HSTMT;
-    SQLINTEGER data_len = len;
+    SQLLEN data_len = len;
 
     do
     {
@@ -1426,7 +1426,7 @@ bool cfl_rs::getalldata(const char* sql, vector< vector< string > >& data, unsig
 {
 	bool ret;
 
-    // Ö´ÐÐ²éÑ¯²Ù×÷
+    // Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
     SQLRETURN sqlret;
     SQLHSTMT hstmt = SQL_NULL_HSTMT;
     SQLSMALLINT col_num = 0;
@@ -1465,7 +1465,7 @@ bool cfl_rs::getalldata(const char* sql, vector< vector< string > >& data, unsig
             // Bind Column
             for (int i = 0; i < col_num; ++ i)
             {
-                SQLBindCol(hstmt, UWORD(i + 1), SQL_C_CHAR, _buf[i], MAX_DATALEN, &_buf_len[i]);
+                SQLBindCol(hstmt, UWORD(i + 1), SQL_C_CHAR, _buf[i], MAX_DATALEN, (SQLLEN*)(SQLLEN*)&_buf_len[i]);
             }
 
             // Fetch each Row
@@ -1511,7 +1511,7 @@ bool cfl_rs::get_page_data(char* tablename, char* param, int pagesize, int pagei
 {
 	bool ret;
 
-    // Ö´ÐÐ²éÑ¯²Ù×÷
+    // Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
     SQLRETURN sqlret;
     SQLHSTMT hstmt = SQL_NULL_HSTMT;
     SQLSMALLINT col_num = 0;
@@ -1521,7 +1521,7 @@ bool cfl_rs::get_page_data(char* tablename, char* param, int pagesize, int pagei
     {
         do
         {
-			SQLINTEGER sql_nts = SQL_NTS;
+			SQLLEN sql_nts = SQL_NTS;
 			SQLINTEGER num[2];
 
 			//char tablename[32];
@@ -1576,7 +1576,7 @@ bool cfl_rs::get_page_data(char* tablename, char* param, int pagesize, int pagei
             // Bind Column
             for (int i = 0; i < col_num; ++ i)
             {
-                SQLBindCol(hstmt, UWORD(i + 1), SQL_C_CHAR, _buf[i], MAX_DATALEN, &_buf_len[i]);
+                SQLBindCol(hstmt, UWORD(i + 1), SQL_C_CHAR, _buf[i], MAX_DATALEN, (SQLLEN*)(SQLLEN*)&_buf_len[i]);
             }
 
             // Fetch each Row
@@ -1603,7 +1603,7 @@ bool cfl_rs::get_page_data(char* tablename, char* param, int pagesize, int pagei
 				// Bind Column
 				for (int i = 0; i < col_num; ++ i)
 				{
-					SQLBindCol(hstmt, UWORD(i + 1), SQL_C_CHAR, _buf[i], MAX_DATALEN, &_buf_len[i]);
+					SQLBindCol(hstmt, UWORD(i + 1), SQL_C_CHAR, _buf[i], MAX_DATALEN, (SQLLEN*)(SQLLEN*)&_buf_len[i]);
 				}
 
 				// Fetch each Row
@@ -1647,7 +1647,7 @@ RECONNECT:
 	if (g_cchLogUtilDb == 1)
 	    LG2("util_db", "get() [SQL]: [%s]\n", sql);
 
-    // Ö´ÐÐ²éÑ¯²Ù×÷
+    // Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
     SQLRETURN sqlret;
     SQLHSTMT hstmt = SQL_NULL_HSTMT;
     SQLSMALLINT col_num = 0;
@@ -1696,7 +1696,7 @@ RECONNECT:
             for (i = 0; i < col_num; ++ i)
             {
                 SQLBindCol(hstmt, UWORD(i + 1), SQL_C_CHAR, _buf[i],
-                    MAX_DATALEN, &_buf_len[i]);
+                    MAX_DATALEN, (SQLLEN*)&_buf_len[i]);
             }
         } catch (...) {if (g_cchLogUtilDb == 1) LG2("util_db", "exception raised from _get_row bind\n"); break;}
 
@@ -1719,10 +1719,10 @@ RECONNECT:
         } catch (...) {if (g_cchLogUtilDb == 1) LG2("util_db", "exception raised from _get_row fetch\n"); break;}
 
         try {
-            // ¿½±´Êý¾Ý
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             if (found)
             {
-                // È¡Êý¾Ý
+                // È¡ï¿½ï¿½ï¿½ï¿½
                 memcpy((void *)pdata, _buf[0], len);
             }
             else
@@ -1859,7 +1859,7 @@ bool friend_tbl::get_friend_dat(friend_dat* farray, int& array_num, unsigned int
     char sql[SQL_MAXLEN];
 	sprintf(sql, query_friend_format, atorID, atorID, atorID, atorID);
 
-    // Ö´ÐÐ²éÑ¯²Ù×÷
+    // Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
     SQLRETURN sqlret;
     SQLHSTMT hstmt = SQL_NULL_HSTMT;
     SQLSMALLINT col_num = 0;
@@ -1898,7 +1898,7 @@ bool friend_tbl::get_friend_dat(friend_dat* farray, int& array_num, unsigned int
             // Bind Column
             for (int i = 0; i < col_num; ++ i)
             {
-                SQLBindCol(hstmt, UWORD(i + 1), SQL_C_CHAR, _buf[i], MAX_DATALEN, &_buf_len[i]);
+                SQLBindCol(hstmt, UWORD(i + 1), SQL_C_CHAR, _buf[i], MAX_DATALEN, (SQLLEN*)(SQLLEN*)&_buf_len[i]);
             }
 
             // Fetch each Row
@@ -1961,7 +1961,7 @@ bool friend_tbl::get_friend_dat(friend_dat* farray, int& array_num, unsigned int
 	char sql[SQL_MAXLEN];
 	sprintf(sql, query_friend_format, atorID, atorID, atorID);
 
-	// Ö´ÐÐ²éÑ¯²Ù×÷
+	// Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
 	SQLRETURN sqlret = exec_sql_direct(sql, false);
 	if (DBOK(sqlret))
 	{
@@ -2061,7 +2061,7 @@ bool friend_tbl::get_gm_dat(friend_dat* farray, int& array_num, bool* drop)
             // Bind Column
             for (int i = 0; i < col_num; ++i)
             {
-                SQLBindCol(hstmt, UWORD(i + 1), SQL_C_CHAR, _buf[i], MAX_DATALEN, &_buf_len[i]);
+                SQLBindCol(hstmt, UWORD(i + 1), SQL_C_CHAR, _buf[i], MAX_DATALEN, (SQLLEN*)(SQLLEN*)&_buf_len[i]);
             }
 
             // Fetch each Row
@@ -2086,7 +2086,7 @@ bool friend_tbl::get_gm_dat(friend_dat* farray, int& array_num, bool* drop)
                 farray[i].motto = (char const*)_buf[4];
             }
 
-            array_num = i; // È¡³öµÄÐÐÊý
+            array_num = i; // È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
             SQLFreeStmt(hstmt, SQL_CLOSE);
             SQLFreeStmt(hstmt, SQL_RESET_PARAMS);

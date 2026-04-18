@@ -1,0 +1,36 @@
+Microsoft (R) COFF/PE Dumper Version 14.37.32822.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\TalesOfPirateDX9\Client\system\MindPower3D_D8R.dll
+
+File Type: DLL
+
+  Image has the following dependencies:
+
+    KERNEL32.dll
+    USER32.dll
+    GDI32.dll
+    COMDLG32.dll
+    ADVAPI32.dll
+    SHELL32.dll
+    ole32.dll
+    OLEAUT32.dll
+    WINMM.dll
+    d3d9.dll
+    d3dx9_43.dll
+    DINPUT8.dll
+    VERSION.dll
+    IPHLPAPI.DLL
+
+  Summary
+
+        1000 .00cfg
+     EE29000 .data
+        3000 .idata
+       8A000 .rdata
+       9D000 .reloc
+        1000 .rsrc
+      2D5000 .text
+      14D000 .textbss
+        1000 .tls

@@ -1,5 +1,8 @@
 #include "StdAfx.h"
 #include <log.h>
+#include <exception>
+#include <psapi.h>
+#pragma comment(lib, "psapi.lib")
 //#include "../../../proj/EffectEditer.h"
 //#include <mindpower.h>
 #include "GlobalInc.h"
@@ -256,15 +259,17 @@ void	CMPResManger::ReleaseTotalRes()
 
 bool CMPResManger::InitRes2()
 {
+	{FILE*_f=fopen("log\\initres2.log","w");if(_f){fprintf(_f,"InitRes2: pre LoadTotalMesh\n");fflush(_f);fclose(_f);}}
 	if(!LoadTotalMesh())
 		return false;
+	{FILE*_f=fopen("log\\initres2.log","a");if(_f){fprintf(_f,"InitRes2: post LoadTotalMesh\n");fflush(_f);fclose(_f);}}
 
 	if(!LoadTotalEffect())
 		return false;
-
-	//LoadTotalData();
+	{FILE*_f=fopen("log\\initres2.log","a");if(_f){fprintf(_f,"InitRes2: post LoadTotalEffect\n");fflush(_f);fclose(_f);}}
 
 	LoadTotalPath();
+	{FILE*_f=fopen("log\\initres2.log","a");if(_f){fprintf(_f,"InitRes2: post LoadTotalPath\n");fflush(_f);fclose(_f);}}
 
 	return true;
 }
@@ -333,7 +338,7 @@ bool	CMPResManger::InitRes(LPDIRECT3DDEVICE8		pDev, D3DXMATRIX* pmat, D3DXMATRIX
 
 	if(!CScriptFile::m_ctScript.OpenFileRead("effect/model.txt"))
 	{
-		LG("ERROR","msgÈ±ÉÙ effect/model.txt");
+		LG("ERROR","msgç¼ºå°‘ effect/model.txt");
 		return false;
 	}
 
@@ -410,7 +415,7 @@ bool	CMPResManger::InitRes(LPDIRECT3DDEVICE8		pDev, D3DXMATRIX* pmat, D3DXMATRIX
 int		CMPResManger::GetTextureID(const s_string &sName)
 {
 #if RESOURCE_SCRIPT == 1
-	// ×ÊÔ´½Å±¾¶¨ÒåÊ±£¬×Ô¶¯Éú³ÉÎÄ¼şÓÃ
+	// èµ„æºè„šæœ¬å®šä¹‰æ—¶ï¼Œè‡ªåŠ¨ç”Ÿæˆæ–‡ä»¶ç”¨
 	StrMapIter iter = _mapTexture.find(sName);
 	if (iter == _mapTexture.end())
 		_mapTexture.insert(sName);
@@ -433,13 +438,13 @@ int		CMPResManger::GetTextureID(const s_string &sName)
 	//}
 	
 #if RESOURCE_SCRIPT == 2
-	// ×ÊÔ´½Å±¾Ê¹ÓÃ²âÊÔÊ±£¬±¨¸æÎÆÀíÎ´ÌîÈëÌØĞ§½Å±¾ÖĞ
+	// èµ„æºè„šæœ¬ä½¿ç”¨æµ‹è¯•æ—¶ï¼ŒæŠ¥å‘Šçº¹ç†æœªå¡«å…¥ç‰¹æ•ˆè„šæœ¬ä¸­
 	LG("error","msg: CMPResManger::GetTextureID(),TextureName=%s", sName.c_str());
 #endif
 
 	// Failure
 	char szMsg[64];
-	sprintf(szMsg,"È±ÉÙÌØĞ§ÌûÍ¼[%s](ÎÄ¼ş²»´æÔÚ»òÌØĞ§×ÊÔ´ÅäÖÃÎÄ¼ş³ö´í)",
+	sprintf(szMsg,"ç¼ºå°‘ç‰¹æ•ˆå¸–å›¾[%s](æ–‡ä»¶ä¸å­˜åœ¨æˆ–ç‰¹æ•ˆèµ„æºé…ç½®æ–‡ä»¶å‡ºé”™)",
 		sName.c_str());
 	LG("ERROR","msg%s",szMsg);
 	return -1;
@@ -472,7 +477,7 @@ lwITex*		CMPResManger::GetTextureByIDlw( int iID)
 		if(LW_FAILED(lwLoadTex(&tex, m_pSysGraphics->GetResourceMgr(), t_pszFile, 0, D3DFMT_A4R4G4B4)))
 		{
 			char szMsg[64];
-			sprintf(szMsg, "¼ÓÔØÌØĞ§ÌùÍ¼[id=%d]³ö´í", iID);
+			sprintf(szMsg, "åŠ è½½ç‰¹æ•ˆè´´å›¾[id=%d]å‡ºé”™", iID);
 			LG("ERROR","msg%s",szMsg);
 			return 0;
 		}
@@ -525,7 +530,7 @@ int		CMPResManger::GetMeshID(const s_string &sName)
 
 	// Failure
 	//char szMsg[64];
-	//sprintf(szMsg,"È±ÉÙÌØĞ§Ä£ĞÍ[%s](ÎÄ¼ş²»´æÔÚ»òÌØĞ§×ÊÔ´ÅäÖÃÎÄ¼ş³ö´í)",
+	//sprintf(szMsg,"ç¼ºå°‘ç‰¹æ•ˆæ¨¡å‹[%s](æ–‡ä»¶ä¸å­˜åœ¨æˆ–ç‰¹æ•ˆèµ„æºé…ç½®æ–‡ä»¶å‡ºé”™)",
 	//	sName.c_str());
 	//LG("ERROR","msg%s",szMsg);
 	return -1;
@@ -540,7 +545,7 @@ CEffectModel* CMPResManger::GetMeshByID( int iID)
 	if(iID >=7)
 	{
 		if(!_vecMeshList[iID])
-		{	// µÚÒ»´ÎĞèÒªÄ£ĞÍ¶ÔÏó£¬´´½¨
+		{	// ç¬¬ä¸€æ¬¡éœ€è¦æ¨¡å‹å¯¹è±¡ï¼Œåˆ›å»º
 			_vecMeshList[iID] = new CEffectModel;
 
 			_vecMeshList[iID]->InitDevice(m_pDev);
@@ -555,7 +560,7 @@ CEffectModel* CMPResManger::GetMeshByID( int iID)
 				path_info->SetPath( PATH_TYPE_MODEL_ITEM, szOldPath );
 
 				char szMsg[64];
-				sprintf(szMsg,"¼ÓÔØÌØĞ§Ä£ĞÍ[id=%d]Ê§°Ü", iID);
+				sprintf(szMsg,"åŠ è½½ç‰¹æ•ˆæ¨¡å‹[id=%d]å¤±è´¥", iID);
 				LG("ERROR","msg%s",szMsg);
 				return 0;
 			}
@@ -568,40 +573,40 @@ CEffectModel* CMPResManger::GetMeshByID( int iID)
 			pRetMesh = _vecMeshList[iID];
 		}
 		else
-		{	// Ö®ºóĞèÒªÄ£ĞÍ¶ÔÏó£¬´´½¨
+		{	// ä¹‹åéœ€è¦æ¨¡å‹å¯¹è±¡ï¼Œåˆ›å»º
 			if (_vecMeshList[iID]->IsUsing())
 			{
 				int n = _iMeshNum;
 				for (; n < MAXMESH_COUNT; ++n)
 				{
 					if (_vecMeshList[n] && _vecMeshList[n]->IsUsing())
-					{	// Èç¹ûÁĞ±íÖĞÕâ¸öÎ»ÖÃÒÑ¾­ÓĞÄ£ĞÍÁË£¬²¢ÇÒÄ£ĞÍÕıÔÚÊ¹ÓÃ£¬Ôò²éÕÒÏÂÒ»¸öÎ»ÖÃ
+					{	// å¦‚æœåˆ—è¡¨ä¸­è¿™ä¸ªä½ç½®å·²ç»æœ‰æ¨¡å‹äº†ï¼Œå¹¶ä¸”æ¨¡å‹æ­£åœ¨ä½¿ç”¨ï¼Œåˆ™æŸ¥æ‰¾ä¸‹ä¸€ä¸ªä½ç½®
 						continue;
 					}
 					if(!_vecMeshList[n])	
-					{	//Èç¹ûÎª¿ÕĞÂ´´½¨Ò»¸öÄ£ĞÍ¶ÔÏó£¨³õÊ¼Ä£ĞÍÎªÎ´Ê¹ÓÃ×´Ì¬£©
+					{	//å¦‚æœä¸ºç©ºæ–°åˆ›å»ºä¸€ä¸ªæ¨¡å‹å¯¹è±¡ï¼ˆåˆå§‹æ¨¡å‹ä¸ºæœªä½¿ç”¨çŠ¶æ€ï¼‰
 						_vecMeshList[n] = new CEffectModel;
 					}
 
-					// Èç¹ûÕâ¸öÎ»ÖÃµÄÄ£ĞÍÃ»ÓĞ±»Ê¹ÓÃ£¬ÔòÊ¹ÓÃÕâ¸öÄ£ĞÍ¶ÔÏó
+					// å¦‚æœè¿™ä¸ªä½ç½®çš„æ¨¡å‹æ²¡æœ‰è¢«ä½¿ç”¨ï¼Œåˆ™ä½¿ç”¨è¿™ä¸ªæ¨¡å‹å¯¹è±¡
 					if (_vecMeshList[n]->m_iID != iID)
-					{	// Èç¹ûÕâÄ£ĞÍÓëĞèÒªµÄÄ£ĞÍ²»Í¬Ôò¿½±´Ò»·İ
+					{	// å¦‚æœè¿™æ¨¡å‹ä¸éœ€è¦çš„æ¨¡å‹ä¸åŒåˆ™æ‹·è´ä¸€ä»½
 						if (!_vecMeshList[n]->Copy(*_vecMeshList[iID]))
 						{
 							SAFE_DELETE(_vecMeshList[n]);
 							char szMsg[64];
-							sprintf(szMsg,"È±ÉÙÌØĞ§Ä£ĞÍ[id=%d]¿½±´´íÎó", iID);
+							sprintf(szMsg,"ç¼ºå°‘ç‰¹æ•ˆæ¨¡å‹[id=%d]æ‹·è´é”™è¯¯", iID);
 							LG("ERROR","msg%s",szMsg);
 							return 0;
 						}
 					}
 
-					//µ½ÕâÀï±íÊ¾ÒÑ¾­ÕÒµ½¿ÉÓÃµÄÄ£ĞÍ¶ÔÏó£¨ÕâÀï³ÌĞò±È½Ï¹îÒì£¬×¢Òâ¿¼ÂÇÓëÖ®Ç°ÏàÈİĞÔ£©
+					//åˆ°è¿™é‡Œè¡¨ç¤ºå·²ç»æ‰¾åˆ°å¯ç”¨çš„æ¨¡å‹å¯¹è±¡ï¼ˆè¿™é‡Œç¨‹åºæ¯”è¾ƒè¯¡å¼‚ï¼Œæ³¨æ„è€ƒè™‘ä¸ä¹‹å‰ç›¸å®¹æ€§ï¼‰
 					break;
 				}
 				if(n >= MAXMESH_COUNT)
 				{
-					LG("Error","msgÌØĞ§Ä£ĞÍÒÑÂú");
+					LG("Error","msgç‰¹æ•ˆæ¨¡å‹å·²æ»¡");
 					return 0;
 				}
 				pRetMesh =_vecMeshList[n];
@@ -846,7 +851,7 @@ bool	CMPResManger::LoadTotalTexture()
 			if(!(t_sfd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 			{
 				//sprintf(t_pszFile, "%s\\%s",_pszTexPath,t_sfd.cFileName);
-				////È«²¿×ª»»³ÉĞ¡Ğ´
+				////å…¨éƒ¨è½¬æ¢æˆå°å†™
 				//memset(pszname,0,32);
 				//char *pszDataName = _strlwr( _strdup( t_sfd.cFileName ) );
 				//int len = lstrlen(pszDataName);
@@ -917,7 +922,7 @@ void CMPResManger::LoadTotalData()
 	HANDLE  t_hFind = NULL;
 
 
-	// ×°ÔØ¶¯×÷
+	// è£…è½½åŠ¨ä½œ
 	lstrcpy(t_Path,"animation\\");
 	lstrcat(t_Path,"\\*.lab");
 
@@ -936,10 +941,10 @@ void CMPResManger::LoadTotalData()
 			char path[ LW_MAX_PATH ];
 			sprintf( path, "%s%s", "animation\\", t_sfd.cFileName );
 
-			//È«²¿×ª»»³ÉĞ¡Ğ´
+			//å…¨éƒ¨è½¬æ¢æˆå°å†™
 			if( !g_GeomManager.LoadBoneData( t_sfd.cFileName ) )
 			{
-				//LG("error","msg:×°ÔØÄ£ĞÍ¶¯×÷Ê§°Ü(%s)£¡", path );
+				//LG("error","msg:è£…è½½æ¨¡å‹åŠ¨ä½œå¤±è´¥(%s)ï¼", path );
 			}
 			count ++;
 			if( count == 50 )
@@ -998,7 +1003,7 @@ void CMPResManger::LoadTotalRes()
 //			{
 //				continue; 
 //			}
-//			//È«²¿×ª»»³ÉĞ¡Ğ´
+//			//å…¨éƒ¨è½¬æ¢æˆå°å†™
 //			sFileName = t_sfd.cFileName;
 //			transform(sFileName.begin(), sFileName.end(),
 //				sFileName.begin(),
@@ -1020,7 +1025,7 @@ void CMPResManger::LoadTotalRes()
 //	path_info->SetPath( PATH_TYPE_MODEL_ITEM, szOldPath );
 
 #ifndef _UNLOADRES
-	//// µÀ¾ß
+	//// é“å…·
 	//lstrcpy(t_Path,"model\\item");
 	//lstrcat(t_Path,"\\*.lgo");
 
@@ -1036,17 +1041,17 @@ void CMPResManger::LoadTotalRes()
 	//			continue; 
 	//		}
 
-	//		//È«²¿×ª»»³ÉĞ¡Ğ´
+	//		//å…¨éƒ¨è½¬æ¢æˆå°å†™
 	//		if( !g_GeomManager.LoadGeomobj( t_sfd.cFileName ) )
 	//		{
-	//			//LG("error","msg:×°ÔØitemÄ£ĞÍÊ§°Ü(%s)£¡", t_sfd.cFileName );
+	//			//LG("error","msg:è£…è½½itemæ¨¡å‹å¤±è´¥(%s)ï¼", t_sfd.cFileName );
 	//		}
 	//	}
 
 	//}while(FindNextFile(t_hFind,&t_sfd));
 	//FindClose(t_hFind);
 
-	// ½ÇÉ«Ä£ĞÍ
+	// è§’è‰²æ¨¡å‹
 	lstrcpy(t_Path,"model\\character");
 	lstrcat(t_Path,"\\*.lgo");
 
@@ -1067,10 +1072,10 @@ void CMPResManger::LoadTotalRes()
 			if( nNum++ >= 900 )
 				break;
 
-			//È«²¿×ª»»³ÉĞ¡Ğ´
+			//å…¨éƒ¨è½¬æ¢æˆå°å†™
 			if( !g_GeomManager.LoadGeomobj( t_sfd.cFileName ) )
 			{
-				//LG("error","msg:×°ÔØÄ£ĞÍÊ§°Ü(%s)£¡", t_sfd.cFileName );
+				//LG("error","msg:è£…è½½æ¨¡å‹å¤±è´¥(%s)ï¼", t_sfd.cFileName );
 			}
 		}
 
@@ -1085,6 +1090,7 @@ void CMPResManger::LoadTotalRes()
 
 bool	CMPResManger::LoadTotalMesh()
 {
+	{FILE*_f=fopen("log\\mesh_trace.log","w");if(_f){fprintf(_f,"LoadTotalMesh enter\n");fflush(_f);fclose(_f);}}
 	_iMeshNum = 7;
 
 	_mapMesh[MESH_TRI] = (int)_vecMeshName.size();
@@ -1145,6 +1151,7 @@ bool	CMPResManger::LoadTotalMesh()
 	_CShadeModel = new CEffectModel;
 	_CShadeModel->InitDevice(m_pDev,m_pSysGraphics->GetResourceMgr());
 	_CShadeModel->CreateShadeModel();
+	{FILE*_f=fopen("log\\mesh_trace.log","a");if(_f){fprintf(_f,"primitives+shade done, meshNum=%d\n",_iMeshNum);fflush(_f);fclose(_f);}}
 	
 #if USE_RESOURCE_SCRIPT == 0 || USE_RESOURCE_SCRIPT == 1
 	{
@@ -1154,6 +1161,7 @@ bool	CMPResManger::LoadTotalMesh()
 
 		lstrcpy(t_Path,"model\\effect");
 		lstrcat(t_Path,"\\*.lgo");
+		{FILE*_f=fopen("log\\mesh_trace.log","a");if(_f){fprintf(_f,"scanning model\\effect\\*.lgo\n");fflush(_f);fclose(_f);}}
 
 		if((t_hFind=FindFirstFile(t_Path,&t_sfd))==INVALID_HANDLE_VALUE)
 			return true;
@@ -1174,15 +1182,26 @@ bool	CMPResManger::LoadTotalMesh()
 				{
 					continue; 
 				}
-				//È«²¿×ª»»³ÉĞ¡Ğ´
+				//å…¨éƒ¨è½¬æ¢æˆå°å†™
 				sFileName = t_sfd.cFileName;
 				transform(sFileName.begin(), sFileName.end(),
 					sFileName.begin(),
 					[](unsigned char c) { return std::tolower(c); });
 
+						if(_iMeshNum >= MAXMESH_COUNT) break;
+				try {
 				_vecMeshList[_iMeshNum] = new CEffectModel;
 				_vecMeshList[_iMeshNum]->InitDevice(m_pDev);
 				_vecMeshList[_iMeshNum]->LoadModel(sFileName.c_str());
+				} catch(const std::exception& ex) {
+					FILE*_f=fopen("log\\mesh_trace.log","a");
+					if(_f){fprintf(_f,"EXCEPTION eff[%d] %s: %s\n",_iMeshNum,sFileName.c_str(),ex.what());fflush(_f);fclose(_f);}
+					_vecMeshList[_iMeshNum] = NULL;
+				} catch(...) {
+					FILE*_f=fopen("log\\mesh_trace.log","a");
+					if(_f){fprintf(_f,"EXCEPTION eff[%d] %s: unknown\n",_iMeshNum,sFileName.c_str());fflush(_f);fclose(_f);}
+					_vecMeshList[_iMeshNum] = NULL;
+				}
 
 				_mapMesh[sFileName] = (int)_vecMeshName.size();
 				_vecMeshName.push_back(sFileName.c_str());
@@ -1192,35 +1211,12 @@ bool	CMPResManger::LoadTotalMesh()
 		}while(FindNextFile(t_hFind,&t_sfd));
 		FindClose(t_hFind);
 		path_info->SetPath( PATH_TYPE_MODEL_ITEM, szOldPath );
+		{FILE*_f=fopen("log\\mesh_trace.log","a");if(_f){fprintf(_f,"effect lgo done meshNum=%d\n",_iMeshNum);fflush(_f);fclose(_f);}}
 
-		// µÀ¾ß
-		lstrcpy(t_Path,"model\\item");
-		lstrcat(t_Path,"\\*.lgo");
+		{FILE*_f=fopen("log\\mesh_trace.log","a");if(_f){fprintf(_f,"SKIPPED model\\item\\*.lgo (deferred to demand-load)\n");fflush(_f);fclose(_f);}}
 
-		if((t_hFind=FindFirstFile(t_Path,&t_sfd))==INVALID_HANDLE_VALUE)
-			return true;
-		do{
-			if(!(t_sfd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
-			{
-				int length = (int)strlen(t_sfd.cFileName);
-				char *sname = &t_sfd.cFileName[length - 4];
-				if(strcmp(sname,".lgo") != 0)
-				{
-					continue; 
-				}
-
-				//È«²¿×ª»»³ÉĞ¡Ğ´
-				if( !g_GeomManager.LoadGeomobj( t_sfd.cFileName ) )
-				{
-					//LG("error","msg:×°ÔØitemÄ£ĞÍÊ§°Ü(%s)£¡", t_sfd.cFileName );
-				}
-			}
-
-		}while(FindNextFile(t_hFind,&t_sfd));
-		FindClose(t_hFind);
-
-		//// ½ÇÉ«Ä£ĞÍ
-		//lstrcpy(t_Path,"model\\character");
+		//// è§’è‰²æ¨¡å‹
+		// //lstrcpy(t_Path,"model\\character");
 		//lstrcat(t_Path,"\\*.lgo");
 
 		//if((t_hFind=FindFirstFile(t_Path,&t_sfd))==INVALID_HANDLE_VALUE)
@@ -1235,10 +1231,10 @@ bool	CMPResManger::LoadTotalMesh()
 		//			continue; 
 		//		}
 
-		//		//È«²¿×ª»»³ÉĞ¡Ğ´
+		//		//å…¨éƒ¨è½¬æ¢æˆå°å†™
 		//		if( !g_GeomManager.LoadGeomobj( t_sfd.cFileName ) )
 		//		{
-		//			//LG("error","msg:×°ÔØÄ£ĞÍÊ§°Ü(%s)£¡", t_sfd.cFileName );
+		//			//LG("error","msg:è£…è½½æ¨¡å‹å¤±è´¥(%s)ï¼", t_sfd.cFileName );
 		//		}
 		//	}
 
@@ -1304,14 +1300,14 @@ void	CMPResManger::AddUniteEffectToMgr(std::vector<I_Effect>& vecEffArray)
 }
 
 
-//!×°Èë×éºÏĞ§¹û´ÓÎÄ¼ş
+//!è£…å…¥ç»„åˆæ•ˆæœä»æ–‡ä»¶
 bool	CMPResManger::LoadEffectFromFile(int idx, char* pszFileName)
 {
 	FILE* t_pFile;
 	t_pFile = fopen(pszFileName, "rb");
 	if(!t_pFile)
 		return false;
-	//!°æ±¾
+	//!ç‰ˆæœ¬
 	DWORD t_dwVersion;
 	int   t_temp;
 	fread(&t_dwVersion,sizeof(t_dwVersion),1,t_pFile);
@@ -1370,10 +1366,10 @@ bool	CMPResManger::LoadTotalEffect()
 				char *sname = &t_sfd.cFileName[length - 4];
 				if(stricmp(sname,".eff") != 0)
 				{
-					//LG(t_sfd.cFileName, "²»ÊÇ±ê×¼µÄ.effÎÄ¼ş,Çë´Ó±¾µØÄ¿Â¼É¾³ı");
+					//LG(t_sfd.cFileName, "ä¸æ˜¯æ ‡å‡†çš„.effæ–‡ä»¶,è¯·ä»æœ¬åœ°ç›®å½•åˆ é™¤");
 					continue;
 				}
-				////È«²¿×ª»»³ÉĞ¡Ğ´
+				////å…¨éƒ¨è½¬æ¢æˆå°å†™
 				string sFileName;
 				sFileName = t_sfd.cFileName;
 				transform(sFileName.begin(), sFileName.end(),
@@ -1388,7 +1384,7 @@ bool	CMPResManger::LoadTotalEffect()
 				if(!LoadEffectFromFile(_iEffectNum, t_pszFile))
 				{
 					char szData[1024];
-					sprintf( szData, "×°ÔØÌØĞ§ÎÄ¼ş(%s)Ê§°Ü£¡", t_pszFile );
+					sprintf( szData, "è£…è½½ç‰¹æ•ˆæ–‡ä»¶(%s)å¤±è´¥ï¼", t_pszFile );
 					MessageBox( NULL, szData, "Error", MB_OK );
 					//return false;
 				}
@@ -1399,7 +1395,7 @@ bool	CMPResManger::LoadTotalEffect()
 
 				_vecEffectName[_iEffectNum] = t_sfd.cFileName;
 
-				//½«×éºÏĞ§¹ûµÄµÚÒ»¸ö×ÓĞ§¹ûµÄÃû³ÆÉèÎªÎÄ¼şÃû¡£
+				//å°†ç»„åˆæ•ˆæœçš„ç¬¬ä¸€ä¸ªå­æ•ˆæœçš„åç§°è®¾ä¸ºæ–‡ä»¶åã€‚
 				_vecEffectList[_iEffectNum][0].setEffectName(_vecEffectName[_iEffectNum]);
 
 				_iEffectNum++;
@@ -1432,7 +1428,7 @@ bool	CMPResManger::LoadTotalEffect()
 				_vecEffectName[_iEffectNum] = pResInfo->szDataName;
 				//SAFE_DELETE_ARRAY(pszDataName);
 
-				//½«×éºÏĞ§¹ûµÄµÚÒ»¸ö×ÓĞ§¹ûµÄÃû³ÆÉèÎªÎÄ¼şÃû¡£
+				//å°†ç»„åˆæ•ˆæœçš„ç¬¬ä¸€ä¸ªå­æ•ˆæœçš„åç§°è®¾ä¸ºæ–‡ä»¶åã€‚
 				//_vecEffectList[_iEffectNum][0].setEffectName(_vecEffectName[_iEffectNum]);
 
 				_iEffectNum++;
@@ -2064,7 +2060,7 @@ bool	CMPResManger::LoadDefaultText(const char* pszFileName)
 
 int		CMPResManger::GetPartCtrlID(const s_string& pszName)
 {
-	// _strdupÊÇÓÃmalloc·ÖÅäÄÚ´æ£¬¶øÉ¾³ıÓÃdelete,ÓĞÎÊÌâ
+	// _strdupæ˜¯ç”¨mallocåˆ†é…å†…å­˜ï¼Œè€Œåˆ é™¤ç”¨delete,æœ‰é—®é¢˜
 	//pszName.lo
 
 	//char *pszDataName = _strlwr( _strdup( pszName.c_str() ) );
@@ -2102,12 +2098,12 @@ int		CMPResManger::GetPartCtrlID(const s_string& pszName)
 //{
 //	if(iID > MAXPART_COUNT)
 //	{
-//		LG("error", "msgÌØĞ§ÊıÁ¿Ì«¶à£¬ÕÒlemon");
+//		LG("error", "msgç‰¹æ•ˆæ•°é‡å¤ªå¤šï¼Œæ‰¾lemon");
 //		return NULL;
 //	}
 //	if(iID < 0)
 //	{
-//		LG("error","msgÎŞĞ§ID[%d]",iID);
+//		LG("error","msgæ— æ•ˆID[%d]",iID);
 //		return NULL;
 //	}
 //	_vecPartCtrl[iID].mseek(0,SEEK_SET);
@@ -2120,12 +2116,12 @@ CMPPartCtrl*	CMPResManger::GetPartCtrlByID(int iID)
 	//	(*_vecPartCtrl[iID])->GetModelNum()<=0)
 	if(iID > MAXPART_COUNT)
 	{
-		LG("error", "msgÌØĞ§ÊıÁ¿Ì«¶à£¬ÕÒlemon");
+		LG("error", "msgç‰¹æ•ˆæ•°é‡å¤ªå¤šï¼Œæ‰¾lemon");
 		return NULL;
 	}
 	if(iID < 0)
 	{
-		LG("error","msgÎŞĞ§ID[%d]",iID);
+		LG("error","msgæ— æ•ˆID[%d]",iID);
 		return NULL;
 	}
 	if((*_vecPartCtrl[iID]) == NULL)
@@ -2153,7 +2149,7 @@ CMPPartCtrl*	CMPResManger::GetPartCtrlByID(int iID)
 void	CMPResManger::LoadTotalPartCtrl()
 {
 #if RESOURCE_SCRIPT == 0 || RESOURCE_SCRIPT == 1
-	//ËÑË÷ÎÄ¼şÄ¿Â¼¼ÓÔØ
+	//æœç´¢æ–‡ä»¶ç›®å½•åŠ è½½
 	{
 		char t_Path[MAX_PATH];
 		WIN32_FIND_DATA t_sfd;
@@ -2203,7 +2199,7 @@ void	CMPResManger::LoadTotalPartCtrl()
 		//#endif
 	}
 #else
-	//´Ó½Å±¾ÎÄ¼şÖĞ¼ÓÔØ
+	//ä»è„šæœ¬æ–‡ä»¶ä¸­åŠ è½½
 	{
 		MPResourceInfo* pResInfo(0);
 		for(int i(1); i<MPResourceSet::GetInstance().GetLastID() +1; i++)
@@ -2346,8 +2342,8 @@ BOOL CMPResManger::OnResetDevice()
 
 	D3DXMatrixOrthoLH(&_Mat2dViewProj, float(m_d3dBackBuffer.Width), float(m_d3dBackBuffer.Height), 0.0f, 1.0f);
 
-	// ÔÚResetDeviceµÄcall backº¯ÊıÖĞ£¬g_RenderµÄGetScrWidth »¹Ã»ÓĞÖØĞÂÉèÖÃ
-    // ÕâÀïµ÷ÓÃlwDeviceObjectµÄ½Ó¿Ú
+	// åœ¨ResetDeviceçš„call backå‡½æ•°ä¸­ï¼Œg_Renderçš„GetScrWidth è¿˜æ²¡æœ‰é‡æ–°è®¾ç½®
+    // è¿™é‡Œè°ƒç”¨lwDeviceObjectçš„æ¥å£
 	_iFontBkWidth = /*m_pDev->GetScrWidth()/2;//*/m_d3dBackBuffer.Width/2;
 	_iFontBkHeight= /*m_pDev->GetScrHeight()/2;//*/m_d3dBackBuffer.Height/2;
     //RECT rc_client;

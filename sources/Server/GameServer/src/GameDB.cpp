@@ -4663,7 +4663,7 @@ bool CTableGuild::SetGuildLog(std::vector<BankLog> log, uLong guild_id) {
 		char buf[100];
 		//if (i != log.size() - 1) {
 		if(true){
-			sprintf(buf, "%d-%lld-%lld-%d-%d;", log.at(i).type, log.at(i).time, log.at(i).parameter, log.at(i).quantity, log.at(i).userID);
+			sprintf(buf, "%d-%I64d-%I64d-%d-%d;", log.at(i).type, log.at(i).time, log.at(i).parameter, log.at(i).quantity, log.at(i).userID);
 			//printf(buf);
 		}
 		strcat(data, buf);

@@ -694,10 +694,10 @@ const char* GetCharacterDescription(int index)
 	{
 		switch (index)
 		{
-		case 0: return g_oLangRec.GetString(35);
-		case 1: return g_oLangRec.GetString(36);
-		case 2: return g_oLangRec.GetString(37);
-		case 3: return g_oLangRec.GetString(38);
+		case 0: return RES_STRING(CMISS_000035);
+		case 1: return RES_STRING(CMISS_000036);
+		case 2: return RES_STRING(CL_LANGUAGE_MATCH_37);
+		case 3: return RES_STRING(CMISS_000038);
 		default: return "";
 		}
 	}();
@@ -709,9 +709,9 @@ const char* GetCityName(int index)
 	{
 		switch (index)
 		{
-		case 0: return g_oLangRec.GetString(39);
-		case 1: return g_oLangRec.GetString(40);
-		case 2: return g_oLangRec.GetString(41);
+		case 0: return RES_STRING(CO_COMMFUNC_CPP_00020);
+		case 1: return RES_STRING(CL_LANGUAGE_MATCH_40);
+		case 2: return RES_STRING(CO_COMMFUNC_CPP_00023);
 		default: return "";
 		}
 	}();
@@ -723,9 +723,9 @@ const char* GetCityDescription(int index)
 	{
 		switch (index)
 		{
-		case 0: return g_oLangRec.GetString(42);
-		case 1: return g_oLangRec.GetString(43);
-		case 2: return g_oLangRec.GetString(44);
+		case 0: return RES_STRING(CMISS_000042);
+		case 1: return RES_STRING(CMISS_000043);
+		case 2: return RES_STRING(CMISS_000044);
 		default: return "";
 		}
 	}();
@@ -1009,7 +1009,7 @@ bool CCreateChaScene::_InitUI()
         CTextButton* btnLeftHair = (CTextButton*)frmChaFound->Find("btnLeftHair");
         if( !btnLeftHair ) 
         {
-            Error(g_oLangRec.GetString(45), 
+            Error(RES_STRING(CMISS_000045), 
                 frmChaFound->GetName(), "btnLeftHair");
             return false;
         }
@@ -1017,7 +1017,7 @@ bool CCreateChaScene::_InitUI()
         CTextButton* btnRightHair = (CTextButton*)frmChaFound->Find("btnRightHair");
         if( !btnRightHair ) 
         {
-            Error(g_oLangRec.GetString(45), 
+            Error(RES_STRING(CMISS_000045), 
                 frmChaFound->GetName(), "btnRightHair");
             return false;
         }
@@ -1025,7 +1025,7 @@ bool CCreateChaScene::_InitUI()
         CTextButton* btnLeftFace = (CTextButton*)frmChaFound->Find("btnLeftFace");
         if( !btnLeftFace ) 
         {
-            Error(g_oLangRec.GetString(45), 
+            Error(RES_STRING(CMISS_000045), 
                 frmChaFound->GetName(), "btnLeftFace");
             return false;
         }
@@ -1033,7 +1033,7 @@ bool CCreateChaScene::_InitUI()
         CTextButton* btnRightFace = (CTextButton*)frmChaFound->Find("btnRightFace");
         if( !btnRightFace ) 
         {
-            Error(g_oLangRec.GetString(45), 
+            Error(RES_STRING(CMISS_000045), 
                 frmChaFound->GetName(), "btnRightFace");
             return false;
         }
@@ -1049,7 +1049,7 @@ bool CCreateChaScene::_InitUI()
         CTextButton* btnLeft3d = (CTextButton*)frmChaFound->Find("btnLeft3d");
         if (!btnLeft3d)
         {
-            Error(g_oLangRec.GetString(45), 
+            Error(RES_STRING(CMISS_000045), 
                 frmChaFound->GetName(), "btnLeft3d");
             return false;
         }
@@ -1059,7 +1059,7 @@ bool CCreateChaScene::_InitUI()
         CTextButton* btnRight3d = (CTextButton*)frmChaFound->Find("btnRight3d");
         if (!btnRight3d)
         {
-            Error(g_oLangRec.GetString(45), 
+            Error(RES_STRING(CMISS_000045), 
                 frmChaFound->GetName(), "btnRight3d");
             return false;
         }
@@ -1069,7 +1069,7 @@ bool CCreateChaScene::_InitUI()
         labHair = (CLabel*) frmChaFound->Find("labHairShow");
         if( !labHair ) 
         {
-            Error(g_oLangRec.GetString(45), 
+            Error(RES_STRING(CMISS_000045), 
                 frmChaFound->GetName(), "labHairShow");
             return false;
         }
@@ -1077,7 +1077,7 @@ bool CCreateChaScene::_InitUI()
         labFace = (CLabel*) frmChaFound->Find("labFaceShow");
         if( !labFace ) 
         {
-            Error(g_oLangRec.GetString(45), 
+            Error(RES_STRING(CMISS_000045), 
                 frmChaFound->GetName(), "labFaceShow");
             return false;
         }
@@ -1085,7 +1085,7 @@ bool CCreateChaScene::_InitUI()
         edtName = (CEdit*) frmChaFound->Find("edtName");
         if (!edtName)
         {
-            Error(g_oLangRec.GetString(45), 
+            Error(RES_STRING(CMISS_000045), 
                 frmChaFound->GetName(), "edtName");
             return false;
         }
@@ -1094,7 +1094,7 @@ bool CCreateChaScene::_InitUI()
         memChaDescribe = (CMemo*)frmChaFound->Find("memChaDescribe");
         if (!memChaDescribe)
         {
-            return Error(g_oLangRec.GetString(45), 
+            return Error(RES_STRING(CMISS_000045), 
 				frmChaFound->GetName(), "memChaDescribe");
         }
         C3DCompent* ui3dCreateCha = (C3DCompent*)frmChaFound->Find( "ui3dCreateCha" );
@@ -1129,7 +1129,7 @@ bool CCreateChaScene::_InitUI()
 				imgCities[i][j] = (CImage*)frmChaCity->Find(szPicName);
 				if (!imgCities[i][j])
 				{
-					return Error(g_oLangRec.GetString(46),
+					return Error(RES_STRING(CMISS_000046),
 						frmChaCity->GetName(), szPicName);
 				}
 				if (i==0)
@@ -1149,7 +1149,7 @@ bool CCreateChaScene::_InitUI()
 			imgCitiesBlock[i] = (CTextButton*)frmChaCity->Find(szPicName);
 			if (!imgCitiesBlock[i])
 			{
-				return Error(g_oLangRec.GetString(46),
+				return Error(RES_STRING(CMISS_000046),
 					frmChaCity->GetName(), szPicName);
 			}
 			imgCitiesBlock[i]->SetIsShow(true);	// for debug.
@@ -1537,7 +1537,7 @@ void CCreateChaScene::ChangeHair(eDirectType enumDirect)
     }	
     else
     {
-        LG( "error", g_oLangRec.GetString(47),  m_nCurHairIndex);
+        LG( "error", RES_STRING(CMISS_000047),  m_nCurHairIndex);
     }
 
 }
@@ -1566,26 +1566,78 @@ void CCreateChaScene::ChangeCity(eDirectType enumDirect)
 
 
 //-----------------------------------------------------------------------
-void CCreateChaScene::RenderCha(int x,int y)
+void CCreateChaScene::RenderCha(int x, int y)
 {
-	g_Render.GetDevice()->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
-	g_Render.GetDevice()->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+    if (m_nSelChaIndex < 0 || m_nSelChaIndex > 3)
+        return;
+    if (!m_pChaForUI[m_nSelChaIndex])
+        return;
 
-    if (m_nSelChaIndex < 0 || m_nSelChaIndex > 3) return;
+    DWORD oldZEnable = 0;
+    DWORD oldZWriteEnable = 0;
+    DWORD oldZFunc = 0;
+    DWORD oldFogEnable = 0;
+    DWORD oldAlphaBlendEnable = 0;
+    DWORD oldSrcBlend = 0;
+    DWORD oldDestBlend = 0;
+    DWORD oldAlphaTestEnable = 0;
+    DWORD oldColorVertex = 0;
+    DWORD oldCullMode = 0;
 
+    g_Render.GetRenderState(D3DRS_ZENABLE, &oldZEnable);
+    g_Render.GetRenderState(D3DRS_ZWRITEENABLE, &oldZWriteEnable);
+    g_Render.GetRenderState(D3DRS_ZFUNC, &oldZFunc);
+    g_Render.GetRenderState(D3DRS_FOGENABLE, &oldFogEnable);
+    g_Render.GetRenderState(D3DRS_ALPHABLENDENABLE, &oldAlphaBlendEnable);
+    g_Render.GetRenderState(D3DRS_SRCBLEND, &oldSrcBlend);
+    g_Render.GetRenderState(D3DRS_DESTBLEND, &oldDestBlend);
+    g_Render.GetRenderState(D3DRS_ALPHATESTENABLE, &oldAlphaTestEnable);
+    g_Render.GetRenderState(D3DRS_COLORVERTEX, &oldColorVertex);
+    g_Render.GetRenderState(D3DRS_CULLMODE, &oldCullMode);
 
-    if( !m_pChaForUI[m_nSelChaIndex] ) return;
+    g_Render.SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+    g_Render.SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+    g_Render.SetRenderState(D3DRS_ZFUNC, D3DCMP_ALWAYS);
+    g_Render.SetRenderState(D3DRS_FOGENABLE, FALSE);
+    g_Render.SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+    g_Render.SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
+    g_Render.SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ZERO);
+    g_Render.SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+    g_Render.SetRenderState(D3DRS_COLORVERTEX, FALSE);
+    g_Render.SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+    g_Render.SetRenderState(D3DRS_TEXTUREFACTOR, 0xffffffff);
 
-    g_Render.LookAt( D3DXVECTOR3( 11.0f, 36.0f, 10.0f ), D3DXVECTOR3( 8.70f, 12.0f, 8.0f ), MPRender::VIEW_3DUI );
-    y +=100;
+    // Reset stage 0 to a deterministic pipeline for DX9 UI 3D draw.
+    g_Render.SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+    g_Render.SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+    g_Render.SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+    g_Render.SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+    g_Render.SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+    g_Render.SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+    g_Render.SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_DISABLE);
+    g_Render.SetTextureStageState(1, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
+
+    g_Render.LookAt(D3DXVECTOR3(11.0f, 36.0f, 10.0f), D3DXVECTOR3(8.70f, 12.0f, 8.0f), MPRender::VIEW_3DUI);
+    y += 100;
 
     MPMatrix44 old_mat = *m_pChaForUI[m_nSelChaIndex]->GetMatrix();
     m_pChaForUI[m_nSelChaIndex]->SetUIYaw(180 + m_nChaRotate);
-    m_pChaForUI[m_nSelChaIndex]->SetUIScaleDis(9.0f * g_Render.GetScrWidth()/TINY_RES_X );
+    m_pChaForUI[m_nSelChaIndex]->SetUIScaleDis(9.0f * g_Render.GetScrWidth() / TINY_RES_X);
     m_pChaForUI[m_nSelChaIndex]->RenderForUI(x, y);
     m_pChaForUI[m_nSelChaIndex]->SetMatrix(&old_mat);
 
     g_Render.SetTransformView(&g_Render.GetWorldViewMatrix());
+
+    g_Render.SetRenderState(D3DRS_ZENABLE, oldZEnable);
+    g_Render.SetRenderState(D3DRS_ZWRITEENABLE, oldZWriteEnable);
+    g_Render.SetRenderState(D3DRS_ZFUNC, oldZFunc);
+    g_Render.SetRenderState(D3DRS_FOGENABLE, oldFogEnable);
+    g_Render.SetRenderState(D3DRS_ALPHABLENDENABLE, oldAlphaBlendEnable);
+    g_Render.SetRenderState(D3DRS_SRCBLEND, oldSrcBlend);
+    g_Render.SetRenderState(D3DRS_DESTBLEND, oldDestBlend);
+    g_Render.SetRenderState(D3DRS_ALPHATESTENABLE, oldAlphaTestEnable);
+    g_Render.SetRenderState(D3DRS_COLORVERTEX, oldColorVertex);
+    g_Render.SetRenderState(D3DRS_CULLMODE, oldCullMode);
 
 }
 
@@ -1630,7 +1682,7 @@ void CCreateChaScene::InitChaFoundFrm()
 	}	
 	else
 	{
-		LG( "error", g_oLangRec.GetString(47),  m_nCurHairIndex);
+		LG( "error", RES_STRING(CMISS_000047),  m_nCurHairIndex);
 	}
 	bOK = m_pChaForUI[m_nSelChaIndex]->ChangePart(enumEQUIP_FACE, m_nCurFaceIndex);
 	if(bOK)
@@ -1644,7 +1696,7 @@ void CCreateChaScene::InitChaFoundFrm()
 	}				
 	else
 	{
-		LG( "error", g_oLangRec.GetString(48),  m_nCurHairIndex);
+		LG( "error", RES_STRING(CMISS_000048),  m_nCurHairIndex);
 	}
 
 }
@@ -1695,21 +1747,21 @@ void CCreateChaScene::InitChaData()
 bool CCreateChaScene::IsValidCheckChaName(const char *name)
 {
     /* Copy from LoginScene.cpp */
-    if (stricmp(name, g_oLangRec.GetString(49)) == 0)
+    if (stricmp(name, RES_STRING(CMISS_000049)) == 0)
     {
-        g_pGameApp->MsgBox(g_oLangRec.GetString(49));
+        g_pGameApp->MsgBox(RES_STRING(CMISS_000049));
         return false;
     }
 
     if (strlen(name) <= 0)
     {
-        g_pGameApp->MsgBox(g_oLangRec.GetString(50));
+        g_pGameApp->MsgBox(RES_STRING(CMISS_000050));
         return false;
     }
 
     if( !::IsValidName( name, (unsigned short)strlen(name) ) )
     {
-        g_pGameApp->MsgBox( g_oLangRec.GetString(51));
+        g_pGameApp->MsgBox( RES_STRING(CL_LANGUAGE_MATCH_51));
         return false;
     }
     //return true;
@@ -1744,13 +1796,13 @@ bool CCreateChaScene::IsValidCheckChaName(const char *name)
     }
 
     if (!bOk )
-        g_pGameApp->MsgBox( g_oLangRec.GetString(52));
+        g_pGameApp->MsgBox( RES_STRING(CL_LANGUAGE_MATCH_52));
 
     //����Ƿ��в�����Ϊ��ɫ���Ĵ�
     string sName(name);
     if (!CTextFilter::IsLegalText(CTextFilter::NAME_TABLE, sName))
     {
-        g_pGameApp->MsgBox(g_oLangRec.GetString(53));
+        g_pGameApp->MsgBox(RES_STRING(CMISS_000053));
         return false;
     }
 
@@ -1783,7 +1835,7 @@ void CCreateChaScene::SendChaToServ()
 	//}
     //
 	//else
-	//	g_pGameApp->MsgBox(g_oLangRec.GetString(54));
+	//	g_pGameApp->MsgBox(RES_STRING(CMISS_000054));
 
 
 	int sTypeID = (short)m_pChaForUI[m_nSelChaIndex]->getTypeID();
@@ -1962,81 +2014,81 @@ void CCreateChaScene::ShowAllRoleInfo(int nRoleInfo)
 				{
 				case 2:  // ��ʿ
 				case 9:
-					memChaDescribeUp->SetCaption(g_oLangRec.GetString(803));
-					memChaDescribeDown->SetCaption(g_oLangRec.GetString(804));
+					memChaDescribeUp->SetCaption(RES_STRING(CMISS_000803));
+					memChaDescribeDown->SetCaption(RES_STRING(CL_LANGUAGE_MATCH_804));
 					break;
 
 				case 5:  // ˫��ʿ
-					memChaDescribeUp->SetCaption(g_oLangRec.GetString(806));
-					memChaDescribeDown->SetCaption(g_oLangRec.GetString(807));
+					memChaDescribeUp->SetCaption(RES_STRING(CL_LANGUAGE_MATCH_806));
+					memChaDescribeDown->SetCaption(RES_STRING(CMISS_000807));
 					break;
 
 				case 10: // �޽�ʿ
-					memChaDescribeUp->SetCaption(g_oLangRec.GetString(808));
-					memChaDescribeDown->SetCaption(g_oLangRec.GetString(809));
+					memChaDescribeUp->SetCaption(RES_STRING(CL_LANGUAGE_MATCH_808));
+					memChaDescribeDown->SetCaption(RES_STRING(CL_LANGUAGE_MATCH_809));
 					break;
 
 				case 13: // ҩʦ
 				case 20:
-					memChaDescribeUp->SetCaption(g_oLangRec.GetString(810));
-					memChaDescribeDown->SetCaption(g_oLangRec.GetString(811));
+					memChaDescribeUp->SetCaption(RES_STRING(CL_LANGUAGE_MATCH_810));
+					memChaDescribeDown->SetCaption(RES_STRING(CL_LANGUAGE_MATCH_811));
 					break;
 
 				case 16: // ʥְ��
 				case 22:
-					memChaDescribeUp->SetCaption(g_oLangRec.GetString(812));
-					memChaDescribeDown->SetCaption(g_oLangRec.GetString(813));
+					memChaDescribeUp->SetCaption(RES_STRING(CL_LANGUAGE_MATCH_812));
+					memChaDescribeDown->SetCaption(RES_STRING(CMISS_000813));
 					break;
 
 				case 17: // ��ӡʦ
 				case 23:
-					memChaDescribeUp->SetCaption(g_oLangRec.GetString(814));
-					memChaDescribeDown->SetCaption(g_oLangRec.GetString(815));
+					memChaDescribeUp->SetCaption(RES_STRING(CL_LANGUAGE_MATCH_814));
+					memChaDescribeDown->SetCaption(RES_STRING(CL_LANGUAGE_MATCH_815));
 					break;
 
 				case 4:  // ð����
 				case 14:
 				case 21:
-					memChaDescribeUp->SetCaption(g_oLangRec.GetString(816));
-					memChaDescribeDown->SetCaption(g_oLangRec.GetString(817));
+					memChaDescribeUp->SetCaption(RES_STRING(CL_LANGUAGE_MATCH_816));
+					memChaDescribeDown->SetCaption(RES_STRING(CL_LANGUAGE_MATCH_817));
 					break;
 
 				case 7:  // ����ʿ
 				case 18:
 				case 24:
-					memChaDescribeUp->SetCaption(g_oLangRec.GetString(818));
-					memChaDescribeDown->SetCaption(g_oLangRec.GetString(819));
+					memChaDescribeUp->SetCaption(RES_STRING(CL_LANGUAGE_MATCH_818));
+					memChaDescribeDown->SetCaption(RES_STRING(CMISS_000819));
 					break;
 
 				case 3:  // ����
 				case 12:
-					memChaDescribeUp->SetCaption(g_oLangRec.GetString(820));
-					memChaDescribeDown->SetCaption(g_oLangRec.GetString(821));
+					memChaDescribeUp->SetCaption(RES_STRING(CL_LANGUAGE_MATCH_820));
+					memChaDescribeDown->SetCaption(RES_STRING(CL_LANGUAGE_MATCH_821));
 					break;
 
 				case 6:  // �ѻ���
 				case 15:
-					memChaDescribeUp->SetCaption(g_oLangRec.GetString(822));
-					memChaDescribeDown->SetCaption(g_oLangRec.GetString(823));
+					memChaDescribeUp->SetCaption(RES_STRING(CL_LANGUAGE_MATCH_822));
+					memChaDescribeDown->SetCaption(RES_STRING(CMISS_000823));
 					break;
 
 				case 1:  // ����
-					memChaDescribeUp->SetCaption(g_oLangRec.GetString(35));
+					memChaDescribeUp->SetCaption(RES_STRING(CMISS_000035));
 					memChaDescribeDown->SetCaption("");
 					break;
 
 				case 8:  // ����˹
-					memChaDescribeUp->SetCaption(g_oLangRec.GetString(36));
+					memChaDescribeUp->SetCaption(RES_STRING(CMISS_000036));
 					memChaDescribeDown->SetCaption("");
 					break;
 
 				case 11:  // ������
-					memChaDescribeUp->SetCaption(g_oLangRec.GetString(37));
+					memChaDescribeUp->SetCaption(RES_STRING(CL_LANGUAGE_MATCH_37));
 					memChaDescribeDown->SetCaption("");
 					break;
 
 				case 19:  // ����
-					memChaDescribeUp->SetCaption(g_oLangRec.GetString(38));
+					memChaDescribeUp->SetCaption(RES_STRING(CMISS_000038));
 					memChaDescribeDown->SetCaption("");
 					break;
 

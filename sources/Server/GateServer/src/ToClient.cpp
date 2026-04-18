@@ -476,8 +476,8 @@ void ToClient::OnProcessData(DataSocket* datasock, RPacket &recvbuf)
 				l_wpk.WriteLong(GetTickCount() - l_ply->m_pingtime);
 				l_ply->m_pingtime = 0;
 
-				l_wpk.WriteLong(ToAddress(l_ply));
-				l_wpk.WriteLong(l_ply->gp_addr);
+				l_wpk.WriteLongLong(ToAddress(l_ply));
+				l_wpk.WriteLongLong(l_ply->gp_addr);
 				g_gtsvr->gp_conn->SendData(g_gtsvr->gp_conn->get_datasock(), l_wpk);
 			}
 		}
@@ -552,8 +552,8 @@ void ToClient::OnProcessData(DataSocket* datasock, RPacket &recvbuf)
 
 			auto wpk = GetWPacket();
 			wpk.WriteCmd(CMD_TM_OFFLINE_MODE);
-			wpk.WriteLong(ToAddress(player));
-			wpk.WriteLong(player->gm_addr);
+			wpk.WriteLongLong(ToAddress(player));
+			wpk.WriteLongLong(player->gm_addr);
 
 
 			auto rpk = SyncCall(player->game->m_datasock, wpk);
@@ -570,8 +570,8 @@ void ToClient::OnProcessData(DataSocket* datasock, RPacket &recvbuf)
 				try {
 					/* wpk = g_gtsvr->gp_conn->get_datasock()->GetWPacket();
 					wpk.WriteCmd(CMD_TP_USER_LOGOUT);
-					wpk.WriteLong(ToAddress(player));
-					wpk.WriteLong(player->gp_addr);
+					wpk.WriteLongLong(ToAddress(player));
+					wpk.WriteLongLong(player->gp_addr);
 					player->gp_addr = 0;
 					g_gtsvr->gp_conn->SyncCall(g_gtsvr->gp_conn->get_datasock(), wpk, 30);
 					*/
@@ -805,7 +805,7 @@ void ToClient::CM_LOGIN(DataSocket* datasock, RPacket& recvbuf)
 
 			//l_wpk.WriteString(l_ply->m_chapstr);
 			l_wpk.WriteLong(inet_addr(datasock->GetPeerIP()));
-			l_wpk.WriteLong(ToAddress(l_ply)); // ��������GateServer�ϵ��ڴ��ַ
+			l_wpk.WriteLongLong(ToAddress(l_ply)); // ��������GateServer�ϵ��ڴ��ַ
 
 			if (bCheat)
 			{
@@ -846,13 +846,13 @@ void ToClient::CM_LOGIN(DataSocket* datasock, RPacket& recvbuf)
 
 			l_ply->m_status = ClientConnection::Status::CharacterSelection;
 
-			l_ply->gp_addr = l_rpk.ReverseReadLong();	//���������GroupServer�ϵ��ڴ��ַ
+			l_ply->gp_addr = l_rpk.ReverseReadLongLong();	//���������GroupServer�ϵ��ڴ��ַ
 			l_ply->m_loginID = l_rpk.ReverseReadLong();   //  Account DB id
 			l_ply->m_actid = l_rpk.ReverseReadLong();
 			BYTE byPassword = l_rpk.ReverseReadChar();
 			//l_ply->comm_key_len =l_rpk.ReverseReadShort();
 			//memcpy(l_ply->comm_textkey,l_rpk.GetDataAddr() +l_rpk.GetDataLen() -15 -l_ply->comm_key_len ,l_ply->comm_key_len);
-			l_rpk.DiscardLast(sizeof(uLong) * 3 + 1);
+			l_rpk.DiscardLast(sizeof(uLong) * 2 + sizeof(LONG64) + 1);
 
 			l_wpk = WPacket(l_rpk).Duplicate();
 			l_wpk.WriteCmd(CMD_MC_LOGIN);
@@ -938,8 +938,8 @@ WPacket ToClient::CM_LOGOUT(DataSocket* datasock, RPacket& recvbuf)
 					l_wpk.WriteCmd(CMD_TM_GOOUTMAP);
 					l_wpk.WriteChar(0);
 
-					l_wpk.WriteLong(ToAddress(l_ply));
-					l_wpk.WriteLong(l_ply->gm_addr);		//��������GameServer�ϵĵ�ַ
+					l_wpk.WriteLongLong(ToAddress(l_ply));
+					l_wpk.WriteLongLong(l_ply->gm_addr);		//��������GameServer�ϵĵ�ַ
 
 					l_ply->game		=0;						//��ֹ����ĵ�GameServer������
 					l_ply->gm_addr	=0;						//��ֹ����ĵ�GameServer������
@@ -948,8 +948,8 @@ WPacket ToClient::CM_LOGOUT(DataSocket* datasock, RPacket& recvbuf)
 				}
 				l_wpk = g_gtsvr->gp_conn->get_datasock()->GetWPacket();
 				l_wpk.WriteCmd(CMD_TP_USER_LOGOUT);
-				l_wpk.WriteLong(ToAddress(l_ply));
-				l_wpk.WriteLong(l_ply->gp_addr);
+				l_wpk.WriteLongLong(ToAddress(l_ply));
+				l_wpk.WriteLongLong(l_ply->gp_addr);
 				l_ply->gp_addr	=0;
 				l_retpk	=g_gtsvr->gp_conn->SyncCall(g_gtsvr->gp_conn->get_datasock(),l_wpk,l_ulMilliseconds);
 			}
@@ -999,8 +999,8 @@ void ToClient::CM_BGNPLAY(DataSocket* datasock, RPacket& recvbuf)
 	//��֤�����ɫ�Ϸ���
 	WPacket	l_wpk = WPacket(recvbuf).Duplicate();
 	l_wpk.WriteCmd(CMD_TP_BGNPLAY);
-	l_wpk.WriteLong(ToAddress(l_ply));
-	l_wpk.WriteLong(l_ply->gp_addr);
+	l_wpk.WriteLongLong(ToAddress(l_ply));
+	l_wpk.WriteLongLong(l_ply->gp_addr);
 	RPacket	l_rpk = g_gtsvr->gp_conn->SyncCall(g_gtsvr->gp_conn->get_datasock(), l_wpk, l_ulMilliseconds);
 	if (!l_rpk.HasData())	//�������
 	{
@@ -1091,16 +1091,16 @@ void ToClient::CM_ENDPLAY(DataSocket* datasock, RPacket& recvbuf)
 				WPacket l_wpk	=WPacket(recvbuf).Duplicate();
 				l_wpk.WriteCmd(CMD_TM_GOOUTMAP);
 				l_wpk.WriteChar(0);
-				l_wpk.WriteLong(ToAddress(l_ply));
-				l_wpk.WriteLong(l_ply->gm_addr);			//����GameServer�ϵĵ�ַ
+				l_wpk.WriteLongLong(ToAddress(l_ply));
+				l_wpk.WriteLongLong(l_ply->gm_addr);			//����GameServer�ϵĵ�ַ
 				l_ply->game		=0;							//��ֹ����ĵ�GameServer������
 				l_ply->gm_addr	=0;							//��ֹ����ĵ�GameServer������
 				g_gtsvr->gm_conn->SendData(l_game->m_datasock,l_wpk);
 				
 				l_wpk	=WPacket(recvbuf).Duplicate(); // seems to be the problem
 				l_wpk.WriteCmd(CMD_TP_ENDPLAY);
-				l_wpk.WriteLong(ToAddress(l_ply));
-				l_wpk.WriteLong(l_ply->gp_addr);
+				l_wpk.WriteLongLong(ToAddress(l_ply));
+				l_wpk.WriteLongLong(l_ply->gp_addr);
 				l_wpk	=g_gtsvr->gp_conn->SyncCall(g_gtsvr->gp_conn->get_datasock(),l_wpk,l_ulMilliseconds);
 				if(!l_wpk.HasData())
 				{
@@ -1132,8 +1132,8 @@ void ToClient::CP_CHANGEPASS(DataSocket* datasock, RPacket& recvbuf){
 		auto const l_lockStat = std::lock_guard{l_ply->m_mtxstat};
 		WPacket l_wpk = WPacket(recvbuf).Duplicate();
 		l_wpk.WriteCmd(CMD_TP_CHANGEPASS);
-		l_wpk.WriteLong(ToAddress(l_ply));
-		l_wpk.WriteLong(l_ply->gp_addr);
+		l_wpk.WriteLongLong(ToAddress(l_ply));
+		l_wpk.WriteLongLong(l_ply->gp_addr);
 		l_wpk = g_gtsvr->gp_conn->SyncCall(g_gtsvr->gp_conn->get_datasock(), l_wpk);
 		if (l_wpk.HasData()){
 			SendData(datasock, l_wpk);
@@ -1156,8 +1156,8 @@ void ToClient::CM_REGISTER(DataSocket* datasock, RPacket& recvbuf)
 			auto const l_lockStat = std::lock_guard{l_ply->m_mtxstat};
 			WPacket l_wpk = WPacket(recvbuf).Duplicate();
 			l_wpk.WriteCmd(CMD_TP_REGISTER);
-			l_wpk.WriteLong(ToAddress(l_ply));
-			l_wpk.WriteLong(l_ply->gp_addr);
+			l_wpk.WriteLongLong(ToAddress(l_ply));
+			l_wpk.WriteLongLong(l_ply->gp_addr);
 			l_wpk = g_gtsvr->gp_conn->SyncCall(g_gtsvr->gp_conn->get_datasock(), l_wpk, l_ulMilliseconds);
 			if (l_wpk.HasData())
 			{
@@ -1200,8 +1200,8 @@ void ToClient::CM_NEWCHA(DataSocket* datasock, RPacket& recvbuf)
 				//����GroupServer
 				WPacket l_wpk	=WPacket(recvbuf).Duplicate();
 				l_wpk.WriteCmd(CMD_TP_NEWCHA);
-				l_wpk.WriteLong(ToAddress(l_ply));
-				l_wpk.WriteLong(l_ply->gp_addr);	//������ַ
+				l_wpk.WriteLongLong(ToAddress(l_ply));
+				l_wpk.WriteLongLong(l_ply->gp_addr);	//������ַ
 				l_wpk	=g_gtsvr->gp_conn->SyncCall(g_gtsvr->gp_conn->get_datasock(),l_wpk,l_ulMilliseconds);
 				if(!l_wpk.HasData())
 				{
@@ -1255,8 +1255,8 @@ void ToClient::CM_DELCHA(DataSocket* datasock, RPacket& recvbuf)
 				//����GroupServer
 				WPacket l_wpk	=WPacket(recvbuf).Duplicate();
 				l_wpk.WriteCmd(CMD_TP_DELCHA);
-				l_wpk.WriteLong(ToAddress(l_ply));
-				l_wpk.WriteLong(l_ply->gp_addr);	//������ַ
+				l_wpk.WriteLongLong(ToAddress(l_ply));
+				l_wpk.WriteLongLong(l_ply->gp_addr);	//������ַ
 				l_wpk	=g_gtsvr->gp_conn->SyncCall(g_gtsvr->gp_conn->get_datasock(),l_wpk);
 				if(!l_wpk.HasData())
 				{
@@ -1322,8 +1322,8 @@ void ToClient::CM_CREATE_PASSWORD2(DataSocket* datasock, RPacket& recvbuf)
 				//}
 				WPacket l_wpk	=WPacket(recvbuf).Duplicate();
 				l_wpk.WriteCmd(CMD_TP_CREATE_PASSWORD2);
-				l_wpk.WriteLong(ToAddress(l_ply));
-				l_wpk.WriteLong(l_ply->gp_addr);	//������ַ
+				l_wpk.WriteLongLong(ToAddress(l_ply));
+				l_wpk.WriteLongLong(l_ply->gp_addr);	//������ַ
 				l_wpk	=g_gtsvr->gp_conn->SyncCall(g_gtsvr->gp_conn->get_datasock(),l_wpk);
 				if(!l_wpk.HasData())
 				{
@@ -1377,8 +1377,8 @@ void ToClient::CM_UPDATE_PASSWORD2(DataSocket* datasock, RPacket& recvbuf)
 				//����GroupServer
 				WPacket l_wpk	=WPacket(recvbuf).Duplicate();
 				l_wpk.WriteCmd(CMD_TP_UPDATE_PASSWORD2);
-				l_wpk.WriteLong(ToAddress(l_ply));
-				l_wpk.WriteLong(l_ply->gp_addr);	//������ַ
+				l_wpk.WriteLongLong(ToAddress(l_ply));
+				l_wpk.WriteLongLong(l_ply->gp_addr);	//������ַ
 				l_wpk	=g_gtsvr->gp_conn->SyncCall(g_gtsvr->gp_conn->get_datasock(),l_wpk);
 				if(!l_wpk.HasData())
 				{

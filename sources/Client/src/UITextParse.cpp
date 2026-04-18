@@ -27,11 +27,11 @@ void CTextParse::Render( string str, int x, int y,  DWORD color, ALLIGN allign, 
 	int sy=0;
 	if (allign==eAlignCenter)
 	{
-		sy=(height-CGuiFont::s_Font.GetHeight(g_oLangRec.GetString(623)))/2;
+		sy=(height-CGuiFont::s_Font.GetHeight(RES_STRING(CL_LANGUAGE_MATCH_954)))/2;
 	}
 	else if (allign==eAlignBottom)
 	{
-		sy=height-CGuiFont::s_Font.GetHeight(g_oLangRec.GetString(623));
+		sy=height-CGuiFont::s_Font.GetHeight(RES_STRING(CL_LANGUAGE_MATCH_954));
 	}
 
 	string strLine;
@@ -39,11 +39,19 @@ void CTextParse::Render( string str, int x, int y,  DWORD color, ALLIGN allign, 
 
 	while ( i < length)
 	{
-		if ( str[i]  & 0x80)  //ºº×Ö
+		if ( str[i] & 0x80 )
 		{
-			strLine += str.substr(i ,2) ;
-			i+=2;		 		
-		}			
+			if ((unsigned char)str[i] >= 0xA1)
+			{
+				strLine += str.substr(i, 1);
+				i += 1;
+			}
+			else
+			{
+				strLine += str.substr(i, 2);
+				i += 2;
+			}
+		}
 		else if (str[i] == _cBoxOff)
 		{
 			string _strTwoChar = "";
@@ -51,17 +59,16 @@ void CTextParse::Render( string str, int x, int y,  DWORD color, ALLIGN allign, 
 				_strTwoChar =  str.substr(i+1 ,2);
 
 			index  = InitEx( _strTwoChar );
-			//Èç¹ûË÷ÒýÔÚ0~iPicNum,Æ½ÇÒË÷ÒýËù¶ÔÓ¦µÄÍ¼Ôª´æÔÚ, Ôò±íÊ¾½øÐÐÍ¼Ôª´¦Àí
 			static CGraph* pGraph = NULL;
 			pGraph = GetFace(index);
-			if (pGraph) //(index >=0 && index < iPicNum && _files[index].pGraph ) 
+			if (pGraph)
 			{
 				pGraph->GetImage()->SetScale( _scaleX, _scaleY);
 				int nX =  CGuiFont::s_Font.GetWidth( str.substr(0, i).c_str() );
 				int nX2 =(int) GetRender().DrawConvertX2((float) nX );
 		
-				strLine += "   "; //µ½µ×ÊÇ1¸ö¿Õ¸ñ£¬2¸ö¿Õ¸ñ£¬3¸ö¿Õ¸ñ£¿£¿£¿//added by billy			
-				pGraph->Next() ;  // Âú×ã±íÇéµÄ¶¯»­Ð§¹û :04-11-19
+				strLine += "   ";
+				pGraph->Next() ;
 				pGraph->Render( iPosX + nX2, iPosY );
 				i+=3;
 			}
@@ -98,11 +105,19 @@ void CTextParse::RenderEx( string str, int x, int y, DWORD color, float scale )
 	int 	i=0;
 	while ( i < length)
 	{
-		if ( str[i]  & 0x80)  //ºº×Ö
+		if ( str[i] & 0x80 )
 		{
-			strLine += str.substr(i ,2) ;
-			i+=2;		 		
-		}			
+			if ((unsigned char)str[i] >= 0xA1)
+			{
+				strLine += str.substr(i, 1);
+				i += 1;
+			}
+			else
+			{
+				strLine += str.substr(i, 2);
+				i += 2;
+			}
+		}
 		else if (str[i] == _cBoxOff)
 		{
 			string _strTwoChar = "";
@@ -110,7 +125,7 @@ void CTextParse::RenderEx( string str, int x, int y, DWORD color, float scale )
 				_strTwoChar =  str.substr(i+1 ,2);
 
 			index  = InitEx( _strTwoChar ) ;
-			//Èç¹ûË÷ÒýÔÚ0~iPicNum,Æ½ÇÒË÷ÒýËù¶ÔÓ¦µÄÍ¼Ôª´æÔÚ, Ôò±íÊ¾½øÐÐÍ¼Ôª´¦Àí 		
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0~iPicNum,Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Í¼Ôªï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Í¼Ôªï¿½ï¿½ï¿½ï¿½ 		
 			static CGraph* pGraph = NULL;
 			pGraph = GetFace(index);
 			if (pGraph) //index >=0 && index <= iPicNum && _files[index].pGraph ) 
@@ -119,9 +134,9 @@ void CTextParse::RenderEx( string str, int x, int y, DWORD color, float scale )
 				int nX =  CGuiFont::s_Font.GetWidth(str.substr(0, i).c_str() );
 				int nX2 =(int) GetRender().DrawConvertX2((float) nX );
 		
-				strLine += "   "; //µ½µ×ÊÇ1¸ö¿Õ¸ñ£¬2¸ö¿Õ¸ñ£¬3¸ö¿Õ¸ñ£¿£¿£¿//added by billy
+				strLine += "   "; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½Õ¸ï¿½2ï¿½ï¿½ï¿½Õ¸ï¿½3ï¿½ï¿½ï¿½Õ¸ñ£¿£ï¿½ï¿½ï¿½//added by billy
 				
-				pGraph->Next();  // Âú×ã±íÇéµÄ¶¯»­Ð§¹û :04-11-19
+				pGraph->Next();  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ :04-11-19
 				pGraph->Render( iPosX + nX2 , iPosY  );
 				i+=3;
 			}
@@ -195,6 +210,6 @@ CGraph* CTextParse::GetFace( DWORD nIndex )
 
 int  CTextParse::InitLink()
 {
-	//_str½øÐÐ´¦Àí,½¨Á¢Á´±í
+	//_strï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	return 1;
 }

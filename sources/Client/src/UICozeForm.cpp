@@ -31,16 +31,16 @@ CCharMsg::lstTextInfoType	CCharMsg::m_lstMsgLink;
 CCharMsg::sChannelInfo		CCharMsg::m_sChannelInfo[m_wTotalChannelsCount]=
 {
 	{CHANNEL_NONE,		"",							0xFFFFFFFF,	"",		0,},				//CHANNEL_NONE
-	{CHANNEL_ALL,		g_oLangRec.GetString(493),	0xFFFFFFFF,	"",		0,},				//CHANNEL_ALL
-	{CHANNEL_SIGHT,		g_oLangRec.GetString(494),	0xFFFFFFFF,	"",		0,},				//CHANNEL_SIGHT
-	{CHANNEL_PRIVATE,	g_oLangRec.GetString(495),	0xFFFFFFFF,	"@",	0,},				//CHANNEL_PRIVATE
-	{CHANNEL_WORLD,		g_oLangRec.GetString(496),	0xFFFFFFFF,	"*",	0,},				//CHANNEL_WORLD
-	{CHANNEL_TRADE,		g_oLangRec.GetString(497),	0xFF09bdba,	"^",	0,},				//CHANNEL_TRADE
-	{CHANNEL_TEAM,		g_oLangRec.GetString(299),	0xFFFFFFFF,	"!",	0,},				//CHANNEL_TEAM
-	{CHANNEL_GUILD,		g_oLangRec.GetString(468),	0xFFFFFFFF,	"%",	0,},				//CHANNEL_GUILD
-	{CHANNEL_SYSTEM,	g_oLangRec.GetString(498),	0xFFFFFFFF,	"",		0,},				//CHANNEL_SYSTEM
-	{CHANNEL_PUBLISH,	g_oLangRec.GetString(499),	0xFFFFFFFF,	"",		0,},				//CHANNEL_PUBLISH
-	{CHANNEL_SIDE,		g_oLangRec.GetString(932),	0xFFFFFFFF,	"|",	0,},				//CHANNEL_SIDE
+	{CHANNEL_ALL,		RES_STRING(CL_LANGUAGE_MATCH_493),	0xFFFFFFFF,	"",		0,},				//CHANNEL_ALL
+	{CHANNEL_SIGHT,		RES_STRING(CL_LANGUAGE_MATCH_494),	0xFFFFFFFF,	"",		0,},				//CHANNEL_SIGHT
+	{CHANNEL_PRIVATE,	RES_STRING(CL_LANGUAGE_MATCH_481),	0xFFFFFFFF,	"@",	0,},				//CHANNEL_PRIVATE
+	{CHANNEL_WORLD,		RES_STRING(CL_LANGUAGE_MATCH_496),	0xFFFFFFFF,	"*",	0,},				//CHANNEL_WORLD
+	{CHANNEL_TRADE,		RES_STRING(CL_LANGUAGE_MATCH_764),	0xFF09bdba,	"^",	0,},				//CHANNEL_TRADE
+	{CHANNEL_TEAM,		RES_STRING(CL_LANGUAGE_MATCH_299),	0xFFFFFFFF,	"!",	0,},				//CHANNEL_TEAM
+	{CHANNEL_GUILD,		RES_STRING(CL_LANGUAGE_MATCH_468),	0xFFFFFFFF,	"%",	0,},				//CHANNEL_GUILD
+	{CHANNEL_SYSTEM,	RES_STRING(CL_LANGUAGE_MATCH_498),	0xFFFFFFFF,	"",		0,},				//CHANNEL_SYSTEM
+	{CHANNEL_PUBLISH,	RES_STRING(CL_LANGUAGE_MATCH_499),	0xFFFFFFFF,	"",		0,},				//CHANNEL_PUBLISH
+	{CHANNEL_SIDE,		RES_STRING(CL_LANGUAGE_MATCH_932),	0xFFFFFFFF,	"|",	0,},				//CHANNEL_SIDE
 };
 
 CCharMsg::lstInstanceType	CCharMsg::m_lstThisInstanceLink;
@@ -218,7 +218,7 @@ bool CCharMsg::ModifyShowChannel(eChannel eShowChannel, bool bAddOrRemove, bool 
 			SetShowChannels(m_ecboShowChannels|eShowChannel);
 			if (bShowTips)
 			{
-				CCozeForm::GetInstance()->OnSystemMsg(GetChannelName(eShowChannel)+g_oLangRec.GetString(500));
+				CCozeForm::GetInstance()->OnSystemMsg(GetChannelName(eShowChannel)+RES_STRING(CMISS_000500));
 			}
 		}
 		else
@@ -226,7 +226,7 @@ bool CCharMsg::ModifyShowChannel(eChannel eShowChannel, bool bAddOrRemove, bool 
 			SetShowChannels(m_ecboShowChannels&~eShowChannel);
 			if (bShowTips)
 			{
-				CCozeForm::GetInstance()->OnSystemMsg(GetChannelName(eShowChannel)+g_oLangRec.GetString(501));
+				CCozeForm::GetInstance()->OnSystemMsg(GetChannelName(eShowChannel)+RES_STRING(CMISS_000501));
 			}
 		}
 		return true;
@@ -293,9 +293,9 @@ CCharMsg::sTextInfo CCharMsg::GetMsgInfo()
 {
 	sTextInfo sText;
 	sText.eTextChannel=CHANNEL_ALL;
-	sText.strWho=g_oLangRec.GetString(2);
-	sText.strText=g_oLangRec.GetString(502);
-	sText.strShowText=g_oLangRec.GetString(502);
+	sText.strWho=RES_STRING(CO_COMMFUNC_CPP_00030);
+	sText.strText=RES_STRING(CMISS_000502);
+	sText.strShowText=RES_STRING(CMISS_000502);
 	sText.bSendTo=false;
 	if (m_bCurMsgAvailable && m_itCurrentMsgPos != m_lstMsgLink.end())
 	{
@@ -506,11 +506,11 @@ void CChannelSwitchForm::EventSystemCheckChange(CGuiData *pSender)
 	pCozeForm->m_drgSystemPage->SetIsShow(bCheck);
 	if (bCheck)
 	{
-		pCozeForm->OnSystemMsg(g_oLangRec.GetString(503));
+		pCozeForm->OnSystemMsg(RES_STRING(CMISS_000503));
 	}
 	else
 	{
-		pCozeForm->OnSystemMsg(g_oLangRec.GetString(504));
+		pCozeForm->OnSystemMsg(RES_STRING(CMISS_000504));
 	}
 	pCozeForm->ResetPages();
 }
@@ -633,7 +633,7 @@ void CCozeForm::OnPrivateMsg(string strFromName, string strToName, string strMsg
 	{
 		if (strMsg=="{x}*")
 		{
-			OnSystemMsg(g_oLangRec.GetString(505)+strFromName+g_oLangRec.GetString(506));
+			OnSystemMsg(RES_STRING(CL_LANGUAGE_MATCH_505)+strFromName+RES_STRING(CMISS_000506));
 		}
 		else
 		{
@@ -720,7 +720,7 @@ void CCozeForm::OnSideMsg(string strName, string strMsg,DWORD dwColour)
 void CCozeForm::OnPublishMsg(string strName, string strMsg)
 {
 	string str;
-	str=g_oLangRec.GetString(507)+string(strMsg);
+	str=RES_STRING(CL_LANGUAGE_MATCH_507)+string(strMsg);
 	g_pGameApp->ShowNotify(str.c_str(), CCharMsg::GetChannelColor(CCharMsg::CHANNEL_PUBLISH));
 }
 //Add by sunny.sun20080804
@@ -929,7 +929,7 @@ void CCozeForm::SendMsg()
 
 	if(g_stUIMap.IsPKSilver() && pChar->getGMLv() <= 0)
 	{
-		g_pGameApp->SysInfo(g_oLangRec.GetString(901)); // �Ҷ��������н�ֹ������Ϣ
+		g_pGameApp->SysInfo(RES_STRING(CL_LANGUAGE_MATCH_901)); // �Ҷ��������н�ֹ������Ϣ
 		return;
 	}
 
@@ -963,7 +963,7 @@ void CCozeForm::SendMsg()
 					else
 					{
 						// ��ɫ�ȼ�9�����½�ֹ��������˽��
-						g_pGameApp->SysInfo(g_oLangRec.GetString(868));
+						g_pGameApp->SysInfo(RES_STRING(CL_LANGUAGE_MATCH_868));
 					}
 
 					m_edtMsg->SetCaption(strCurCmd.c_str());
@@ -992,7 +992,7 @@ void CCozeForm::SendMsg()
 			static DWORD preTime=0;
 			if (preStr==strMsg && GetTickCount()-preTime<1000)
 			{
-				OnSystemMsg(g_oLangRec.GetString(508));
+				OnSystemMsg(RES_STRING(CL_LANGUAGE_MATCH_508));
 			}
 			else
 			{
@@ -1018,7 +1018,7 @@ void CCozeForm::SendMsg()
 			CCharacter* pChar=g_stUIBoat.GetHuman();
 			if (!pChar || pChar->getGameAttr()->get(ATTR_LV)<10)
 			{
-				OnSystemMsg(g_oLangRec.GetString(509));
+				OnSystemMsg(RES_STRING(CL_LANGUAGE_MATCH_509));
 			}
 			else	// modify by Philip.Wu  2006-06-09  ���� 10 ������ʹ������Ƶ��
 			{
@@ -1033,7 +1033,7 @@ void CCozeForm::SendMsg()
 				}
 				else
 				{
-					OnSystemMsg(g_oLangRec.GetString(510));
+					OnSystemMsg(RES_STRING(CMISS_000510));
 				}
 			}
 			break;
@@ -1043,7 +1043,7 @@ void CCozeForm::SendMsg()
 			CCharacter* pChar=g_stUIBoat.GetHuman();
 			if (!pChar || pChar->getGameAttr()->get(ATTR_LV)<10)
 			{
-				OnSystemMsg(g_oLangRec.GetString(511));
+				OnSystemMsg(RES_STRING(CL_LANGUAGE_MATCH_511));
 			}
 			else	// modify by Philip.Wu  2006-06-09  ���� 10 ������ʹ��ó��Ƶ��
 			{
@@ -1058,7 +1058,7 @@ void CCozeForm::SendMsg()
 				}
 				else
 				{
-					OnSystemMsg(g_oLangRec.GetString(512));
+					OnSystemMsg(RES_STRING(CMISS_000512));
 				}
 			}
 			break;
@@ -1071,7 +1071,7 @@ void CCozeForm::SendMsg()
 				CTeam *pTeam=g_stUIChat.GetTeamMgr()->Find(enumTeamGroup);
 				if (!pTeam || pTeam->GetCount()==0)
 				{
-					OnSystemMsg(g_oLangRec.GetString(513));
+					OnSystemMsg(RES_STRING(CMISS_000513));
 				}
 				else
 				{
@@ -1109,7 +1109,7 @@ void CCozeForm::SendMsg()
 		}
 	default:
 		{
-			OnSystemMsg(g_oLangRec.GetString(514));
+			OnSystemMsg(RES_STRING(CMISS_000514));
 			return;
 		}
 	}
@@ -1672,7 +1672,7 @@ void CCozeForm::EventCallingCardSwitchClick(CGuiData *pSender, int x, int y, DWO
 		} while(pThis->m_cCallingCard.MoveToNextCard());
 	}
 
-	CItemRow *pRow=pThis->m_lstCallingCard->Add(g_oLangRec.GetString(515));
+	CItemRow *pRow=pThis->m_lstCallingCard->Add(RES_STRING(CMISS_000515));
 	pRow->GetBegin()->SetColor(0xFF7F7F3F);
 	pThis->m_lstCallingCard->SetPointer(pRow);
 	pThis->m_lstCallingCard->Refresh();

@@ -1,29 +1,29 @@
 -----------------------------------------------------------------------
--- 定义QQ
+-- QQ
 -----------------------------------------------------------------------
--- 创建QQ最小化表单
+-- QQ
 frmQQMin = UI_CreateForm( "frmQQMin", FALSE, 146, 20, 0, 160, TRUE, FALSE )
 --UI_FormSetHotKey( frmQQMin, ALT_KEY, HOTKEY_N )
 UI_ShowForm( frmQQMin, FALSE )
 UI_AddFormToTemplete( frmQQMin, 1 )
 UI_SetIsDrag( frmQQMin, TRUE )
 
--- 加载背景图片
+-- 
 imgQQMin = UI_CreateCompent( frmQQMin, IMAGE_TYPE, "imgQQMin", 146, 20, 0, 0 )
 UI_LoadImage( imgQQMin, "texture/ui/Word.dds", NORMAL, 146, 20, 1, 157 )
 
---创建最大化按钮
+--
 btnQQMinMax = UI_CreateCompent( frmQQMin, BUTTON_TYPE, "btnQQMinMax", 14, 14, 115, 3 )
 UI_LoadButtonImage( btnQQMinMax, "texture/ui/PublicC.tga", 14, 14, 161, 175, TRUE )
 
---创建关闭按钮
+--
 btnClose = UI_CreateCompent( frmQQMin, BUTTON_TYPE, "btnClose", 14, 14, 130, 3 )
 UI_LoadButtonImage( btnClose, "texture/ui/PublicC.tga", 14, 14, 116, 175, TRUE )
 
 UI_SetButtonModalResult( btnClose, BUTTON_CLOSE )
 
 
--- 加载界面title
+-- title
 labTitle = UI_CreateCompent( frmQQMin, LABELEX_TYPE, "labTitle", 400, 150, 10, 4 )
 UI_SetCaption( labTitle, "Friend List")
 UI_SetTextColor( labTitle, COLOR_BLACK )
@@ -349,9 +349,9 @@ UI_MenuLoadSelect( ListMouseRight, "texture/ui/SystemBotton3.tga", 79, 13, 25, 2
 UI_MenuAddText( ListMouseRight, "Friend" )
 
 -----------------------------------------------------------------------
--- 定义对话框(中)
+-- ()
 -----------------------------------------------------------------------
--- 创建对话框表单
+-- 
 frmChatMd = UI_CreateForm( "frmChatMd", FALSE, 203, 135, 232, 163, TRUE, FALSE )
 --UI_FormSetHotKey( frmChatMd, ALT_KEY, HOTKEY_C )
 UI_ShowForm( frmChatMd, FALSE )
@@ -359,39 +359,39 @@ UI_AddFormToTemplete( frmChatMd, 1 )
 UI_SetIsDrag( frmChatMd, TRUE )
 UI_FormSetIsEscClose( frmChatMd, FALSE )
 
--- 加载背景图片
+-- 
 imgChatA = UI_CreateCompent( frmChatMd, IMAGE_TYPE, "imgChatA", 203, 135, 0, 0 )
 UI_LoadImage( imgChatA, "texture/ui/TalkM.dds", NORMAL, 203, 135, 0, 0 )
 
---创建对方名字
+--
 labName = UI_CreateCompent( frmChatMd, LABELEX_TYPE, "labName", 96, 11, 7, 4 )
 --UI_SetCaption( labName, "012345678901234567890123456789" )
 UI_SetTextColor( labName, COLOR_BLACK )
 UI_SetLabelExFont( labName, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
---创建关闭按钮
+--
 btnClose = UI_CreateCompent( frmChatMd, BUTTON_TYPE, "btnClose", 14, 14, 182, 3 )
 UI_LoadButtonImage( btnClose, "texture/ui/PublicC.tga", 14, 14, 116, 175, TRUE )
 
---创建最小化按钮
+--
 btnMin = UI_CreateCompent( frmChatMd, BUTTON_TYPE, "btnMin", 14, 14, 152, 3 )
 UI_LoadButtonImage( btnMin, "texture/ui/PublicC.tga", 14, 14, 116, 175, TRUE )
 
---创建还原按钮
+--
 btnReturn = UI_CreateCompent( frmChatMd, BUTTON_TYPE, "btnReturn", 14, 14, 167, 3 )
 UI_LoadButtonImage( btnReturn, "texture/ui/PublicC.tga", 14, 14, 116, 175, TRUE )
 
---创建发送按钮
+--
 btnSend = UI_CreateCompent( frmChatMd, BUTTON_TYPE, "btnSend", 16, 13, 185, 117 )
 UI_LoadButtonImage( btnSend, "texture/ui/PublicC.tga", 16, 13, 49, 89, TRUE )
 
---加载对话输入框
+--
 edtTradeGold = UI_CreateCompent( frmChatMd, EDIT_TYPE, "edtTradeGold", 171, 25, 17, 112 )
 UI_SetTextColor( edtTradeGold, COLOR_BLACK )
 UI_SetEditMaxNum( edtTradeGold, 29 )
 UI_SetEditMaxNumVisible( edtTradeGold, 29 )
 
---加载聊天对话
+--
 --memCtrl = UI_CreateCompent( frmChatMd, MEMO_TYPE, "memCtrl", 183, 79, 13, 23 )
 --UI_SetTextColor( memCtrl, COLOR_BLACK )
 --UI_SetCaption( memCtrl, "" ) 
@@ -399,7 +399,7 @@ UI_SetEditMaxNumVisible( edtTradeGold, 29 )
 --UI_SetMemoPageShowNum(memCtrl, 6 )
 --UI_SetMemoRowHeight( memCtrl , 21 )
 
---加载聊天对话
+--
 memCtrl = UI_CreateCompent( frmChatMd, LIST_TYPE, "memCtrl", 183, 79, 13, 23 )
 listid1 = UI_GetList( memCtrl )
 UI_SetListRowHeight( listid1, 18 )
@@ -409,22 +409,22 @@ UI_SetIsShow( memChat , TRUE)
 
 UI_SetEditEnterButton( edtTradeGold,btnSend )
 
---获得滚动条
+--
 scrollid = UI_GetScroll( memCtrl )
 UI_SetSize( scrollid, 11, 1 )
 UI_LoadImage( scrollid, "texture/ui/PublicC.tga", COMPENT_BACK, 11, 1, 194, 13 )
 
---加载向上按钮
+--
 id = UI_GetScrollObj( scrollid, SCROLL_UP )
 UI_LoadButtonImage( id, "texture/ui/PublicC.tga", 11, 9, 166, 0, TRUE )
 UI_SetSize( id, 11, 9 )
 
---加载滚动条
+--
 id = UI_GetScrollObj( scrollid, SCROLL_SCROLL )
 UI_LoadImage( id, "texture/ui/PublicC.tga", COMPENT_BACK, 11, 43, 166, 10 )
 UI_SetSize( id, 11, 20 )
 
---加载向下按钮
+--
 id = UI_GetScrollObj( scrollid, SCROLL_DOWN )
 UI_LoadButtonImage( id, "texture/ui/PublicC.tga", 11, 9, 166, 0, TRUE )
 UI_SetSize( id, 11, 9 )
@@ -611,7 +611,7 @@ UI_SetTextColor( labName, COLOR_BLACK )
 UI_SetLabelExFont( labName, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
 labShip = UI_CreateCompent( frmdetails, LABELEX_TYPE, "labShip", 96, 11, 82, 158 )
---UI_SetCaption( labShip, "了了了" )
+--UI_SetCaption( labShip, "" )
 UI_SetTextColor( labShip, COLOR_BLACK )
 UI_SetLabelExFont( labShip, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
@@ -692,7 +692,7 @@ btnNo = UI_CreateCompent( frmRemind, BUTTON_TYPE, "btnNo", 41, 19, 122, 78 )
 UI_LoadButtonImage( btnNo, "texture/ui/PublicC.tga", 41, 19, 0, 20, TRUE )
 
 -----------------------------------------------------------------------
--- 定义聊天管理界面(2005.4.11-Arcol:确认此界面没有被程序调用)
+-- (2005.4.11-Arcol:)
 -----------------------------------------------------------------------
 frmChatManage = UI_CreateForm( "frmChatManage",  FALSE, 130, 200, 397, 500, FALSE, FALSE )
 UI_LoadFormImage( frmChatManage, "texture/ui/check.dds", 185, 101, 0, 0, "", 0, 0 )

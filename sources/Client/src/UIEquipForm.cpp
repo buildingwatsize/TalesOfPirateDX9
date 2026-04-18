@@ -168,23 +168,23 @@ bool CEquipMgr::Init()
 	frmSkill->evtShow = _evtSkillFormShow;
 
     lstFightSkill = dynamic_cast<CSkillList*>( frmSkill->Find("lstSkill") );
-    if( !lstFightSkill ) return Error( g_oLangRec.GetString(45), frmSkill->GetName(), "lstSkill" );
+    if( !lstFightSkill ) return Error( RES_STRING(CMISS_000045), frmSkill->GetName(), "lstSkill" );
 	lstFightSkill->evtUpgrade = _evtSkillUpgrade;
 
     lstLifeSkill = dynamic_cast<CSkillList*>( frmSkill->Find("lstSkillW") );
-    if( !lstLifeSkill ) return Error( g_oLangRec.GetString(45), frmSkill->GetName(), "lstSkillW" );
+    if( !lstLifeSkill ) return Error( RES_STRING(CMISS_000045), frmSkill->GetName(), "lstSkillW" );
 	lstLifeSkill->evtUpgrade = _evtSkillUpgrade;
 
     lstSailSkill = dynamic_cast<CSkillList*>( frmSkill->Find("lstSkillS") );
-    if( !lstSailSkill ) return Error( g_oLangRec.GetString(45), frmSkill->GetName(), "lstSkillS" );
+    if( !lstSailSkill ) return Error( RES_STRING(CMISS_000045), frmSkill->GetName(), "lstSkillS" );
 	lstSailSkill->evtUpgrade = _evtSkillUpgrade;
 	lstSailSkill->SetIsShowUpgrade(false);
 
     labPoint = dynamic_cast<CLabel *>(frmSkill->Find("labPoint"));
-    if (!labPoint) return Error( g_oLangRec.GetString(45), frmSkill->GetName(), "labPoint");
+    if (!labPoint) return Error( RES_STRING(CMISS_000045), frmSkill->GetName(), "labPoint");
 
     labPointLife = dynamic_cast<CLabel *>(frmSkill->Find("labPoint1"));
-    if (!labPointLife) return Error( g_oLangRec.GetString(45), frmSkill->GetName(), "labPoint1");
+    if (!labPointLife) return Error( RES_STRING(CMISS_000045), frmSkill->GetName(), "labPoint1");
 
 	frmInv = _FindForm("frmInv");
 	
@@ -194,10 +194,10 @@ bool CEquipMgr::Init()
 	frmInv->evtEntrustMouseEvent = _evtItemFormMouseEvent;
 	
 	grdItem = dynamic_cast<CGoodsGrid*>(frmInv->Find("grdItem"));
-	if( !grdItem ) return Error( g_oLangRec.GetString(45), frmInv->GetName(), "grdItem" );
+	if( !grdItem ) return Error( RES_STRING(CMISS_000045), frmInv->GetName(), "grdItem" );
 
 	lblGold = dynamic_cast<CLabel*>(frmInv->Find("labItemgoldnumber"));
-	if( !lblGold ) return Error( g_oLangRec.GetString(45), frmInv->GetName(), "labItemgoldnumber" );
+	if( !lblGold ) return Error( RES_STRING(CMISS_000045), frmInv->GetName(), "labItemgoldnumber" );
 	
 	GetGoodsGrid()->SetSelectEnable(true);
     GetGoodsGrid()->evtThrowItem = evtThrowItemEvent;
@@ -206,10 +206,10 @@ bool CEquipMgr::Init()
 	GetGoodsGrid()->evtRMouseEvent = _evtRMouseGridEvent;
 
 	imgLock = dynamic_cast<CImage*>(frmInv->Find("imgLock"));
-	if(! imgLock)return Error( g_oLangRec.GetString(45), frmInv->GetName(), "imgLock" );
+	if(! imgLock)return Error( RES_STRING(CMISS_000045), frmInv->GetName(), "imgLock" );
 
 	imgUnLock = dynamic_cast<CImage*>(frmInv->Find("imgUnLock"));
-	if(! imgUnLock)return Error( g_oLangRec.GetString(45), frmInv->GetName(), "imgUnLock" );
+	if(! imgUnLock)return Error( RES_STRING(CMISS_000045), frmInv->GetName(), "imgUnLock" );
 
 
 
@@ -222,11 +222,11 @@ bool CEquipMgr::Init()
 
 	// ���»�ҳ��ť
     CTextButton* btnFastUp = dynamic_cast<CTextButton*>( frmFast->Find("btnFastUp") );
-    if( !btnFastUp ) return Error( g_oLangRec.GetString(45), frmMain800->GetName(), "btnFastUp" );
+    if( !btnFastUp ) return Error( RES_STRING(CMISS_000045), frmMain800->GetName(), "btnFastUp" );
 	btnFastUp->evtMouseClick = _evtButtonClickEvent;
 
     CTextButton* btnFastDown = dynamic_cast<CTextButton*>( frmFast->Find("btnFastDown") );
-    if( !btnFastUp ) return Error( g_oLangRec.GetString(45), frmMain800->GetName(), "btnFastDown" );
+    if( !btnFastUp ) return Error( RES_STRING(CMISS_000045), frmMain800->GetName(), "btnFastDown" );
 	btnFastDown->evtMouseClick = _evtButtonClickEvent;
 
 	CForm* frmFast2 = _FindForm("frmFast2");
@@ -392,7 +392,7 @@ bool CEquipMgr::Init()
 	
 	CTextButton* btnLeft3d = (CTextButton*)frmItemSpy->Find("btnLeft3d");
 	if (!btnLeft3d){
-		Error(g_oLangRec.GetString(45), 
+		Error(RES_STRING(CMISS_000045), 
 			frmItemSpy->GetName(), "btnLeft3d");
 		return false;
 	}
@@ -401,7 +401,7 @@ bool CEquipMgr::Init()
 
 	CTextButton* btnRight3d = (CTextButton*)frmItemSpy->Find("btnRight3d");
 	if (!btnRight3d){
-		Error(g_oLangRec.GetString(45), 
+		Error(RES_STRING(CMISS_000045), 
 			frmItemSpy->GetName(), "btnRight3d");
 		return false;
 	}
@@ -641,7 +641,7 @@ void CEquipMgr::SynSkillBag(DWORD dwCharID, stNetSkillBag *pSSkillBag)
     CCharacter * pCha = g_stUIBoat.GetHuman();
 	if( !pCha || pCha->getAttachID()!=dwCharID) 
 	{
-        LG( "protocol", g_oLangRec.GetString(547) );
+        LG( "protocol", RES_STRING(CMISS_000547) );
         return;
 	}
 
@@ -665,7 +665,7 @@ void CEquipMgr::SynSkillBag(DWORD dwCharID, stNetSkillBag *pSSkillBag)
                 pInfo = GetSkillRecordInfo( pSBag[i].sID );
                 if( !pInfo )
                 {
-                    LG( "protocol", g_oLangRec.GetString(548), pSBag[i].sID );
+                    LG( "protocol", RES_STRING(CMISS_000548), pSBag[i].sID );
                     continue;
                 }
                 pInfo->GetSkillGrid() = pSBag[i];
@@ -688,7 +688,7 @@ void CEquipMgr::SynSkillBag(DWORD dwCharID, stNetSkillBag *pSSkillBag)
                 pInfo = GetSkillRecordInfo( pSBag[i].sID );
                 if( !pInfo )
                 {
-                    LG( "protocol", g_oLangRec.GetString(549), pSBag[i].sID );
+                    LG( "protocol", RES_STRING(CMISS_000549), pSBag[i].sID );
                     continue;
                 }
                 pInfo->GetSkillGrid() = pSBag[i];
@@ -711,7 +711,7 @@ void CEquipMgr::SynSkillBag(DWORD dwCharID, stNetSkillBag *pSSkillBag)
                 pInfo = GetSkillRecordInfo( pSBag[i].sID );
                 if( !pInfo )
                 {
-                    LG( "protocol", g_oLangRec.GetString(550), pSBag[i].sID );
+                    LG( "protocol", RES_STRING(CMISS_000550), pSBag[i].sID );
                     continue;
                 }
                 pInfo->GetSkillGrid() = pSBag[i];
@@ -720,14 +720,14 @@ void CEquipMgr::SynSkillBag(DWORD dwCharID, stNetSkillBag *pSSkillBag)
 
                 if( pSBag[i].chLv==0 && !GetSkillList( pInfo->chFightType )->DelSkill( pSBag[i].sID ) )
                 {
-                    LG( "protocol", g_oLangRec.GetString(551), pSBag[i].sID );
+                    LG( "protocol", RES_STRING(CMISS_000551), pSBag[i].sID );
                     continue;
                 }
             }        
         }
         break;
     default:
-        LG( "protocol", g_oLangRec.GetString(552), pSSkillBag->chType );
+        LG( "protocol", RES_STRING(CMISS_000552), pSSkillBag->chType );
         return;
     }
 
@@ -786,7 +786,7 @@ void CEquipMgr::_evtFastChange(CGuiData *pSender, CCommandObj* pItem, bool& isAc
 	if( !g_stUIEquip._GetCommandShortCutType( pItem, chType, sGridID ) )
 	{
 		isAccept = false;
-		g_pGameApp->SysInfo( g_oLangRec.GetString(553), pItem->GetName() );
+		g_pGameApp->SysInfo( RES_STRING(CMISS_000553), pItem->GetName() );
 		return;
 	}
 	g_stUIEquip.FastChange( nIndex,  sGridID,  chType);
@@ -817,7 +817,7 @@ void CEquipMgr::UpdataEquipData( const stNetChangeChaPart& SPart, CCharacter* pC
         }
 		else
 		{
-			LG( "error", g_oLangRec.GetString(554),( pItem ? pItem->GetItemInfo()->lID : 0), SPart.SLink[i].sID );
+			LG( "error", RES_STRING(CMISS_000554),( pItem ? pItem->GetItemInfo()->lID : 0), SPart.SLink[i].sID );
 		}
 	}
 }
@@ -1064,7 +1064,7 @@ bool CEquipMgr::_UpdataEquip( SItemGrid& Item, int nLink )
         CItemRecord* pInfo = GetItemRecordInfo( nItemID );
         if( !pInfo )
         {
-            LG( "UpdataEquip", g_oLangRec.GetString(555), nItemID );
+            LG( "UpdataEquip", RES_STRING(CMISS_000555), nItemID );
             return false;
         }
 
@@ -1424,7 +1424,7 @@ void CEquipMgr::evtSwapItemEvent(CGuiData *pSender,int nFirst, int nSecond, bool
 
 	if( pSelf->IsBoat() && pSelf!=CGameScene::GetMainCha() )
 	{
-		g_pGameApp->SysInfo( g_oLangRec.GetString(557) );
+		g_pGameApp->SysInfo( RES_STRING(CMISS_000557) );
 		return;
 	}
 
@@ -1526,7 +1526,7 @@ void CEquipMgr::evtThrowItemEvent(CGuiData *pSender,int id,bool& isThrow)
 	if ( pItem && pItem->GetItemInfo()->sType==43 )
 	{
 		stSelectBox* pBox = g_stUIBox.ShowSelectBox(_evtThrowBoatDialogEvent,
-			g_oLangRec.GetString(558), 
+			RES_STRING(CMISS_000558), 
 			true);
 		if (pBox)
 		{
@@ -1578,7 +1578,7 @@ void CEquipMgr::_SendThrowData( const stThrow& sthrow, int nThrowNum )
 {
 	if( sthrow.pSelf->IsBoat() && sthrow.pSelf!=CGameScene::GetMainCha() )
 	{
-		g_pGameApp->SysInfo( g_oLangRec.GetString(557) );
+		g_pGameApp->SysInfo( RES_STRING(CMISS_000557) );
 		return;
 	}
 
@@ -1983,7 +1983,7 @@ void CEquipMgr::_evtRepairEvent(CCompent *pSender, int nMsgType, int x, int y, D
 void CEquipMgr::ShowRepairMsg( const char* pItemName, long lMoney )
 {
 	char szBuf[255] = { 0 };
-	sprintf( szBuf, g_oLangRec.GetString(559), pItemName, lMoney );
+	sprintf( szBuf, RES_STRING(CMISS_000559), pItemName, lMoney );
 	g_stUIBox.ShowSelectBox( _evtRepairEvent, szBuf, true );	
 }
 
@@ -2035,7 +2035,7 @@ void CEquipMgr::_evtItemFormMouseEvent(CCompent *pSender, int nMsgType, int x, i
 		}
 		else
 		{
-			CBoxMgr::ShowSelectBox(_CheckLockMouseEvent, g_oLangRec.GetString(824), true);
+			CBoxMgr::ShowSelectBox(_CheckLockMouseEvent, RES_STRING(CL_LANGUAGE_MATCH_824), true);
 		}
 	}
 }

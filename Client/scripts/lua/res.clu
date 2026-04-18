@@ -1,0 +1,14 @@
+--
+--  
+function GetResString(id)
+	return CLU_Call("UI_ResString", id)
+end
+
+-- 
+function UI_SetCaptionEx(id, caption, tail)
+	CLU_Call("UI_SetCaptionEx", id, caption, tail)
+end
+
+function AddMisDataFromLua(id, name, type)
+	return CLU_Call("AddMisDataFromC", id, name, type)
+end

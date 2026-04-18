@@ -29,7 +29,7 @@ using namespace GUI;
 
 static BYTE		_byIndex = - 1; 
 static BYTE		_byPage = - 1;       
-static DWORD	_npcID = -1;       //npcµÄid ºÅ
+static DWORD	_npcID = -1;       //npcï¿½ï¿½id ï¿½ï¿½
 static BYTE		_byCmd = 0;
 
 BYTE CNpcTalkMgr::_byTalkStyle = 0;
@@ -42,13 +42,13 @@ bool CNpcTalkMgr::Init()
 	m_bIsNpcTalk = false;
 	CFormMgr &mgr = CFormMgr::s_Mgr;
 
-	//³õÊ¼»¯npc¶Ô»°±íµ¥
-	frmNPCchat = _FindForm("frmNPCchat");   // µÀ¾ß±íµ¥
+	//ï¿½ï¿½Ê¼ï¿½ï¿½npcï¿½Ô»ï¿½ï¿½ï¿½ï¿½ï¿½
+	frmNPCchat = _FindForm("frmNPCchat");   // ï¿½ï¿½ï¿½ß±ï¿½ï¿½ï¿½
 	if ( !frmNPCchat ) return false;
 	frmNPCchat->evtEntrustMouseEvent = _MainMouseNPCEvent;
 
 	memCtrl = dynamic_cast<CMemo*> (frmNPCchat->Find("memCtrl")) ;
-	if( !memCtrl ) return Error(g_oLangRec.GetString(45), frmNPCchat->GetName(), "memCtrl");	
+	if( !memCtrl ) return Error(RES_STRING(CMISS_000045), frmNPCchat->GetName(), "memCtrl");	
 	memCtrl->evtSelectChange = _evtMemSelectChange;
 	return true;
 }
@@ -66,7 +66,7 @@ void CNpcTalkMgr::ShowFuncPage( BYTE byFuncPage , BYTE byCount,BYTE byMisNum, co
 {
 	m_bIsNpcTalk = true;
 
-	//É¾³ýLst¿Ø¼þÔ­À´µÄItem
+	//É¾ï¿½ï¿½Lstï¿½Ø¼ï¿½Ô­ï¿½ï¿½ï¿½ï¿½Item
 	if( !memCtrl ) return;
 
     memCtrl->Init();
@@ -74,7 +74,7 @@ void CNpcTalkMgr::ShowFuncPage( BYTE byFuncPage , BYTE byCount,BYTE byMisNum, co
 
 	memCtrl->SetCaption( FuncArray.szTalk );
 
-	if ( byCount >0 )   //¶ÁÈ¡Ñ¡ÏîÊý¾Ý
+	if ( byCount >0 )   //ï¿½ï¿½È¡Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		memCtrl->SetIsHaveItem(true);			
 		memCtrl->SetItemRowNum( byCount);
@@ -140,7 +140,7 @@ void CNpcTalkMgr::_MainMouseNPCEvent(CCompent *pSender, int nMsgType, int x, int
 {
 	string name = pSender->GetName();
 
-	if( name=="btnNo"  || name == "btnClose" )  //Èç¹ûÊÇÍË³ö°´Å¥,Ôò¹Ø±Õ¸Ã±íµ¥
+	if( name=="btnNo"  || name == "btnClose" )  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½Å¥,ï¿½ï¿½Ø±Õ¸Ã±ï¿½ï¿½ï¿½
 	{		
 		pSender->GetForm()->Close();
 		pSender->GetForm()->Find("memCtrl")->SetCaption("");			
@@ -234,7 +234,7 @@ void CNpcTalkMgr::SwitchMap()
 {
 	if( !(dynamic_cast<CWorldScene*>( CGameApp::GetCurScene() )) ) return;
 
-	// °ïÖú
+	// ï¿½ï¿½ï¿½ï¿½
 	static bool IsFirstWorldScene = true;
 	if( IsFirstWorldScene )
 	{

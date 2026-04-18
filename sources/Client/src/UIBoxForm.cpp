@@ -27,65 +27,65 @@ CForm* CBoxMgr::_cfrmError = NULL;
 //---------------------------------------------------------------------------
 bool CBoxMgr::Init()
 {
-	// ½»Ò×¶Ô»°¿ò
+	// ï¿½ï¿½ï¿½×¶Ô»ï¿½ï¿½ï¿½
     CForm* frmTrade  = _FindForm("frmTrade");   
 	if ( !frmTrade ) return false;
 
 	CEdit* edtNumber = dynamic_cast<CEdit*>(frmTrade->Find("edtNumber"));
-	if( !edtNumber ) return Error( g_oLangRec.GetString(45), frmTrade->GetName(), "edtNumber" );
+	if( !edtNumber ) return Error( RES_STRING(CMISS_000045), frmTrade->GetName(), "edtNumber" );
 	edtNumber->SetIsDigit( true );
 
 	CLabel* labPrice = dynamic_cast<CLabel*>(frmTrade->Find("labPrice"));
-	if( !labPrice )	return Error( g_oLangRec.GetString(45), frmTrade->GetName(), "labPrice" );
+	if( !labPrice )	return Error( RES_STRING(CMISS_000045), frmTrade->GetName(), "labPrice" );
 
 	CLabel* labName = dynamic_cast<CLabelEx*>( frmTrade->Find("labName") );
-	if( !labName )	return Error( g_oLangRec.GetString(45), frmTrade->GetName(), "labName" );
+	if( !labName )	return Error( RES_STRING(CMISS_000045), frmTrade->GetName(), "labName" );
 
 	_cTrade.Init( frmTrade );
 
-	// Ñ¡Ôñ¶Ô»°¿ò
+	// Ñ¡ï¿½ï¿½Ô»ï¿½ï¿½ï¿½
     CForm* frmSelect  = _FindForm("frmSelect");   
 	if ( !frmSelect ) return false;
 	//frmSelect->SetPos( g_Render.GetScrWidth(), g_Render.GetScrHeight() - 151 );
 
 	CLabel* labInfo = dynamic_cast<CLabelEx*>( frmSelect->Find("labInfo") );
-	if( !labInfo )	return Error( g_oLangRec.GetString(45), frmSelect->GetName(), "labInfo" );
+	if( !labInfo )	return Error( RES_STRING(CMISS_000045), frmSelect->GetName(), "labInfo" );
 
 	_cSelect.Init( frmSelect );
 
-	// ÊäÈëÊýÁ¿¶Ô»°¿ò
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô»ï¿½ï¿½ï¿½
     CForm* frmNumber = _FindForm("frmNumber");
     if( !frmNumber ) return false;
 
     edtNumber = dynamic_cast<CEdit*>(frmNumber->Find( "edtNumber" ));
-	if( !edtNumber )	return Error( g_oLangRec.GetString(45), frmNumber->GetName(), "edtNumber" );
+	if( !edtNumber )	return Error( RES_STRING(CMISS_000045), frmNumber->GetName(), "edtNumber" );
 	edtNumber->SetIsDigit( true );
 
 	labInfo = dynamic_cast<CLabelEx*>( frmNumber->Find("labInfo") );
-	if( !labInfo )	return Error( g_oLangRec.GetString(45), frmNumber->GetName(), "labInfo" );
+	if( !labInfo )	return Error( RES_STRING(CMISS_000045), frmNumber->GetName(), "labInfo" );
 
 	_cNumber.Init( frmNumber );
 
 
-	// ÊäÈëÃÜÂë¶Ô»°¿ò
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô»ï¿½ï¿½ï¿½
 	CForm* frmPassword = _FindForm("frmPass");
 	if( !frmPassword ) return false;
 
 	CEdit* edtPassword = dynamic_cast<CEdit*>(frmPassword->Find( "edtPassword" ));
-	if( !edtPassword )	return Error( g_oLangRec.GetString(45), frmPassword->GetName(), "edtPassword" );
+	if( !edtPassword )	return Error( RES_STRING(CMISS_000045), frmPassword->GetName(), "edtPassword" );
 
 	labInfo = dynamic_cast<CLabelEx*>( frmPassword->Find("labTitle") );
-	if( !labInfo )	return Error( g_oLangRec.GetString(45), frmPassword->GetName(), "labTitle" );
+	if( !labInfo )	return Error( RES_STRING(CMISS_000045), frmPassword->GetName(), "labTitle" );
 
 	_cPassword.Init( frmPassword );
 
 
-	// Ò»¸öÐÅÏ¢¶Ô»°¿ò
+	// Ò»ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Ô»ï¿½ï¿½ï¿½
     CForm* frmError  = _FindForm("frmError");   
 	if ( !frmError ) return false;
 
 	CLabel* labError = dynamic_cast<CLabelEx*>( frmError->Find("labError") );
-	if( !labError )	return Error( g_oLangRec.GetString(45), frmError->GetName(), "labError" );
+	if( !labError )	return Error( RES_STRING(CMISS_000045), frmError->GetName(), "labError" );
 
 	_cfrmError = frmError;
 
@@ -97,7 +97,7 @@ bool CBoxMgr::Init()
 CForm* CBoxMgr::_FindForm(const char * frmName)
 {
 	CForm* form = CFormMgr::s_Mgr.Find( frmName, 4 );
-	if( !form )	LG("gui", g_oLangRec.GetString(464), frmName );
+	if( !form )	LG("gui", RES_STRING(CL_LANGUAGE_MATCH_464), frmName );
 	return form;
 }
 
@@ -120,7 +120,7 @@ void CBoxMgr::_ClearBox( CHideForm& list )
 
 		if(frm->GetPointer())
 		{
-			delete frm->GetPointer(); // UIµ±»ú´¦Àí
+			delete frm->GetPointer(); // UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			frm->SetPointer( NULL );
 		}
 	}
@@ -171,7 +171,7 @@ stTradeBox* CBoxMgr::ShowTradeBox( FormMouseEvent evtForm, float fUnitMoney, int
 		t->edtNumber->SetCaption( "" );
 	}
 	t->nTotalNum = nTotalNum;
-	t->fUnitMoney = (float)(int)fUnitMoney;				// ÓÎÏ·½öÏÔÊ¾È¡ÕûºóµÄÊý×Ö call ÂÞÍþ
+	t->fUnitMoney = (float)(int)fUnitMoney;				// ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½Ê¾È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ call ï¿½ï¿½ï¿½ï¿½
 	return t;
 }
 
@@ -219,7 +219,7 @@ stNumBox* CBoxMgr::ShowNumberBox( FormMouseEvent evtForm, int nTotalNum, const c
 	}
 	else
 	{
-		t->labInfo->SetCaption( g_oLangRec.GetString(454) );
+		t->labInfo->SetCaption( RES_STRING(CL_LANGUAGE_MATCH_454) );
 	}
 
 	if( nTotalNum<0 || nTotalNum>MAX_BOX_NUM )

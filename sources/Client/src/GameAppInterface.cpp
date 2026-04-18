@@ -1,7 +1,26 @@
 #include "Stdafx.h"
+#include <exception>
+#include <cstdlib>
+#include <signal.h>
 
 #include "GameApp.h"
 #include "GameConfig.h"
+
+typedef USHORT (WINAPI *CaptureStackBackTrace_t)(ULONG, ULONG, PVOID*, PULONG);
+static void _write_crash_info(const char* tag, DWORD code, void* addr) {
+    FILE* _f = fopen("log\\run_trace.log", "a");
+    if (_f) {
+        fprintf(_f, "[CRASH] %s code=0x%08X addr=%p tid=%lu\n", tag, code, addr, GetCurrentThreadId());
+        auto pCapture = (CaptureStackBackTrace_t)GetProcAddress(GetModuleHandleA("ntdll.dll"), "RtlCaptureStackBackTrace");
+        if (pCapture) {
+            void* stack[30];
+            USHORT frames = pCapture(0, 30, stack, NULL);
+            for (USHORT i = 0; i < frames; i++)
+                fprintf(_f, "  [%d] 0x%p\n", i, stack[i]);
+        }
+        fflush(_f); fclose(_f);
+    }
+}
 
 #include "SceneObjSet.h"
 #include "EffectSet.h"
@@ -160,8 +179,40 @@ int CGameApp::Run()
 
     _isRun = true;
 
-    if (!_pSteady->Init()) return -1;
+    {FILE*_f=fopen("log\\run_trace.log","a");if(_f){fprintf(_f,"[RUN] _pSteady=%p\n",(void*)_pSteady);fflush(_f);fclose(_f);}}
+    if (!_pSteady->Init()) {
+        {FILE*_f=fopen("log\\run_trace.log","a");if(_f){fprintf(_f,"[RUN] _pSteady->Init() FAILED\n");fflush(_f);fclose(_f);}}
+        return -1;
+    }
+    {FILE*_f=fopen("log\\run_trace.log","a");if(_f){fprintf(_f,"[RUN] loop start _pCurScene=%p\n",(void*)_pCurScene);fflush(_f);fclose(_f);}}
 
+    static int _frameNo = 0;
+    _set_abort_behavior(0, _WRITE_ABORT_MSG | _CALL_REPORTFAULT);
+    signal(SIGABRT, [](int) {
+        _write_crash_info("SIGABRT", 0, nullptr);
+        _exit(99);
+    });
+    SetUnhandledExceptionFilter([](EXCEPTION_POINTERS* ep) -> LONG {
+        DWORD code = ep ? ep->ExceptionRecord->ExceptionCode : 0;
+        void* addr = ep ? ep->ExceptionRecord->ExceptionAddress : nullptr;
+        _write_crash_info("UEF", code, addr);
+        return EXCEPTION_EXECUTE_HANDLER;
+    });
+    atexit([]() {
+        _write_crash_info("atexit", 0, nullptr);
+    });
+    std::set_terminate([]() {
+        _write_crash_info("terminate", 0, nullptr);
+        _exit(98);
+    });
+    _set_invalid_parameter_handler([](const wchar_t*, const wchar_t*, const wchar_t*, unsigned int, uintptr_t) {
+        _write_crash_info("invalid_param", 0, nullptr);
+        _exit(97);
+    });
+    _set_purecall_handler([]() {
+        _write_crash_info("purecall", 0, nullptr);
+        _exit(96);
+    });
     while (_isRun) {
         if (PeekMessage( & msg, NULL, 0U, 0U, PM_REMOVE)) {
             TranslateMessage( & msg);
@@ -175,14 +226,16 @@ int CGameApp::Run()
             timer->OnTimer();
             #else
 
-            g_NetIF->PeekPacket(1); // 修正客户端CPU占用率100%
+            g_NetIF->PeekPacket(1);
+            if (!_isRun) {
+                {FILE*_f=fopen("log\\run_trace.log","a");if(_f){fprintf(_f,"[RUN] _isRun=false after PeekPacket frame=%d\n",_frameNo);fflush(_f);fclose(_f);}}
+            }
 
             if (_pSteady->Run()) {
                 LG("frame", "time:%u\n", GetTickCount() - _dwCurTick);
 
                 g_Render.GetInterfaceMgr()->tp_loadres->SetPoolEvent(TRUE);
                 _dwCurTick = _pSteady->GetTick();
-                //_FrameMoveOnce( _dwCurTick );
                 FrameMove(_dwCurTick);
                 Render();
                 if (_nSwitchScene > -140) {
@@ -191,10 +244,13 @@ int CGameApp::Run()
 
                 _pSteady->End();
                 g_Render.GetInterfaceMgr()->tp_loadres->SetPoolEvent(FALSE);
+                _frameNo++;
             }
             #endif
         }
     }
+
+    {FILE*_f=fopen("log\\run_trace.log","a");if(_f){fprintf(_f,"[RUN] loop exited _isRun=%d msg.message=%u\n",_isRun,(unsigned)msg.message);fflush(_f);fclose(_f);}}
 
     #if(defined USE_INDIVIDUAL_TIMER)
     timer->Release();
@@ -235,13 +291,13 @@ void CGameApp::GotoScene( CGameScene* scene, bool isDelCurScene, bool IsShowLoad
 {
 	if( !scene ) 
 	{
-        MsgBox( g_oLangRec.GetString(71) );
+        MsgBox( RES_STRING(CMISS_000071) );
 		return;
 	}  
 
     if( _pCurScene && !_pCurScene->_Clear() )
     {
-        _SceneError( g_oLangRec.GetString(72), _pCurScene );
+        _SceneError( RES_STRING(CMISS_000072), _pCurScene );
         SetIsRun( false );
         return;
     }
@@ -258,7 +314,7 @@ void CGameApp::GotoScene( CGameScene* scene, bool isDelCurScene, bool IsShowLoad
 
     if( !_pCurScene->_Init() )
     {
-        _SceneError( g_oLangRec.GetString(73), _pCurScene );
+        _SceneError( RES_STRING(CMISS_000073), _pCurScene );
         SetIsRun( false );
         return;
     }
@@ -469,7 +525,7 @@ skip:
 				yp += SHOWRSIZE;
 				if(int(yp / SHOWRSIZE) >= destyp /SHOWRSIZE)
 				{
-					MessageBox(NULL, g_oLangRec.GetString(74),"INFO",0);
+					MessageBox(NULL, RES_STRING(CMISS_000074),"INFO",0);
 					xp = xp1;
 					yp = yp1;
 
@@ -565,7 +621,7 @@ BOOL CGameApp::_PrintScreen()
 		g_Render.CaptureScreen(fileName);
 
 		char szTip[64];
-		sprintf(szTip, g_oLangRec.GetString(75), fileName);
+		sprintf(szTip, RES_STRING(CMISS_000075), fileName);
         Tip(szTip);
         g_nScreenCap++;
 	    EnableSprintScreen(FALSE);
@@ -614,7 +670,7 @@ BOOL CGameApp::CreateCurrentScene(char *szMapName)
 {
 	stSceneInitParam stInit;
 	stInit.nTypeID = enumLoginScene;
-	stInit.strName = g_oLangRec.GetString(76);
+	stInit.strName = RES_STRING(CL_LANGUAGE_MATCH_76);
 	stInit.strMapFile = szMapName;
 	stInit.nMaxEff = 300;
 	stInit.nMaxCha = 300;
@@ -1348,48 +1404,94 @@ void CGameApp::Loading(int nFrame) {
 }
 
 
+static LONG WINAPI SafeFilter(EXCEPTION_POINTERS* ep, const char* name)
+{
+	FILE*_tf=fopen("log\\table_trace.log","a");
+	if(_tf){
+		fprintf(_tf,"[SLR] EXCEPTION name=%s code=0x%08X addr=%p\n",
+			name, ep->ExceptionRecord->ExceptionCode, ep->ExceptionRecord->ExceptionAddress);
+		fflush(_tf);fclose(_tf);
+	}
+	return EXCEPTION_EXECUTE_HANDLER;
+}
+
+static BOOL SafeLoadRawData(CRawDataSet* pSet, const char* name, BOOL bBinary)
+{
+	{FILE*_tf=fopen("log\\table_trace.log","a");
+	if(_tf){fprintf(_tf,"[SLR] enter name=%s pSet=%p bBin=%d\n",name,(void*)pSet,bBinary);fflush(_tf);fclose(_tf);}}
+
+	__try {
+		{FILE*_tf=fopen("log\\table_trace.log","a");
+		if(_tf){fprintf(_tf,"[SLR] calling LRI...\n");fflush(_tf);fclose(_tf);}}
+		BOOL r = pSet->LoadRawDataInfo(name, bBinary);
+		{FILE*_tf=fopen("log\\table_trace.log","a");
+		if(_tf){fprintf(_tf,"[SLR] returned %d\n",r);fflush(_tf);fclose(_tf);}}
+		return r;
+	} __except(SafeFilter(GetExceptionInformation(), name)) {
+		return FALSE;
+	}
+}
+
 void CGameApp::InitAllTable()
 {
-	BOOL bBinary = FALSE; // �˱����Ѹ�Ϊȫ��g_bBinaryTable����
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] enter\n");fflush(_tf);fclose(_tf);}}
+	BOOL bBinary = g_bBinaryTable;
 
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] pre CSceneObjSet maxType=%d\n",g_Config.m_nMaxSceneObjType);fflush(_tf);fclose(_tf);}}
     CSceneObjSet *pObjSet = new CSceneObjSet(0, g_Config.m_nMaxSceneObjType);
-	pObjSet->LoadRawDataInfo("scripts/table/sceneobjinfo", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] pre sceneobjinfo LRI obj=%p bBin=%d\n",(void*)pObjSet,bBinary);fflush(_tf);fclose(_tf);}}
+	SafeLoadRawData(pObjSet, "scripts/table/sceneobjinfo", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post sceneobjinfo\n");fflush(_tf);fclose(_tf);}}
 
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] pre CEffectSet maxType=%d\n",g_Config.m_nMaxEffectType);fflush(_tf);fclose(_tf);}}
     CEffectSet* pEffSet = new CEffectSet(0, g_Config.m_nMaxEffectType);
-	pEffSet->LoadRawDataInfo("scripts/table/sceneffectinfo", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] pre sceneffectinfo LRI\n");fflush(_tf);fclose(_tf);}}
+	SafeLoadRawData(pEffSet, "scripts/table/sceneffectinfo", bBinary);
 
 	CShadeSet* pShadeSet = new CShadeSet(0, g_Config.m_nMaxEffectType);
-	pShadeSet->LoadRawDataInfo("scripts/table/shadeinfo", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] pre shadeinfo\n");fflush(_tf);fclose(_tf);}}
+	SafeLoadRawData(pShadeSet, "scripts/table/shadeinfo", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post shadeinfo\n");fflush(_tf);fclose(_tf);}}
 
 	CEventSoundSet* pEventSoundSet = new CEventSoundSet( 0, 30 );
-	pEventSoundSet->LoadRawDataInfo("scripts/table/eventsound", bBinary);
+	SafeLoadRawData(pEventSoundSet, "scripts/table/eventsound", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post eventsound\n");fflush(_tf);fclose(_tf);}}
 
     CMusicSet* pMusicSet = new CMusicSet(0, 500);
-    pMusicSet->LoadRawDataInfo("scripts/table/musicinfo", bBinary);
+    SafeLoadRawData(pMusicSet, "scripts/table/musicinfo", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post musicinfo\n");fflush(_tf);fclose(_tf);}}
 
     CPoseSet* pPoseSet = new CPoseSet(0, 100);
-    pPoseSet->LoadRawDataInfo("scripts/table/characterposeinfo", bBinary);
+    SafeLoadRawData(pPoseSet, "scripts/table/characterposeinfo", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post characterposeinfo\n");fflush(_tf);fclose(_tf);}}
 
     CChaCreateSet* pChaCreateSet = new CChaCreateSet(0, 60);
-    pChaCreateSet->LoadRawDataInfo("scripts/table/selectcha", bBinary);
+    SafeLoadRawData(pChaCreateSet, "scripts/table/selectcha", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post selectcha\n");fflush(_tf);fclose(_tf);}}
 
 	CSkillRecordSet* pSkillSet = new CSkillRecordSet( 0, 500 );
-	pSkillSet->LoadRawDataInfo("scripts/table/skillinfo", bBinary);
+	SafeLoadRawData(pSkillSet, "scripts/table/skillinfo", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post skillinfo\n");fflush(_tf);fclose(_tf);}}
 
     CMapSet* pMapSet = new CMapSet(0, 100);
-    pMapSet->LoadRawDataInfo("scripts/table/mapinfo", bBinary);
+    SafeLoadRawData(pMapSet, "scripts/table/mapinfo", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post mapinfo\n");fflush(_tf);fclose(_tf);}}
 
 	CChaRecordSet* pChaSetAttrib = new CChaRecordSet(0, 2500);
-	pChaSetAttrib->LoadRawDataInfo("scripts/table/Characterinfo", bBinary);
+	SafeLoadRawData(pChaSetAttrib, "scripts/table/Characterinfo", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post Characterinfo\n");fflush(_tf);fclose(_tf);}}
 
     CItemRecordSet* pItemSet = new CItemRecordSet(0, g_Config.m_nMaxItemType);
-    pItemSet->LoadRawDataInfo("scripts/table/iteminfo", bBinary);
+    SafeLoadRawData(pItemSet, "scripts/table/iteminfo", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post iteminfo\n");fflush(_tf);fclose(_tf);}}
 
     CEventRecordSet* pEvent = new CEventRecordSet( 0,10 );
-    pEvent->LoadRawDataInfo("scripts/table/objevent", bBinary);
+    SafeLoadRawData(pEvent, "scripts/table/objevent", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post objevent\n");fflush(_tf);fclose(_tf);}}
 
     CAreaSet* pArea = new CAreaSet( 0, 300 );
-    pArea->LoadRawDataInfo("scripts/table/AreaSet", bBinary);
+    SafeLoadRawData(pArea, "scripts/table/AreaSet", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post AreaSet\n");fflush(_tf);fclose(_tf);}}
 
     CServerSet* pServer = new CServerSet( 0, 100 );
 
@@ -1405,108 +1507,120 @@ void CGameApp::InitAllTable()
 		{
 		case COP_OURGAME:
 			{
-				pServer->LoadRawDataInfo("scripts/table/ServerSet2", bBinary);
+				SafeLoadRawData(pServer, "scripts/table/ServerSet2", bBinary);
 			}  break;
 		case COP_SINA:
 			{
-				pServer->LoadRawDataInfo("scripts/table/ServerSet3", bBinary);
+				SafeLoadRawData(pServer, "scripts/table/ServerSet3", bBinary);
 			}  break;
         case COP_CGA:
             {
-                pServer->LoadRawDataInfo("scripts/table/ServerSet4", bBinary);
+                SafeLoadRawData(pServer, "scripts/table/ServerSet4", bBinary);
             }  break;
 		case 0:
 		default:
-			//CLanguageRecord t;
+            // REMOVED: CLanguageRecord (no longer used)
 			//t.MadeBinFile("./scripts/table/serverset.bin", "./scripts/table/serverset.txt");
 
-			pServer->LoadRawDataInfo("scripts/table/ServerSet", bBinary);
+			SafeLoadRawData(pServer, "scripts/table/ServerSet", bBinary);
 		}
 		//  end
 	}
 	else
 	{
 		// add by Philip.Wu  2006-06-12  �޸� makebin ������������ȫ���� serverset.txt ���߻�����
-		pServer->LoadRawDataInfo("scripts/table/ServerSet", bBinary);
+		SafeLoadRawData(pServer, "scripts/table/ServerSet", bBinary);
 
 		// Delete by lark.li 20080305
 		// add by Philip.Wu  2006-07-31  ������ͳһ����ַ�����Դ���� BIN �ļ�
-		g_oLangRec.MadeBinFile("./scripts/table/StringSet.bin", "./scripts/table/StringSet.txt");
+            // REMOVED: g_oLangRec.MadeBinFile (StringSet no longer used)
 	}
 
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] pre ServerSet block done\n");fflush(_tf);fclose(_tf);}}
     CNotifySet* pNotify = new CNotifySet( 0, 100 );
-    pNotify->LoadRawDataInfo("scripts/table/notifyset", bBinary);
+    SafeLoadRawData(pNotify, "scripts/table/notifyset", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post notifyset\n");fflush(_tf);fclose(_tf);}}
 
-	// Modify by lark.li 20080822 begin
-    //CSkillStateRecordSet* pState = new CSkillStateRecordSet( 0, 240 );
 	CSkillStateRecordSet* pState = new CSkillStateRecordSet( 0, 300 );
-	// End
-
-    pState->LoadRawDataInfo("scripts/table/skilleff", bBinary);
+    SafeLoadRawData(pState, "scripts/table/skilleff", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post skilleff\n");fflush(_tf);fclose(_tf);}}
 
     CChatIconSet* pIcon = new CChatIconSet( 0, 100 );
-    pIcon->LoadRawDataInfo("scripts/table/chaticons", bBinary);
+    SafeLoadRawData(pIcon, "scripts/table/chaticons", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post chaticons\n");fflush(_tf);fclose(_tf);}}
 
 	CItemTypeSet* pItemType = new CItemTypeSet( 0, 100 );
-    pItemType->LoadRawDataInfo("scripts/table/itemtype", bBinary);
+    SafeLoadRawData(pItemType, "scripts/table/itemtype", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post itemtype\n");fflush(_tf);fclose(_tf);}}
 
 	CItemPreSet* pItemPre = new CItemPreSet( 0, 100 );
-    pItemPre->LoadRawDataInfo("scripts/table/itempre", bBinary);
+    SafeLoadRawData(pItemPre, "scripts/table/itempre", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post itempre\n");fflush(_tf);fclose(_tf);}}
 
 	CForgeRecordSet *pRecordSet = new CForgeRecordSet( 1, ROLE_MAXNUM_FORGE );
-	pRecordSet->LoadRawDataInfo( "scripts/table/forgeitem", bBinary );
+	SafeLoadRawData(pRecordSet, "scripts/table/forgeitem", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post forgeitem\n");fflush(_tf);fclose(_tf);}}
 
 	xShipSet *pShipSet = new xShipSet(0, 120);
-	pShipSet->LoadRawDataInfo("scripts/table/shipinfo", bBinary);
+	SafeLoadRawData(pShipSet, "scripts/table/shipinfo", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post shipinfo\n");fflush(_tf);fclose(_tf);}}
 
 	xShipPartSet *pShipItem = new xShipPartSet(0, 500);
-	pShipItem->LoadRawDataInfo("scripts/table/shipiteminfo", bBinary);
+	SafeLoadRawData(pShipItem, "scripts/table/shipiteminfo", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post shipiteminfo\n");fflush(_tf);fclose(_tf);}}
 
 	CHairRecordSet *pHair = new CHairRecordSet(0, 500);
-	pHair->LoadRawDataInfo("scripts/table/hairs", bBinary);
+	SafeLoadRawData(pHair, "scripts/table/hairs", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post hairs\n");fflush(_tf);fclose(_tf);}}
 
-	// txt
 	MPTerrainSet *pTerrainSet = new MPTerrainSet(0, 100);		
-	pTerrainSet->LoadRawDataInfo("scripts/table/TerrainInfo", bBinary);
+	SafeLoadRawData(pTerrainSet, "scripts/table/TerrainInfo", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post TerrainInfo\n");fflush(_tf);fclose(_tf);}}
 		
 	CEff_ParamSet* pEffSetp = new CEff_ParamSet(0, 100);
-	pEffSetp->LoadRawDataInfo("scripts/table/MagicSingleinfo", bBinary);
+	SafeLoadRawData(pEffSetp, "scripts/table/MagicSingleinfo", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post MagicSingleinfo\n");fflush(_tf);fclose(_tf);}}
+
 
 	CGroup_ParamSet* pGroupSet = new CGroup_ParamSet(0, 10);
-	pGroupSet->LoadRawDataInfo("scripts/table/MagicGroupInfo", bBinary);
+	SafeLoadRawData(pGroupSet, "scripts/table/MagicGroupInfo", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post MagicGroupInfo\n");fflush(_tf);fclose(_tf);}}
 
 	CItemRefineSet* pItemRefineSet = new CItemRefineSet(0, g_Config.m_nMaxItemType);
-	pItemRefineSet->LoadRawDataInfo("scripts/table/ItemRefineInfo", bBinary);
+	SafeLoadRawData(pItemRefineSet, "scripts/table/ItemRefineInfo", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post ItemRefineInfo\n");fflush(_tf);fclose(_tf);}}
 
 	CItemRefineEffectSet* pItemRefineEffectSet = new CItemRefineEffectSet(0, 5000);
-	pItemRefineEffectSet->LoadRawDataInfo("scripts/table/ItemRefineEffectInfo", bBinary);
+	SafeLoadRawData(pItemRefineEffectSet, "scripts/table/ItemRefineEffectInfo", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post ItemRefineEffectInfo\n");fflush(_tf);fclose(_tf);}}
 
-
-
-	//Add by Mdr - May 2020 FPO beta
 	NPCHelper *pNpcHelpSet = new NPCHelper(0,1000);
-	pNpcHelpSet->LoadRawDataInfo("scripts/table/MonsterList", bBinary);
+	SafeLoadRawData(pNpcHelpSet, "scripts/table/MonsterList", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post MonsterList\n");fflush(_tf);fclose(_tf);}}
 	
 	pNpcHelpSet = new NPCHelper(0,1000);
-	pNpcHelpSet->LoadRawDataInfo("scripts/table/NPCList", bBinary);
+	SafeLoadRawData(pNpcHelpSet, "scripts/table/NPCList", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post NPCList\n");fflush(_tf);fclose(_tf);}}
 
 	CMonsterSet* pMonsterSet = new CMonsterSet(0, 1000);
-    pMonsterSet->LoadRawDataInfo("scripts/table/MonsterInfo", bBinary);
+    SafeLoadRawData(pMonsterSet, "scripts/table/MonsterInfo", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post MonsterInfo\n");fflush(_tf);fclose(_tf);}}
 
 	CMountSet* pMount = new CMountSet(0, 500);
-	pMount->LoadRawDataInfo("scripts/table/mountinfo", bBinary);
-
-	//CHelpInfoSet* pHelpInfoSet = new CHelpInfoSet( 0, 20 );
-	//pHelpInfoSet->LoadRawDataInfo("scripts/table/helpinfoset", bBinary);
+	SafeLoadRawData(pMount, "scripts/table/mountinfo", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post mountinfo\n");fflush(_tf);fclose(_tf);}}
 
 	CStoneSet* pStoneSet = new CStoneSet(0, 100);
-	pStoneSet->LoadRawDataInfo("scripts/table/StoneInfo", bBinary);
+	SafeLoadRawData(pStoneSet, "scripts/table/StoneInfo", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post StoneInfo\n");fflush(_tf);fclose(_tf);}}
 
 	MPResourceSet* pResourceSet = new MPResourceSet(0, g_Config.m_nMaxResourceNum);
-	pResourceSet->LoadRawDataInfo("scripts/table/ResourceInfo", bBinary);
+	SafeLoadRawData(pResourceSet, "scripts/table/ResourceInfo", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] post ResourceInfo\n");fflush(_tf);fclose(_tf);}}
 
 	CElfSkillSet* pElfSkillSet = new CElfSkillSet(0, 100);
-	pElfSkillSet->LoadRawDataInfo("scripts/table/ElfSkillInfo", bBinary);
+	SafeLoadRawData(pElfSkillSet, "scripts/table/ElfSkillInfo", bBinary);
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[IAT] ALL TABLES DONE\n");fflush(_tf);fclose(_tf);}}
 }
 
 void CGameApp::ReleaseAllTable()
@@ -1604,36 +1718,56 @@ bool CGameApp::LoadRes4()
 }
 
 void LoadResModelBuf(MPIResourceMgr* res_mgr)
-{   
+{
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[LRMB] enter res_mgr=%p\n",(void*)res_mgr);fflush(_tf);fclose(_tf);}}
+
     MPIResBufMgr* buf_mgr = res_mgr->GetResBufMgr();
     MPIPathInfo* path_info = res_mgr->GetSysGraphics()->GetSystem()->GetPathInfo();
     const char* model_path = path_info->GetPath(PATH_TYPE_MODEL_SCENE);
 
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[LRMB] buf_mgr=%p model_path=%s\n",(void*)buf_mgr, model_path?model_path:"(null)");fflush(_tf);fclose(_tf);}}
+
     char path[LW_MAX_PATH];
     LW_HANDLE handle;
 
- 
     CSceneObjInfo* obj_info;
     const DWORD model_num = 500;
+    int nRegistered = 0;
     for(DWORD i = 0; i < model_num; i++)
     {
-        if((obj_info = GetSceneObjInfo(i)) == 0)
+        obj_info = GetSceneObjInfo(i);
+        if(obj_info == 0)
             continue;
 
-        if(stricmp(obj_info->szDataName, "sl-bd026-05.lmo") == 0)
-        {
-			
-            int x = 0;
-        }
+		{
+			FILE*_tf=fopen("log\\table_trace.log","a");
+			if(_tf){fprintf(_tf,"[LRMB] i=%u obj=%p name=%.64s nID=%d\n",i,(void*)obj_info,obj_info->szDataName,obj_info->nID);fflush(_tf);fclose(_tf);}
+		}
+
         handle = obj_info->nID;
         sprintf(path, "%s%s", model_path, obj_info->szDataName);
 
+		{
+			BOOL heapOK = HeapValidate(GetProcessHeap(), 0, NULL);
+			FILE*_tf=fopen("log\\table_trace.log","a");
+			if(_tf){fprintf(_tf,"[LRMB] pre-reg i=%u handle=%d path=%s heap=%s\n",i,handle,path,heapOK?"OK":"CORRUPT");fflush(_tf);fclose(_tf);}
+			if (!heapOK) {
+				FILE*_tf2=fopen("log\\table_trace.log","a");
+				if(_tf2){fprintf(_tf2,"[LRMB] HEAP CORRUPT - skipping all remaining\n");fflush(_tf2);fclose(_tf2);}
+				break;
+			}
+		}
+
         if(LW_FAILED(buf_mgr->RegisterModelObjInfo(handle, path)))
         {
-            LG("init", "msgcannot find model file: %s", path);
+			{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[LRMB] reg FAILED i=%u\n",i);fflush(_tf);fclose(_tf);}}
             continue;
         }
-    }    
+		{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[LRMB] reg OK i=%u\n",i);fflush(_tf);fclose(_tf);}}
+        nRegistered++;
+    }
+
+	{FILE*_tf=fopen("log\\table_trace.log","a");if(_tf){fprintf(_tf,"[LRMB] done registered=%d\n",nRegistered);fflush(_tf);fclose(_tf);}}
 }
 
 void CGameApp::SetFPSInterval( DWORD v )		
@@ -1645,11 +1779,11 @@ void CGameApp::_SceneError( const char* info, CGameScene * p )
 {
     if( p )
     {
-        MsgBox( g_oLangRec.GetString(78), p->GetInitParam()->strName.c_str(), info );
+        MsgBox( RES_STRING(CMISS_000078), p->GetInitParam()->strName.c_str(), info );
     }
     else
     {
-        MsgBox( g_oLangRec.GetString(79), info );
+        MsgBox( RES_STRING(CL_LANGUAGE_MATCH_79), info );
     }
 }
 
@@ -1731,7 +1865,7 @@ void CGameApp::AutoTest()
 	{
 		// ���ڲ���������Ч
 		{
-			AutoTestInfo( g_oLangRec.GetString(80) );
+			AutoTestInfo( RES_STRING(CMISS_000080) );
 			int nCount = CEffectSet::I()->GetLastID() + 1;
 			CEffectObj* pEffect = NULL;
 			CMagicInfo* pInfo = NULL;
@@ -1745,7 +1879,7 @@ void CGameApp::AutoTest()
 
 				if( !pEffect->Create( i ) )
 				{
-					AutoTestInfo( g_oLangRec.GetString(81), i );
+					AutoTestInfo( RES_STRING(CL_LANGUAGE_MATCH_81), i );
 					continue;
 				}
 
@@ -1761,7 +1895,7 @@ void CGameApp::AutoTest()
 	}
 	// �Զ��������н�ɫ,Ȼ��ɾ��,���ڼ���ɫ,��ɫ�����ȺϷ���
 	{
-		AutoTestInfo( g_oLangRec.GetString(82) );
+		AutoTestInfo( RES_STRING(CMISS_000082) );
 
 		int nCount = CChaRecordSet::I()->GetLastID() + 1;
 		CCharacter *pCha = NULL;
@@ -1773,7 +1907,7 @@ void CGameApp::AutoTest()
 			pCha = pScene->AddCharacter( i );
 			if( !pCha )
 			{
-				AutoTestInfo( g_oLangRec.GetString(83), i );
+				AutoTestInfo( RES_STRING(CL_LANGUAGE_MATCH_83), i );
 				continue;
 			}
 
@@ -1785,7 +1919,7 @@ void CGameApp::AutoTest()
 
 	// �Զ�����ͷ����begin
 	{
-		AutoTestInfo( g_oLangRec.GetString(84) );
+		AutoTestInfo( RES_STRING(CMISS_000084) );
 
 		CCharacter* pHairCha[4] = { NULL };
 		int nMax = 4;
@@ -1806,12 +1940,12 @@ void CGameApp::AutoTest()
 				if( pHair->IsChaUse[j] )
 				{
 					if( !pHairCha[j]->ChangePart( enumEQUIP_HEAD, pHair->dwItemID ) )
-						SysInfo( g_oLangRec.GetString(85), i, j+1, pHair->dwItemID );
+						SysInfo( RES_STRING(CL_LANGUAGE_MATCH_85), i, j+1, pHair->dwItemID );
 
 					for( int k=0; k<pHair->GetFailItemNum(); k++ )
 					{
 						if( !pHairCha[j]->ChangePart( enumEQUIP_HEAD, pHair->dwFailItemID[k] ) )
-							SysInfo( g_oLangRec.GetString(86), i, j+1, pHair->dwFailItemID[k] );
+							SysInfo( RES_STRING(CL_LANGUAGE_MATCH_86), i, j+1, pHair->dwFailItemID[k] );
 					}
 					AutoTestUpdate();
 				}
@@ -1826,7 +1960,7 @@ void CGameApp::AutoTest()
 
 	// ���ڲ���������Ч
 	{
-		AutoTestInfo( g_oLangRec.GetString(80) );
+		AutoTestInfo( RES_STRING(CMISS_000080) );
 		int nCount = CEffectSet::I()->GetLastID() + 1;
 		CEffectObj* pEffect = NULL;
 		CMagicInfo* pInfo = NULL;
@@ -1840,7 +1974,7 @@ void CGameApp::AutoTest()
 
 			if( !pEffect->Create( i ) )
 			{
-				AutoTestInfo( g_oLangRec.GetString(81), i );
+				AutoTestInfo( RES_STRING(CL_LANGUAGE_MATCH_81), i );
 				continue;
 			}
 			
@@ -1864,7 +1998,7 @@ void CGameApp::AutoTest()
 			y = CGameScene::GetMainCha()->GetCurY();
 		}
 
-		AutoTestInfo( g_oLangRec.GetString(87) );
+		AutoTestInfo( RES_STRING(CMISS_000087) );
 		CItemRecord* pInfo = NULL;
 		CSceneItem *pItem = NULL;
 		CMagicInfo* pEffectInfo = NULL;
@@ -1891,11 +2025,11 @@ void CGameApp::AutoTest()
 						{
 							if( j==0 )
 							{
-								AutoTestInfo( g_oLangRec.GetString(88), i, pInfo->szName, pInfo->chModule[0] );
+								AutoTestInfo( RES_STRING(CMISS_000088), i, pInfo->szName, pInfo->chModule[0] );
 							}
 							else
 							{
-								AutoTestInfo( g_oLangRec.GetString(89), i, pInfo->szName, j, pInfo->chModule[j] );
+								AutoTestInfo( RES_STRING(CMISS_000089), i, pInfo->szName, j, pInfo->chModule[j] );
 							}
 						}
 					}
@@ -1905,7 +2039,7 @@ void CGameApp::AutoTest()
 			if( strcmp( pInfo->szICON, "0" )!=0 )
 			{
 				if( !IsExistFile( pInfo->GetIconFile() ) )
-					AutoTestInfo( g_oLangRec.GetString(90), i, pInfo->szName, pInfo->szICON );
+					AutoTestInfo( RES_STRING(CMISS_000090), i, pInfo->szName, pInfo->szICON );
 			}
 
 			nEffectID = pInfo->sDrap;
@@ -1914,7 +2048,7 @@ void CGameApp::AutoTest()
 				pEffectInfo = GetMagicInfo(nEffectID);
 				if( !pEffectInfo )
 				{
-					AutoTestInfo( g_oLangRec.GetString(91), i, pItem->GetItemInfo()->szName, nEffectID );
+					AutoTestInfo( RES_STRING(CMISS_000091), i, pItem->GetItemInfo()->szName, nEffectID );
 				}
 			}
 			for( int j=0; j<pInfo->sEffNum; j++ )
@@ -1925,7 +2059,7 @@ void CGameApp::AutoTest()
 					pEffectInfo = GetMagicInfo(nEffectID);
 					if( !pEffectInfo )
 					{
-						AutoTestInfo( g_oLangRec.GetString(92), i, pItem->GetItemInfo()->szName, nEffectID );
+						AutoTestInfo( RES_STRING(CMISS_000092), i, pItem->GetItemInfo()->szName, nEffectID );
 					}
 				}
 			}
@@ -1935,7 +2069,7 @@ void CGameApp::AutoTest()
 				pEffectInfo = GetMagicInfo(nEffectID);
 				if( !pEffectInfo )
 				{
-					AutoTestInfo( g_oLangRec.GetString(93), i, pItem->GetItemInfo()->szName, nEffectID );
+					AutoTestInfo( RES_STRING(CMISS_000093), i, pItem->GetItemInfo()->szName, nEffectID );
 				}
 			}
 			nEffectID = pInfo->sAreaEffect[0];
@@ -1944,14 +2078,14 @@ void CGameApp::AutoTest()
 				pEffectInfo = GetMagicInfo(nEffectID);
 				if( !pEffectInfo )
 				{
-					AutoTestInfo( g_oLangRec.GetString(94), i, pItem->GetItemInfo()->szName, nEffectID );
+					AutoTestInfo( RES_STRING(CMISS_000094), i, pItem->GetItemInfo()->szName, nEffectID );
 				}
 			}
 
 		    pItem = pScene->AddSceneItem( i, 0 );
 			if( !pItem )
 			{
-				AutoTestInfo( g_oLangRec.GetString(95), i, pInfo->szName );
+				AutoTestInfo( RES_STRING(CL_LANGUAGE_MATCH_95), i, pInfo->szName );
 				continue;
 			}
 
@@ -1964,7 +2098,7 @@ void CGameApp::AutoTest()
 
 	// ���ڲ��Ծ���������...
 	{
-		AutoTestInfo( g_oLangRec.GetString(96) );
+		AutoTestInfo( RES_STRING(CMISS_000096) );
 		CItemRefineInfo* pRefine = NULL;
 		int nCount = CItemRefineSet::I()->GetLastID() + 1;
 		int nEffectID = 0;
@@ -1982,7 +2116,7 @@ void CGameApp::AutoTest()
 					pEffectInfo = GetItemRefineEffectInfo( nEffectID );
 					if( !pEffectInfo )
 					{
-						AutoTestInfo( g_oLangRec.GetString(97), i, pRefine->szDataName, nEffectID );
+						AutoTestInfo( RES_STRING(CMISS_000097), i, pRefine->szDataName, nEffectID );
 					}
 				}
 			}
@@ -1991,7 +2125,7 @@ void CGameApp::AutoTest()
 
 	// ���ڲ��Ծ���Ч����...
 	{
-		AutoTestInfo( g_oLangRec.GetString(98) );
+		AutoTestInfo( RES_STRING(CMISS_000098) );
 		int nCount = CItemRefineEffectSet::I()->GetLastID() + 1;
 		CItemRefineEffectInfo* pInfo = NULL;
 		CMagicInfo* pEffectInfo = NULL;
@@ -2016,7 +2150,7 @@ void CGameApp::AutoTest()
 						pEffectInfo = GetMagicInfo(nEffectID);
 						if( !pEffectInfo )
 						{
-							AutoTestInfo( g_oLangRec.GetString(99), i, pInfo->szDataName, nEffectID );
+							AutoTestInfo( RES_STRING(CMISS_000099), i, pInfo->szDataName, nEffectID );
 						}
 					}
 				}
@@ -2026,7 +2160,7 @@ void CGameApp::AutoTest()
 
 	// ����Ƿ��е��߱�����
 	{
-		AutoTestInfo( g_oLangRec.GetString(100) );
+		AutoTestInfo( RES_STRING(CMISS_000100) );
 
 		g_pGameApp->HasLogFile( "iteminfoerror" );
 	}

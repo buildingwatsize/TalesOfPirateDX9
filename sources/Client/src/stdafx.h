@@ -8,6 +8,11 @@
 
 #define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers
 // Windows Header Files:
+#ifdef _M_X64
+// Include SSE2 headers before intrin.h to avoid C2733 conflicts with VS2022
+#include <emmintrin.h>
+#include <intrin.h>
+#endif
 #include <windows.h>
 // C RunTime Header Files
 #include <stdlib.h>
@@ -27,7 +32,7 @@
 #include <bitset>
 #include <tuple>
 
-namespace GUI  //¶¨ÒåÃû×Ö¿Õ¼ä
+namespace GUI  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¿Õ¼ï¿½
 {
 };
 
@@ -38,10 +43,9 @@ using namespace GUI;
 #include "TryUtil.h"
 #include "GlobalInc.h"
 #include "MindPower.h"
+#include "i18n.h"   // ICU resource bundle string access (RES_STRING macro)
 
-#include "LanguageRecord.h"
 
-extern CLanguageRecord g_oLangRec;	// ¶àÓïÑÔÉùÃ÷
 
 inline VOID D3DUtil_InitMaterialI( D3DMATERIALX& mtrl, FLOAT r, FLOAT g, FLOAT b,
                            FLOAT a )
@@ -57,9 +61,9 @@ inline VOID D3DUtil_InitMaterialI( D3DMATERIALX& mtrl, FLOAT r, FLOAT g, FLOAT b
 
 //#define APP_DEBUG
 
-#define _LOG_NAME_		// ÓÃÓÚÊä³ö½ÇÉ«Ãû×Ö,¿ì½Ý¼ü
+#define _LOG_NAME_		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ý¼ï¿½
 
-// #define FLOAT_INVALID   // ¶¨ÒåÕâ¸öºêºó£¬½«¼ì²â¸¡µãÒì³£,ÒÑÖªcaLuaÖÐÓÐ¸¡µãÒì³£
+// #define FLOAT_INVALID   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó£¬½ï¿½ï¿½ï¿½â¸¡ï¿½ï¿½ï¿½ì³£,ï¿½ï¿½ÖªcaLuaï¿½ï¿½ï¿½Ð¸ï¿½ï¿½ï¿½ï¿½ì³£
 
 //#define USE_TIMERPERIOD
 #define WM_USER_TIMER (WM_USER+99)
@@ -69,4 +73,4 @@ inline VOID D3DUtil_InitMaterialI( D3DMATERIALX& mtrl, FLOAT r, FLOAT g, FLOAT b
 
 #define CLIENT_BUILD
 
-// #define KOP_TOM			// ÓÃÓÚTOMÆ½Ì¨
+// #define KOP_TOM			// ï¿½ï¿½ï¿½ï¿½TOMÆ½Ì¨

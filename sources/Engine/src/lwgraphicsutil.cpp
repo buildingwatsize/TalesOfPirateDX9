@@ -208,6 +208,8 @@ DWORD lwGetSurfaceSize(UINT width, UINT height, D3DFORMAT format)
 #endif
     case D3DFMT_A8R8G8B8:
     case D3DFMT_X8R8G8B8:
+        size = width * height * 4;
+        break;
     case D3DFMT_R8G8B8:
         size = width * height * 3;
         break;
@@ -844,7 +846,7 @@ __ret:
 
 LW_RESULT _ConvertMeshDataIB(void** data, DWORD* size, DWORD* stride, const lwMeshInfo* info)
 {
-    // 目前用D3DFMT_INDEX16
+    // 目前锟斤拷D3DFMT_INDEX16
     WORD* buf = LW_NEW(WORD[info->index_num]);
 
     for(DWORD i = 0; i < info->index_num; i++)

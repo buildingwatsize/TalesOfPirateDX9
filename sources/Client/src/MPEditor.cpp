@@ -44,7 +44,7 @@ void MPEditor::Init(int nMapID)
 	m_bSmooth                   = false; 
 
 	_AttribIndex = 0;	
-	_IslandIndex = TILE_ISLAND_MAX_VALUE + 1; // ÖÃ¸ö·Ç·¨Öµ
+	_IslandIndex = TILE_ISLAND_MAX_VALUE + 1; // ï¿½Ã¸ï¿½ï¿½Ç·ï¿½Öµ
     _is_erase = false;
     
     
@@ -52,13 +52,13 @@ void MPEditor::Init(int nMapID)
     CMapInfo *pMapInfo = GetMapInfo(nMapID);
     if(pMapInfo)
     {
-        char szTip[64]; sprintf(szTip, "¿ªÊ¼±à¼­µØÍ¼[%s]", pMapInfo->szName);
+        char szTip[64]; sprintf(szTip, "ï¿½ï¿½Ê¼ï¿½à¼­ï¿½ï¿½Í¼[%s]", pMapInfo->szName);
 
 		MPMapFileHeader maphdr;
 		if (_getMapHeader(pMapInfo->szName, maphdr))
 			{
 			if (createAttribFile(pMapInfo->szName, maphdr.nWidth, maphdr.nHeight))
-				openAttribFile(pMapInfo->szName); // »á×Ô¶¯¹Ø±ÕÎÄ¼þ
+				openAttribFile(pMapInfo->szName); // ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½Ø±ï¿½ï¿½Ä¼ï¿½
 			Tip(szTip);
 			}
 		else
@@ -66,7 +66,7 @@ void MPEditor::Init(int nMapID)
     }
     else
     {
-        LG("error", "msgÃ»ÓÐÕÒµ½µØÍ¼ÁÐ±íÐÅÏ¢ MapID = %d\n", nMapID);
+        LG("error", "msgÃ»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½Í¼ï¿½Ð±ï¿½ï¿½ï¿½Ï¢ MapID = %d\n", nMapID);
     }
     */
     
@@ -108,7 +108,7 @@ void MPEditor::Enable(BOOL bEnable)
 
     _bEnable = bEnable;
 
-    TipI(_bEnable, g_oLangRec.GetString(198), g_oLangRec.GetString(199));
+    TipI(_bEnable, RES_STRING(CMISS_000198), RES_STRING(CMISS_000199));
     
 	MPTerrain *pCurTerrain = GetCurTerrain();
     if(!pCurTerrain) return;
@@ -273,7 +273,7 @@ void MPEditor::PlaceTerrain(int nType, int nX, int nY, int nTexNo)
 
 	if (nType == 1)
 		{
-		// 1ºÅË¢, ËÄ¸ö½Ç
+		// 1ï¿½ï¿½Ë¢, ï¿½Ä¸ï¿½ï¿½ï¿½
 		int nAlphaNo[4] = { 1, 2, 4, 8 };
 		for (int i = 0; i < 4; i++)
 			{
@@ -284,7 +284,7 @@ void MPEditor::PlaceTerrain(int nType, int nX, int nY, int nTexNo)
 		}
 	else if (nType == 2)
 		{
-		// 2ºÅË¢£¬»­4¸öTile
+		// 2ï¿½ï¿½Ë¢ï¿½ï¿½ï¿½ï¿½4ï¿½ï¿½Tile
 		for (int i = 0; i < 2; ++ i)
 			for (int j = 0; j < 2; ++ j)
 				{
@@ -296,7 +296,7 @@ void MPEditor::PlaceTerrain(int nType, int nX, int nY, int nTexNo)
 
 				pTile->AddTexLayer(nTexNo, 15);
 
-				if (m_bEnableTextureAlphaBlend == FALSE) continue; // ²»²úÉú¹ý¶É
+				if (m_bEnableTextureAlphaBlend == FALSE) continue; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 				pTile = pCurTerrain->GetTile(x - 1, y - 1);
 				if(pTile) pTile->AddTexLayer(nTexNo, 1);
@@ -325,7 +325,7 @@ void MPEditor::PlaceTerrain(int nType, int nX, int nY, int nTexNo)
 		}
 	else if (nType == 3)
 		{
-		// 3ºÅË¢£¬»­16¸öTile
+		// 3ï¿½ï¿½Ë¢ï¿½ï¿½ï¿½ï¿½16ï¿½ï¿½Tile
 		for (int i = 0; i < 4; ++ i)
 			for (int j = 0; j < 4; ++ j)
 				{
@@ -337,7 +337,7 @@ void MPEditor::PlaceTerrain(int nType, int nX, int nY, int nTexNo)
 
 				pTile->AddTexLayer(nTexNo, 15);
 
-				if (m_bEnableTextureAlphaBlend == FALSE) continue; // ²»²úÉú¹ý¶É
+				if (m_bEnableTextureAlphaBlend == FALSE) continue; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 				pTile = pCurTerrain->GetTile(x - 1, y - 1);
 				if(pTile) pTile->AddTexLayer(nTexNo, 1);
@@ -384,7 +384,7 @@ void MPEditor::SetTerrainInvalid(int nType)
 		}
 	else if (nType == 2)
 		{
-		// 2ºÅË¢£¬»­4¸öTile
+		// 2ï¿½ï¿½Ë¢ï¿½ï¿½ï¿½ï¿½4ï¿½ï¿½Tile
 		for (int i = 0; i < 2; ++ i)
 			for (int j = 0; j < 2; ++ j)
 				{
@@ -396,7 +396,7 @@ void MPEditor::SetTerrainInvalid(int nType)
 		}
 	else if (nType == 3)
 		{
-		// 3ºÅË¢£¬»­16¸öTile
+		// 3ï¿½ï¿½Ë¢ï¿½ï¿½ï¿½ï¿½16ï¿½ï¿½Tile
 		for (int i = 0; i < 4; ++ i)
 			for (int j = 0; j < 4; ++ j)
 				{
@@ -552,22 +552,22 @@ void MPEditor::SystemReport(DWORD dwTimeParam)
 
     MPTerrain *pCurTerrain = GetCurTerrain();
     
-    // Êä³öÏîÄ¿ÁÐ±í
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½Ð±ï¿½
     
     // Performance :
     
     // FPS 
-    // ÏµÍ³×Ü¶à±ßÐÎÊýÁ¿  FrameMoveÊ±¼ä  äÖÈ¾Ê±¼ä
-    // ³¡¾°Îï¼þ×ÜÊý  ¶à±ßÐÎÊýÁ¿  äÖÈ¾Ê±¼ä
-    // ½ÇÉ«×ÜÊý      ¶à±ßÐÎÊýÁ¿  äÖÈ¾Ê±¼ä
+    // ÏµÍ³ï¿½Ü¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  FrameMoveÊ±ï¿½ï¿½  ï¿½ï¿½È¾Ê±ï¿½ï¿½
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½È¾Ê±ï¿½ï¿½
+    // ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½      ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½È¾Ê±ï¿½ï¿½
 
-    // ÌØÐ§×ÜÊý      äÖÈ¾Ê±¼ä
-    // ÏµÍ³Õ¼ÓÃÄÚ´æ  Õ¼ÓÃÏÔ´æ
+    // ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½      ï¿½ï¿½È¾Ê±ï¿½ï¿½
+    // ÏµÍ³Õ¼ï¿½ï¿½ï¿½Ú´ï¿½  Õ¼ï¿½ï¿½ï¿½Ô´ï¿½
 
     // GameLogic :
     
-    // Ö÷½ÇÃû×Ö ×ø±ê  ·½Ïò
-    // Ä£ÐÍÐÅÏ¢ ×°±¸   
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½
+    // Ä£ï¿½ï¿½ï¿½ï¿½Ï¢ ×°ï¿½ï¿½   
     static DWORD g_dwLastReportTick = 0;
     DWORD dwTerrainTime = 0;
     DWORD dwSeaTime     = 0;
@@ -606,21 +606,21 @@ void MPEditor::SystemReport(DWORD dwTimeParam)
         g_Render.Print(INFO_PERF, 200, 200, "%s", szInfo);
 
         
-		GPL("perf", 10, 4, g_oLangRec.GetString(200), g_Render.GetFPS(), CGameApp::GetFrameFPS(),
+		GPL("perf", 10, 4, RES_STRING(CMISS_000200), g_Render.GetFPS(), CGameApp::GetFrameFPS(),
             g_pGameApp->GetRenderUseTime(),
             g_pGameApp->GetFrameMoveUseTime(),
             g_NetIF->m_curdelay,
             g_NetIF->m_maxdelay,
             g_NetIF->m_mindelay);
         
-         GPL("perf", 10, 22, g_oLangRec.GetString(201), 
+         GPL("perf", 10, 22, RES_STRING(CMISS_000201), 
                                                                     pScene->m_dwValidChaCnt, 
                                                                     pScene->m_dwChaPolyCnt,
                                                                     pScene->m_dwChaRenderTime,
                                                                     pScene->m_dwValidEffCnt);
                                               
         
-         GPL("perf", 10, 40, g_oLangRec.GetString(202), pScene->m_dwValidSceneObjCnt,
+         GPL("perf", 10, 40, RES_STRING(CMISS_000202), pScene->m_dwValidSceneObjCnt,
                                                                                         pScene->m_dwRenderSceneObjCnt,
                                                                                         pScene->m_dwSceneObjPolyCnt,
                                                                                         pScene->m_dwSceneObjRenderTime,
@@ -628,12 +628,12 @@ void MPEditor::SystemReport(DWORD dwTimeParam)
             
         if(pCurTerrain)
         {
-            GPL("perf", 10, 58, g_oLangRec.GetString(203), pCurTerrain->m_dwTerrainRenderTime,
+            GPL("perf", 10, 58, RES_STRING(CL_LANGUAGE_MATCH_203), pCurTerrain->m_dwTerrainRenderTime,
                                                                                pCurTerrain->m_dwSeaRenderTime,
                                                                                pCurTerrain->m_dwTerrainRenderTime + pCurTerrain->m_dwSeaRenderTime,
                                                                                g_pGameApp->m_dwRenderUITime, g_pGameApp->m_dwRenderSceneTime); 
         
-            GPL("perf", 10, 76, g_oLangRec.GetString(204), pCurTerrain->m_dwActiveSectionCnt, pCurTerrain->m_dwLoadingTime[0], pCurTerrain->m_dwLoadingTime[1], pCurTerrain->m_dwLoadingTime[2], pCurTerrain->m_dwMaxLoadingTime);
+            GPL("perf", 10, 76, RES_STRING(CL_LANGUAGE_MATCH_204), pCurTerrain->m_dwActiveSectionCnt, pCurTerrain->m_dwLoadingTime[0], pCurTerrain->m_dwLoadingTime[1], pCurTerrain->m_dwLoadingTime[2], pCurTerrain->m_dwMaxLoadingTime);
         }
 
 #if 0
@@ -703,12 +703,12 @@ void MPEditor::FrameMove(DWORD dwTimeParam)
 	SystemReport(dwTimeParam);
     HandleKeyContinue();
 	
-	// ¶Ô¹ÖÎï½øÐÐÍ³¼Æ
+	// ï¿½Ô¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í³ï¿½ï¿½
 
 	if(g_Config.m_bEditor)
 	{
 		//g_Render.EnablePrint(INFO_DEBUG, TRUE);
-		short sMonsterStatus[1000]; // 1000¹ÖµÄÊýÁ¿
+		short sMonsterStatus[1000]; // 1000ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½
 		memset(sMonsterStatus, 0, 1000 * 2);
 
 		CGameScene *pScene = GetCurScene();
@@ -721,7 +721,7 @@ void MPEditor::FrameMove(DWORD dwTimeParam)
 				if(pCha->IsValid())
 				{
 					sMonsterStatus[pCha->getTypeID()]++;
-					sprintf(szRelive, g_oLangRec.GetString(205), pCha->getReliveTime());
+					sprintf(szRelive, RES_STRING(CL_LANGUAGE_MATCH_205), pCha->getReliveTime());
 					pCha->setSecondName(szRelive);
 				}
 			}
@@ -738,7 +738,7 @@ void MPEditor::FrameMove(DWORD dwTimeParam)
 					nTotal+=sMonsterStatus[i];
 				}
 			}
-			g_Render.Print(INFO_DEBUG, x, y, g_oLangRec.GetString(206), nTotal);
+			g_Render.Print(INFO_DEBUG, x, y, RES_STRING(CL_LANGUAGE_MATCH_206), nTotal);
 		}
 	
 	}
@@ -805,14 +805,14 @@ void MPEditor::Render()
     float fX = pCurScene->GetMouseMapX();
 	float fY = pCurScene->GetMouseMapY();
 	
-	float const fTileSize = 1.0f; // ³¤¿íÒ»Ñù
-	float const fTileMod = fTileSize / 2; // °ë³¤
+	float const fTileSize = 1.0f; // ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
+	float const fTileMod = fTileSize / 2; // ï¿½ë³¤
 	int tx = int(fX);
 	int ty = int(fY);
 
 	if ((m_bModifyHeight && m_nBrushNo == 1)
 		|| (!m_bModifyHeight && m_nBrushNo == 2)
-		|| m_nBrushNo == 3) // 2ºÅË¢ºÍ3ºÅË¢ÊÇÐèÒªÐÞÕý×ø±êµÄ
+		|| m_nBrushNo == 3) // 2ï¿½ï¿½Ë¢ï¿½ï¿½3ï¿½ï¿½Ë¢ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 		if (fX - tx > fTileMod)
 			tx += 1;
@@ -826,7 +826,7 @@ void MPEditor::Render()
 	m_nSelectX = nX;
 	m_nSelectY = nY;
 	
-    // Èç¹û´¦ÔÚÏÂÃæÌõ¼þµÄ±à¼­×´Ì¬£¬²»ÐèÒªäÖÈ¾Ë¢×Ó
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±à¼­×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½È¾Ë¢ï¿½ï¿½
     if(m_nSelTypeID) return;
 
     g_Render.SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_DIFFUSE );
@@ -839,7 +839,7 @@ void MPEditor::Render()
 	g_Render.SetFVF(D3DFVF_XYZ | D3DFVF_DIFFUSE);			
 	g_Render.EnableZBuffer(FALSE);
 	g_Render.EnableAlpha(TRUE);
-	g_Render.SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW); // µ¥ÃæäÖÈ¾
+	g_Render.SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¾
    	g_Render.SetRenderState( D3DRS_LIGHTING, FALSE );
     g_Render.SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 	g_Render.SetRenderState(D3DRS_SRCBLEND,  D3DBLEND_SRCALPHA);	 // blend the colors based on the
@@ -855,19 +855,19 @@ void MPEditor::Render()
 	{
 		if (m_nBrushNo == 1)
 		{
-			// »­1¸öTile
+			// ï¿½ï¿½1ï¿½ï¿½Tile
 			_RenderSelTile(nX, nY);
 		}
 		else if (m_nBrushNo == 2)
 		{
-			// »­4¸öTile
+			// ï¿½ï¿½4ï¿½ï¿½Tile
 			for (int i = 0; i < 2; ++ i)
 				for (int j = 0; j < 2; ++ j)
                     _RenderSelTile(nX + (j - 1), nY + (i - 1));
 		}
 		else if (m_nBrushNo == 3)
 		{
-			// »­16¸öTile
+			// ï¿½ï¿½16ï¿½ï¿½Tile
 			for (int i = 0; i < 4; ++ i)
 				for (int j = 0; j < 4; ++ j)
 					_RenderSelTile(nX + (j - 2), nY + (i - 2));
@@ -969,12 +969,12 @@ void MPEditor::Render()
 			}
 		}
 
-		// äÖÈ¾Ë¢×Ó
+		// ï¿½ï¿½È¾Ë¢ï¿½ï¿½
 		if (m_nBrushNo == 1)
 		{
 			if (m_bModifyHeight)
 			{
-				// À­¸ß£¬Òª»­4¸öTile
+				// ï¿½ï¿½ï¿½ß£ï¿½Òªï¿½ï¿½4ï¿½ï¿½Tile
 				for (int i = 0; i < 2; ++ i)
 					for (int j = 0; j < 2; ++ j)
 						_RenderSelTile(nX + (j - 1), nY + (i - 1));
@@ -985,7 +985,7 @@ void MPEditor::Render()
 		{
 			if (m_bModifyHeight)
 			{
-				// À­¸ß£¬Òª»­9¸öTile
+				// ï¿½ï¿½ï¿½ß£ï¿½Òªï¿½ï¿½9ï¿½ï¿½Tile
 				for (int i = 0; i < 3; ++ i)
 					for (int j = 0; j < 3; ++ j)
 						_RenderSelTile(nX + (j - 1), nY + (i - 1));
@@ -1001,7 +1001,7 @@ void MPEditor::Render()
 		{
 			if (m_bModifyHeight)
 			{
-				// À­¸ß£¬Òª»­16¸öTile
+				// ï¿½ï¿½ï¿½ß£ï¿½Òªï¿½ï¿½16ï¿½ï¿½Tile
 				for (int i = 0; i < 4; ++ i)
 					for (int j = 0; j < 4; ++ j)
 						_RenderSelTile(nX + (j - 2), nY + (i - 2));
@@ -1043,27 +1043,27 @@ void MPEditor::HandleKeyDown()
     }
     else if(g_pGameApp->IsKeyDown(DIK_U))
     {
-        Tip(g_oLangRec.GetString(207));
+        Tip(RES_STRING(CMISS_000207));
         UnhideAllSceneObj();
     }
     else if(g_pGameApp->IsKeyDown(DIK_F5))
     {
         m_bShowHeightmap = 1 - m_bShowHeightmap;
-		TipI(m_bShowHeightmap, g_oLangRec.GetString(208), g_oLangRec.GetString(209));
+		TipI(m_bShowHeightmap, RES_STRING(CMISS_000208), RES_STRING(CMISS_000209));
     }
     else if(g_pGameApp->IsKeyDown(DIK_G))
     {
         m_bLockObj = 1 - m_bLockObj;
-		TipI(m_bLockObj, g_oLangRec.GetString(210), g_oLangRec.GetString(211));
+		TipI(m_bLockObj, RES_STRING(CMISS_000210), RES_STRING(CL_LANGUAGE_MATCH_211));
     }
     else if(g_pGameApp->IsKeyDown(DIK_Q))
     {
-    	Tip(g_oLangRec.GetString(212));
+    	Tip(RES_STRING(CMISS_000212));
         GenerateLandAttr();
     }
     else if(g_pGameApp->IsKeyDown(DIK_F9))
     {
-    	Tip(g_oLangRec.GetString(213));
+    	Tip(RES_STRING(CMISS_000213));
         _UpdateObjHeightmap(_pSelSceneObj);
     }
     
@@ -1201,7 +1201,7 @@ BOOL MPEditor::MouseButtonDown(int nButton)
 		    _SetAttrib();
         }
     }
-	else // ÓÒ¼ü°´ÏÂ
+	else // ï¿½Ò¼ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 	    if(g_pGameApp->IsShiftPress())
         {
@@ -1216,7 +1216,7 @@ BOOL MPEditor::MouseButtonDown(int nButton)
 	}
 
 
-    // Ô­UPÊÂ¼þ
+    // Ô­UPï¿½Â¼ï¿½
 	if(nButton==0)
 	{
 		//if(IsEnable()==FALSE) return FALSE;
@@ -1251,7 +1251,7 @@ BOOL MPEditor::MouseButtonDown(int nButton)
 							}
 							pCha->ResetAITick();
 
-                            // ²âÊÔNPC×´Ì¬µÀ¾ß
+                            // ï¿½ï¿½ï¿½ï¿½NPC×´Ì¬ï¿½ï¿½ï¿½ï¿½
                             //DWORD state = ROLE_MIS_DELIVERY;
                             //switch( rand() % 3 )
                             //{
@@ -1624,7 +1624,7 @@ void MPEditor::MouseMove(int nOffsetX, int nOffsetY)
         {
             if(m_bIsBrushColor)
             {
-                // ÎüÑÕÉ«
+                // ï¿½ï¿½ï¿½ï¿½É«
                 MPTile *pTile = pCurScene->GetTerrain()->GetTile(m_nSelectX, m_nSelectY);
                 // pTile->dwColor;
                 extern CEditor g_stUIEditor;
@@ -1748,7 +1748,7 @@ void MPEditor::HideSelectSceneObj()
     if(_pSelSceneObj)
     {
         CSceneObjInfo *pInfo = GetSceneObjInfo(_pSelSceneObj->getTypeID());
-        char szTip[64]; sprintf(szTip, g_oLangRec.GetString(214), pInfo->szName); 
+        char szTip[64]; sprintf(szTip, RES_STRING(CMISS_000214), pInfo->szName); 
         _pSelSceneObj->SetHide(TRUE);
         Tip(szTip);
     }
@@ -1775,7 +1775,7 @@ void MPEditor::_RenderHeightmap()
     MPTerrain *pCurTerrain = GetCurTerrain();
     if(!pCurTerrain) return;
 
-    //äÖÈ¾¸ß¶ÈºÐ×Ó
+    //ï¿½ï¿½È¾ï¿½ß¶Èºï¿½ï¿½ï¿½
 	int iRadius = 10;
 	D3DXVECTOR3	vpos;
 	vpos.x = int(pCurTerrain->GetShowCenterX()) - iRadius + 0.25f;
@@ -1892,7 +1892,7 @@ void MPEditor::SetObj( bool press, int num )
 		if(m_nSelTypeID >=230 && pScene->IsShowChairObj()==0)
 		{
 			pScene->ShowChairObj(1);
-			TipI(pScene->IsShowChairObj(), g_oLangRec.GetString(215), g_oLangRec.GetString(216));
+			TipI(pScene->IsShowChairObj(), RES_STRING(CMISS_000215), RES_STRING(CMISS_000216));
 		}
 	}
 	else
@@ -1924,7 +1924,7 @@ void MPEditor::SetEff( bool press, int num )
 		pEff = pScene->AddSceneEffect(m_nSelTypeID);
 		if (!pEff)
 		{
-			LG("error", g_oLangRec.GetString(217));
+			LG("error", RES_STRING(CMISS_000217));
 			return;
 		}
 		m_nSelID = pEff->getID();
@@ -2114,10 +2114,10 @@ void MPEditor::CancelProperty(void)
 unsigned char MPEditor::_getTileAttribMask(unsigned char attrib_btn_index)
 	{
 	//switch (attrib_btn_index)
-	//	// attrib_btn_indexÊÇEditorÉÏÇøÓòÊôÐÔ°´Å¥µÄË÷Òý£¬´Ó1µ½16
+	//	// attrib_btn_indexï¿½ï¿½Editorï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô°ï¿½Å¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½16
 	//	{
 	//	case 1:
-	//		return enumAREA_TYPE_SEA; // µÚÒ»¸ö°´Å¥ÊÇº£ÑóÊôÐÔ
+	//		return enumAREA_TYPE_SEA; // ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Å¥ï¿½Çºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	//	default:
 	//		return 0;
 	//	}
@@ -2159,7 +2159,7 @@ void MPEditor::_renderTileAttrib(int nX, int nY, int nAttribIndex)
 		int k = 140;
 		switch(nAttribIndex)
 		{
-			case 1:  // Â½µØÊôÐÔ
+			case 1:  // Â½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				v[i].dwColor = D3DCOLOR_ARGB(k, 100, 255, 25);
 				break;
 			case 2:

@@ -10,6 +10,66 @@ LW_BEGIN
 
 #define VERSION_BONESKIN            0x0001
 
+#ifdef _WIN64
+// Binary .lmo/.lgo files store x86-layout structs where sizeof(void*)==4.
+// On x64, lwTexInfo grows due to void* data (8 bytes + padding vs 4 bytes).
+// This compat struct matches the x86 binary layout exactly.
+struct lwTexInfo_x86
+{
+    DWORD stage;
+    DWORD level;
+    DWORD usage;
+    D3DFORMAT format;
+    D3DPOOL pool;
+    DWORD byte_alignment_flag;
+    DWORD type;
+    DWORD width;
+    DWORD height;
+    DWORD colorkey_type;
+    lwColorValue4b colorkey;
+    char file_name[LW_MAX_NAME];
+    DWORD data_placeholder;
+    lwRenderStateAtom tss_set[LW_TEX_TSS_NUM];
+};
+static_assert(sizeof(lwTexInfo_x86) == 208, "lwTexInfo_x86 must match x86 binary layout (208 bytes)");
+
+static void lwTexInfo_ConvertFromX86(lwTexInfo* dst, const lwTexInfo_x86* src)
+{
+    dst->stage = src->stage;
+    dst->level = src->level;
+    dst->usage = src->usage;
+    dst->format = src->format;
+    dst->pool = src->pool;
+    dst->byte_alignment_flag = src->byte_alignment_flag;
+    dst->type = src->type;
+    dst->width = src->width;
+    dst->height = src->height;
+    dst->colorkey_type = src->colorkey_type;
+    dst->colorkey = src->colorkey;
+    memcpy(dst->file_name, src->file_name, LW_MAX_NAME);
+    dst->data = (void*)(uintptr_t)src->data_placeholder;
+    memcpy(dst->tss_set, src->tss_set, sizeof(dst->tss_set));
+}
+
+static void lwTexInfo_ConvertToX86(lwTexInfo_x86* dst, const lwTexInfo* src)
+{
+    dst->stage = src->stage;
+    dst->level = src->level;
+    dst->usage = src->usage;
+    dst->format = src->format;
+    dst->pool = src->pool;
+    dst->byte_alignment_flag = src->byte_alignment_flag;
+    dst->type = src->type;
+    dst->width = src->width;
+    dst->height = src->height;
+    dst->colorkey_type = src->colorkey_type;
+    dst->colorkey = src->colorkey;
+    memcpy(dst->file_name, src->file_name, LW_MAX_NAME);
+    dst->data_placeholder = (DWORD)(uintptr_t)src->data;
+    memcpy(dst->tss_set, src->tss_set, sizeof(dst->tss_set));
+}
+#endif
+
 /*
 LW_STD_IMPLEMENTATION(lwMtlTexInfo)
 DWORD lwMtlTexInfo::version = VERSION;
@@ -36,13 +96,39 @@ LW_RESULT lwMtlTexInfo::Save(FILE* fp) const
 // lwMtlTexInfo io method
 LW_RESULT lwMtlTexInfo_Load(lwMtlTexInfo* info, FILE* fp, DWORD version)
 {
+    {
+        static bool once = false;
+        if(!once) {
+            once = true;
+            FILE*_tf=fopen("log\\model_trace.log","a");
+            if(_tf){
+                fprintf(_tf,"[MTL_SIZES] sizeof(lwTexInfo)=%llu sizeof(lwTexInfo_x86)=%llu sizeof(lwMtlTexInfo)=%llu sizeof(lwMaterial)=%llu\n",
+                    (unsigned long long)sizeof(lwTexInfo),
+#ifdef _WIN64
+                    (unsigned long long)sizeof(lwTexInfo_x86),
+#else
+                    (unsigned long long)sizeof(lwTexInfo),
+#endif
+                    (unsigned long long)sizeof(lwMtlTexInfo),
+                    (unsigned long long)sizeof(lwMaterial));
+                fflush(_tf);fclose(_tf);
+            }
+        }
+    }
     if(version >= EXP_OBJ_VERSION_1_0_0_0)
     {
         fread(&info->opacity, sizeof(info->opacity), 1, fp);
         fread(&info->transp_type, sizeof(info->transp_type), 1, fp);
         fread(&info->mtl, sizeof(lwMaterial), 1, fp);
         fread(&info->rs_set[0], sizeof(info->rs_set), 1, fp);
+#ifdef _WIN64
+        lwTexInfo_x86 tmp[LW_MAX_TEXTURESTAGE_NUM];
+        fread(tmp, sizeof(tmp), 1, fp);
+        for (DWORD i = 0; i < LW_MAX_TEXTURESTAGE_NUM; i++)
+            lwTexInfo_ConvertFromX86(&info->tex_seq[i], &tmp[i]);
+#else
         fread(&info->tex_seq[0], sizeof(info->tex_seq), 1, fp);
+#endif
     }
     else if(version == MTLTEX_VERSION0002)
     {
@@ -50,7 +136,14 @@ LW_RESULT lwMtlTexInfo_Load(lwMtlTexInfo* info, FILE* fp, DWORD version)
         fread(&info->transp_type, sizeof(info->transp_type), 1, fp);
         fread(&info->mtl, sizeof(lwMaterial), 1, fp);
         fread(&info->rs_set[0], sizeof(info->rs_set), 1, fp);
+#ifdef _WIN64
+        lwTexInfo_x86 tmp[LW_MAX_TEXTURESTAGE_NUM];
+        fread(tmp, sizeof(tmp), 1, fp);
+        for (DWORD i = 0; i < LW_MAX_TEXTURESTAGE_NUM; i++)
+            lwTexInfo_ConvertFromX86(&info->tex_seq[i], &tmp[i]);
+#else
         fread(&info->tex_seq[0], sizeof(info->tex_seq), 1, fp);
+#endif
     }
     else if(version == MTLTEX_VERSION0001)
     {
@@ -195,7 +288,7 @@ LW_RESULT lwMtlTexInfo_Load(lwMtlTexInfo* info, FILE* fp, DWORD version)
                 t->tss_set[j].value1 = rsv->value;
             }
         }
-        //ºÊ»›æ…∞Ê±æµƒŒƒº˛µº≥ˆ
+        //ÂÖºÂÆπÊóßÁâàÊú¨ÁöÑÊñá‰ª∂ÂØºÂá∫
         if(info->tex_seq[0].format == D3DFMT_A4R4G4B4)
         {
             info->tex_seq[0].format = D3DFMT_A1R5G5B5;
@@ -207,14 +300,14 @@ LW_RESULT lwMtlTexInfo_Load(lwMtlTexInfo* info, FILE* fp, DWORD version)
         return LW_RET_FAILED;
     }
 
-    // ’‚¿Ô÷∏∂®mipmap level = 3
+    // ËøôÈáåÊåáÂÆömipmap level = 3
     //if(info->tex_seq[0].colorkey_type == COLORKEY_TYPE_NONE)
     {
         info->tex_seq[0].pool = D3DPOOL_MANAGED;
         info->tex_seq[0].level = D3DX_DEFAULT;
     }
 
-    // ºÊ»›∞Ê±æ…Ë÷√
+    // ÂÖºÂÆπÁâàÊú¨ËÆæÁΩÆ
     BOOL transp_flag = 0;
     lwRenderStateAtom* rsa;
     DWORD i = 0;
@@ -258,12 +351,19 @@ LW_RESULT lwMtlTexInfo_Load(lwMtlTexInfo* info, FILE* fp, DWORD version)
 }
 
 LW_RESULT lwMtlTexInfo_Save(lwMtlTexInfo* info, FILE* fp, DWORD version)
-{ 
+{
     fwrite(&info->opacity, sizeof(info->opacity), 1, fp);
     fwrite(&info->transp_type, sizeof(info->transp_type), 1, fp);
     fwrite(&info->mtl, sizeof(lwMaterial), 1, fp);
     fwrite(&info->rs_set[0], sizeof(info->rs_set), 1, fp);
+#ifdef _WIN64
+    lwTexInfo_x86 tmp[LW_MAX_TEXTURESTAGE_NUM];
+    for (DWORD i = 0; i < LW_MAX_TEXTURESTAGE_NUM; i++)
+        lwTexInfo_ConvertToX86(&tmp[i], &info->tex_seq[i]);
+    fwrite(tmp, sizeof(tmp), 1, fp);
+#else
     fwrite(&info->tex_seq[0], sizeof(info->tex_seq), 1, fp);
+#endif
 
     return LW_RET_OK;
 }
@@ -310,7 +410,11 @@ DWORD lwMtlTexInfo_GetDataSize(lwMtlTexInfo* info)
 { 
     return sizeof(info->opacity) + sizeof(info->transp_type) 
         + sizeof(info->mtl) + sizeof(info->rs_set)
+#ifdef _WIN64
+        + sizeof(lwTexInfo_x86) * LW_MAX_TEXTURESTAGE_NUM;
+#else
         + sizeof(info->tex_seq); 
+#endif
 }
 
 
@@ -412,8 +516,8 @@ LW_RESULT lwAnimDataTexUV::GetValue(lwMatrix44* mat, float frame)
 
     //if(_data_seq[frame].w_angle != 0.0f) {
 
-    //    // DirectX∂‘”⁄UVæÿ’Ûµƒµƒº∆À„–Ë“™UV»°∏∫÷µ≤≈ƒ‹µ√µΩ–Ë“™µƒ–ßπ˚
-    //    // ø…ƒ‹ «ƒ≥∏ˆø™πÿ√ª”–…Ë÷√’˝»∑
+    //    // DirectX????UV????????????UV???????????????ÔøΩÔøΩ??
+    //    // ???????????????????????
     //    lwMatrix44 tmp;
     //    lwMatrix44Identity(&tmp);
 
@@ -458,15 +562,36 @@ LW_RESULT lwAnimDataTexImg::Load(FILE* fp, DWORD version)
     {
         fread(&_data_num, sizeof(_data_num), 1, fp);
         _data_seq = LW_NEW(lwTexInfo[_data_num]);
+#ifdef _WIN64
+        lwTexInfo_x86* tmp = (lwTexInfo_x86*)malloc(sizeof(lwTexInfo_x86) * _data_num);
+        if (tmp)
+        {
+            fread(tmp, sizeof(lwTexInfo_x86), _data_num, fp);
+            for (DWORD i = 0; i < _data_num; i++)
+                lwTexInfo_ConvertFromX86(&_data_seq[i], &tmp[i]);
+            free(tmp);
+        }
+#else
         fread(_data_seq, sizeof(lwTexInfo), _data_num, fp);
+#endif
     }
 
     return LW_RET_OK;
 }
 LW_RESULT lwAnimDataTexImg::Save(FILE* fp) const
 {
-    fwrite(&_data_num, sizeof(_data_num), 1, fp);
+#ifdef _WIN64
+    lwTexInfo_x86* tmp = (lwTexInfo_x86*)malloc(sizeof(lwTexInfo_x86) * _data_num);
+    if (tmp)
+    {
+        for (DWORD i = 0; i < _data_num; i++)
+            lwTexInfo_ConvertToX86(&tmp[i], &_data_seq[i]);
+        fwrite(tmp, sizeof(lwTexInfo_x86), _data_num, fp);
+        free(tmp);
+    }
+#else
     fwrite(_data_seq, sizeof(lwTexInfo), _data_num, fp);
+#endif
     return LW_RET_OK;
 }
 LW_RESULT lwAnimDataTexImg::Load(const char* file)
@@ -483,8 +608,12 @@ DWORD lwAnimDataTexImg::GetDataSize() const
 {
     DWORD size = 0;
     
+#ifdef _WIN64
+    size += sizeof(lwTexInfo_x86) * _data_num;
+#else
     size += sizeof(lwTexInfo) * _data_num;
-    
+#endif
+
     if(size > 0)
     {
         size += sizeof(_data_num);
@@ -923,8 +1052,8 @@ LW_RESULT lwAnimDataBone::GetValue(lwMatrix44* mat, DWORD bone_id, float frame, 
         goto __ret;
 
     // by lsh
-    // ’‚¿Ôframe > _frame_num √ª”–”√">=" «“ÚŒ™Œ“√«‘⁄øº¬«PLAY_LOOPµƒ«Èøˆ ±
-    // –Ë“™≤Â÷µµ⁄0÷°∫Õµ⁄_data._frame_num - 1÷°µƒ ˝æ›
+    // ËøôÈáåframe > _frame_num Ê≤°ÊúâÁî®">="ÊòØÂõ†‰∏∫Êàë‰ª¨Âú®ËÄÉËôëPLAY_LOOPÁöÑÊÉÖÂÜµÊó∂
+    // ÈúÄË¶ÅÊèíÂÄºÁ¨¨0Â∏ßÂíåÁ¨¨_data._frame_num - 1Â∏ßÁöÑÊï∞ÊçÆ
     if(frame < 0 || frame > _frame_num)
         goto __ret;
 
@@ -973,9 +1102,9 @@ LW_RESULT lwAnimDataBone::GetValue(lwMatrix44* mat, DWORD bone_id, float frame, 
 
             if (max_f == _frame_num)
             {
-                // ’‚¿ÔŒ“√«≤Â÷µµ⁄0÷°∫Õµ⁄_data._frame_num - 1÷°µƒ ˝æ›
+                // ????????????0????_data._frame_num - 1???????
                 max_f = 0;
-                //max_f = _frame_num - 1; ≤ª◊˜±ﬂΩÁΩÿ∂œ
+                //max_f = _frame_num - 1; ?????????
             }
 
 #if 0
@@ -2742,7 +2871,9 @@ LW_STD_IMPLEMENTATION(lwGeomObjInfo)
 
 LW_RESULT lwGeomObjInfo::Load(FILE* fp, DWORD version)
 {
+    {FILE*_tf=fopen("log\\model_trace.log","a");if(_tf){fprintf(_tf,"[GOI] pre fread hdr sz=%llu\n",(unsigned long long)sizeof(lwGeomObjInfoHeader));fflush(_tf);fclose(_tf);}}
     fread((lwGeomObjInfoHeader*)&id, sizeof(lwGeomObjInfoHeader), 1, fp);
+    {FILE*_tf=fopen("log\\model_trace.log","a");if(_tf){fprintf(_tf,"[GOI] post fread id=%u mtl_sz=%u mesh_sz=%u help_sz=%u anim_sz=%u\n",id,mtl_size,mesh_size,helper_size,anim_size);fflush(_tf);fclose(_tf);}}
 
     // for compatible version
     state_ctrl.SetState(STATE_FRAMECULLING, 0);
@@ -2756,27 +2887,48 @@ LW_RESULT lwGeomObjInfo::Load(FILE* fp, DWORD version)
     // end
 
     // read mtl data
+    long _fp_after_hdr = ftell(fp);
     if(mtl_size > 0)
-    {        
+    {
+        {FILE*_tf=fopen("log\\model_trace.log","a");if(_tf){fprintf(_tf,"[GOI] pre mtl load fp=%ld\n",ftell(fp));fflush(_tf);fclose(_tf);}}
         lwLoadMtlTexInfo(&mtl_seq, &mtl_num, fp, version);
+        long _fp_after_mtl = ftell(fp);
+        long _fp_expected = _fp_after_hdr + mtl_size;
+        {FILE*_tf=fopen("log\\model_trace.log","a");if(_tf){fprintf(_tf,"[GOI] post mtl load num=%u fp=%ld expected=%ld diff=%ld\n",mtl_num,_fp_after_mtl,_fp_expected,_fp_after_mtl-_fp_expected);fflush(_tf);fclose(_tf);}}
+        if(_fp_after_mtl != _fp_expected) { fseek(fp, _fp_expected, SEEK_SET); }
     }
 
     // read mesh data
+    long _fp_mesh_expected = _fp_after_hdr + mtl_size;
     if(mesh_size > 0)
     {
+        {FILE*_tf=fopen("log\\model_trace.log","a");if(_tf){fprintf(_tf,"[GOI] pre mesh load fp=%ld\n",ftell(fp));fflush(_tf);fclose(_tf);}}
         lwMeshInfo_Load(&mesh, fp, version);
+        long _fp_now = ftell(fp);
+        long _fp_exp = _fp_mesh_expected + mesh_size;
+        {FILE*_tf=fopen("log\\model_trace.log","a");if(_tf){fprintf(_tf,"[GOI] post mesh load fp=%ld exp=%ld diff=%ld\n",_fp_now,_fp_exp,_fp_now-_fp_exp);fflush(_tf);fclose(_tf);}}
+        if(_fp_now != _fp_exp) { fseek(fp, _fp_exp, SEEK_SET); }
     }
+    _fp_mesh_expected += mesh_size;
 
     // read helper datas
     if(helper_size > 0)
     {
+        {FILE*_tf=fopen("log\\model_trace.log","a");if(_tf){fprintf(_tf,"[GOI] pre helper load fp=%ld\n",ftell(fp));fflush(_tf);fclose(_tf);}}
         helper_data.Load(fp, version);
+        long _fp_now = ftell(fp);
+        long _fp_exp = _fp_mesh_expected + helper_size;
+        {FILE*_tf=fopen("log\\model_trace.log","a");if(_tf){fprintf(_tf,"[GOI] post helper load fp=%ld exp=%ld diff=%ld\n",_fp_now,_fp_exp,_fp_now-_fp_exp);fflush(_tf);fclose(_tf);}}
+        if(_fp_now != _fp_exp) { fseek(fp, _fp_exp, SEEK_SET); }
     }
+    _fp_mesh_expected += helper_size;
 
     // read animation data
     if(anim_size > 0)
     {
+        {FILE*_tf=fopen("log\\model_trace.log","a");if(_tf){fprintf(_tf,"[GOI] pre anim load fp=%ld\n",ftell(fp));fflush(_tf);fclose(_tf);}}
         anim_data.Load(fp, version);
+        {FILE*_tf=fopen("log\\model_trace.log","a");if(_tf){fprintf(_tf,"[GOI] post anim load\n");fflush(_tf);fclose(_tf);}}
     }
 
 
@@ -2904,17 +3056,25 @@ LW_STD_IMPLEMENTATION(lwModelObjInfo)
 
 LW_RESULT lwModelObjInfo::Load(const char* file)
 {
+    {FILE*_tf=fopen("log\\model_trace.log","a");if(_tf){fprintf(_tf,"[MOI] Load enter file=%s sizeof(GeomObjInfoHdr)=%llu sizeof(ModelObjInfoHdr)=%llu\n",file,(unsigned long long)sizeof(lwGeomObjInfoHeader),(unsigned long long)sizeof(lwModelObjInfoHeader));fflush(_tf);fclose(_tf);}}
+
     FILE* fp = fopen(file, "rb");
     if(fp == NULL)
         return LW_RET_FAILED;
 
-
     DWORD version;
     fread(&version, sizeof(version), 1, fp);
 
-
     DWORD obj_num;
     fread(&obj_num, sizeof(DWORD), 1, fp);
+
+    {FILE*_tf=fopen("log\\model_trace.log","a");if(_tf){fprintf(_tf,"[MOI] ver=0x%08X obj_num=%u\n",version,obj_num);fflush(_tf);fclose(_tf);}}
+
+    if(obj_num > LW_MAX_MODEL_OBJ_NUM) {
+        {FILE*_tf=fopen("log\\model_trace.log","a");if(_tf){fprintf(_tf,"[MOI] obj_num OVERFLOW %u > %d\n",obj_num,LW_MAX_MODEL_OBJ_NUM);fflush(_tf);fclose(_tf);}}
+        fclose(fp);
+        return LW_RET_FAILED;
+    }
 
     lwModelObjInfoHeader header[LW_MAX_MODEL_OBJ_NUM];
     fread(&header[0], sizeof(lwModelObjInfoHeader), obj_num, fp);
@@ -2923,6 +3083,8 @@ LW_RESULT lwModelObjInfo::Load(const char* file)
 
     for(DWORD i = 0; i < obj_num; i++)
     {
+        {FILE*_tf=fopen("log\\model_trace.log","a");if(_tf){fprintf(_tf,"[MOI] obj[%u] type=%u addr=%u size=%u\n",i,header[i].type,header[i].addr,header[i].size);fflush(_tf);fclose(_tf);}}
+
         fseek(fp, header[i].addr, SEEK_SET);        
 
         switch(header[i].type)
@@ -2934,17 +3096,23 @@ LW_RESULT lwModelObjInfo::Load(const char* file)
                 DWORD old_version;
                 fread(&old_version, sizeof(old_version), 1, fp);
             }
+            {FILE*_tf=fopen("log\\model_trace.log","a");if(_tf){fprintf(_tf,"[MOI] pre geom Load geom_obj_num=%u\n",geom_obj_num);fflush(_tf);fclose(_tf);}}
             geom_obj_seq[geom_obj_num]->Load(fp, version);
+            {FILE*_tf=fopen("log\\model_trace.log","a");if(_tf){fprintf(_tf,"[MOI] post geom Load\n");fflush(_tf);fclose(_tf);}}
             geom_obj_num += 1;
             break;
         case MODEL_OBJ_TYPE_HELPER:
+            {FILE*_tf=fopen("log\\model_trace.log","a");if(_tf){fprintf(_tf,"[MOI] pre helper Load\n");fflush(_tf);fclose(_tf);}}
             helper_data.Load(fp, version);
+            {FILE*_tf=fopen("log\\model_trace.log","a");if(_tf){fprintf(_tf,"[MOI] post helper Load\n");fflush(_tf);fclose(_tf);}}
             break;
         default:
-            assert(0);
+            {FILE*_tf=fopen("log\\model_trace.log","a");if(_tf){fprintf(_tf,"[MOI] UNKNOWN type=%u\n",header[i].type);fflush(_tf);fclose(_tf);}}
+            break;
         }
     }
     
+    {FILE*_tf=fopen("log\\model_trace.log","a");if(_tf){fprintf(_tf,"[MOI] all done geom_obj_num=%u\n",geom_obj_num);fflush(_tf);fclose(_tf);}}
 
     if(fp)
     {

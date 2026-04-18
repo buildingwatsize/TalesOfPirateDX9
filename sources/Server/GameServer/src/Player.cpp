@@ -34,7 +34,7 @@ m_sGarnerWiner(0)
 	//m_CMapMask.AddMap("lonetower", defMAP_LONETOWER_WIDTH, defMAP_LONETOWER_HEIGHT);
 	m_lLightSize = g_lDeftMMaskLight;
 
-	//初始化摩豆和代币数量
+	// Initialize premium currency (MoBean) and token balances
 	m_lMoBean = 0;
 	m_lRplMoney = 0;
 	m_lVipID = 0;
@@ -118,7 +118,7 @@ void CPlayer::Finally()
 	m_pCtrlCha = 0;
 	m_pMainCha = NULL;
 
-	// 建造中的船只
+	// Ship currently under construction
 	if( m_pMakingBoat )
 	{
 		m_pMakingBoat->Free();
@@ -200,7 +200,7 @@ void CPlayer::GetAllBerthBoat( USHORT sBerthID, BYTE& byNumBoat, BOAT_BERTH_DATA
 			strncpy( Data.szName[byIndex], m_Boat[i]->GetName(), BOAT_MAXSIZE_BOATNAME - 1 );
 			if( Data.byState[byIndex] != 0 )
 			{
-				//strcat( Data.szName[byIndex], "  [状态：沉没]" );
+				//strcat( Data.szName[byIndex], "  [Dead]" );
 				strcat( Data.szName[byIndex], RES_STRING(GM_PLAYER_CPP_00001) );
 				Data.byState[byIndex] = BS_DEAD;
 			}
@@ -208,19 +208,19 @@ void CPlayer::GetAllBerthBoat( USHORT sBerthID, BYTE& byNumBoat, BOAT_BERTH_DATA
 			{
 				if( m_Boat[i]->getAttr( ATTR_HP ) < (m_Boat[i]->getAttr( ATTR_MXHP )/2) )
 				{
-					//strcat( Data.szName[byIndex], "  [状态：损坏严重]" );
+					//strcat( Data.szName[byIndex], "  [Low HP]" );
 					strcat( Data.szName[byIndex], RES_STRING(GM_PLAYER_CPP_00002) );
 					Data.byState[byIndex] = BS_NOHP;
 				}
 				else if( m_Boat[i]->getAttr( ATTR_SP ) < (m_Boat[i]->getAttr( ATTR_MXSP )/2) )
 				{
-					//strcat( Data.szName[byIndex], "  [状态：给养不足]" );	
+					//strcat( Data.szName[byIndex], "  [Low SP]" );	
 					strcat( Data.szName[byIndex], RES_STRING(GM_PLAYER_CPP_00003) );	
 					Data.byState[byIndex] = BS_NOSP;
 				}
 				else
 				{					
-					//strcat( Data.szName[byIndex], "  [状态：良好]" );
+					//strcat( Data.szName[byIndex], "  [Good]" );
 					strcat( Data.szName[byIndex], RES_STRING(GM_PLAYER_CPP_00004) );
 					Data.byState[byIndex] = BS_GOOD;
 				}
@@ -371,22 +371,22 @@ void CPlayer::GetBerth( USHORT& sBerthID, USHORT& sxPos, USHORT& syPos, USHORT& 
 	sDir = m_sDir;
 }
 
-// 组队有关操作参数
-// 添加单个队友
+// Team-related operations
+// Add a member to this player's team roster
 void CPlayer::AddTeamMember(uplayer *pUPlayer)
 {T_B
-	//LG("team", "为[%s]添加队友: [dbid = %d] [gate_addr=%d]\n", GetCtrlCha()->GetLogName(), pUPlayer->m_dwDBChaId, pUPlayer->m_ulGateAddr);
+	//LG("team", "Adding teammate for [%s]: [dbid = %d] [gate_addr=%d]\n", GetCtrlCha()->GetLogName(), pUPlayer->m_dwDBChaId, pUPlayer->m_ulGateAddr);
 	if(_nTeamMemberCnt>=MAX_TEAM_MEMBER)
 	{
-		//LG("team", "要求增加Team队友时达到上限[%d], 无法添加\n", MAX_TEAM_MEMBER);
+		//LG("team", "Team member limit reached [%d], cannot add\n", MAX_TEAM_MEMBER);
 		return;
 	}
 	_Team[_nTeamMemberCnt] = *pUPlayer;
 	_nTeamMemberCnt++;
-	//LG("team", "添加成功 共有队友数量 %d\n", _nTeamMemberCnt);
+	//LG("team", "Add succeeded, total team members = %d\n", _nTeamMemberCnt);
 T_E}
 
-// 清除所有队友记录
+// Clear all team member records
 void CPlayer::ClearTeamMember()
 {T_B
     _dwTeamLeaderID = 0;
@@ -404,7 +404,7 @@ void CPlayer::UpdateTeam()
 {
 }
 
-// 协议 : 将Player做为组队成员的信息发送给队友的客户端
+// Sync: broadcast this player's data (as a team member) to teammates' clients
 void CPlayer::NoticeTeamMemberData()
 {T_B
 	int	nTMemberCnt = GetTeamMemberCnt();
@@ -414,18 +414,18 @@ void CPlayer::NoticeTeamMemberData()
 	CCharacter *pMainCha = pCha->GetPlayer()->GetMainCha();
 	
 	
-	//LG("team", "[%s]做为队员向其他成员的客户端[%d个]通知自身信息\n", pCha->GetName(), nTMemberCnt);
+	//LG("team", "[%s]锟斤拷为锟斤拷员锟斤拷锟斤拷锟斤拷锟斤拷员锟侥客伙拷锟斤拷[%d锟斤拷]通知锟斤拷锟斤拷锟斤拷息\n", pCha->GetName(), nTMemberCnt);
 
     WPACKET	wpk = GETWPACKET();
 	WRITE_CMD(wpk, CMD_MC_TEAM);
-	WRITE_LONG(wpk, pMainCha->GetID()); // 发送给客户端自己的角色唯一ID作为标识
+	WRITE_LONG(wpk, pMainCha->GetID()); // Character unique ID sent to client as identifier
 	WRITE_LONG(wpk, (long)pCha->getAttr(ATTR_HP));
 	WRITE_LONG(wpk, (long)pCha->getAttr(ATTR_MXHP));
 	WRITE_LONG(wpk, (long)pCha->getAttr(ATTR_SP));
 	WRITE_LONG(wpk, (long)pCha->getAttr(ATTR_MXSP));
 	
-	WRITE_LONG(wpk, pMainCha->getAttr(ATTR_LV)); // 写入人的级别信息	
-	pMainCha->WriteLookData(wpk, LOOK_TEAM);	 // 写入人的外观信息, 最终应该处理为显示船的外观和级别
+	WRITE_LONG(wpk, pMainCha->getAttr(ATTR_LV)); // Character level
+	pMainCha->WriteLookData(wpk, LOOK_TEAM);	 // Appearance data (portrait + equipment visuals for team UI)
 
 	SENDTOCLIENT2(wpk, nTMemberCnt, _Team);
 T_E}
@@ -446,11 +446,11 @@ void CPlayer::NoticeTeamLeaderID(void)
 	pCha->NotiChgToEyeshot(pk);
 	//pCha->ReflectINFof(pCha, pk);
 
-	//pCha->m_CLog.Log("同步队伍编号：队长 %d，自己 %d.", getTeamLeaderID(), pCha->GetID());
+	//pCha->m_CLog.Log("sync team leader ID: leader %d, self %d.", getTeamLeaderID(), pCha->GetID());
 	pCha->m_CLog.Log("in phase teamID:header  %d,oneself %d.", getTeamLeaderID(), pCha->GetID());
 }
 
-// 获得玩家同队的成员角色
+// Get the CCharacter of a team member by slot index
 CCharacter* CPlayer::GetTeamMemberCha(int nNo)
 {
 	CPlayer *pOther = g_pGameApp->GetPlayerByDBID(_Team[nNo].m_dwDBChaId);
@@ -512,7 +512,7 @@ void CPlayer::ClearChallengeObj(bool bAll)
 	SetChallengeType(enumFIGHT_NONE);
 }
 
-// chPosType 1，装备栏.2，道具栏
+// chPosType: 1 = equipped item slot, 2 = inventory item slot
 bool CPlayer::SetRepairPosInfo(dbc::Char chPosType, dbc::Char chPosID)
 {
 	m_chRepairPosType = chPosType;
@@ -551,7 +551,7 @@ bool CPlayer::OpenForge(CCharacter *pCNpc)
 {
 	if (IsInForge())
 	{
-		//SystemNotice("之前的请求没有完成!");
+		//SystemNotice("Previous forge session not closed!");
 		SystemNotice(RES_STRING(GM_PLAYER_CPP_00005));
 		return false;
 	}
@@ -564,7 +564,7 @@ bool CPlayer::OpenForge(CCharacter *pCNpc)
 // Add by lark.li 20080514 begin
 bool CPlayer::OpenLottery(CCharacter *pCNpc)
 {
-	//SystemNotice("买彩票，找李灵辉！");
+	//SystemNotice("Lottery feature is being prepared!");
 
 	m_pCLotteryman = pCNpc;
 	GetCtrlCha()->SynBeginItemLottery();
@@ -576,7 +576,7 @@ bool CPlayer::OpenUnite(CCharacter *pCNpc)
 {
 	if (IsInForge())
 	{
-		//SystemNotice("之前的请求没有完成!");
+		//SystemNotice("Previous forge session not closed!");
 		SystemNotice(RES_STRING(GM_PLAYER_CPP_00005));
 		return false;
 	}
@@ -590,7 +590,7 @@ bool CPlayer::OpenMilling(CCharacter *pCNpc)
 {
 	if (IsInForge())
 	{
-		//SystemNotice("之前的请求没有完成!");
+		//SystemNotice("Previous forge session not closed!");
 		SystemNotice(RES_STRING(GM_PLAYER_CPP_00005));
 		return false;
 	}
@@ -604,7 +604,7 @@ bool CPlayer::OpenFusion(CCharacter *pCNpc)
 {
 	if (IsInForge())
 	{
-		//SystemNotice("之前的请求没有完成!");
+		//SystemNotice("Previous forge session not closed!");
 		SystemNotice(RES_STRING(GM_PLAYER_CPP_00005));
 		return false;
 	}
@@ -618,7 +618,7 @@ bool CPlayer::OpenUpgrade(CCharacter *pCNpc)
 {
 	if (IsInForge())
 	{
-		//SystemNotice("之前的请求没有完成!");
+		//SystemNotice("Previous forge session not closed!");
 		SystemNotice(RES_STRING(GM_PLAYER_CPP_00005));
 		return false;
 	}
@@ -632,7 +632,7 @@ bool CPlayer::OpenEidolonMetempsychosis(CCharacter *pCNpc)
 {
 	if (IsInForge())
 	{
-		//SystemNotice("之前的请求没有完成!");
+		//SystemNotice("Previous forge session not closed!");
 		SystemNotice(RES_STRING(GM_PLAYER_CPP_00005));
 		return false;
 	}
@@ -646,7 +646,7 @@ bool CPlayer::OpenEidolonFusion(CCharacter *pCNpc)
 {
 	if (IsInForge())
 	{
-		//SystemNotice("之前的请求没有完成!");
+		//SystemNotice("Previous forge session not closed!");
 		SystemNotice(RES_STRING(GM_PLAYER_CPP_00005));
 		return false;
 	}
@@ -660,7 +660,7 @@ bool CPlayer::OpenPurify(CCharacter *pCNpc)
 {
 	if (IsInForge())
 	{
-		//SystemNotice("之前的请求没有完成!");
+		//SystemNotice("Previous forge session not closed!");
 		SystemNotice(RES_STRING(GM_PLAYER_CPP_00005));
 		return false;
 	}
@@ -674,7 +674,7 @@ bool CPlayer::OpenFix(CCharacter *pCNpc)
 {
 	if (IsInForge())
 	{
-		//SystemNotice("之前的请求没有完成!");
+		//SystemNotice("Previous forge session not closed!");
 		SystemNotice(RES_STRING(GM_PLAYER_CPP_00005));
 		return false;
 	}
@@ -688,7 +688,7 @@ bool CPlayer::OpenEnergy(CCharacter *pCNpc)
 {
 	if (IsInForge())
 	{
-		//SystemNotice("之前的请求没有完成!");
+		//SystemNotice("Previous forge session not closed!");
 		SystemNotice(RES_STRING(GM_PLAYER_CPP_00005));
 		return false;
 	}
@@ -714,7 +714,7 @@ bool CPlayer::OpenGetStone(CCharacter *pCNpc)
 {
 	if (IsInForge())
 	{
-		//SystemNotice("之前的请求没有完成!");
+		//SystemNotice("Previous forge session not closed!");
 		SystemNotice(RES_STRING(GM_PLAYER_CPP_00005));
 		return false;
 	}
@@ -728,7 +728,7 @@ bool CPlayer::OpenTiger(CCharacter *pCNpc)
 {
 	if (IsInForge())
 	{
-		//SystemNotice("之前的请求没有完成!");
+		//SystemNotice("Previous forge session not closed!");
 		SystemNotice(RES_STRING(GM_PLAYER_CPP_00005));
 		return false;
 	}
@@ -755,7 +755,7 @@ void CPlayer::SystemNotice( const char szData[], ... )
 	WRITE_SEQ(packet, szTemp, uShort( strlen(szTemp) ) + 1 );
 	
 	WRITE_LONG(packet, GetDBChaId());
-	WRITE_LONG(packet, GetGateAddr());
+	WRITE_LONGLONG(packet, GetGateAddr());
 	WRITE_SHORT(packet, 1);
 
 	GetGate()->SendData(packet);
@@ -854,7 +854,7 @@ bool CPlayer::SynBank(char chBankNO, char chType)
 	}
 
 	WPACKET WtPk = GETWPACKET();
-	WRITE_CMD(WtPk, CMD_MC_NOTIACTION);	// 通告行动
+	WRITE_CMD(WtPk, CMD_MC_NOTIACTION);	// Notify action (bank contents)
 	WRITE_LONG(WtPk, m_pCtrlCha->GetID());
 	WRITE_LONG(WtPk, m_pCtrlCha->m_ulPacketID);
 	WRITE_CHAR(WtPk, enumACTION_BANK);
@@ -877,38 +877,38 @@ bool CPlayer::BankCanOpen(CCharacter *pCNpc)
 	CCharacter	*pCCtrlCha = GetCtrlCha();
 	if (pCCtrlCha != GetMainCha())
 	{
-		//pCCtrlCha->SystemNotice("当前角色不能交互银行");
+		//pCCtrlCha->SystemNotice("Current character cannot enter trade");
 		pCCtrlCha->SystemNotice(RES_STRING(GM_PLAYER_CPP_00006));
 		return false;
 	}
 	if (m_pCBankNpc)
 	{
-		//pCCtrlCha->SystemNotice("银行已经在打开状态");
+		//pCCtrlCha->SystemNotice("Bank is already open");
 		pCCtrlCha->SystemNotice(RES_STRING(GM_PLAYER_CPP_00007));
 		return false;
 	}
 	if (!pCNpc)
 	{
-		//pCCtrlCha->SystemNotice("银行NPC不存在");
+		//pCCtrlCha->SystemNotice("Bank NPC does not exist");
 		pCCtrlCha->SystemNotice(RES_STRING(GM_PLAYER_CPP_00008));
 		return false;
 	}
 	if (pCCtrlCha->HasTradeAction())
 	{
-		//pCCtrlCha->SystemNotice("已经在交易中");
+		//pCCtrlCha->SystemNotice("锟窖撅拷锟节斤拷锟斤拷锟斤拷");
 		pCCtrlCha->SystemNotice(RES_STRING(GM_PLAYER_CPP_00009));
 		return false;
 	}
-	// 距离判断，在Npc交互时已经有了检测
+	// Distance check: NPC range was already validated on client
 	if (!pCCtrlCha->IsRangePoint(pCNpc->GetPos(), defBANK_DISTANCE))
 	{
-		//pCCtrlCha->SystemNotice("距离太远");
+		//pCCtrlCha->SystemNotice("Too far away");
 		pCCtrlCha->SystemNotice(RES_STRING(GM_PLAYER_CPP_00010));
 		return false;
 	}
 	if (!pCCtrlCha->TradeAction(true))
 	{
-		//pCCtrlCha->SystemNotice("设置交易状态失败");
+		//pCCtrlCha->SystemNotice("Failed to set trade state");
 		pCCtrlCha->SystemNotice(RES_STRING(GM_PLAYER_CPP_00011));
 		return false;
 	}
@@ -1036,7 +1036,7 @@ bool CPlayer::BankHasItem(USHORT sItemID, USHORT& sCount)
 	CItemRecord* pItem = GetItemRecordInfo( sItemID );
 	if( pItem == NULL )
 	{
-		//SystemNotice( "BankHasItem:错误的物品数据类型!ID = %d", sItemID );
+		//SystemNotice( "BankHasItem: item record not found! ID = %d", sItemID );
 		SystemNotice( RES_STRING(GM_PLAYER_CPP_00013), sItemID );
 		return FALSE;
 	}
@@ -1129,7 +1129,7 @@ bool CPlayer::Strin2BankDBIDData(std::string &strData)
 
 void CPlayer::CheckChaItemFinalData()
 {
-	// 外观
+	// Equipment slots
 	cChar	*szScript = "check_item_final_data";
 	CCharacter	*pCMainCha = GetMainCha();
 	for (int i = 0; i < enumEQUIP_NUM; i++)
@@ -1141,7 +1141,7 @@ void CPlayer::CheckChaItemFinalData()
 		}
 	}
 
-	// 背包
+	// Inventory (kitbag)
 	SItemGrid	*pGridCont;
 	Short	sUseNum = pCMainCha->m_CKitbag.GetUseGridNum();
 	for (int i = 0; i < sUseNum; i++)
@@ -1153,7 +1153,7 @@ void CPlayer::CheckChaItemFinalData()
 		g_CParser.DoString(szScript, enumSCRIPT_RETURN_NONE, 0, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, pGridCont, DOSTRING_PARAM_END);
 	}
 
-	// 银行
+	// Bank storage
 	for (int j = 0; j < MAX_BANK_NUM; j++)
 	{
 		sUseNum = m_CBank[j].GetUseGridNum();
@@ -1167,7 +1167,7 @@ void CPlayer::CheckChaItemFinalData()
 		}
 	}
 
-	// 船舱
+	// Ship inventory (disabled)
 	//for (int i = 0; i < m_byNumBoat; i++)
 	//{
 	//	if (m_Boat[i])
@@ -1198,7 +1198,7 @@ void CPlayer::Run(DWORD dwCurTime)
 	if (HasChallengeObj())
 		if (m_timerChallenge.IsOK(dwCurTime))
 		{
-			//SystemNotice("邀请超时!");
+			//SystemNotice("Challenge timed out!");
 			SystemNotice(RES_STRING(GM_PLAYER_CPP_00014));
 			ClearChallengeObj(false);
 		}

@@ -11,8 +11,7 @@
 #include "StringLib.h"
 #include <mbstring.h>
 
-#include "LanguageRecord.h"
-extern CLanguageRecord g_oLangRec;
+#include "i18n.h"
 
 using namespace std;
 
@@ -36,7 +35,7 @@ string StringLimit(const string& str,size_t len)
 }
 
 //------------------------------------------------------------------------
-//	´Ó×Ö·û´®ÖÐÈ¡ÈËÎïÃû×Ö£¬ÈËÃû×î´ó³¤¶ÈÎª16¸ö×Ö·û
+//	ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó³¤¶ï¿½Îª16ï¿½ï¿½ï¿½Ö·ï¿½
 //------------------------------------------------------------------------
 bool GetNameFormString(const string &str,string &name)
 {
@@ -57,7 +56,7 @@ bool GetNameFormString(const string &str,string &name)
 }
 
 //------------------------------------------------------------------------
-//	·Ö¸îº¬ÓÐ±íÇé±ê¼ÇµÄÖÐÎÄÎÄ×Ö£¬·Ö¸îºó¿ÉÓÃÓÚ·ÖÐÐÏÔÊ¾
+//	ï¿½Ö¸îº¬ï¿½Ð±ï¿½ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú·ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
 //------------------------------------------------------------------------
 string CutFaceText(string &text,size_t cutLimitlen)
 {
@@ -68,9 +67,9 @@ string CutFaceText(string &text,size_t cutLimitlen)
 		return retStr;
 	}
 
-	if(0 == stricmp(g_oLangRec.GetString(0), "English"))
+	if(0 == stricmp(RES_STRING(CL_LANGUAGE_MATCH_0), "English"))
 	{
-		// Ö§³ÖÓ¢ÎÄµ¥´Ê½Ø¶Ï
+		// Ö§ï¿½ï¿½Ó¢ï¿½Äµï¿½ï¿½Ê½Ø¶ï¿½
 		string temp = text.substr(0,cutLimitlen);
 		size_t nPos = temp.find_last_of(" ");
 		if(nPos != string::npos && nPos > 8)
@@ -85,7 +84,7 @@ string CutFaceText(string &text,size_t cutLimitlen)
 	}
 	else
 	{
-		// ÖÐÎÄ½Ø¶Ï
+		// ï¿½ï¿½ï¿½Ä½Ø¶ï¿½
 		retStr=text.substr(0,cutLimitlen);
 	}
 
@@ -106,7 +105,7 @@ string CutFaceText(string &text,size_t cutLimitlen)
 }
 
 ////------------------------------------------------------------------------
-////	×Ö·û´®²éÕÒ£¬²¢Ê¹ÓÃ*ºÅÌæ»»×Ö·û´®
+////	ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò£ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½*ï¿½ï¿½ï¿½æ»»ï¿½Ö·ï¿½ï¿½ï¿½
 ////------------------------------------------------------------------------
 //void ReplaceText(string &text,const string strRpl)
 //{
@@ -119,7 +118,7 @@ string CutFaceText(string &text,size_t cutLimitlen)
 //}
 //
 ////------------------------------------------------------------------------
-////	¸ù¾Ý×Ö·û´®±í¹ýÂË×Ö·û´®
+////	ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 ////------------------------------------------------------------------------
 //void FilterText(string &text,vector<char*> *p_strFilterTxt)
 //{
@@ -131,11 +130,11 @@ string CutFaceText(string &text,size_t cutLimitlen)
 //}
 
 //------------------------------------------------------------------------
-//	½âÎö·û×ª»»,´Ó0Æð,Àý:
+//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½,ï¿½ï¿½0ï¿½ï¿½,ï¿½ï¿½:
 //	#00 -> </00>
 //	#01 -> </01>
 //	#02 -> </02>
-//	...µ½nMaxCount-1
+//	...ï¿½ï¿½nMaxCount-1
 //------------------------------------------------------------------------
 void ChangeParseSymbol(string &text,int nMaxCount)
 {
@@ -155,17 +154,17 @@ void ChangeParseSymbol(string &text,int nMaxCount)
 }
 
 
-// ½«InBufÖÐµÄ×Ö·û´®°´nWidth²å·Å»Ø³µ·ÅÔÚOutBufÖÐ
+// ï¿½ï¿½InBufï¿½Ðµï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½nWidthï¿½ï¿½Å»Ø³ï¿½ï¿½ï¿½ï¿½ï¿½OutBufï¿½ï¿½
 int StringNewLine( char* pOutBuf, unsigned int nWidth, const char* pInBuf, unsigned int nInLen )
 {
-	if(0 == _stricmp(g_oLangRec.GetString(0), "english"))
+	if(0 == _stricmp(RES_STRING(CL_LANGUAGE_MATCH_0), "english"))
 	{
-		// Ó¢ÎÄ
+		// Ó¢ï¿½ï¿½
 		return StringNewLineEng(pOutBuf, nWidth, pInBuf, nInLen);
 	}
 	else
 	{
-		// ÖÐÎÄ
+		// ï¿½ï¿½ï¿½ï¿½
 		return StringNewLineChs(pOutBuf, nWidth, pInBuf, nInLen);
 	}
 }

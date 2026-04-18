@@ -204,7 +204,7 @@ void CUIInterface::MainChaMove()
 CForm* CUIInterface::_FindForm(const char * frmName)
 {
 	CForm*	form = CFormMgr::s_Mgr.Find( frmName );
-	if( !form )	LG("gui", g_oLangRec.GetString(464), frmName );
+	if( !form )	LG("gui", RES_STRING(CL_LANGUAGE_MATCH_464), frmName );
 	return form;
 }
 

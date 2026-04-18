@@ -48,7 +48,7 @@ namespace GUI
 			return false;
 		}
 
-		// CommandÏÂÃæÌáÊ¾
+		// Commandï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
 		char szName[32] = {0};
 		for(int i = 0; i < TYPE_COUNT; ++i)
 		{
@@ -103,7 +103,7 @@ namespace GUI
 
 	void CPurifyMgr::CloseForm()
 	{
-		// ²»×÷ÈÎºÎ´¦Àí
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ÎºÎ´ï¿½ï¿½ï¿½
 	}
 
 
@@ -115,7 +115,7 @@ namespace GUI
 
 			if(PURIFY_TYPE <= nType && nType < PURIFY_TYPE + TYPE_COUNT)
 			{
-				m_nType = nType;  // ±£´æÀàÐÍ
+				m_nType = nType;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 				for(int i = 0; i < TYPE_COUNT; ++i)
 				{
@@ -189,7 +189,7 @@ namespace GUI
 	}
 
 
-	// ÊÇ·ñÊÇ¿ÉÒÔ×°±¸µÄÎïÆ·
+	// ï¿½Ç·ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 	bool CPurifyMgr::IsEquipItem(CItemCommand& rItem)
 	{
 		CItemRecord* pItemRecord = rItem.GetItemInfo();
@@ -199,20 +199,20 @@ namespace GUI
 
 			switch(sType)
 			{
-			case 1:		//½£
-			case 2:		//¾Þ½£
-			case 3:		//¹­
-			case 4:		//»ðÇ¹
-			case 7:		//Ø°Ê×
-			case 9:		//·¨ÕÈ
-			case 11:	//¶ÜÅÆ
-			case 20:	//Ã±×Ó
-			case 22:	//ÒÂ·þ
-			case 23:	//ÊÖÌ×
-			case 24:	//Ð¬×Ó
+			case 1:		//ï¿½ï¿½
+			case 2:		//ï¿½Þ½ï¿½
+			case 3:		//ï¿½ï¿½
+			case 4:		//ï¿½ï¿½Ç¹
+			case 7:		//Ø°ï¿½ï¿½
+			case 9:		//ï¿½ï¿½ï¿½ï¿½
+			case 11:	//ï¿½ï¿½ï¿½ï¿½
+			case 20:	//Ã±ï¿½ï¿½
+			case 22:	//ï¿½Â·ï¿½
+			case 23:	//ï¿½ï¿½ï¿½ï¿½
+			case 24:	//Ð¬ï¿½ï¿½
 			case 25:	//rings
 			case 26:	//necks
-			case 27:	//ÎÆÉí
+			case 27:	//ï¿½ï¿½ï¿½ï¿½
 			case 81:	//brac
 			case 82:	//brac
 			case 83:	//brac
@@ -236,10 +236,10 @@ namespace GUI
 
 			switch(nType)
 			{
-			case 1067://	Ë®¾§¹ø	
-			case 1068://	ºÚ¶´Ë®¾§	
-			case 1069://	·´ÎïÖÊË®¾§	
-			case 1070://	Á£×ÓÁ÷Ë®¾§
+			case 1067://	Ë®ï¿½ï¿½ï¿½ï¿½	
+			case 1068://	ï¿½Ú¶ï¿½Ë®ï¿½ï¿½	
+			case 1069://	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë®ï¿½ï¿½	
+			case 1070://	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë®ï¿½ï¿½
 				return true;
 
 			default:
@@ -260,7 +260,7 @@ namespace GUI
 
 			switch(nType)
 			{
-			case 2236://	ÐÞ²¹¹¤¾ß
+			case 2236://	ï¿½Þ²ï¿½ï¿½ï¿½ï¿½ï¿½
 				return true;
 
 			default:
@@ -274,13 +274,13 @@ namespace GUI
 
 	void CPurifyMgr::PushItem(int iIndex, CItemCommand& rItem)
 	{
-		// ÅÐ¶ÏµÀ¾ßÊÇ·ñ¿ÉÒÔÍÏ
+		// ï¿½Ð¶Ïµï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if(! rItem.GetIsValid())
 		{
 			return;
 		}
 
-		// ²é¿´Ô­À´µÄCmdÖÐÊÇ·ñÒÑ¾­ÓÐItemÁË£¬Èç¹ûÓÐÔòÒÆ³ö
+		// ï¿½é¿´Ô­ï¿½ï¿½ï¿½ï¿½Cmdï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½Itemï¿½Ë£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ³ï¿½
 		CItemCommand* pItemCommand =  
 			dynamic_cast<CItemCommand*>(cmdEquipPurify[iIndex]->GetCommand());
 		if (pItemCommand)
@@ -288,12 +288,12 @@ namespace GUI
 			PopItem(iIndex);
 		}
 
-		// ¼ÇÂ¼ItemÔÚÎïÆ·À¸ÖÐµÄÎ»ÖÃ
+		// ï¿½ï¿½Â¼Itemï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½Ðµï¿½Î»ï¿½ï¿½
 		m_iPurifyItemPos[iIndex] = g_stUIEquip.GetGoodsGrid()->GetDragIndex();
-		// ½«ItemÏàÓ¦µÄÎïÆ·À¸»Òµ÷
+		// ï¿½ï¿½Itemï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½Òµï¿½
 		rItem.SetIsValid(false);
 
-		// ½«´´½¨µÄItem·ÅÈëCmdÖÐ£¬ÕâÀïÓÃnew½«»áÔÚPopItem()ÖÐÉ¾³ý
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Itemï¿½ï¿½ï¿½ï¿½Cmdï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½newï¿½ï¿½ï¿½ï¿½ï¿½ï¿½PopItem()ï¿½ï¿½É¾ï¿½ï¿½
 		CItemCommand* pItemCmd = new CItemCommand(rItem);
 		pItemCmd->SetIsValid(true);
 		cmdEquipPurify[iIndex]->AddCommand(pItemCmd);
@@ -304,14 +304,14 @@ namespace GUI
 
 	void CPurifyMgr::PopItem(int iIndex)
 	{
-		// É¾³ýCmdÖÐµÄItem£¬¸ÃItem»áÔÚPushItem()ÖÐÓÉnewÉú³É
+		// É¾ï¿½ï¿½Cmdï¿½Ðµï¿½Itemï¿½ï¿½ï¿½ï¿½Itemï¿½ï¿½ï¿½ï¿½PushItem()ï¿½ï¿½ï¿½ï¿½newï¿½ï¿½ï¿½ï¿½
 		CItemCommand* pItemCommand =  
 			dynamic_cast<CItemCommand*>(cmdEquipPurify[iIndex]->GetCommand());
 		if (! pItemCommand) return;
 
-		cmdEquipPurify[iIndex]->DelCommand();	// ¸Ãº¯Êý½«É¾³ýdelete Item
+		cmdEquipPurify[iIndex]->DelCommand();	// ï¿½Ãºï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½delete Item
 
-		// ½«ItemÏàÓ¦µÄÎïÆ·À¸»Ö¸´³É¿ÉÓÃ
+		// ï¿½ï¿½Itemï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½É¿ï¿½ï¿½ï¿½
 		CCommandObj* pItem = 
 					g_stUIEquip.GetGoodsGrid()->GetItem(m_iPurifyItemPos[iIndex]);
 		if (pItem)
@@ -319,12 +319,12 @@ namespace GUI
 			pItem->SetIsValid(true);
 		}
 
-		// ¼ÇÂ¼ItemÔÚÎïÆ·À¸ÖÐµÄÎ»ÖÃ
+		// ï¿½ï¿½Â¼Itemï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½Ðµï¿½Î»ï¿½ï¿½
 		m_iPurifyItemPos[iIndex] = NO_USE;
 	}
 
 
-	// ÉèÖÃ½çÃæ£¬²¢¼ÆËã¼Û¸ñ
+	// ï¿½ï¿½ï¿½Ã½ï¿½ï¿½æ£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½
 	void CPurifyMgr::SetPurifyUI()
 	{
 		CItemCommand* pItem1 = dynamic_cast<CItemCommand*>(cmdEquipPurify[PURIFY_ONE]->GetCommand());
@@ -347,12 +347,12 @@ namespace GUI
 			return;
 		}
 
-		// ¶þ¸öÀ¸Î»¶¼ÒÑ¾­·ÅÈë£¬ÔÊÐíµã»÷¡°È·¶¨¡±°´Å¥
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¥
 		btnForgeYes->SetIsEnabled(true);
 
 		int nMoney = 0;
 
-		// µÀ¾ßÌá´¿
+		// ï¿½ï¿½ï¿½ï¿½ï¿½á´¿
 		if(GetType() == CPurifyMgr::PURIFY_TYPE)
 		{
 			//int nMainLevel = pItem1->GetItemInfo()->sNeedLv;
@@ -360,7 +360,7 @@ namespace GUI
 
 			nMoney = 1000000;
 		}
-		// ±´¿Ç
+		// ï¿½ï¿½ï¿½ï¿½
 		else if(GetType() == CPurifyMgr::ENERGY_TYPE)
 		{
 			int nBatteryID = pItem2->GetItemInfo()->lID;
@@ -373,7 +373,7 @@ namespace GUI
 				nMoney = 1000;
 			}
 		}
-		// ±¦Ê¯
+		// ï¿½ï¿½Ê¯
 		else if(GetType() == CPurifyMgr::GETSTONE_TYPE)
 		{
 			int nStoneLevel = pItem1->GetForgeInfo().nStoneLevel[0] + 
@@ -381,7 +381,7 @@ namespace GUI
 							  pItem1->GetForgeInfo().nStoneLevel[2];
 			nMoney = nStoneLevel * 10000;
 		}
-		// ÐÞÀíÆÆ¹ø
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Æ¹ï¿½
 		else if(g_stUIPurify.GetType() == CPurifyMgr::REPAIR_OVEN_TYPE)
 		{
 			//int nOvenLevel = 0;
@@ -405,7 +405,7 @@ namespace GUI
 	}
 
 
-	// ·¢ËÍÌá´¿Ð­Òé
+	// ï¿½ï¿½ï¿½ï¿½ï¿½á´¿Ð­ï¿½ï¿½
 	void CPurifyMgr::SendNetProtocol()
 	{
 		CS_ItemForgeAsk(true, GetType(), m_iPurifyItemPos, PURIFY_CELL_COUNT);
@@ -414,10 +414,10 @@ namespace GUI
 
 ///////////////////////////////////////////////////////////////////////////
 //
-//	½çÃæÏûÏ¢´¦Àí
+//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½
 //
 
-	// ÍÏÈëÖ÷ÒªÎïÆ·
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Æ·
 	void CPurifyMgr::_evtDragPurifyOne(CGuiData *pSender,CCommandObj* pItem,bool& isAccept)
 	{
 		CItemCommand* pItemCommand =  dynamic_cast<CItemCommand*>(pItem);
@@ -426,43 +426,43 @@ namespace GUI
 		CGoodsGrid* pGood = dynamic_cast<CGoodsGrid*>(CDrag::GetParent());
 		if( pGood != g_stUIEquip.GetGoodsGrid() ) return;
 
-		// µÀ¾ßÌá´¿
+		// ï¿½ï¿½ï¿½ï¿½ï¿½á´¿
 		if(g_stUIPurify.GetType() == CPurifyMgr::PURIFY_TYPE)
 		{
 			//if(! g_stUIPurify.IsEquipItem(*pItemCommand))
 			//{
-			//	g_pGameApp->MsgBox(g_oLangRec.GetString(831)); // Ö÷Òª×°±¸²»ºÏ·¨£¬ÇëÖØÐÂÑ¡Ôñ
+			//	g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_831)); // ï¿½ï¿½Òª×°ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½
 			//	return;
 			//}
 		}
-		// ±´¿Ç
+		// ï¿½ï¿½ï¿½ï¿½
 		else if(g_stUIPurify.GetType() == CPurifyMgr::ENERGY_TYPE)
 		{
 			if(pItemCommand->GetItemInfo()->sType != 29)
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(852)); // Äú·ÅÈëµÄ²»ÊÇ±´¿Ç£¬ÇëÖØÐÂÑ¡Ôñ
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_852)); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½Ç±ï¿½ï¿½Ç£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½
 				return;
 			}
 		}
-		// ±¦Ê¯
+		// ï¿½ï¿½Ê¯
 		else if(g_stUIPurify.GetType() == CPurifyMgr::GETSTONE_TYPE)
 		{
 			if(! g_stUIPurify.IsEquipItem(*pItemCommand))
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(831)); // Ö÷Òª×°±¸²»ºÏ·¨£¬ÇëÖØÐÂÑ¡Ôñ
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_831)); // ï¿½ï¿½Òª×°ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½
 				return;
 			}
 		}
-		// ÐÞÀíÆÆ¹ø
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Æ¹ï¿½
 		else if(g_stUIPurify.GetType() == CPurifyMgr::REPAIR_OVEN_TYPE)
 		{
 			if(! g_stUIPurify.IsMainLifeItem(*pItemCommand))
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(891)); // Äú·ÅÈëµÄ²»ÊÇÉú»î¼¼ÄÜ¹¤¾ß£¬ÇëÖØÐÂÑ¡Ôñ
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_891)); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î¼¼ï¿½Ü¹ï¿½ï¿½ß£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½
 				return;
 			}
 		}
-		else	// ÀàÐÍ²»ºÏ·¨
+		else	// ï¿½ï¿½ï¿½Í²ï¿½ï¿½Ï·ï¿½
 		{
 			return;
 		}
@@ -471,7 +471,7 @@ namespace GUI
 	}
 
 
-	// ÍÏÈëÌá´¿ÎïÆ·
+	// ï¿½ï¿½ï¿½ï¿½ï¿½á´¿ï¿½ï¿½Æ·
 	void CPurifyMgr::_evtDragPurifyTwo(CGuiData *pSender,CCommandObj* pItem,bool& isAccept)
 	{
 		CItemCommand* pItemCommand =  dynamic_cast<CItemCommand*>(pItem);
@@ -482,61 +482,61 @@ namespace GUI
 
 		CItemCommand* pMainItem = dynamic_cast<CItemCommand*>(g_stUIPurify.cmdEquipPurify[PURIFY_ONE]->GetCommand());
 
-		// µÀ¾ßÌá´¿
+		// ï¿½ï¿½ï¿½ï¿½ï¿½á´¿
 		if(g_stUIPurify.GetType() == CPurifyMgr::PURIFY_TYPE)
 		{
 			if(NULL == pMainItem)
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(828)); // ÇëÏÈ·ÅÈëÖ÷Òª×°±¸
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_828)); // ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½Òª×°ï¿½ï¿½
 				return;
 			}
 
 			//if(pMainItem->GetItemInfo()->sType != pItemCommand->GetItemInfo()->sType)
 			//{
-			//	g_pGameApp->MsgBox(g_oLangRec.GetString(829)); // Ìá´¿×°±¸ºÍÖ÷Òª×°±¸²»ÊÇÍ¬Ò»ÀàÐÍ£¬ÇëÖØÐÂÑ¡Ôñ
+			//	g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_829)); // ï¿½á´¿×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òª×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬Ò»ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½
 			//	return;
 			//}
 
 			//if(pMainItem->GetData().GetItemLevel() > pItemCommand->GetData().GetItemLevel() + 5)
 			//{
-			//	g_pGameApp->MsgBox(g_oLangRec.GetString(830)); // Ìá´¿×°±¸µÈ¼¶²»ÄÜÐ¡ÓÚÖ÷Òª×°±¸ 5 ¼¶£¬ÇëÖØÐÂÑ¡Ôñ
+			//	g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_830)); // ï¿½á´¿×°ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½Òª×°ï¿½ï¿½ 5 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½
 			//	return;
 			//}
 		}
-		// ±´¿Ç
+		// ï¿½ï¿½ï¿½ï¿½
 		else if(g_stUIPurify.GetType() == CPurifyMgr::ENERGY_TYPE)
 		{
 			if(NULL == pMainItem)
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(853)); // ÇëÏÈ·ÅÈë±´¿Ç
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_853)); // ï¿½ï¿½ï¿½È·ï¿½ï¿½ë±´ï¿½ï¿½
 				return;
 			}
 		}
-		// ±¦Ê¯
+		// ï¿½ï¿½Ê¯
 		else if(g_stUIPurify.GetType() == CPurifyMgr::GETSTONE_TYPE)
 		{
 			if(NULL == pMainItem)
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(828)); // ÇëÏÈ·ÅÈëÖ÷Òª×°±¸
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_828)); // ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½Òª×°ï¿½ï¿½
 				return;
 			}
 		}
-		// ÐÞÀíÆÆ¹ø
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Æ¹ï¿½
 		else if(g_stUIPurify.GetType() == CPurifyMgr::REPAIR_OVEN_TYPE)
 		{
 			if(NULL == pMainItem)
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(892)); // ÇëÏÈÈë·ÅÈëÉú»î¼¼ÄÜ¹¤¾ß
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_892)); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î¼¼ï¿½Ü¹ï¿½ï¿½ï¿½
 				return;
 			}
 
 			if(! g_stUIPurify.IsRepairLifeItem(*pItemCommand))
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(893)); // Äú·ÅÈëµÄ²»ÊÇÐÞ²¹¹¤¾ß£¬ÇëÖØÐÂÑ¡Ôñ
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_893)); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½Þ²ï¿½ï¿½ï¿½ï¿½ß£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½
 				return;
 			}
 		}
-		// ÀàÐÍ²»ºÏ·¨
+		// ï¿½ï¿½ï¿½Í²ï¿½ï¿½Ï·ï¿½
 		else
 		{
 			return;
@@ -546,7 +546,7 @@ namespace GUI
 	}
 
 
-	// Êó±êµã»÷°´Å¥ÊÂ¼þ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¥ï¿½Â¼ï¿½
 	void CPurifyMgr::_evtMainMouseButton(CCompent *pSender, int nMsgType, int x, int y, DWORD dwKey)
 	{
 		string strName = pSender->GetName();
@@ -559,7 +559,7 @@ namespace GUI
 	}
 
 
-	// ¹Ø±Õ´°ÌåÊÂ¼þ
+	// ï¿½Ø±Õ´ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
 	void CPurifyMgr::_evtClosePurifyForm(CForm* pForm, bool& IsClose)
 	{
 		g_stUIPurify.ClearAllCommand();

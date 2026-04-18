@@ -37,11 +37,26 @@
 		#define _interlockedbittestandreset CRYPTOPP_DISABLED_INTRINSIC_2
 		#define _interlockedbittestandset64 CRYPTOPP_DISABLED_INTRINSIC_3
 		#define _interlockedbittestandreset64 CRYPTOPP_DISABLED_INTRINSIC_4
+		// VS2022 17.7+ workaround: disable intrinsics that conflict with emmintrin.h/intrin.h
+		#if _MSC_VER >= 1930
+		#define _mm_clflush CRYPTOPP_DISABLED_INTRINSIC_MM_CLFLUSH
+		#define __movsb CRYPTOPP_DISABLED_INTRINSIC_MOVSB
+		#define __movsd CRYPTOPP_DISABLED_INTRINSIC_MOVSD
+		#define __movsq CRYPTOPP_DISABLED_INTRINSIC_MOVSQ
+		#define __movsw CRYPTOPP_DISABLED_INTRINSIC_MOVSW
+		#endif
 		#include <intrin.h>
 		#undef _interlockedbittestandset
 		#undef _interlockedbittestandreset
 		#undef _interlockedbittestandset64
 		#undef _interlockedbittestandreset64
+		#if _MSC_VER >= 1930
+		#undef _mm_clflush
+		#undef __movsb
+		#undef __movsd
+		#undef __movsq
+		#undef __movsw
+		#endif
 		#define CRYPTOPP_FAST_ROTATE(x) 1
 	#elif _MSC_VER >= 1300
 		#define CRYPTOPP_FAST_ROTATE(x) ((x) == 32 | (x) == 64)

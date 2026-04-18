@@ -33,7 +33,7 @@ bool CTeamInviteFormMgr::AddInviteForm(DWORD id,string inviterName)
 	if (!frmAcceptGroup)
 	{
 		//delete node;
-		SAFE_DELETE(node); // UIµ±»ú´¦Àí
+		SAFE_DELETE(node); // UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		return false;
 	}
 	node->id=id;
@@ -50,7 +50,7 @@ bool CTeamInviteFormMgr::AddInviteForm(DWORD id,string inviterName)
 	CLabelEx *labGroupName=dynamic_cast<CLabelEx*>(node->pForm->Find("labGroupName"));
 	if (labGroupName)
 	{
-		sprintf(str,g_oLangRec.GetString(62),inviterName.data());
+		sprintf(str,RES_STRING(CMISS_000062),inviterName.data());
 		//labGroupName->SetIsCenter(true);
 		labGroupName->SetCaption(str);
 	}
@@ -58,7 +58,7 @@ bool CTeamInviteFormMgr::AddInviteForm(DWORD id,string inviterName)
 	if (labGroup)
 	{
 		//labGroup->SetIsCenter(true);
-		labGroup->SetCaption(g_oLangRec.GetString(420));
+		labGroup->SetCaption(RES_STRING(CMISS_000420));
 	}
 	node->pForm->evtEntrustMouseEvent=_MainMousePlayerGroupEvent;
 	node->pForm->nTag=id;
@@ -87,7 +87,7 @@ bool CTeamInviteFormMgr::RemoveInviteForm(DWORD id)
 	dupe.Release(node->pForm);
 	m_FormLink.erase(Iter);
 	//delete node;
-	SAFE_DELETE(node); // UIµ±»ú´¦Àí
+	SAFE_DELETE(node); // UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	return true;
 }
 

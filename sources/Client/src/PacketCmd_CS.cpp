@@ -16,7 +16,7 @@ _DBC_USING
 bool CS_Connect(dbc::cChar *hostname,dbc::uShort port,dbc::uLong timeout)
 {
 	
-	LG( "connect", g_oLangRec.GetString(294), hostname );
+	LG( "connect", RES_STRING(CMISS_000294), hostname );
     if( g_NetIF->m_pCProCir )
     {
         delete g_NetIF->m_pCProCir;

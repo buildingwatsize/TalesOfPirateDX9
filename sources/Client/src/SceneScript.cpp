@@ -67,22 +67,22 @@ int SN_SetAttackChaColor( int r, int g, int b )
 	return R_OK;
 }
 
-int CHA_SetClientAttr(int nScriptID, int nAngle, float fDis, float fHei)
+int CHA_SetClientAttr(int nScriptID, int nAngle, double fDis, double fHei)
 {
 	SClientAttr *pAttr = &g_ClientAttr[nScriptID];
 	pAttr->sTeamAngle  = (short)nAngle;
-	pAttr->fTeamDis    = fDis;
-	pAttr->fTeamHei    = fHei;
+	pAttr->fTeamDis    = (float)fDis;
+	pAttr->fTeamHei    = (float)fHei;
 	return 0;
 }
 
 /************************************************************************/
 /*                                                                      */
 /************************************************************************/
-//C_NORMAL    = 0  --正常模式   
-//C_NEAR      = 1  --偏近模式  距离比正常模式偏近
-//C_HIGHSPEED = 2  --高速模式  固定镜头, 不可旋转
-//C_SHIP      = 3  --海上模式  在船上, 距离很远
+//C_NORMAL    = 0  -- Normal camera mode
+//C_NEAR      = 1  -- Near camera mode (close-up, restricted rotation)
+//C_HIGHSPEED = 2  -- High-speed camera mode (wider FOV, free rotation)
+//C_SHIP      = 3  -- Ship camera mode (wider view, restricted rotation)
 //
 //CameraRangeXY(C_NORMAL, 40, 45)
 //CameraRangeZ(C_NORMAL, 25, 35)
@@ -109,28 +109,28 @@ int CHA_SetClientAttr(int nScriptID, int nAngle, float fDis, float fHei)
 //CameraShowSize(45, 45)
 
 //scripts/cameraconf.clu
-//对应c的全局变量 CameraMode[].xxxx
+// These functions populate the CameraMode[] table from cameraconf.clu
 
-int CameraRangeXY(int nMode, float fMin, float fMax)
+int CameraRangeXY(int nMode, double fMin, double fMax)
 {
-	CameraMode[nMode].m_fminxy = fMin;
-	CameraMode[nMode].m_fmaxxy = fMax;
+	CameraMode[nMode].m_fminxy = (float)fMin;
+	CameraMode[nMode].m_fmaxxy = (float)fMax;
 	return 0;
 
 }
 
-int CameraRangeZ(int nMode, float fMin, float fMax)
+int CameraRangeZ(int nMode, double fMin, double fMax)
 {
-	CameraMode[nMode].m_fminHei = fMin;
-	CameraMode[nMode].m_fmaxHei = fMax;
+	CameraMode[nMode].m_fminHei = (float)fMin;
+	CameraMode[nMode].m_fmaxHei = (float)fMax;
 	return 0;
 
 }
 
-int CameraRangeFOV(int nMode, float fMin, float fMax)
+int CameraRangeFOV(int nMode, double fMin, double fMax)
 {
-	CameraMode[nMode].m_fminfov = fMin;
-	CameraMode[nMode].m_fmaxfov = fMax;
+	CameraMode[nMode].m_fminfov = (float)fMin;
+	CameraMode[nMode].m_fmaxfov = (float)fMax;
 	return 0;
 
 }
@@ -168,10 +168,10 @@ void MPInitLua_Scene()
 	CLU_RegisterFunction("SN_SetIsShowMinimap", "int", "int", CLU_CDECL, CLU_CAST(SN_SetIsShowMinimap));
 	CLU_RegisterFunction("SN_SetAttackChaColor", "int", "int,int,int", CLU_CDECL, CLU_CAST(SN_SetAttackChaColor));
 
-	CLU_RegisterFunction("CHA_SetClientAttr", "int", "int,int,float,float", CLU_CDECL, CLU_CAST(CHA_SetClientAttr));
-	CLU_RegisterFunction("CameraRangeXY", "int", "int,float,float", CLU_CDECL, CLU_CAST(CameraRangeXY));
-	CLU_RegisterFunction("CameraRangeZ",  "int", "int,float,float", CLU_CDECL, CLU_CAST(CameraRangeZ));
-	CLU_RegisterFunction("CameraRangeFOV","int", "int,float,float", CLU_CDECL, CLU_CAST(CameraRangeFOV));
+	CLU_RegisterFunction("CHA_SetClientAttr", "int", "int,int,double,double", CLU_CDECL, CLU_CAST(CHA_SetClientAttr));
+	CLU_RegisterFunction("CameraRangeXY", "int", "int,double,double", CLU_CDECL, CLU_CAST(CameraRangeXY));
+	CLU_RegisterFunction("CameraRangeZ",  "int", "int,double,double", CLU_CDECL, CLU_CAST(CameraRangeZ));
+	CLU_RegisterFunction("CameraRangeFOV","int", "int,double,double", CLU_CDECL, CLU_CAST(CameraRangeFOV));
 	CLU_RegisterFunction("CameraEnableRotate", "int", "int,int", CLU_CDECL, CLU_CAST(CameraEnableRotate));
 	CLU_RegisterFunction("CameraShowSize", "int", "int,int,int", CLU_CDECL, CLU_CAST(CameraShowSize));
 }

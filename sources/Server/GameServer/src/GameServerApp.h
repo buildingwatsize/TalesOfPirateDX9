@@ -243,7 +243,7 @@ public:
     InfoServer *GetInfoServer() { return &m_IfServer; }
 
     // Player ��� (GateServer����GatePlayer��һ��˫����)
-    bool AddPlayer(GatePlayer* gtplayer, GateServer* gt, dbc::uLong gtaddr);
+    bool AddPlayer(GatePlayer* gtplayer, GateServer* gt, LONG64 gtaddr);
     bool DelPlayer(GatePlayer* gtplayer);
 	// add by xuedong
 	bool BeginGetplayer(GateServer* gt);
@@ -335,7 +335,7 @@ inline GateServer* GameServerApp::GetNextGate(void)
 
 extern GameServerApp *g_gmsvr;
 
-inline void uplayer::Init(char const* gt_name, unsigned long gt_addr, DWORD atorID)
+inline void uplayer::Init(char const* gt_name, LONG64 gt_addr, DWORD atorID)
 {
     pGate = g_gmsvr->FindGate(gt_name);
     m_dwDBChaId = atorID;

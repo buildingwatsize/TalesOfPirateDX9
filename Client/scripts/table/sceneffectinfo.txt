@@ -1,281 +1,281 @@
 1	wave1.par	Sea Wave	Sea Wave	0	0	-1	-1	1	0	0	-1
-2	dian.par	µçÇò	Sea Wave	0	0	0	-1	0	0	0	-1
-3	shuihua01.par	´óË®»¨	´óË®»¨	0	0	0	-1	0	0	0	-1
-4	shuihua02.par	Ë®»¨	Sea Wave	0	0	0	-1	0	0	0	-1
-5	guang.par	¹â	Sea Wave	0	0	0	-1	0	0	0	-1
-6	blacksmoke.par	ºÚÑÌ	Sea Wave	0	0	0	-1	0	0	0	-1
-7	xieguang.par	Ğ±¹â	Sea Wave	0	0	0	-1	0	0	0	-1
+2	dian.par	ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	0	-1	0	0	0	-1
+3	shuihua01.par	ï¿½ï¿½Ë®ï¿½ï¿½	ï¿½ï¿½Ë®ï¿½ï¿½	0	0	0	-1	0	0	0	-1
+4	shuihua02.par	Ë®ï¿½ï¿½	Sea Wave	0	0	0	-1	0	0	0	-1
+5	guang.par	ï¿½ï¿½	Sea Wave	0	0	0	-1	0	0	0	-1
+6	blacksmoke.par	ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	0	-1	0	0	0	-1
+7	xieguang.par	Ğ±ï¿½ï¿½	Sea Wave	0	0	0	-1	0	0	0	-1
 8	add.par	Fog	Sea Wave	0	0	0	-1	0	0	0	-1
 9	firefly.par	Firefly	Sea Wave	0	0	0	-1	0	0	0	-1
-10	00000002.par	»ğÑæ	Sea Wave	0	0	0	-1	0	0	0	-1
-11	00000003.par	»ğÑæ2	Sea Wave	0	0	0	-1	0	0	0	-1
-12	wave2.par	º£ÀË2	Sea Wave	0	0	0	-1	0	0	0	-1
-13	whitesmoke.par	°×ÑÌ	Sea Wave	0	0	0	-1	0	0	0	-1
+10	00000002.par	ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	0	-1	0	0	0	-1
+11	00000003.par	ï¿½ï¿½ï¿½ï¿½2	Sea Wave	0	0	0	-1	0	0	0	-1
+12	wave2.par	ï¿½ï¿½ï¿½ï¿½2	Sea Wave	0	0	0	-1	0	0	0	-1
+13	whitesmoke.par	ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	0	-1	0	0	0	-1
 14	snow.par	Sbiw	Sea Wave	0	0	0	-1	0	0	0	-1
-15	00000007.par	É³á°»ğÑæ	Sea Wave	0	0	0	-1	0	0	0	-1
+15	00000007.par	É³á°»ï¿½ï¿½ï¿½	Sea Wave	0	0	0	-1	0	0	0	-1
 16	sali.par	Sandstorm	Sea Wave	0	0	0	-1	0	0	0	-1
-17	ufo2.par	Áé»ğ2	Sea Wave	0	0	0	-1	0	0	0	-1
-18	ufo.par	Áé»ğ	Sea Wave	0	0	0	-1	0	0	0	-1
-95	00000001.par	30Ğ±¹â	Sea Wave	0	0	0	-1	0	0	0	-1
-96	01030011.par	µÀ¾ßÌØĞ§	Sea Wave	0	0	0	-1	0	0	0	-1
-97	waterwave1.par	Ë®²¨	Sea Wave	1	0	-1	-1	0	0	0	-1
-98	waterwave2.par	Ë®²¨2	Sea Wave	1	0	-1	-1	0	0	0	-1
-99	miss2.par	±¬×Ö	Sea Wave	0	0	0	1	0	0	0	-1
+17	ufo2.par	ï¿½ï¿½ï¿½2	Sea Wave	0	0	0	-1	0	0	0	-1
+18	ufo.par	ï¿½ï¿½ï¿½	Sea Wave	0	0	0	-1	0	0	0	-1
+95	00000001.par	30Ğ±ï¿½ï¿½	Sea Wave	0	0	0	-1	0	0	0	-1
+96	01030011.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ§	Sea Wave	0	0	0	-1	0	0	0	-1
+97	waterwave1.par	Ë®ï¿½ï¿½	Sea Wave	1	0	-1	-1	0	0	0	-1
+98	waterwave2.par	Ë®ï¿½ï¿½2	Sea Wave	1	0	-1	-1	0	0	0	-1
+99	miss2.par	ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	0	1	0	0	0	-1
 100	wolf.par	Howl Unleashed	Sea Wave	0	0	-1	-1	0	1	0	-1
-101	01030006.par	Howl ÃüÖĞ	Sea Wave	0	0	-1	1	0	1	0	-1
-102	foot02.par	Tiger Roar Ê©·Å	Sea Wave	0	0	-1	-1	20	1	0	-1
+101	01030006.par	Howl ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	1	0	1	0	-1
+102	foot02.par	Tiger Roar Ê©ï¿½ï¿½	Sea Wave	0	0	-1	-1	20	1	0	-1
 103	foot.par	Tiger Roar Hit Rate	Sea Wave	0	0	-2	1	0	1	0	-1
-104	runatktarget.par	Á¬Öé¼ıÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-105	yfire.par	Á¬Öé¼ıÊ©·Å	Sea Wave	0	0	-1	1	0	1	0	-1
-106	fallstar02.par	Á÷ĞÇ¼ıµØÃæÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-107	fallstar01.par	Á÷ĞÇ¼ıÈËÎïÊ©·Å	Sea Wave	0	0	-1	1	0	1	0	-1
-108	01000004.par	Dispersion Bullet Ê©·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-109	01020005.par	Dispersion Bullet ÃüÖĞ	Sea Wave	0	0	-1	1	0	1	0	-1
-110	01020006.par	Penetrating Bullet ÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-111	01010002.par	Magma Bullet µØÃæÃüÖĞ	Sea Wave	0	0	-1	1	0	1	0	-1
-112	01030001.par	Magma Bullet µØÃæ³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-113	heallight.pa	Greater Heal Ê©·Å	Sea Wave	0	0	-1	1	0	1	0	-1
-114	01020007.par	Greater Heal ÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-115	01050013.par	Magma Bullet ÈËÎï³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-116	01040024.par	Tiger Roar ÈËÎï³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-117	spire01.par	Berserk Ê©·Å	º£ÀË	0	0	-1	-1	0	1	0	-1
-118	ragefire.par	Berserk ÈËÎï³ÖĞø	º£ÀË	0	0	-1	-1	0	1	0	-1
-119	01000007.par	Í¼ÌÚÕĞ»½Ê©·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-120	01020008.par	Í¼ÌÚÕĞ»½ÈËÎïÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-121	hide01.par	ÒşÔÂÁ÷Stealth ÊõÊ©·Å	º£ÀË	0	0	-1	-1	0	1	0	-1
-122	01000009.par	ÒÁºØ¹íÂÖÕ¶Ê©·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-123	01040002.par	ÒÁºØ¹íÂÖÕ¶ÈËÎï³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-124	01000010.par	ÒÁºØÁ÷Backstab É±Ê©·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-125	01020009.par	ÒÁºØÁ÷Backstab É±ÈËÎïÃüÖĞ	Sea Wave	0	0	-1	1	0	1	0	-1
-126	01000011.par	ÒÁºØÁ÷´ÌÃ¤ÊõÊ©·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-127	01040003.par	ÒÁºØÁ÷´ÌÃ¤ÊõÈËÎï³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-128	01020010.par	Diligence ÊõÈËÎïÃüÖĞ	º£ÀË	0	0	-1	-1	0	1	0	-1
-129	01020011.par	±ùËª»¤¶ÜÈËÎïÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
+104	runatktarget.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+105	yfire.par	ï¿½ï¿½ï¿½ï¿½ï¿½Ê©ï¿½ï¿½	Sea Wave	0	0	-1	1	0	1	0	-1
+106	fallstar02.par	ï¿½ï¿½ï¿½Ç¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+107	fallstar01.par	ï¿½ï¿½ï¿½Ç¼ï¿½ï¿½ï¿½ï¿½ï¿½Ê©ï¿½ï¿½	Sea Wave	0	0	-1	1	0	1	0	-1
+108	01000004.par	Dispersion Bullet Ê©ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+109	01020005.par	Dispersion Bullet ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	1	0	1	0	-1
+110	01020006.par	Penetrating Bullet ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+111	01010002.par	Magma Bullet ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	1	0	1	0	-1
+112	01030001.par	Magma Bullet ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+113	heallight.pa	Greater Heal Ê©ï¿½ï¿½	Sea Wave	0	0	-1	1	0	1	0	-1
+114	01020007.par	Greater Heal ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+115	01050013.par	Magma Bullet ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+116	01040024.par	Tiger Roar ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+117	spire01.par	Berserk Ê©ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+118	ragefire.par	Berserk ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+119	01000007.par	Í¼ï¿½ï¿½ï¿½Ğ»ï¿½Ê©ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+120	01020008.par	Í¼ï¿½ï¿½ï¿½Ğ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+121	hide01.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Stealth ï¿½ï¿½Ê©ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+122	01000009.par	ï¿½ï¿½ï¿½Ø¹ï¿½ï¿½ï¿½Õ¶Ê©ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+123	01040002.par	ï¿½ï¿½ï¿½Ø¹ï¿½ï¿½ï¿½Õ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+124	01000010.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Backstab É±Ê©ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+125	01020009.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Backstab É±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	1	0	1	0	-1
+126	01000011.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¤ï¿½ï¿½Ê©ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+127	01040003.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+128	01020010.par	Diligence ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+129	01020011.par	ï¿½ï¿½Ëªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
 130	critical.par	Double Damage	Sea Wave	0	0	-1	-1	0	1	0	-1
-131	01030006.par	ÊÜµ½ÉËº¦	Sea Wave	0	0	-1	1	0	1	0	-1
+131	01030006.par	ï¿½Üµï¿½ï¿½Ëºï¿½	Sea Wave	0	0	-1	1	0	1	0	-1
 132	01030007.par	Levelup	Sea Wave	0	0	-1	-1	0	1	0	-1
 133	01030008.par	HP Recover	Sea Wave	0	0	-1	-1	0	1	0	-1
 134	01030009.par	SP recovery	Sea Wave	0	0	-1	-1	0	1	0	-1
-135	01040004.par	±ùËª»¤¶ÜÈËÎï³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-136	01000012.par	Parry Ê©·Å	º£ÀË	0	0	-1	-1	0	1	0	-1
-137	01000013.par	´ÔÁÖ´©Ô½Ê©·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-138	01040005.par	´ÔÁÖ´©Ô½ÈËÎï³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-139	01000014.par	»ÛĞÇÇ¿»÷Ê©·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-140	01020012.par	»ÛĞÇÇ¿»÷ÈËÎïÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-141	01000015.par	³èÎïÀíÁÆÊ©·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-142	04000010.par	Cripple Éä»÷ÊÍ·Å	º£ÀË	0	0	-2	-1	0	1	0	-1
-143	01040006.par	Cripple ³ÖĞø	º£ÀË	0	0	-1	-1	0	1	0	-1
-144	01020013.par	Cripple ÃüÖĞ	º£ÀË	0	0	-1	-1	0	1	0	-1
-145	01000017.par	»ğÑæÅçÉäÊ©·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-146	01040007.par	»ğÑæÅçÉäÈËÎï³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
+135	01040004.par	ï¿½ï¿½Ëªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+136	01000012.par	Parry Ê©ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+137	01000013.par	ï¿½ï¿½ï¿½Ö´ï¿½Ô½Ê©ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+138	01040005.par	ï¿½ï¿½ï¿½Ö´ï¿½Ô½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+139	01000014.par	ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½Ê©ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+140	01020012.par	ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+141	01000015.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê©ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+142	04000010.par	Cripple ï¿½ï¿½ï¿½ï¿½Í·ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-2	-1	0	1	0	-1
+143	01040006.par	Cripple ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+144	01020013.par	Cripple ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+145	01000017.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê©ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+146	01040007.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
 147	01040008.par	Headshot Duration	Sea Wave	0	0	-1	-1	0	1	0	-1
 148	01020014.par	Recover Hit Rate	Sea Wave	0	0	-1	-1	0	1	0	-1
-149	01010003.par	Greater Recover µØÃæÃüÖĞ	º£ÀË	0	0	-1	1	0	1	0	-1
-150	01000018.par	ÁÒÑæÖ®ÒíÊ©·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-151	01020015.par	ÁÒÑæÖ®ÒíÈËÎïÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-152	01040009.par	ÁÒÑæÖ®ÒíÈËÎï³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-153	01020016.par	Ê¥»ğÖ®¹âÈËÎïÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-154	01040010.par	Ê¥»ğÖ®¹âÈËÎï³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-155	01020017.par	Spiritual Fire ÈËÎïÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-156	01040011.par	Spiritual Fire ÈËÎï³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-157	firelighting02.par	Cursed Fire ÊÍ·Å	º£ÀË	0	0	-1	-1	0	1	0	-1
-158	fireghosth.par	Cursed Fire ÈËÎï³ÖĞø	º£ÀË	0	0	-1	-1	0	1	0	-1
+149	01010003.par	Greater Recover ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	1	0	1	0	-1
+150	01000018.par	ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½Ê©ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+151	01020015.par	ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+152	01040009.par	ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+153	01020016.par	Ê¥ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+154	01040010.par	Ê¥ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+155	01020017.par	Spiritual Fire ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+156	01040011.par	Spiritual Fire ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+157	firelighting02.par	Cursed Fire ï¿½Í·ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+158	fireghosth.par	Cursed Fire ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
 159	angel.par	Angelic Shield	Sea Wave	0	0	-1	-1	0	1	0	-1
-160	01000019.par	Angelic Shield ÈËÎïÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-161	01040034.par	Angelic Shield ÈËÎï³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-162	01020020.par	Ê¥Ö°ÎÆÕÂÈËÎïÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-163	01040014.par	Ê¥Ö°ÎÆÕÂÈËÎï³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-164	01020021.par	ÌìÊ¹ÆíÔ¸ÈËÎïÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-165	spahurt.par	Healing Spring µØÃæ³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-166	01040033.par	Healing Spring ÈËÎï³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-167	01000020.par	ĞÒÔËÖ®¹âÊ©·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-168	01020022.par	ĞÒÔËÖ®¹âÈËÎïÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-169	01040016.par	ĞÒÔËÖ®¹âÈËÎï³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-170	01020040.par	Tempest Boost ÈËÎïÃüÖĞ	º£ÀË	0	0	-1	1	0	1	0	-1
-171	01020024.par	¼±ËÙ·ç±©ÈËÎïÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-172	01040017.par	¼±ËÙ·ç±©ÈËÎï³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-173	01030003.par	Counterguard µØÃæ³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-174	01040018.par	Counterguard ÈËÎï³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-175	feye.par	True Sight Ê©·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-176	01000021.par	True Sight ÈËÎï³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-177	01020025.par	Seal of Elder ÈËÎïÃüÖĞ	º£ÀË	0	0	-1	-1	0	1	0	-1
-178	01040020.par	Seal of Elder ÈËÎï³ÖĞø	º£ÀË	0	0	-1	-1	0	1	0	-1
-179	shadow01.par	Shadow Insignia µØÃæÃüÖĞ	º£ÀË	0	0	-1	-1	0	1	0	-1
-180	shadowh.par	Shadow Insignia ÈËÎï³ÖĞø	º£ÀË	0	0	-1	-1	0	1	0	-1
-181	01020027.par	Ê®×ÖÊø¸¿ÈËÎïÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-182	01040022.par	Ê®×ÖÊø¸¿ÈËÎï³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-183	01000022.par	»Ø¸´ÌìÊ¹Ê©·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-184	01010004.par	»Ø¸´ÌìÊ¹µØÃæÃüÖĞ	Sea Wave	0	0	-1	1	0	1	0	-1
-185	fireghostt.par	Cursed Fire µØÃæÃüÖĞ	º£ÀË	0	0	-1	-1	0	1	0	-1
-186	01000014.par	Illusion Slash Ê©·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-187	bang02.par	Mighty Strike Ê©·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
+160	01000019.par	Angelic Shield ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+161	01040034.par	Angelic Shield ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+162	01020020.par	Ê¥Ö°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+163	01040014.par	Ê¥Ö°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+164	01020021.par	ï¿½ï¿½Ê¹ï¿½ï¿½Ô¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+165	spahurt.par	Healing Spring ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+166	01040033.par	Healing Spring ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+167	01000020.par	ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½Ê©ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+168	01020022.par	ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+169	01040016.par	ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+170	01020040.par	Tempest Boost ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	1	0	1	0	-1
+171	01020024.par	ï¿½ï¿½ï¿½Ù·ç±©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+172	01040017.par	ï¿½ï¿½ï¿½Ù·ç±©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+173	01030003.par	Counterguard ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+174	01040018.par	Counterguard ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+175	feye.par	True Sight Ê©ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+176	01000021.par	True Sight ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+177	01020025.par	Seal of Elder ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+178	01040020.par	Seal of Elder ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+179	shadow01.par	Shadow Insignia ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+180	shadowh.par	Shadow Insignia ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+181	01020027.par	Ê®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+182	01040022.par	Ê®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+183	01000022.par	ï¿½Ø¸ï¿½ï¿½ï¿½Ê¹Ê©ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+184	01010004.par	ï¿½Ø¸ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	1	0	1	0	-1
+185	fireghostt.par	Cursed Fire ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+186	01000014.par	Illusion Slash Ê©ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+187	bang02.par	Mighty Strike Ê©ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
 188	01000025.par	Primal Fist Unleashed	Sea Wave	0	0	-1	-1	0	1	0	-1
-189	01000026.par	Frozen Arrow Ê©·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-190	hpushf.par	Spiritual Bolt Ê©·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-191	01000028.par	Spiritual Fire Ê©·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-192	01000029.par	Tempest Boost Ê©·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-193	01000030.par	Tornado Swirl Ê©·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-194	angel1.par	Angelic Shield µÀ¾ßÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
+189	01000026.par	Frozen Arrow Ê©ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+190	hpushf.par	Spiritual Bolt Ê©ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+191	01000028.par	Spiritual Fire Ê©ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+192	01000029.par	Tempest Boost Ê©ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+193	01000030.par	Tornado Swirl Ê©ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+194	angel1.par	Angelic Shield ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
 195	01020028.par	Illusion Slash Hit Rate	Sea Wave	0	0	-1	-1	0	1	0	-1
-196	bang.par	Mighty Strike ÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-197	01020030.par	ÊŞÍõÖ®È­ÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-198	poisont.par	¶¾±êÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
+196	bang.par	Mighty Strike ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+197	01020030.par	ï¿½ï¿½ï¿½ï¿½Ö®È­ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+198	poisont.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
 199	01020032.par	Numb Hit Rate	Sea Wave	0	0	-1	-1	0	1	0	-1
-200	01020033.par	Frozen Arrow ÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-201	01020034.par	Spiritual Bolt ÃüÖĞ	Sea Wave	0	0	-1	1	0	1	0	-1
-202	01020035.par	Spiritual Fire ÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-203	01020036.par	¼±ËÙ·ç±©ÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-204	seal.par	Angelic Shield ÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-205	01020038.par	Seal of Elder ÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-206	01040011.par	Spiritual Fire ³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-207	01040025.par	Tempest Boost ³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-208	01040035.par	¼±ËÙ·ç±©³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-209	01040027.par	Angelic Shield ³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-210	01040028.par	¼¼ÄÜ½ûÖ¹³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-211	barrierh.par	Energy Shield ³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-212	01040030.par	Frozen Arrow ³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-213	01000032.par	Eagle's Eye ÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-214	01040032.par	Eagle's Eye ³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-215	01020044.par	Eagle's Eye ÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-216	01050021.par	Mining ÌØĞ§	Sea Wave	0	0	-1	-1	0	1	0	-1
-217	01030010.par	ÆÕÍ¨µ¶¹â»ÃÓ°	Sea Wave	0	0	-1	-1	0	1	0	-1
-218	swordlight02.par	µ¶¹â02	Sea Wave	0	0	-1	-1	0	1	0	-1
-219	01000011.par	Ğ¡Recover ÊÍ·Å	º£ÀË	0	0	-1	-1	0	1	0	-1
-220	swordlightj.par	µ¶¹â	Sea Wave	0	0	-1	-1	0	1	0	-1
+200	01020033.par	Frozen Arrow ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+201	01020034.par	Spiritual Bolt ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	1	0	1	0	-1
+202	01020035.par	Spiritual Fire ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+203	01020036.par	ï¿½ï¿½ï¿½Ù·ç±©ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+204	seal.par	Angelic Shield ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+205	01020038.par	Seal of Elder ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+206	01040011.par	Spiritual Fire ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+207	01040025.par	Tempest Boost ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+208	01040035.par	ï¿½ï¿½ï¿½Ù·ç±©ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+209	01040027.par	Angelic Shield ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+210	01040028.par	ï¿½ï¿½ï¿½Ü½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+211	barrierh.par	Energy Shield ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+212	01040030.par	Frozen Arrow ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+213	01000032.par	Eagle's Eye ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+214	01040032.par	Eagle's Eye ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+215	01020044.par	Eagle's Eye ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+216	01050021.par	Mining ï¿½ï¿½Ğ§	Sea Wave	0	0	-1	-1	0	1	0	-1
+217	01030010.par	ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½Ó°	Sea Wave	0	0	-1	-1	0	1	0	-1
+218	swordlight02.par	ï¿½ï¿½ï¿½ï¿½02	Sea Wave	0	0	-1	-1	0	1	0	-1
+219	01000011.par	Ğ¡Recover ï¿½Í·ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+220	swordlightj.par	ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
 
-226	01010505.par	Octopus ¼¼ÄÜÃüÖĞ	º£ÀË	0	0	-1	-1	0	1	0	-1
-227	01010506.par	Õë´ÌÂüÍÓÂŞÃüÖĞ	Sea Wave	0	0	-2	-1	0	1	0	-1
-229	01030006.par	·ÉĞÜÃ¨ÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-230	01010511.par	µØ¾«³¤ÀÏÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-231	01010510.par	Ë®¾«ÁéÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-232	01010513.par	OysterÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-233	01010507.par	Ğ¡±ùÁúÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-234	01010508.par	´ó±ùÁúÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-235	01010514.par	ÉäË®±´ÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-236	firegush.par	Berserk ÃüÖĞ	º£ÀË	0	0	-1	-1	0	1	0	-1
-237	abysm02.par	ÉîÔ¨ÕÓÔóÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-238	abysm01.par	ÉîÔ¨ÕÓÔóµÀ¾ßÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-239	abysm03.par	ÉîÔ¨ÕÓÔóÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-240	abysm04.par	ÉîÔ¨ÕÓÔó³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-241	spa.par	Healing Spring ÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-242	spaf.par	Healing Spring µÀ¾ßÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-243	firelighting01.par	Cursed Fire µÀ¾ßÊÍ·Å	º£ÀË	0	0	-1	-1	0	1	0	-1
-244	shadowf01.par	Shadow Insignia ÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
+226	01010505.par	Octopus ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+227	01010506.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-2	-1	0	1	0	-1
+229	01030006.par	ï¿½ï¿½ï¿½ï¿½Ã¨ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+230	01010511.par	ï¿½Ø¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+231	01010510.par	Ë®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+232	01010513.par	Oysterï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+233	01010507.par	Ğ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+234	01010508.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+235	01010514.par	ï¿½ï¿½Ë®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+236	firegush.par	Berserk ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+237	abysm02.par	ï¿½ï¿½Ô¨ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+238	abysm01.par	ï¿½ï¿½Ô¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+239	abysm03.par	ï¿½ï¿½Ô¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+240	abysm04.par	ï¿½ï¿½Ô¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+241	spa.par	Healing Spring ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+242	spaf.par	Healing Spring ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+243	firelighting01.par	Cursed Fire ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+244	shadowf01.par	Shadow Insignia ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
 245	shadowi.par	Shadow Insignia Item Used	Sea Wave	0	0	-1	-1	0	1	0	-1
-246	barrierf.par	Energy Shield ÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-247	barrieri.par	Energy Shield µÀ¾ßÊÍ·Å	º£ÀË	0	0	-1	-1	0	1	0	-1
-248	barriert.par	Energy Shield ÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-249	poisonf.par	¶¾±êÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-250	poisonh.par	¶¾±ê³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-251	dancet.par	Shadow Slash ÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-252	dancef.par	Shadow Slash ÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-253	danceh.par	Shadow Slash ³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-254	01000033.par	Magma Bullet ÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-255	01000033(a).par	Magma Bullet µÀ¾ßÊÍ·Å	Sea Wave	0	0	-2	-1	0	1	0	-1
-256	01000016.par	±¬Í·µÀ¾ßÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-257	04000008.par	±¬Í·µÀ¾ßÊÍ·Å·¢Éä	Sea Wave	0	0	-2	-1	0	1	0	-1
-258	01020013(a).par	HeadshotÃüÖĞ	º£ÀË	0	0	-1	-1	0	1	0	-1
-259	01040007.par	Enfeeble µÀ¾ß³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-260	04000011.par	Enfeeble µÀ¾ßÊÍ·Å·¢Éä	Sea Wave	0	0	-2	-1	0	1	0	-1
-261	01020013(b).par	Enfeeble ÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-262	spurtice.par	Ñ©Å®ÅçËª	Sea Wave	0	0	-2	-1	0	1	0	-1
-263	01060008.par	¹êÍõÆğÀËÊÜ»÷	Sea Wave	0	0	-2	-1	0	1	0	-1
-264	01060006.par	ÒÅ¼£ÊØ»¤ÕßÊÜ»÷	Sea Wave	0	0	-2	-1	0	1	0	-1
-265	cowfire.par	Conch Ray ²¨	º£ÀË	0	0	-2	-1	0	1	0	-1
-266	cowdust.par	Conch Ray ³¾ÍÁ	º£ÀË	0	0	-2	-1	0	1	0	-1
-267	cowtarget.par	Conch Ray ÊÜ»÷	º£ÀË	0	0	-2	-1	0	1	0	-1
-268	spagh.par	Healing Spring µØÃæ³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-269	strik.par	Lightning Bolt ÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-270	strhurt.par	Lightning Bolt ÊÜ»÷	Sea Wave	0	0	-2	-1	0	1	0	-1
-271	strc.par	Lightning Bolt ³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-272	wind.par	Tornado ÊÍ·Å	º£ÀË	0	0	-1	-1	0	1	0	-1
-273	whurt.par	Tornado ÃüÖĞ	º£ÀË	0	0	-1	-1	0	1	0	-1
-274	windc.par	Tornado ³ÖĞø	º£ÀË	0	0	-1	-1	0	1	0	-1
+246	barrierf.par	Energy Shield ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+247	barrieri.par	Energy Shield ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+248	barriert.par	Energy Shield ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+249	poisonf.par	ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+250	poisonh.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+251	dancet.par	Shadow Slash ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+252	dancef.par	Shadow Slash ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+253	danceh.par	Shadow Slash ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+254	01000033.par	Magma Bullet ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+255	01000033(a).par	Magma Bullet ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½	Sea Wave	0	0	-2	-1	0	1	0	-1
+256	01000016.par	ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+257	04000008.par	ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½Í·Å·ï¿½ï¿½ï¿½	Sea Wave	0	0	-2	-1	0	1	0	-1
+258	01020013(a).par	Headshotï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+259	01040007.par	Enfeeble ï¿½ï¿½ï¿½ß³ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+260	04000011.par	Enfeeble ï¿½ï¿½ï¿½ï¿½ï¿½Í·Å·ï¿½ï¿½ï¿½	Sea Wave	0	0	-2	-1	0	1	0	-1
+261	01020013(b).par	Enfeeble ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+262	spurtice.par	Ñ©Å®ï¿½ï¿½Ëª	Sea Wave	0	0	-2	-1	0	1	0	-1
+263	01060008.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü»ï¿½	Sea Wave	0	0	-2	-1	0	1	0	-1
+264	01060006.par	ï¿½Å¼ï¿½ï¿½Ø»ï¿½ï¿½ï¿½ï¿½Ü»ï¿½	Sea Wave	0	0	-2	-1	0	1	0	-1
+265	cowfire.par	Conch Ray ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-2	-1	0	1	0	-1
+266	cowdust.par	Conch Ray ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-2	-1	0	1	0	-1
+267	cowtarget.par	Conch Ray ï¿½Ü»ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-2	-1	0	1	0	-1
+268	spagh.par	Healing Spring ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+269	strik.par	Lightning Bolt ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+270	strhurt.par	Lightning Bolt ï¿½Ü»ï¿½	Sea Wave	0	0	-2	-1	0	1	0	-1
+271	strc.par	Lightning Bolt ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+272	wind.par	Tornado ï¿½Í·ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+273	whurt.par	Tornado ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+274	windc.par	Tornado ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
 275	aglef.par	Algae Persists	Sea Wave	0	0	-1	-1	0	1	0	-1
-276	agle.par	º£ÔåÃüÖĞ	Sea Wave	0	0	-2	-1	0	1	0	-1
-277	aglec.par	º£Ôå³ÖÀm	Sea Wave	0	0	-1	-1	0	1	0	-1
-278	eddy.par	äöœuáŒ·Å	Sea Wave	0	0	-2	-1	0	1	0	-1
-279	eddyhurt.par	äöœuÃüÖĞ	Sea Wave	0	0	-2	-1	0	1	0	-1
-280	eddyc.par	äöœu³ÖÀm	Sea Wave	0	0	-2	-1	0	1	0	-1
-281	fog.par	ÃÔìFáŒ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-282	foghurt.par	ÃÔìFÃüÖĞ	Sea Wave	0	0	-2	-1	0	1	0	-1
-283	fogc.par	ÃÔìF³ÖÀm	Sea Wave	0	0	-1	-1	0	1	0	-1
-284	cannon01.par	ÆÕÍ¨³h—áŒ·Å	Sea Wave	0	0	-2	-1	0	1	0	-1
-285	obey.par	í˜ïLáŒ·Å	Sea Wave	0	0	-2	-1	0	1	0	-1
-286	obeyhurt.par	í˜ïLÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-287	obeyc.par	í˜ïL³ÖÀm	Sea Wave	0	0	-1	-1	0	1	0	-1
-288	levin.par	Lightning Curtain áŒ·Å	Sea Wave	0	0	-2	-1	0	1	0	-1
-289	levinh.par	Lightning Curtain ÃüÖĞ	Sea Wave	0	0	-2	-1	0	1	0	-1
-290	levinc.par	Lightning Curtain µØÃæÃüÖĞ	Sea Wave	0	0	-2	-1	0	1	0	-1
-291	00000004.par	·çÇø	Sea Wave	0	0	-2	-1	0	1	0	-1
-292	00000006.par	À×Çø	Sea Wave	0	0	-2	-1	0	1	0	-1
-293	00000005.par	ÎíÇø	Sea Wave	0	0	-2	-1	0	1	0	-1
+276	agle.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-2	-1	0	1	0	-1
+277	aglec.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½m	Sea Wave	0	0	-1	-1	0	1	0	-1
+278	eddy.par	ï¿½ï¿½ï¿½uáŒ·ï¿½	Sea Wave	0	0	-2	-1	0	1	0	-1
+279	eddyhurt.par	ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-2	-1	0	1	0	-1
+280	eddyc.par	ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½m	Sea Wave	0	0	-2	-1	0	1	0	-1
+281	fog.par	ï¿½ï¿½ï¿½FáŒ·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+282	foghurt.par	ï¿½ï¿½ï¿½Fï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-2	-1	0	1	0	-1
+283	fogc.par	ï¿½ï¿½ï¿½Fï¿½ï¿½ï¿½m	Sea Wave	0	0	-1	-1	0	1	0	-1
+284	cannon01.par	ï¿½ï¿½Í¨ï¿½hï¿½ï¿½áŒ·ï¿½	Sea Wave	0	0	-2	-1	0	1	0	-1
+285	obey.par	ï¿½ï¿½LáŒ·ï¿½	Sea Wave	0	0	-2	-1	0	1	0	-1
+286	obeyhurt.par	ï¿½ï¿½Lï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+287	obeyc.par	ï¿½ï¿½Lï¿½ï¿½ï¿½m	Sea Wave	0	0	-1	-1	0	1	0	-1
+288	levin.par	Lightning Curtain áŒ·ï¿½	Sea Wave	0	0	-2	-1	0	1	0	-1
+289	levinh.par	Lightning Curtain ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-2	-1	0	1	0	-1
+290	levinc.par	Lightning Curtain ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-2	-1	0	1	0	-1
+291	00000004.par	ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-2	-1	0	1	0	-1
+292	00000006.par	ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-2	-1	0	1	0	-1
+293	00000005.par	ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-2	-1	0	1	0	-1
 294	tiger.par	Tiger Roar Persists	Sea Wave	0	0	-1	-1	0	1	0	-1
-295	tigerc.par	Tiger Roar ³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-296	icearrow.par	±ù¼ıÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-297	icearrowc.par	±ù¼ı³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-298	parrow.par	Venom Arrow ÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-299	stoneshieldi.par	Ê¯¶ÜÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-300	stoneshieldt.par	Ê¯¶ÜÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-301	shijia.par	Ê¯¶Ü³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-302	rousec.par	Rousing ³ÖĞø	º£ÀË	0	0	-1	-1	0	1	0	-1
-303	rouse.par	Rousing ÊÍ·Å	º£ÀË	0	0	-1	-1	0	1	0	-1
-304	shield.par	Break Armor ÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-305	shieldh.par	Break Armor ÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-306	pojia.par	Break Armor ³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-307	steel.par	Will of Steel ÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-308	toil.par	Fishing ÊÍ·Å	º£ÀË	0	0	-1	-1	0	1	0	-1
+295	tigerc.par	Tiger Roar ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+296	icearrow.par	ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+297	icearrowc.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+298	parrow.par	Venom Arrow ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+299	stoneshieldi.par	Ê¯ï¿½ï¿½ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+300	stoneshieldt.par	Ê¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+301	shijia.par	Ê¯ï¿½Ü³ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+302	rousec.par	Rousing ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+303	rouse.par	Rousing ï¿½Í·ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+304	shield.par	Break Armor ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+305	shieldh.par	Break Armor ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+306	pojia.par	Break Armor ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+307	steel.par	Will of Steel ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+308	toil.par	Fishing ï¿½Í·ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
 309	toilh.par	Salvage sunken ship	Sea Wave	0	0	-1	-1	0	1	0	-1
 310	iron.par	Unleash Salvage Persists	Sea Wave	0	0	-1	-1	0	1	0	-1
-311	01050038.par	ÊØ»¤ÌìÊ¹ÊÍ·Å	Sea Wave	0	0	10	-1	0	1	0	-1
-312	01050041.par	Goddess Ë¼ÄîÌåÊÍ·Å	º£ÀË	0	0	-1	-1	0	1	0	-1
-313	01050042.par	Goddess Ë¼ÄîÌåÊÍ·Å	º£ÀË	0	0	-1	-1	0	1	0	-1
-314	01050045.par	Goddess Ë¼ÄîÌåÃüÖĞ	º£ÀË	0	0	-2	-1	0	1	0	-1
-315	cannon04.par	ÆÕÍ¨ÅÚµ¯2	Sea Wave	0	0	-1	-1	0	1	0	-1
-316	cannon02.par	ÆÕÍ¨ÅÚµ¯1	Sea Wave	0	0	-1	-1	0	1	0	-1
-317	cxsw1.par	ËÀÍö³°Ğ¦ÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-318	cxsw2.par	ËÀÍö³°Ğ¦ÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-319	cxsw3.par	ËÀÍö³°Ğ¦³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-320	xn.par	ÑªÅ­ÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-321	xncx.par	ÑªÅ­³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-322	xnjz.par	ÑªÅ­ÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
+311	01050038.par	ï¿½Ø»ï¿½ï¿½ï¿½Ê¹ï¿½Í·ï¿½	Sea Wave	0	0	10	-1	0	1	0	-1
+312	01050041.par	Goddess Ë¼ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+313	01050042.par	Goddess Ë¼ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+314	01050045.par	Goddess Ë¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-2	-1	0	1	0	-1
+315	cannon04.par	ï¿½ï¿½Í¨ï¿½Úµï¿½2	Sea Wave	0	0	-1	-1	0	1	0	-1
+316	cannon02.par	ï¿½ï¿½Í¨ï¿½Úµï¿½1	Sea Wave	0	0	-1	-1	0	1	0	-1
+317	cxsw1.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¦ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+318	cxsw2.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¦ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+319	cxsw3.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¦ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+320	xn.par	ÑªÅ­ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+321	xncx.par	ÑªÅ­ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+322	xnjz.par	ÑªÅ­ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
 323	nbjz.par	Mud Hit Rate	Sea Wave	0	0	-1	-1	0	1	0	-1
-324	nbcx.par	Äà°Í³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-325	dzsf.par	µØÕğÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-326	dzmz.par	µØÕğÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-327	bwsf.par	±ùÎÇÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-328	bwsj.par	±ùÎÇÊÜ»÷	Sea Wave	0	0	-1	-1	0	1	0	-1
-329	bwcx.par	±ùÎÇ³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-330	frsf.par	·çÈĞÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-331	frsfb.par	·çÈĞÊÍ·Åb	Sea Wave	0	0	-1	-1	0	1	0	-1
+324	nbcx.par	ï¿½ï¿½Í³ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+325	dzsf.par	ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+326	dzmz.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+327	bwsf.par	ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+328	bwsj.par	ï¿½ï¿½ï¿½ï¿½ï¿½Ü»ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+329	bwcx.par	ï¿½ï¿½ï¿½Ç³ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+330	frsf.par	ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+331	frsfb.par	ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½b	Sea Wave	0	0	-1	-1	0	1	0	-1
 332	frsj.par	Wind Blade Attack	Sea Wave	0	0	-1	-1	0	1	0	-1
-333	mosterlight.par	¾ŞÈËÊ×Áìµ¶¹â	Sea Wave	0	0	-1	-1	0	1	0	-1
+333	mosterlight.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ìµ¶ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
 334	stars.par	Hairstyling successful	Sea Wave	0	0	-1	-1	0	1	0	-1
 335	starsb.par	Hairstyling failed	Sea Wave	0	0	-1	-1	0	1	0	-1
-336	cfsf.par	Taunt ÊÍ·Å	º£ÀË	0	0	-1	-1	0	1	0	-1
+336	cfsf.par	Taunt ï¿½Í·ï¿½	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
 337	cfsj.par	Taunt Attack	Sea Wave	0	0	-1	-1	0	1	0	-1
-338	pxsf.par	Roar ÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-339	sgfire.par	ÉÏ¹ÅBOSSÂÌ»ğÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
+338	pxsf.par	Roar ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+339	sgfire.par	ï¿½Ï¹ï¿½BOSSï¿½Ì»ï¿½ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
 340	sgbjg.par	Ancient BOSS Laser Attack Persists	Sea Wave	0	0	-1	-1	0	1	0	-1
-341	sgfiremz.par	ÉÏ¹ÅBOSSÂÌ»ğÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-342	pkkp.par	PKÅÚËş¿ªÅÚ	Sea Wave	0	0	-1	-1	0	1	0	-1
-343	mfbda.par	Ä§·¨±©¶¯³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-344	mfbdb.par	Ä§·¨±©¶¯ÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
+341	sgfiremz.par	ï¿½Ï¹ï¿½BOSSï¿½Ì»ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+342	pkkp.par	PKï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+343	mfbda.par	Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+344	mfbdb.par	Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
 345	jlcg.par	Forging successful	Sea Wave	0	0	-1	-1	0	1	0	-1
 346	jlsb.par	Forging failed	Sea Wave	0	0	-1	-1	0	1	0	-1
 347	corpse.par	Corpse Attack	Sea Wave	0	0	-2	-1	0	1	0	-1
-348	corpse2jq.par	½©Ê¬¹¥»÷¾ÛÆø	Sea Wave	0	0	-1	-1	0	1	0	-1
+348	corpse2jq.par	ï¿½ï¿½Ê¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
 349	corpse2.par	Corpse Attack Persists	Sea Wave	0	0	-1	-1	0	1	0	-1
-350	hdrmf.par	ºüµÀÊ¿Ä§·¨ÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-351	hdrmffx.par	ºüµÀÊ¿Ä§·¨·ÉĞĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-352	hymf.par	ºüÑıÄ§·¨ÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-353	hymffx.par	ºüÑıÄ§·¨·ÉĞĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
+350	hdrmf.par	ï¿½ï¿½ï¿½ï¿½Ê¿Ä§ï¿½ï¿½ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+351	hdrmffx.par	ï¿½ï¿½ï¿½ï¿½Ê¿Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+352	hymf.par	ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+353	hymffx.par	ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
 354	ilui.par	i	Sea Wave	0	0	-1	-1	0	1	0	-1
 355	ilul.par	love	Sea Wave	0	0	-1	-1	0	1	0	-1
 356	iluu.par	u	Sea Wave	0	0	-1	-1	0	1	0	-1
 357	iluwo.par	Me	Sea Wave	0	0	-1	-1	0	1	0	-1
 358	iluai.par	Love	Sea Wave	0	0	-1	-1	0	1	0	-1
-359	iluni.par	Äã	Sea Wave	0	0	-1	-1	0	1	0	-1
+359	iluni.par	ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
 360	denglong.par	Lantern	Sea Wave	0	0	-1	-1	0	1	0	-1
 361	yanhua.par	Firework a1	Sea Wave	0	0	-1	-1	0	1	0	-1
 362	yanhuaa.par	Firework a2	Sea Wave	0	0	-1	-1	0	1	0	-1
@@ -287,77 +287,77 @@
 368	yanhuaablue.par	Firework c2	Sea Wave	0	0	-1	-1	0	1	0	-1
 369	yanhuaeblue.par	Firework c3	Sea Wave	0	0	-1	-1	0	1	0	-1
 370	ilu.par	Love you so	Sea Wave	0	0	-1	-1	0	1	0	-1
-371	mh.par	Fascinate	º£ÀË	0	0	-1	-1	0	1	0	-1
-372	hxsf.par	ºüÏÉÄ§·¨ÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-373	hxhl.par	ºüÏÉºùÂ«ÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-374	tt.par	Í¼ÌÚ¹¥»÷ÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
+371	mh.par	Fascinate	ï¿½ï¿½ï¿½ï¿½	0	0	-1	-1	0	1	0	-1
+372	hxsf.par	ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+373	hxhl.par	ï¿½ï¿½ï¿½Éºï¿½Â«ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+374	tt.par	Í¼ï¿½Ú¹ï¿½ï¿½ï¿½ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
 375	qzmf.par	Sachem's Witchcraft	Sea Wave	0	0	-1	-1	0	1	0	-1
-376	icedragonhit01.par	±ùÁú1ÊÜ»÷	Sea Wave	0	0	-1	-1	0	1	0	-1
-377	icedragonhit02.par	±ùÁú2ÊÜ»÷	Sea Wave	0	0	-1	-1	0	1	0	-1
-378	xr2.par	Ğ·ÈŞ³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
+376	icedragonhit01.par	ï¿½ï¿½ï¿½ï¿½1ï¿½Ü»ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+377	icedragonhit02.par	ï¿½ï¿½ï¿½ï¿½2ï¿½Ü»ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+378	xr2.par	Ğ·ï¿½Ş³ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
 379	kj.par	Black Dragon Terror	Sea Wave	0	0	-1	-1	0	1	0	-1
-380	bhsd.par	±ùºÓÊ±´ú	Sea Wave	0	0	-1	-1	0	1	0	-1
-381	hlsw.par	ºüÀêËÀÍö	Sea Wave	0	0	6	-1	0	1	0	-1
-382	hfjd.par	»ùµØºìËÀÍö	Sea Wave	0	0	6	-1	0	1	0	-1
+380	bhsd.par	ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+381	hlsw.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	6	-1	0	1	0	-1
+382	hfjd.par	ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	6	-1	0	1	0	-1
 383	lfjd.par	Blue Base Destroyed	Sea Wave	0	0	6	-1	0	1	0	-1
-384	pkpt.par	PKÅÚÌ¨ºìËÀÍö	Sea Wave	0	0	6	-1	0	1	0	-1
-385	pkptb.par	PKÅÚÌ¨À¶ËÀÍö	Sea Wave	0	0	6	-1	0	1	0	-1
-386	zp.par	ÕÊÅñºìËÀÍö	Sea Wave	0	0	6	-1	0	1	0	-1
-387	zpb.par	ÕÊÅñÀ¶ËÀÍö	Sea Wave	0	0	6	-1	0	1	0	-1
-388	xmb.par	Ğ¡Âô²¿ºìËÀÍö	Sea Wave	0	0	6	-1	0	1	0	-1
-389	xmbb.par	Ğ¡Âô²¿À¶ËÀÍö	Sea Wave	0	0	6	-1	0	1	0	-1
+384	pkpt.par	PKï¿½ï¿½Ì¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	6	-1	0	1	0	-1
+385	pkptb.par	PKï¿½ï¿½Ì¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	6	-1	0	1	0	-1
+386	zp.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	6	-1	0	1	0	-1
+387	zpb.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	6	-1	0	1	0	-1
+388	xmb.par	Ğ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	6	-1	0	1	0	-1
+389	xmbb.par	Ğ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	6	-1	0	1	0	-1
 390	slbz.par	Water Mine Explosion	Sea Wave	0	0	6	-1	0	1	0	-1
-391	ptbz.par	ÅÚÌ¨ËÀÍö	Sea Wave	0	0	6	-1	0	1	0	-1
+391	ptbz.par	ï¿½ï¿½Ì¨ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	6	-1	0	1	0	-1
 392	01050021.par	Blacksmith Mars	Sea Wave	0	0	6	-1	0	1	0	-1
-393	01060003.par	Ğ¡±ùÁúËÀÍö	Sea Wave	0	0	-1	-1	0	1	0	-1
-394	01060004.par	ÊØÎÀËÀÍö	Sea Wave	0	0	-1	-1	0	1	0	-1
-395	01060002.par	±ùÁúËÀÍö	Sea Wave	0	0	-1	-1	0	1	0	-1
+393	01060003.par	Ğ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+394	01060004.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+395	01060002.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
 396	01060005.par	Carnivore Flower	Sea Wave	0	0	-1	-1	0	1	0	-1
-397	01060001.par	»ğÁé	Sea Wave	0	0	-1	-1	0	1	0	-1
-398	ghost.par	npcËÀÍö	Sea Wave	0	0	-1	-1	0	1	0	-1
-399	born.par	npc³öÉú	Sea Wave	0	0	-1	-1	0	1	0	-1
+397	01060001.par	ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+398	ghost.par	npcï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+399	born.par	npcï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
 400	03000001.par	Thundorian Staff	Sea Wave	3	0	4	-1	0	0	0	-1
 401	03000002.par	Staff of Life	Sea Wave	3	0	4	-1	0	0	0	-1
 402	03000003.par	Magical Staff	Sea Wave	3	0	4	-1	0	0	0	-1
-403	redstone01.par	ºì±¦Ê¯1	Sea Wave	3	0	4,5	-1	0	0	0	-1
-404	redstone02.par	ºì±¦Ê¯2	Sea Wave	3	0	4	-1	0	0	0	-1
-405	redstone03.par	ºì±¦Ê¯3	Sea Wave	3	0	4	-1	0	0	0	-1
-406	bluestone01.par	À¶±¦Ê¯1	Sea Wave	3	0	4,5	-1	0	0	0	-1
-407	bluestone02.par	À¶±¦Ê¯2	Sea Wave	3	0	4	-1	0	0	0	-1
+403	redstone01.par	ï¿½ì±¦Ê¯1	Sea Wave	3	0	4,5	-1	0	0	0	-1
+404	redstone02.par	ï¿½ì±¦Ê¯2	Sea Wave	3	0	4	-1	0	0	0	-1
+405	redstone03.par	ï¿½ì±¦Ê¯3	Sea Wave	3	0	4	-1	0	0	0	-1
+406	bluestone01.par	ï¿½ï¿½ï¿½ï¿½Ê¯1	Sea Wave	3	0	4,5	-1	0	0	0	-1
+407	bluestone02.par	ï¿½ï¿½ï¿½ï¿½Ê¯2	Sea Wave	3	0	4	-1	0	0	0	-1
 408	bluestone03.par	Sapphire 3	Sea Wave	3	0	4	-1	0	0	0	-1
-409	yellowstone01.par	»Æ±¦Ê¯1	Sea Wave	3	0	4,5	-1	0	0	0	-1
-410	yellowstone02.par	»Æ±¦Ê¯2	Sea Wave	3	0	4	-1	0	0	0	-1
-411	yellowstone03.par	»Æ±¦Ê¯3	Sea Wave	3	0	4	-1	0	0	0	-1
+409	yellowstone01.par	ï¿½Æ±ï¿½Ê¯1	Sea Wave	3	0	4,5	-1	0	0	0	-1
+410	yellowstone02.par	ï¿½Æ±ï¿½Ê¯2	Sea Wave	3	0	4	-1	0	0	0	-1
+411	yellowstone03.par	ï¿½Æ±ï¿½Ê¯3	Sea Wave	3	0	4	-1	0	0	0	-1
 412	refinestone.par	Refining Gem	Sea Wave	3	0	4	-1	0	0	0	-1
-450	01050009.par	»úÆ÷ÈËºÚÑÌ	Sea Wave	1	0	16,17	-1	0	0	0	-1
-451	01050006.par	°ëÊŞÈËÑÌ	Sea Wave	1	0	5	-1	0	0	0	-1
+450	01050009.par	ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½	Sea Wave	1	0	16,17	-1	0	0	0	-1
+451	01050006.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	5	-1	0	0	0	-1
 452	01050001.par	Humpy Camel Dust	Sea Wave	1	0	4,5	-1	0	0	0	-1
-453	01050001.par	É³Æï±ø³¾	Sea Wave	1	0	5,6	-1	0	0	0	-1
-454	01050007.par	Naiad	º£ÀË	1	0	1	-1	0	0	0	-1
-455	01050010.par	Ç§ÄêÅ®Ê¬	Sea Wave	1	0	6,9	-1	0	0	0	-1
-456	01050005.par	ÄÏ¹ÏÈË»ğ	Sea Wave	1	0	7,8	-1	0	0	0	-1
-457	01050005_1.par	ÄÏ¹ÏÈË»ğ	Sea Wave	1	0	10	-1	0	0	0	-1
-458	01050003.par	×çÖäÄ¾Ê¬	Sea Wave	1	0	6	0	0	0	0	-1
+453	01050001.par	É³ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	5,6	-1	0	0	0	-1
+454	01050007.par	Naiad	ï¿½ï¿½ï¿½ï¿½	1	0	1	-1	0	0	0	-1
+455	01050010.par	Ç§ï¿½ï¿½Å®Ê¬	Sea Wave	1	0	6,9	-1	0	0	0	-1
+456	01050005.par	ï¿½Ï¹ï¿½ï¿½Ë»ï¿½	Sea Wave	1	0	7,8	-1	0	0	0	-1
+457	01050005_1.par	ï¿½Ï¹ï¿½ï¿½Ë»ï¿½	Sea Wave	1	0	10	-1	0	0	0	-1
+458	01050003.par	ï¿½ï¿½ï¿½ï¿½Ä¾Ê¬	Sea Wave	1	0	6	0	0	0	0	-1
 459	01050001.par	Sand Bandit	Sea Wave	1	0	4,5	-1	0	0	0	-1
 460	01050011.par	Octopus	Sea Wave	1	0	2	-1	0	0	0	-1
 461	01050012.par	Kingfisher	Sea Wave	1	0	2	-1	0	0	0	-1
-462	01050013.par	»ğÁé	Sea Wave	1	0	10	-1	0	0	0	-1
+462	01050013.par	ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	10	-1	0	0	0	-1
 463	01050014.par	Mystic Shrub	Sea Wave	1	0	0	-1	0	0	0	-1
-464	01050016.par	·¨Íõ»ğÇò	Sea Wave	1	0	4,5,17,9	-1	0	0	0	-1
+464	01050016.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	4,5,17,9	-1	0	0	0	-1
 465	01050017.par	Icy Dragon	Sea Wave	1	0	1,2,3,4,6,7,9	-1	0	0	0	-1
-466	01050019.par	÷úÊóµÆ¹â	Sea Wave	1	0	10	-1	0	0	0	-1
+466	01050019.par	ï¿½ï¿½ï¿½ï¿½Æ¹ï¿½	Sea Wave	1	0	10	-1	0	0	0	-1
 467	01050015.par	Mystic Flower	Sea Wave	1	0	0	-1	0	0	0	-1
 468	zone.par	zone	Sea Wave	0	0	0	-1	0	0	0	-1
 469	01050020.par	Silly Crab Soldier	Sea Wave	1	0	0	-1	0	0	0	-1
 470	01050018.par	Baby Icy Dragon	Sea Wave	1	0	1,2,3	-1	0	0	0	-1
-471	01050031.par	°¢Å¬±ÈË¹	Sea Wave	1	0	10	-1	0	0	0	-1
+471	01050031.par	ï¿½ï¿½Å¬ï¿½ï¿½Ë¹	Sea Wave	1	0	10	-1	0	0	0	-1
 472	01050029.par	Nightmare	Sea Wave	1	0	5,8,12,15,4,7,16,17	-1	0	0	0	-1
 473	01050022.par	Snowy Mystic Shrub	Sea Wave	1	0	0	-1	0	0	0	-1
-474	01050023.par	³ÈÉ«¾«Áé²İ	Sea Wave	1	0	0	-1	0	0	0	-1
+474	01050023.par	ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	0	-1	0	0	0	-1
 475	01050024.par	Red Mystic Shrub	Sea Wave	1	0	0	-1	0	0	0	-1
 476	01050025.par	Dry Mystic Shrub	Sea Wave	1	0	0	-1	0	0	0	-1
 477	01050026.par	Blue Mystic Shrub	Sea Wave	1	0	0	-1	0	0	0	-1
-478	01050027.par	×ÏÉ«¾«Áé²İ	Sea Wave	1	0	0	-1	0	0	0	-1
+478	01050027.par	ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	0	-1	0	0	0	-1
 479	01050028.par	Ancient Mystic Shrub	Sea Wave	1	0	0	-1	0	0	0	-1
 480	shuimu01.par	Tempest Sea Jelly	Sea Wave	1	0	1	-1	0	0	0	-1
 481	shuimu02.par	Electric Sea Jelly	Sea Wave	1	0	1	-1	0	0	0	-1
@@ -365,18 +365,18 @@
 483	01050032.par	Man-Eating Spider	Sea Wave	1	0	4	-1	0	0	0	-1
 484	01050035.par	Snow Lady	Sea Wave	1	0	3	-1	0	0	0	-1
 485	01050033.par	Snow Lady	Sea Wave	1	0	0	-1	0	0	0	-1
-486	01050034.par	ÄÏ¹Ï½«¾ü	Sea Wave	1	0	4	-1	0	0	0	-1
-487	01050034.par	Äà½¬¹Ö	Sea Wave	1	0	7,8	-1	0	0	0	-1
+486	01050034.par	ï¿½Ï¹Ï½ï¿½ï¿½ï¿½	Sea Wave	1	0	4	-1	0	0	0	-1
+487	01050034.par	ï¿½à½¬ï¿½ï¿½	Sea Wave	1	0	7,8	-1	0	0	0	-1
 488	01050036.par	Guardian Angel	Sea Wave	1	0	-1	-1	0	0	0	-1
 489	01050037.par	Lubi Terror	Sea Wave	1	0	13	-1	0	0	0	-1
 490	01050043.par	Soul of Goddess	Sea Wave	1	0	-1	-1	0	0	0	-1
-491	shiphurt01.par	´¬Ö»HP²»×ã1	Sea Wave	1	0	4	-1	0	0	0	-1
-492	shiphurt02.par	´¬Ö»HP²»×ã2	Sea Wave	1	0	4	-1	0	0	0	-1
-493	shiphurt03.par	´¬Ö»HP²»×ã3	Sea Wave	1	0	4	-1	0	0	0	-1
-494	seazone.par	º£ÉÏ´«ËÍÃÅ	Sea Wave	0	0	4	-1	0	0	0	-1
-495	pkhp1.par	PK½¨ÖşHP²»×ã1	Sea Wave	1	0	1	-1	0	0	0	-1
-496	pkhp2.par	PK½¨ÖşHP²»×ã2	Sea Wave	1	0	1	-1	0	0	0	-1
-497	pkhp3.par	PK½¨ÖşHP²»×ã3	Sea Wave	1	0	1	-1	0	0	0	-1
+491	shiphurt01.par	ï¿½ï¿½Ö»HPï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	4	-1	0	0	0	-1
+492	shiphurt02.par	ï¿½ï¿½Ö»HPï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	4	-1	0	0	0	-1
+493	shiphurt03.par	ï¿½ï¿½Ö»HPï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	4	-1	0	0	0	-1
+494	seazone.par	ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	4	-1	0	0	0	-1
+495	pkhp1.par	PKï¿½ï¿½ï¿½ï¿½HPï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+496	pkhp2.par	PKï¿½ï¿½ï¿½ï¿½HPï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+497	pkhp3.par	PKï¿½ï¿½ï¿½ï¿½HPï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
 498	vipwings01.par	Dark Wing	Sea Wave	1	0	24	-1	0	0	0	-1
 499	vipwings02.par	Dark Wing	Sea Wave	1	0	24	-1	0	0	0	-1
 500	vipwings03.par	Dark Wing	Sea Wave	1	0	24	-1	0	0	0	-1
@@ -384,19 +384,19 @@
 502	anwing2.par	Angel Wing	Sea Wave	1	0	24	-1	0	0	0	-1
 503	anwing3.par	Angel Wing	Sea Wave	1	0	24	-1	0	0	0	-1
 504	rozen.par	Rose	Sea Wave	1	0	25	-1	0	0	0	-1
-505	elf.par	¹âÖ®¾«Áé	Sea Wave	1	0	-1	-1	0	0	0	-1
-506	ballelf.par	»ÆÉ«Çò¾«Áé	Sea Wave	1	0	-1	-1	0	0	0	-1
-507	ballelf2.par	ÂÌÉ«Çò¾«Áé	Sea Wave	1	0	-1	-1	0	0	0	-1
-508	elfgreen.par	ÂÌ¾«Áé	Sea Wave	1	0	-1	-1	0	0	0	-1
-509	elfgreen2.par	ºì¾«Áé	Sea Wave	1	0	-1	-1	0	0	0	-1
-510	xdelf.par	ÏÌµ°ÂÌ¾«Áé	Sea Wave	1	0	-1	-1	0	0	0	-1
-511	xdelf2.par	ÏÌµ°À¼¾«Áé	Sea Wave	1	0	-1	-1	0	0	0	-1
-512	eggelf.par	°ü²ËÂÌ¾«Áé	Sea Wave	1	0	-1	-1	0	0	0	-1
-513	eggelf2.par	»Æ°ü²Ë¾«Áé	Sea Wave	1	0	-1	-1	0	0	0	-1
-514	gelf.par	ÓÄÁé¾«Áé	Sea Wave	1	0	-1	-1	0	0	0	-1
-515	gelf2.par	ÓÄÁé¾«Áé2	Sea Wave	1	0	-1	-1	0	0	0	-1
-516	zzshjl1.par	ğĞğÄ¾«Áé1	Sea Wave	1	0	-1	-1	0	0	0	-1
-517	zzshjl2.par	ğĞğÄ¾«Áé2	Sea Wave	1	0	-1	-1	0	0	0	-1
+505	elf.par	ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	-1	-1	0	0	0	-1
+506	ballelf.par	ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	-1	-1	0	0	0	-1
+507	ballelf2.par	ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	-1	-1	0	0	0	-1
+508	elfgreen.par	ï¿½Ì¾ï¿½ï¿½ï¿½	Sea Wave	1	0	-1	-1	0	0	0	-1
+509	elfgreen2.par	ï¿½ì¾«ï¿½ï¿½	Sea Wave	1	0	-1	-1	0	0	0	-1
+510	xdelf.par	ï¿½Ìµï¿½ï¿½Ì¾ï¿½ï¿½ï¿½	Sea Wave	1	0	-1	-1	0	0	0	-1
+511	xdelf2.par	ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	-1	-1	0	0	0	-1
+512	eggelf.par	ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½	Sea Wave	1	0	-1	-1	0	0	0	-1
+513	eggelf2.par	ï¿½Æ°ï¿½ï¿½Ë¾ï¿½ï¿½ï¿½	Sea Wave	1	0	-1	-1	0	0	0	-1
+514	gelf.par	ï¿½ï¿½ï¿½é¾«ï¿½ï¿½	Sea Wave	1	0	-1	-1	0	0	0	-1
+515	gelf2.par	ï¿½ï¿½ï¿½é¾«ï¿½ï¿½2	Sea Wave	1	0	-1	-1	0	0	0	-1
+516	zzshjl1.par	ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½1	Sea Wave	1	0	-1	-1	0	0	0	-1
+517	zzshjl2.par	ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½2	Sea Wave	1	0	-1	-1	0	0	0	-1
 518	fjlxiao.par	Tiny Fairy	Sea Wave	1	0	0	-1	3	0	0	-1
 519	ejl1.par	Note 2	Sea Wave	1	0	0	-1	3	0	0	-1
 520	ejl2.par	Brute Strength	Sea Wave	1	0	0	-1	3	0	0	-1
@@ -430,7 +430,7 @@
 548	chiman2c.par	Rebirth Carsise 	Sea Wave	1	0	24	-1	0	0	0	-1
 549	hlcb.par	Black Dragon Wre	Sea Wave	1	0	24	-1	0	0	0	-1
 550	chcb.par	Rainbow End	Sea Wave	1	0	24	-1	0	0	0	-1
-551	hl_crab.par	??½ä??????	Sea Wave	1	0	24	-1	0	0	0	-1
+551	hl_crab.par	??ï¿½ï¿½??????	Sea Wave	1	0	24	-1	0	0	0	-1
 552	elfbm1.par	Brute Strength	Sea Wave	1	0	0	-1	0	0	0	-1
 553	elfbm2.par	Brute Strength	Sea Wave	1	0	0	-1	0	0	0	-1
 564	mct.par	??????	Sea Wave	0	0	0	-1	0	1	0	-1
@@ -440,14 +440,14 @@
 568	wazi.par	0	Sea Wave	0	0	0	-1	0	1	0	-1
 569	xrsw.par	?????	Sea Wave	0	0	0	-1	0	1	0	-1
 570	sds.par	?????????	Sea Wave	0	0	0	-1	0	1	0	-1
-571	xsds.par	ÈÑ?????????	Sea Wave	0	0	0	-1	0	1	0	-1
-572	fyyf.par	85BB????????Íê	Sea Wave	0	0	0	-1	0	1	0	-1
-573	hhyf.par	85BB?????????Íê	Sea Wave	0	0	0	-1	0	1	0	-1
-574	jjyf.par	85BB????????Íê	Sea Wave	0	0	0	-1	0	1	0	-1
-575	lryf.par	85BB?????????Íê	Sea Wave	0	0	0	-1	0	1	0	-1
-576	sjyf.par	85BB????????Íê	Sea Wave	0	0	0	-1	0	1	0	-1
-577	szyf.par	85BB???????Íê	Sea Wave	0	0	0	-1	0	1	0	-1
-578	xzdll.par	???¿ì?????	Sea Wave	0	0	0	-1	0	1	0	-1
+571	xsds.par	ï¿½ï¿½?????????	Sea Wave	0	0	0	-1	0	1	0	-1
+572	fyyf.par	85BB????????ï¿½ï¿½	Sea Wave	0	0	0	-1	0	1	0	-1
+573	hhyf.par	85BB?????????ï¿½ï¿½	Sea Wave	0	0	0	-1	0	1	0	-1
+574	jjyf.par	85BB????????ï¿½ï¿½	Sea Wave	0	0	0	-1	0	1	0	-1
+575	lryf.par	85BB?????????ï¿½ï¿½	Sea Wave	0	0	0	-1	0	1	0	-1
+576	sjyf.par	85BB????????ï¿½ï¿½	Sea Wave	0	0	0	-1	0	1	0	-1
+577	szyf.par	85BB???????ï¿½ï¿½	Sea Wave	0	0	0	-1	0	1	0	-1
+578	xzdll.par	???ï¿½ï¿½?????	Sea Wave	0	0	0	-1	0	1	0	-1
 579	huota.par	????	Sea Wave	0	0	0	-1	0	1	0	-1
 580	huoju.par	???	Sea Wave	0	0	0	-1	0	1	0	-1
 581	anwing4.par	???g?x?????(???	Sea Wave	0	0	0	-1	0	1	0	-1
@@ -460,16 +460,16 @@
 588	bingqius.par	????????	Sea Wave	0	0	0	-1	0	1	0	-1
 589	bingqiuf.par	?????	Sea Wave	0	0	0	-1	0	1	0	-1
 590	fzrmz.par	?????????	Sea Wave	0	0	0	-1	0	1	0	-1
-591	ttdan.par	???»k	Sea Wave	1	0	0	-1	0	0	0	-1
+591	ttdan.par	???ï¿½k	Sea Wave	1	0	0	-1	0	0	0	-1
 592	qingbao.par	Information Bank	Sea Wave	0	0	0	-1	0	1	0	-1
 593	baiyang.par	????	Sea Wave	1	0	0	-1	3	0	0	-1
 594	jinniu.par	?????	Sea Wave	1	0	0	-1	3	0	0	-1
 595	shuangzi.par	?????	Sea Wave	1	0	0	-1	3	0	0	-1
-596	juxie.par	??½ä??	Sea Wave	1	0	0	-1	3	0	0	-1
+596	juxie.par	??ï¿½ï¿½??	Sea Wave	1	0	0	-1	3	0	0	-1
 597	shizi.par	???	Sea Wave	1	0	0	-1	3	0	0	-1
 598	chunv.par	???	Sea Wave	1	0	0	-1	3	0	0	-1
 599	tianping.par	???	Sea Wave	1	0	0	-1	3	0	0	-1
-600	tianxie.par	??¾Ö	Sea Wave	1	0	0	-1	3	0	0	-1
+600	tianxie.par	??ï¿½ï¿½	Sea Wave	1	0	0	-1	3	0	0	-1
 601	sheshou.par	????	Sea Wave	1	0	0	-1	3	0	0	-1
 602	shanyang.par	???	Sea Wave	1	0	0	-1	3	0	0	-1
 603	shuiping.par	??	Sea Wave	1	0	0	-1	3	0	0	-1
@@ -498,36 +498,36 @@
 626	mlcb.par	Cyan Dragon Wre	Sea Wave	1	0	24	-1	0	0	0	-1
 627	ispkmod.par	PK Mode	Sea Wave	0	0	0	-1	0	1	0	-1
 800	icedragonready01.par	Frost Breath	Sea Wave	1	0	1	-1	0	1	0	-1
-801	icedragonready02.par	±ùÁúÉÈĞÎÀäÆø¹¥»÷	Sea Wave	1	0	1	-1	0	1	0	-1
-802	sd.par	Ä¾Ê¬·¨ÍõÊ¬¶¾	Sea Wave	1	0	1	-1	0	1	0	-1
+801	icedragonready02.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	1	0	-1
+802	sd.par	Ä¾Ê¬ï¿½ï¿½ï¿½ï¿½Ê¬ï¿½ï¿½	Sea Wave	1	0	1	-1	0	1	0	-1
 803	lx.par	Black Dragon Breath	Sea Wave	1	0	1	-1	0	1	0	-1
 804	ly.par	Black Dragon Flight	Sea Wave	1	0	1	-1	0	1	0	-1
-805	xzsb1.par	»úĞµ¾Ş±ø1	Sea Wave	1	0	-1	-1	0	1	0	-1
-806	xzsb2.par	»úĞµ¾Ş±ø2	Sea Wave	1	0	-1	-1	0	1	0	-1
-807	mhcx.par	÷È»ó³ÖĞø	Sea Wave	0	0	-1	-1	0	1	0	-1
-808	hld.par	ÁúÃ÷	Sea Wave	0	0	-1	-1	0	1	0	-1
-809	sun.par	Ì«Ñô±íÇé	Sea Wave	0	0	-1	-1	0	1	0	-1
-810	cloud.par	ÒõÌì±íÇé	Sea Wave	0	0	-1	-1	0	1	0	-1
-811	snowface.par	Ñ©±íÇé	Sea Wave	0	0	-1	-1	0	1	0	-1
-812	starface.par	ĞÇ±íÇé	Sea Wave	0	0	-1	-1	0	1	0	-1
-813	rain.par	Óê±íÇé	Sea Wave	0	0	-1	-1	0	1	0	-1
-814	cnsun.par	¶àÔÆ±íÇé	Sea Wave	0	0	-1	-1	0	1	0	-1
-815	kulouface.par	÷¼÷Ã±íÇé	Sea Wave	0	0	-1	-1	0	1	0	-1
-816	caihong.par	²Êºç±íÇé	Sea Wave	0	0	-1	-1	0	1	0	-1
-817	angelface.par	ÌìÊ¹±íÇé	Sea Wave	0	0	-1	-1	0	1	0	-1
-818	devilface.par	¶ñÄ§±íÇé	Sea Wave	0	0	-1	-1	0	1	0	-1
-881	bdicess.par	Ğ¡ºÚÁú»¢Ğ¥ÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-882	bdiceaa.par	Ğ¡ºÚÁú»¢Ğ¥ÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-883	bdlightss.par	Ğ¡ºÚÁúÀ×»÷ÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-885	bdlightaa.par	Ğ¡ºÚÁúÀ×»÷ÃüÖĞ	Sea Wave	0	0	-1	-1	2	1	0	-1
-886	bdwindss.par	Ğ¡ºÚÁú»ÃÓ°Õ¶ÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-887	bdlightaft.par	Ğ¡ºÚÁúÀ×»÷³ÖĞø	Sea Wave	0	0	-1	-1	1	1	0	-1
-888	bdwindaa.par	Ğ¡ºÚÁú»ÃÓ°Õ¶ÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-889	zzfbfs.par	ºÚÁúÑ×ÇòÊÍ·Å	Sea Wave	0	0	-1	-1	0	1	0	-1
-891	zzfbfa.par	ºÚÁúÑ×ÇòÃüÖĞ	Sea Wave	0	0	-1	-1	0	1	0	-1
-892	zzfbfat.par	ºÚÁúÑ×ÇòµØÃæ	Sea Wave	0	0	-1	-1	0	1	0	-1
-893	bdsummon.par	ºÚÁúÕÙ»½	Sea Wave	0	0	-1	-1	1	1	0	-1
-894	bdiceaft.par	Ğ¡ºÚÁú»¢Ğ¥³ÖĞø	Sea Wave	0	0	-1	-1	1	1	0	-1
+805	xzsb1.par	ï¿½ï¿½Ğµï¿½Ş±ï¿½1	Sea Wave	1	0	-1	-1	0	1	0	-1
+806	xzsb2.par	ï¿½ï¿½Ğµï¿½Ş±ï¿½2	Sea Wave	1	0	-1	-1	0	1	0	-1
+807	mhcx.par	ï¿½È»ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+808	hld.par	ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+809	sun.par	Ì«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+810	cloud.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+811	snowface.par	Ñ©ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+812	starface.par	ï¿½Ç±ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+813	rain.par	ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+814	cnsun.par	ï¿½ï¿½ï¿½Æ±ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+815	kulouface.par	ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+816	caihong.par	ï¿½Êºï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+817	angelface.par	ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+818	devilface.par	ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+881	bdicess.par	Ğ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¥ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+882	bdiceaa.par	Ğ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¥ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+883	bdlightss.par	Ğ¡ï¿½ï¿½ï¿½ï¿½ï¿½×»ï¿½ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+885	bdlightaa.par	Ğ¡ï¿½ï¿½ï¿½ï¿½ï¿½×»ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	2	1	0	-1
+886	bdwindss.par	Ğ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó°Õ¶ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+887	bdlightaft.par	Ğ¡ï¿½ï¿½ï¿½ï¿½ï¿½×»ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	1	1	0	-1
+888	bdwindaa.par	Ğ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó°Õ¶ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+889	zzfbfs.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+891	zzfbfa.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+892	zzfbfat.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	0	1	0	-1
+893	bdsummon.par	ï¿½ï¿½ï¿½ï¿½ï¿½Ù»ï¿½	Sea Wave	0	0	-1	-1	1	1	0	-1
+894	bdiceaft.par	Ğ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¥ï¿½ï¿½ï¿½ï¿½	Sea Wave	0	0	-1	-1	1	1	0	-1
 895	aoyunhuoju.par	Flame	Sea Wave	0	0	0	-1	0	0	0	-1
 900	fcansmoke2.par	Magma Bullet Per	Sea Wave	0	0	0	-1	0	1	0	-1
 901	fshock1.par	Roquet Discharge	Sea Wave	0	0	0	-1	0	1	0	-1
@@ -604,8 +604,8 @@
 977	vipwings02_m1.par	PKO Wing	Sea Wave	1	0	24	-1	0	0	0	-1
 978	vipwings03_m1.par	PKO Wing	Sea Wave	1	0	24	-1	0	0	0	-1
 979	vipwings03_m2.par	PKO Wing	Sea Wave	1	0	24	-1	0	0	0	-1
-980	chibangjy2.par	ÍõÕßÖ®Òí	Sea Wave	1	0	24	-1	0	0	0	-1
-981	chibangjy3.par	ÍõÕßÖ®Òí	Sea Wave	1	0	24	-1	0	0	0	-1
+980	chibangjy2.par	ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½	Sea Wave	1	0	24	-1	0	0	0	-1
+981	chibangjy3.par	ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½	Sea Wave	1	0	24	-1	0	0	0	-1
 982	vipwings03_m3.par	PKO Wing	Sea Wave	1	0	24	-1	0	0	0	-1
 983	vipwings03_m4.par	PKO Wing	Sea Wave	1	0	24	-1	0	0	0	-1
 984	chcb_m6.par	PKO Wing	Sea Wave	1	0	24	-1	0	0	0	-1
@@ -632,413 +632,413 @@
 1005	fjl803.par	August Fairy 2	Sea Wave	0	0	-1	-1	0	1	0	-1
 1006	fjl804.par	August Fairy 3	Sea Wave	0	0	-1	-1	0	1	0	-1
 			
-3000	jf004.par	·¨ÕÈÔöÒæÍ·1	Sea Wave	1	0	1	-1	0	0	0	-1
-3001	jf003.par	·¨ÕÈÔöÒæÍ·2	Sea Wave	1	0	1	-1	0	0	0	-1
-3002	jf002.par	·¨ÕÈÔöÒæÍ·3	Sea Wave	1	0	1	-1	0	0	0	-1
-3003	jf001.par	·¨ÕÈÔöÒæÍ·4	Sea Wave	1	0	1	-1	0	0	0	-1
-3010	jf000.par	·¨ÕÈÔöÒæ»·¿Õ	Sea Wave	1	0	1	-1	0	0	0	-1
-3011	jf000.par	·¨ÕÈÔöÒæ»·¿Õ	Sea Wave	1	0	1	-1	0	0	0	-1
-3012	jf000.par	·¨ÕÈÔöÒæ»·¿Õ	Sea Wave	1	0	1	-1	0	0	0	-1
-3013	jf006.par	·¨ÕÈÔöÒæ»·ÓĞ	Sea Wave	1	0	1	-1	0	0	0	-1
-3020	jf000.par	·¨ÕÈÔöÒæÉíÌå¿Õ	Sea Wave	1	0	1	-1	0	0	0	-1
-3021	jf005.par	·¨ÕÈÔöÒæÉíÌåÓĞ	Sea Wave	1	0	1	-1	0	0	0	-1
-3022	jf005.par	·¨ÕÈÔöÒæÉíÌåÓĞ	Sea Wave	1	0	1	-1	0	0	0	-1
-3023	jf005.par	·¨ÕÈÔöÒæÉíÌåÓĞ	Sea Wave	1	0	1	-1	0	0	0	-1
+3000	jf004.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·1	Sea Wave	1	0	1	-1	0	0	0	-1
+3001	jf003.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·2	Sea Wave	1	0	1	-1	0	0	0	-1
+3002	jf002.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·3	Sea Wave	1	0	1	-1	0	0	0	-1
+3003	jf001.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·4	Sea Wave	1	0	1	-1	0	0	0	-1
+3010	jf000.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ»·ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3011	jf000.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ»·ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3012	jf000.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ»·ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3013	jf006.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ»·ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3020	jf000.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3021	jf005.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3022	jf005.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3023	jf005.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
 
-3030	jb01.par	¾Ş½£¹¥»÷1	Sea Wave	1	0	1	-1	0	0	0	-1
-3031	jb02.par	¾Ş½£¹¥»÷2	Sea Wave	1	0	1	-1	0	0	0	-1
-3032	jb03.par	¾Ş½£¹¥»÷3	Sea Wave	1	0	1	-1	0	0	0	-1
-3033	jb04.par	¾Ş½£¹¥»÷4	Sea Wave	1	0	1	-1	0	0	0	-1
-3040	jj01.par	µ¥ÊÖ½£¹¥»÷1	Sea Wave	1	0	1	-1	0	0	0	-1
+3030	jb01.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3031	jb02.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3032	jb03.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3033	jb04.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3040	jj01.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
 3041	jj02.par	Single-handed Sword Attack 2	Sea Wave	1	0	1	-1	0	0	0	-1
-3042	jj03.par	µ¥ÊÖ½£Attack 3	Sea Wave	1	0	1	-1	0	0	0	-1
-3043	jj04.par	µ¥ÊÖ½£¹¥»÷4	Sea Wave	1	0	1	-1	0	0	0	-1
-3050	js01.par	Ø°Ê×¹¥»÷1	Sea Wave	1	0	1	-1	0	0	0	-1
-3051	js02.par	Ø°Ê×¹¥»÷2	Sea Wave	1	0	1	-1	0	0	0	-1
-3052	js03.par	Ø°Ê×¹¥»÷3	Sea Wave	1	0	1	-1	0	0	0	-1
-3053	js04.par	Ø°Ê×¹¥»÷4	Sea Wave	1	0	1	-1	0	0	0	-1
+3042	jj03.par	ï¿½ï¿½ï¿½Ö½ï¿½Attack 3	Sea Wave	1	0	1	-1	0	0	0	-1
+3043	jj04.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3050	js01.par	Ø°ï¿½×¹ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3051	js02.par	Ø°ï¿½×¹ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3052	js03.par	Ø°ï¿½×¹ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3053	js04.par	Ø°ï¿½×¹ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
 
-3060	jg01.par	Ç¹¹¥»÷ÉíÌå1	Sea Wave	1	0	1	-1	0	0	0	-1
-3061	jg01.par	Ç¹¹¥»÷ÉíÌå2	Sea Wave	1	0	1	-1	0	0	0	-1
-3062	jg02.par	Ç¹¹¥»÷ÉíÌå3	Sea Wave	1	0	1	-1	0	0	0	-1
-3063	jg03.par	Ç¹¹¥»÷ÉíÌå4	Sea Wave	1	0	1	-1	0	0	0	-1
-3070	jg04.par	Ç¹¹¥»÷Í·1	Sea Wave	1	0	1	-1	0	0	0	-1
-3071	jg05.par	Ç¹¹¥»÷Í·2	Sea Wave	1	0	1	-1	0	0	0	-1
-3072	jg06.par	Ç¹¹¥»÷Í·3	Sea Wave	1	0	1	-1	0	0	0	-1
-3073	jg06.par	Ç¹¹¥»÷Í·4	Sea Wave	1	0	1	-1	0	0	0	-1
+3060	jg01.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3061	jg01.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3062	jg02.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3063	jg03.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3070	jg04.par	Ç¹ï¿½ï¿½ï¿½ï¿½Í·1	Sea Wave	1	0	1	-1	0	0	0	-1
+3071	jg05.par	Ç¹ï¿½ï¿½ï¿½ï¿½Í·2	Sea Wave	1	0	1	-1	0	0	0	-1
+3072	jg06.par	Ç¹ï¿½ï¿½ï¿½ï¿½Í·3	Sea Wave	1	0	1	-1	0	0	0	-1
+3073	jg06.par	Ç¹ï¿½ï¿½ï¿½ï¿½Í·4	Sea Wave	1	0	1	-1	0	0	0	-1
 
-3080	jfb004.par	·¨ÕÈ·ÀÓùÍ·1	Sea Wave	1	0	1	-1	0	0	0	-1
-3081	jfb003.par	·¨ÕÈ·ÀÓùÍ·2	Sea Wave	1	0	1	-1	0	0	0	-1
-3082	jfb002.par	·¨ÕÈ·ÀÓùÍ·3	Sea Wave	1	0	1	-1	0	0	0	-1
-3083	jfb001.par	·¨ÕÈ·ÀÓùÍ·4	Sea Wave	1	0	1	-1	0	0	0	-1
-3090	jf000.par	·¨ÕÈ·ÀÓù»·¿Õ	Sea Wave	1	0	1	-1	0	0	0	-1
-3091	jf000.par	·¨ÕÈ·ÀÓù»·¿Õ	Sea Wave	1	0	1	-1	0	0	0	-1
-3092	jf000.par	·¨ÕÈ·ÀÓù»·¿Õ	Sea Wave	1	0	1	-1	0	0	0	-1
-3093	jf006.par	·¨ÕÈ·ÀÓù»·ÓĞ	Sea Wave	1	0	1	-1	0	0	0	-1
-3100	jf000.par	·¨ÕÈ·ÀÓùÉíÌå¿Õ	Sea Wave	1	0	1	-1	0	0	0	-1
-3101	jfb005.par	·¨ÕÈ·ÀÓùÉíÌåÓĞ	Sea Wave	1	0	1	-1	0	0	0	-1
-3102	jfb005.par	·¨ÕÈ·ÀÓùÉíÌåÓĞ	Sea Wave	1	0	1	-1	0	0	0	-1
-3103	jfb005.par	·¨ÕÈ·ÀÓùÉíÌåÓĞ	Sea Wave	1	0	1	-1	0	0	0	-1
+3080	jfb004.par	ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½Í·1	Sea Wave	1	0	1	-1	0	0	0	-1
+3081	jfb003.par	ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½Í·2	Sea Wave	1	0	1	-1	0	0	0	-1
+3082	jfb002.par	ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½Í·3	Sea Wave	1	0	1	-1	0	0	0	-1
+3083	jfb001.par	ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½Í·4	Sea Wave	1	0	1	-1	0	0	0	-1
+3090	jf000.par	ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3091	jf000.par	ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3092	jf000.par	ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3093	jf006.par	ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3100	jf000.par	ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3101	jfb005.par	ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3102	jfb005.par	ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3103	jfb005.par	ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
 
-3110	jfr004.par	·¨ÕÈ¹¥»÷Í·1	Sea Wave	1	0	1	-1	0	0	0	-1
-3111	jfr003.par	·¨ÕÈ¹¥»÷Í·2	Sea Wave	1	0	1	-1	0	0	0	-1
-3112	jfr002.par	·¨ÕÈ¹¥»÷Í·3	Sea Wave	1	0	1	-1	0	0	0	-1
-3113	jfr001.par	·¨ÕÈ¹¥»÷Í·4	Sea Wave	1	0	1	-1	0	0	0	-1
+3110	jfr004.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½Í·1	Sea Wave	1	0	1	-1	0	0	0	-1
+3111	jfr003.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½Í·2	Sea Wave	1	0	1	-1	0	0	0	-1
+3112	jfr002.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½Í·3	Sea Wave	1	0	1	-1	0	0	0	-1
+3113	jfr001.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½Í·4	Sea Wave	1	0	1	-1	0	0	0	-1
 
-3120	jf000.par	·¨ÕÈ¹¥»÷»·¿Õ	Sea Wave	1	0	1	-1	0	0	0	-1
-3121	jf000.par	·¨ÕÈ¹¥»÷»·¿Õ	Sea Wave	1	0	1	-1	0	0	0	-1
-3122	jf000.par	·¨ÕÈ¹¥»÷»·¿Õ	Sea Wave	1	0	1	-1	0	0	0	-1
-3123	jf006.par	·¨ÕÈ¹¥»÷»·ÓĞ	Sea Wave	1	0	1	-1	0	0	0	-1
-3130	jf000.par	·¨ÕÈ¹¥»÷ÉíÌå¿Õ	Sea Wave	1	0	1	-1	0	0	0	-1
-3131	jfr005.par	·¨ÕÈ¹¥»÷ÉíÌåÓĞ	Sea Wave	1	0	1	-1	0	0	0	-1
-3132	jfr005.par	·¨ÕÈ¹¥»÷ÉíÌåÓĞ	Sea Wave	1	0	1	-1	0	0	0	-1
-3133	jfr005.par	·¨ÕÈ¹¥»÷ÉíÌåÓĞ	Sea Wave	1	0	1	-1	0	0	0	-1
+3120	jf000.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3121	jf000.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3122	jf000.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3123	jf006.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3130	jf000.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3131	jfr005.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3132	jfr005.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3133	jfr005.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
 
-3140	jby01.par	¾Ş½£ÔöÒæ1	Sea Wave	1	0	1	-1	0	0	0	-1
-3141	jby02.par	¾Ş½£ÔöÒæ2	Sea Wave	1	0	1	-1	0	0	0	-1
-3142	jby03.par	¾Ş½£ÔöÒæ3	Sea Wave	1	0	1	-1	0	0	0	-1
-3143	jby04.par	¾Ş½£ÔöÒæ4	Sea Wave	1	0	1	-1	0	0	0	-1
-3150	jjy01.par	µ¥ÊÖ½£ÔöÒæ1	Sea Wave	1	0	1	-1	0	0	0	-1
-3151	jjy02.par	µ¥ÊÖ½£ÔöÒæ2	Sea Wave	1	0	1	-1	0	0	0	-1
-3152	jjy03.par	µ¥ÊÖ½£ÔöÒæ3	Sea Wave	1	0	1	-1	0	0	0	-1
-3153	jjy04.par	µ¥ÊÖ½£ÔöÒæ4	Sea Wave	1	0	1	-1	0	0	0	-1
-3160	jsy01.par	Ø°Ê×ÔöÒæ1	Sea Wave	1	0	1	-1	0	0	0	-1
-3161	jsy02.par	Ø°Ê×ÔöÒæ2	Sea Wave	1	0	1	-1	0	0	0	-1
-3162	jsy03.par	Ø°Ê×ÔöÒæ3	Sea Wave	1	0	1	-1	0	0	0	-1
-3163	jsy04.par	Ø°Ê×ÔöÒæ4	Sea Wave	1	0	1	-1	0	0	0	-1
+3140	jby01.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3141	jby02.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3142	jby03.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3143	jby04.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3150	jjy01.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3151	jjy02.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3152	jjy03.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3153	jjy04.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3160	jsy01.par	Ø°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3161	jsy02.par	Ø°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3162	jsy03.par	Ø°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3163	jsy04.par	Ø°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
 
-3170	jbb01.par	¾Ş½£·ÀÓù1	Sea Wave	1	0	1	-1	0	0	0	-1
-3171	jbb02.par	¾Ş½£·ÀÓù2	Sea Wave	1	0	1	-1	0	0	0	-1
-3172	jbb03.par	¾Ş½£·ÀÓù3	Sea Wave	1	0	1	-1	0	0	0	-1
-3173	jbb04.par	¾Ş½£·ÀÓù4	Sea Wave	1	0	1	-1	0	0	0	-1
-3180	jjb01.par	µ¥ÊÖ½£·ÀÓù1	Sea Wave	1	0	1	-1	0	0	0	-1
-3181	jjb02.par	µ¥ÊÖ½£·ÀÓù2	Sea Wave	1	0	1	-1	0	0	0	-1
-3182	jjb03.par	µ¥ÊÖ½£·ÀÓù3	Sea Wave	1	0	1	-1	0	0	0	-1
-3183	jjb04.par	µ¥ÊÖ½£·ÀÓù4	Sea Wave	1	0	1	-1	0	0	0	-1
-3190	jsb01.par	Ø°Ê×·ÀÓù1	Sea Wave	1	0	1	-1	0	0	0	-1
-3191	jsb02.par	Ø°Ê×·ÀÓù2	Sea Wave	1	0	1	-1	0	0	0	-1
+3170	jbb01.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3171	jbb02.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3172	jbb03.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3173	jbb04.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3180	jjb01.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3181	jjb02.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3182	jjb03.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3183	jjb04.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3190	jsb01.par	Ø°ï¿½×·ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3191	jsb02.par	Ø°ï¿½×·ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
 3192	jsb03.par	Dagger Defense 3	Sea Wave	1	0	1	-1	0	0	0	-1
-3193	jsb04.par	Ø°Ê×·ÀÓù4	Sea Wave	1	0	1	-1	0	0	0	-1
+3193	jsb04.par	Ø°ï¿½×·ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
 
-3200	jgb01.par	Ç¹·ÀÓùÉíÌå1	Sea Wave	1	0	1	-1	0	0	0	-1
-3201	jgb01.par	Ç¹·ÀÓùÉíÌå2	Sea Wave	1	0	1	-1	0	0	0	-1
-3202	jgb02.par	Ç¹·ÀÓùÉíÌå3	Sea Wave	1	0	1	-1	0	0	0	-1
-3203	jgb03.par	Ç¹·ÀÓùÉíÌå4	Sea Wave	1	0	1	-1	0	0	0	-1
+3200	jgb01.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3201	jgb01.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3202	jgb02.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3203	jgb03.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
 3210	jgb04.par	Gun Head Defense 1	Sea Wave	1	0	1	-1	0	0	0	-1
-3211	jgb05.par	Ç¹·ÀÓùÍ·2	Sea Wave	1	0	1	-1	0	0	0	-1
-3212	jgb06.par	Ç¹·ÀÓùÍ·3	Sea Wave	1	0	1	-1	0	0	0	-1
-3213	jgb06.par	Ç¹·ÀÓùÍ·4	Sea Wave	1	0	1	-1	0	0	0	-1
+3211	jgb05.par	Ç¹ï¿½ï¿½ï¿½ï¿½Í·2	Sea Wave	1	0	1	-1	0	0	0	-1
+3212	jgb06.par	Ç¹ï¿½ï¿½ï¿½ï¿½Í·3	Sea Wave	1	0	1	-1	0	0	0	-1
+3213	jgb06.par	Ç¹ï¿½ï¿½ï¿½ï¿½Í·4	Sea Wave	1	0	1	-1	0	0	0	-1
 
-3220	jgy01.par	Ç¹ÔöÒæÉíÌå1	Sea Wave	1	0	1	-1	0	0	0	-1
-3221	jgy01.par	Ç¹ÔöÒæÉíÌå2	Sea Wave	1	0	1	-1	0	0	0	-1
-3222	jgy02.par	Ç¹ÔöÒæÉíÌå3	Sea Wave	1	0	1	-1	0	0	0	-1
-3223	jgy03.par	Ç¹ÔöÒæÉíÌå4	Sea Wave	1	0	1	-1	0	0	0	-1
+3220	jgy01.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3221	jgy01.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3222	jgy02.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3223	jgy03.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
 3230	jgy04.par	Gun Head Bonus 1	Sea Wave	1	0	1	-1	0	0	0	-1
-3231	jgy05.par	Ç¹ÔöÒæÍ·2	Sea Wave	1	0	1	-1	0	0	0	-1
-3232	jgy06.par	Ç¹ÔöÒæÍ·3	Sea Wave	1	0	1	-1	0	0	0	-1
-3233	jgy06.par	Ç¹ÔöÒæÍ·4	Sea Wave	1	0	1	-1	0	0	0	-1
+3231	jgy05.par	Ç¹ï¿½ï¿½ï¿½ï¿½Í·2	Sea Wave	1	0	1	-1	0	0	0	-1
+3232	jgy06.par	Ç¹ï¿½ï¿½ï¿½ï¿½Í·3	Sea Wave	1	0	1	-1	0	0	0	-1
+3233	jgy06.par	Ç¹ï¿½ï¿½ï¿½ï¿½Í·4	Sea Wave	1	0	1	-1	0	0	0	-1
 
-3240	jfq02.par	·¨ÕÈ¹¥·ÀÔöÉíÌåµ­	Sea Wave	1	0	1	-1	0	0	0	-1
-3241	jfq03.par	·¨ÕÈ¹¥·ÀÔöÉíÌåÓĞ	Sea Wave	1	0	1	-1	0	0	0	-1
-3242	jfq03.par	·¨ÕÈ¹¥·ÀÔöÉíÌåÓĞ	Sea Wave	1	0	1	-1	0	0	0	-1
-3243	jfq03.par	·¨ÕÈ¹¥·ÀÔöÉíÌåÓĞ	Sea Wave	1	0	1	-1	0	0	0	-1
-3250	jfr004.par	·¨ÕÈ¹¥·ÀÔöÍ·1	Sea Wave	1	0	1	-1	0	0	0	-1
-3251	jfr003.par	·¨ÕÈ¹¥·ÀÔöÍ·2	Sea Wave	1	0	1	-1	0	0	0	-1
-3252	jfr002.par	·¨ÕÈ¹¥·ÀÔöÍ·3	Sea Wave	1	0	1	-1	0	0	0	-1
-3253	jfq01.par	·¨ÕÈ¹¥·ÀÔöÍ·4	Sea Wave	1	0	1	-1	0	0	0	-1
+3240	jfq02.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½åµ­	Sea Wave	1	0	1	-1	0	0	0	-1
+3241	jfq03.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3242	jfq03.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3243	jfq03.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3250	jfr004.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½Í·1	Sea Wave	1	0	1	-1	0	0	0	-1
+3251	jfr003.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½Í·2	Sea Wave	1	0	1	-1	0	0	0	-1
+3252	jfr002.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½Í·3	Sea Wave	1	0	1	-1	0	0	0	-1
+3253	jfq01.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½Í·4	Sea Wave	1	0	1	-1	0	0	0	-1
 
-3260	jbyb01.par	¾Ş½£Ôö·À1	Sea Wave	1	0	1	-1	0	0	0	-1
-3261	jbyb02.par	¾Ş½£Ôö·À2	Sea Wave	1	0	1	-1	0	0	0	-1
-3262	jbyb03.par	¾Ş½£Ôö·À3	Sea Wave	1	0	1	-1	0	0	0	-1
-3263	jbyb04.par	¾Ş½£Ôö·À4	Sea Wave	1	0	1	-1	0	0	0	-1
-3270	jjyb01.par	µ¥ÊÖ½£Ôö·À1	Sea Wave	1	0	1	-1	0	0	0	-1
-3271	jjyb02.par	µ¥ÊÖ½£Ôö·À2	Sea Wave	1	0	1	-1	0	0	0	-1
-3272	jjyb03.par	µ¥ÊÖ½£Ôö·À3	Sea Wave	1	0	1	-1	0	0	0	-1
-3273	jjyb04.par	µ¥ÊÖ½£Ôö·À4	Sea Wave	1	0	1	-1	0	0	0	-1
-3280	jsyb01.par	Ø°Ê×Ôö·À1	Sea Wave	1	0	1	-1	0	0	0	-1
-3281	jsyb02.par	Ø°Ê×Ôö·À2	Sea Wave	1	0	1	-1	0	0	0	-1
-3282	jsyb03.par	Ø°Ê×Ôö·À3	Sea Wave	1	0	1	-1	0	0	0	-1
-3283	jsyb04.par	Ø°Ê×Ôö·À4	Sea Wave	1	0	1	-1	0	0	0	-1
-3290	jbry01.par	¾Ş½£Ôö¹¥1	Sea Wave	1	0	1	-1	0	0	0	-1
-3291	jbry02.par	¾Ş½£Ôö¹¥2	Sea Wave	1	0	1	-1	0	0	0	-1
-3292	jbry03.par	¾Ş½£Ôö¹¥3	Sea Wave	1	0	1	-1	0	0	0	-1
-3293	jbry04.par	¾Ş½£Ôö¹¥4	Sea Wave	1	0	1	-1	0	0	0	-1
-3300	jjry01.par	µ¥ÊÖ½£Ôö¹¥1	Sea Wave	1	0	1	-1	0	0	0	-1
-3301	jjry02.par	µ¥ÊÖ½£Ôö¹¥2	Sea Wave	1	0	1	-1	0	0	0	-1
-3302	jjry03.par	µ¥ÊÖ½£Ôö¹¥3	Sea Wave	1	0	1	-1	0	0	0	-1
-3303	jjry04.par	µ¥ÊÖ½£Ôö¹¥4	Sea Wave	1	0	1	-1	0	0	0	-1
-3310	jsry01.par	Ø°Ê×Ôö¹¥1	Sea Wave	1	0	1	-1	0	0	0	-1
-3311	jsry02.par	Ø°Ê×Ôö¹¥2	Sea Wave	1	0	1	-1	0	0	0	-1
-3312	jsry03.par	Ø°Ê×Ôö¹¥3	Sea Wave	1	0	1	-1	0	0	0	-1
+3260	jbyb01.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3261	jbyb02.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3262	jbyb03.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3263	jbyb04.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3270	jjyb01.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3271	jjyb02.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3272	jjyb03.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3273	jjyb04.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3280	jsyb01.par	Ø°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3281	jsyb02.par	Ø°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3282	jsyb03.par	Ø°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3283	jsyb04.par	Ø°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3290	jbry01.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3291	jbry02.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3292	jbry03.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3293	jbry04.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3300	jjry01.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3301	jjry02.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3302	jjry03.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3303	jjry04.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3310	jsry01.par	Ø°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3311	jsry02.par	Ø°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3312	jsry03.par	Ø°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
 3313	jsry04.par	Dagger Bonus Attack 4	Sea Wave	1	0	1	-1	0	0	0	-1
-3320	jbrb01.par	¾Ş½£¹¥·À1	Sea Wave	1	0	1	-1	0	0	0	-1
-3321	jbrb02.par	¾Ş½£¹¥·À2	Sea Wave	1	0	1	-1	0	0	0	-1
-3322	jbrb03.par	¾Ş½£¹¥·À3	Sea Wave	1	0	1	-1	0	0	0	-1
-3323	jbrb04.par	¾Ş½£¹¥·À4	Sea Wave	1	0	1	-1	0	0	0	-1
-3330	jjrb01.par	µ¥ÊÖ½£¹¥·À1	Sea Wave	1	0	1	-1	0	0	0	-1
+3320	jbrb01.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3321	jbrb02.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3322	jbrb03.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3323	jbrb04.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3330	jjrb01.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
 3331	jjrb02.par	Single-handed Sword Parry 2	Sea Wave	1	0	1	-1	0	0	0	-1
-3332	jjrb03.par	µ¥ÊÖ½£¹¥·À3	Sea Wave	1	0	1	-1	0	0	0	-1
-3333	jjrb04.par	µ¥ÊÖ½£¹¥·À4	Sea Wave	1	0	1	-1	0	0	0	-1
-3340	jsrb01.par	Ø°Ê×¹¥·À1	Sea Wave	1	0	1	-1	0	0	0	-1
-3341	jsrb02.par	Ø°Ê×¹¥·À2	Sea Wave	1	0	1	-1	0	0	0	-1
-3342	jsrb03.par	Ø°Ê×¹¥·À3	Sea Wave	1	0	1	-1	0	0	0	-1
-3343	jsrb04.par	Ø°Ê×¹¥·À4	Sea Wave	1	0	1	-1	0	0	0	-1
-3350	jbryb01.par	¾Ş½£¹¥·ÀÔö1	Sea Wave	1	0	1	-1	0	0	0	-1
-3351	jbryb02.par	¾Ş½£¹¥·ÀÔö2	Sea Wave	1	0	1	-1	0	0	0	-1
-3352	jbryb03.par	¾Ş½£¹¥·ÀÔö3	Sea Wave	1	0	1	-1	0	0	0	-1
-3353	jbryb04.par	¾Ş½£¹¥·ÀÔö4	Sea Wave	1	0	1	-1	0	0	0	-1
-3360	jjryb01.par	µ¥ÊÖ½£¹¥·ÀÔö1	Sea Wave	1	0	1	-1	0	0	0	-1
-3361	jjryb02.par	µ¥ÊÖ½£¹¥·ÀÔö2	Sea Wave	1	0	1	-1	0	0	0	-1
-3362	jjryb03.par	µ¥ÊÖ½£¹¥·ÀÔö3	Sea Wave	1	0	1	-1	0	0	0	-1
-3363	jjryb04.par	µ¥ÊÖ½£¹¥·ÀÔö4	Sea Wave	1	0	1	-1	0	0	0	-1
-3370	jsryb01.par	Ø°Ê×¹¥·ÀÔö1	Sea Wave	1	0	1	-1	0	0	0	-1
-3371	jsryb02.par	Ø°Ê×¹¥·ÀÔö2	Sea Wave	1	0	1	-1	0	0	0	-1
-3372	jsryb03.par	Ø°Ê×¹¥·ÀÔö3	Sea Wave	1	0	1	-1	0	0	0	-1
-3373	jsryb04.par	Ø°Ê×¹¥·ÀÔö4	Sea Wave	1	0	1	-1	0	0	0	-1
-3380	jgy01.par	Ç¹¹¥·ÀÔöÉíÌå1	Sea Wave	1	0	1	-1	0	0	0	-1
-3381	jgy01.par	Ç¹¹¥·ÀÔöÉíÌå2	Sea Wave	1	0	1	-1	0	0	0	-1
-3382	jgq01.par	Ç¹¹¥·ÀÔöÉíÌå3	Sea Wave	1	0	1	-1	0	0	0	-1
-3383	jgq02.par	Ç¹¹¥·ÀÔöÉíÌå4	Sea Wave	1	0	1	-1	0	0	0	-1
-3390	jg04.par	Ç¹¹¥·ÀÔöÍ·1	Sea Wave	1	0	1	-1	0	0	0	-1
-3391	jg05.par	Ç¹¹¥·ÀÔöÍ·2	Sea Wave	1	0	1	-1	0	0	0	-1
-3392	jg06.par	Ç¹¹¥·ÀÔöÍ·3	Sea Wave	1	0	1	-1	0	0	0	-1
-3393	jg06.par	Ç¹¹¥·ÀÔöÍ·4	Sea Wave	1	0	1	-1	0	0	0	-1
-3400	jf000.par	¹­¹¥»÷ÉíÌå1	Sea Wave	1	0	1	-1	0	0	0	-1
-3401	jar03.par	¹­¹¥»÷ÉíÌå2	Sea Wave	1	0	1	-1	0	0	0	-1
-3402	jar01.par	¹­¹¥»÷ÉíÌå3	Sea Wave	1	0	1	-1	0	0	0	-1
-3403	jar01.par	¹­¹¥»÷ÉíÌå4	Sea Wave	1	0	1	-1	0	0	0	-1
-3410	jf000.par	¹­¹¥»÷ÍÏÎ²1	Sea Wave	1	0	1	-1	0	0	0	-1
-3411	jf000.par	¹­¹¥»÷ÍÏÎ²2	Sea Wave	1	0	1	-1	0	0	0	-1
-3412	jf000.par	¹­¹¥»÷ÍÏÎ²3	Sea Wave	1	0	1	-1	0	0	0	-1
-3413	jar02.par	¹­¹¥»÷ÍÏÎ²4	Sea Wave	1	0	1	-1	0	0	0	-1
-3420	jf000.par	¹­ÔöÒæÉíÌå1	Sea Wave	1	0	1	-1	0	0	0	-1
-3421	jay03.par	¹­ÔöÒæÉíÌå2	Sea Wave	1	0	1	-1	0	0	0	-1
-3422	jay01.par	¹­ÔöÒæÉíÌå3	Sea Wave	1	0	1	-1	0	0	0	-1
-3423	jay01.par	¹­ÔöÒæÉíÌå4	Sea Wave	1	0	1	-1	0	0	0	-1
-3430	jf000.par	¹­ÔöÒæÍÏÎ²1	Sea Wave	1	0	1	-1	0	0	0	-1
-3431	jf000.par	¹­ÔöÒæÍÏÎ²2	Sea Wave	1	0	1	-1	0	0	0	-1
-3432	jf000.par	¹­ÔöÒæÍÏÎ²3	Sea Wave	1	0	1	-1	0	0	0	-1
-3433	jay02.par	¹­ÔöÒæÍÏÎ²4	Sea Wave	1	0	1	-1	0	0	0	-1
-3440	jf000.par	¹­·ÀÓùÉíÌå1	Sea Wave	1	0	1	-1	0	0	0	-1
-3441	jab03.par	¹­·ÀÓùÉíÌå2	Sea Wave	1	0	1	-1	0	0	0	-1
-3442	jab01.par	¹­·ÀÓùÉíÌå3	Sea Wave	1	0	1	-1	0	0	0	-1
-3443	jab01.par	¹­·ÀÓùÉíÌå4	Sea Wave	1	0	1	-1	0	0	0	-1
-3450	jf000.par	¹­·ÀÓùÍÏÎ²1	Sea Wave	1	0	1	-1	0	0	0	-1
-3451	jf000.par	¹­·ÀÓùÍÏÎ²2	Sea Wave	1	0	1	-1	0	0	0	-1
-3452	jf000.par	¹­·ÀÓùÍÏÎ²3	Sea Wave	1	0	1	-1	0	0	0	-1
-3453	jab02.par	¹­·ÀÓùÍÏÎ²4	Sea Wave	1	0	1	-1	0	0	0	-1
-3460	jf000.par	¹­·ÀÓùÔöÒæÉíÌå1	Sea Wave	1	0	1	-1	0	0	0	-1
-3461	jay03.par	¹­·ÀÓùÔöÒæÉíÌå2	Sea Wave	1	0	1	-1	0	0	0	-1
-3462	jaby01.par	¹­·ÀÓùÔöÒæÉíÌå3	Sea Wave	1	0	1	-1	0	0	0	-1
-3463	jaby01.par	¹­·ÀÓùÔöÒæÉíÌå4	Sea Wave	1	0	1	-1	0	0	0	-1
-3470	jf000.par	¹­·ÀÓù¹¥»÷ÉíÌå1	Sea Wave	1	0	1	-1	0	0	0	-1
-3471	jab03.par	¹­·ÀÓù¹¥»÷ÉíÌå2	Sea Wave	1	0	1	-1	0	0	0	-1
-3472	jabr01.par	¹­·ÀÓù¹¥»÷ÉíÌå3	Sea Wave	1	0	1	-1	0	0	0	-1
-3473	jabr01.par	¹­·ÀÓù¹¥»÷ÉíÌå4	Sea Wave	1	0	1	-1	0	0	0	-1
-3480	jf000.par	¹­¹¥»÷ÔöÒæÉíÌå1	Sea Wave	1	0	1	-1	0	0	0	-1
+3332	jjrb03.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3333	jjrb04.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3340	jsrb01.par	Ø°ï¿½×¹ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3341	jsrb02.par	Ø°ï¿½×¹ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3342	jsrb03.par	Ø°ï¿½×¹ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3343	jsrb04.par	Ø°ï¿½×¹ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3350	jbryb01.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3351	jbryb02.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3352	jbryb03.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3353	jbryb04.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3360	jjryb01.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3361	jjryb02.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3362	jjryb03.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3363	jjryb04.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3370	jsryb01.par	Ø°ï¿½×¹ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3371	jsryb02.par	Ø°ï¿½×¹ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3372	jsryb03.par	Ø°ï¿½×¹ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3373	jsryb04.par	Ø°ï¿½×¹ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3380	jgy01.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3381	jgy01.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3382	jgq01.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3383	jgq02.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3390	jg04.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·1	Sea Wave	1	0	1	-1	0	0	0	-1
+3391	jg05.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·2	Sea Wave	1	0	1	-1	0	0	0	-1
+3392	jg06.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·3	Sea Wave	1	0	1	-1	0	0	0	-1
+3393	jg06.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·4	Sea Wave	1	0	1	-1	0	0	0	-1
+3400	jf000.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3401	jar03.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3402	jar01.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3403	jar01.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3410	jf000.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î²1	Sea Wave	1	0	1	-1	0	0	0	-1
+3411	jf000.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î²2	Sea Wave	1	0	1	-1	0	0	0	-1
+3412	jf000.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î²3	Sea Wave	1	0	1	-1	0	0	0	-1
+3413	jar02.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î²4	Sea Wave	1	0	1	-1	0	0	0	-1
+3420	jf000.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3421	jay03.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3422	jay01.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3423	jay01.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3430	jf000.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î²1	Sea Wave	1	0	1	-1	0	0	0	-1
+3431	jf000.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î²2	Sea Wave	1	0	1	-1	0	0	0	-1
+3432	jf000.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î²3	Sea Wave	1	0	1	-1	0	0	0	-1
+3433	jay02.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î²4	Sea Wave	1	0	1	-1	0	0	0	-1
+3440	jf000.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3441	jab03.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3442	jab01.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3443	jab01.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3450	jf000.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î²1	Sea Wave	1	0	1	-1	0	0	0	-1
+3451	jf000.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î²2	Sea Wave	1	0	1	-1	0	0	0	-1
+3452	jf000.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î²3	Sea Wave	1	0	1	-1	0	0	0	-1
+3453	jab02.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î²4	Sea Wave	1	0	1	-1	0	0	0	-1
+3460	jf000.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3461	jay03.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3462	jaby01.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3463	jaby01.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3470	jf000.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3471	jab03.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3472	jabr01.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3473	jabr01.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3480	jf000.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
 3481	jar03.par	Base Bonus of Bow Attack 2	Sea Wave	1	0	1	-1	0	0	0	-1
-3482	jary01.par	¹­Attack ÔöÒæÉíÌå3	Sea Wave	1	0	1	-1	0	0	0	-1
-3483	jary01.par	¹­¹¥»÷ÔöÒæÉíÌå4	Sea Wave	1	0	1	-1	0	0	0	-1
-3490	jf000.par	¹­¹¥·ÀÔöÉíÌå1	Sea Wave	1	0	1	-1	0	0	0	-1
-3491	jabry03.par	¹­¹¥·ÀÔöÉíÌå2	Sea Wave	1	0	1	-1	0	0	0	-1
-3492	jabry01.par	¹­¹¥·ÀÔöÉíÌå3	Sea Wave	1	0	1	-1	0	0	0	-1
-3493	jabry01.par	¹­¹¥·ÀÔöÉíÌå4	Sea Wave	1	0	1	-1	0	0	0	-1
-3500	jfg004.par	·¨ÕÈ¶¾Í·1	Sea Wave	1	0	1	-1	0	0	0	-1
-3501	jfg003.par	·¨ÕÈ¶¾Í·2	Sea Wave	1	0	1	-1	0	0	0	-1
-3502	jfg002.par	·¨ÕÈ¶¾Í·3	Sea Wave	1	0	1	-1	0	0	0	-1
-3503	jfg001.par	·¨ÕÈ¶¾Í·4	Sea Wave	1	0	1	-1	0	0	0	-1
-3510	jf000.par	·¨ÕÈ¶¾»·¿Õ	Sea Wave	1	0	1	-1	0	0	0	-1
-3511	jf000.par	·¨ÕÈ¶¾»·¿Õ	Sea Wave	1	0	1	-1	0	0	0	-1
-3512	jf000.par	·¨ÕÈ¶¾»·¿Õ	Sea Wave	1	0	1	-1	0	0	0	-1
-3513	jf006.par	·¨ÕÈ¶¾»·ÓĞ	Sea Wave	1	0	1	-1	0	0	0	-1
-3520	jf000.par	·¨ÕÈ¶¾ÉíÌå¿Õ	Sea Wave	1	0	1	-1	0	0	0	-1
+3482	jary01.par	ï¿½ï¿½Attack ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3483	jary01.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3490	jf000.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3491	jabry03.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3492	jabry01.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3493	jabry01.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3500	jfg004.par	ï¿½ï¿½ï¿½È¶ï¿½Í·1	Sea Wave	1	0	1	-1	0	0	0	-1
+3501	jfg003.par	ï¿½ï¿½ï¿½È¶ï¿½Í·2	Sea Wave	1	0	1	-1	0	0	0	-1
+3502	jfg002.par	ï¿½ï¿½ï¿½È¶ï¿½Í·3	Sea Wave	1	0	1	-1	0	0	0	-1
+3503	jfg001.par	ï¿½ï¿½ï¿½È¶ï¿½Í·4	Sea Wave	1	0	1	-1	0	0	0	-1
+3510	jf000.par	ï¿½ï¿½ï¿½È¶ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3511	jf000.par	ï¿½ï¿½ï¿½È¶ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3512	jf000.par	ï¿½ï¿½ï¿½È¶ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3513	jf006.par	ï¿½ï¿½ï¿½È¶ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3520	jf000.par	ï¿½ï¿½ï¿½È¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
 3521	jfg005.par	Base Resist to Staff Poison	Sea Wave	1	0	1	-1	0	0	0	-1
 3522	jfg005.par	Base Resist to Staff Poison	Sea Wave	1	0	1	-1	0	0	0	-1
 3523	jfg005.par	Base Resist to Staff Poison	Sea Wave	1	0	1	-1	0	0	0	-1
-3530	jgg01.par	Ç¹¶¾ÉíÌå1	Sea Wave	1	0	1	-1	0	0	0	-1
-3531	jgg01.par	Ç¹¶¾ÉíÌå2	Sea Wave	1	0	1	-1	0	0	0	-1
-3532	jgg02.par	Ç¹¶¾ÉíÌå3	Sea Wave	1	0	1	-1	0	0	0	-1
-3533	jgg03.par	Ç¹¶¾ÉíÌå4	Sea Wave	1	0	1	-1	0	0	0	-1
-3540	jgg04.par	Ç¹¶¾Í·1	Sea Wave	1	0	1	-1	0	0	0	-1
-3541	jgg05.par	Ç¹¶¾Í·2	Sea Wave	1	0	1	-1	0	0	0	-1
-3542	jgg06.par	Ç¹¶¾Í·3	Sea Wave	1	0	1	-1	0	0	0	-1
-3543	jgg06.par	Ç¹¶¾Í·4	Sea Wave	1	0	1	-1	0	0	0	-1
-3550	jbrg01.par	¾Ş½£¶¾¹¥1	Sea Wave	1	0	1	-1	0	0	0	-1
-3551	jbrg02.par	¾Ş½£¶¾¹¥2	Sea Wave	1	0	1	-1	0	0	0	-1
-3552	jbrg03.par	¾Ş½£¶¾¹¥3	Sea Wave	1	0	1	-1	0	0	0	-1
-3553	jbrg04.par	¾Ş½£¶¾¹¥4	Sea Wave	1	0	1	-1	0	0	0	-1
+3530	jgg01.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3531	jgg01.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3532	jgg02.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3533	jgg03.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3540	jgg04.par	Ç¹ï¿½ï¿½Í·1	Sea Wave	1	0	1	-1	0	0	0	-1
+3541	jgg05.par	Ç¹ï¿½ï¿½Í·2	Sea Wave	1	0	1	-1	0	0	0	-1
+3542	jgg06.par	Ç¹ï¿½ï¿½Í·3	Sea Wave	1	0	1	-1	0	0	0	-1
+3543	jgg06.par	Ç¹ï¿½ï¿½Í·4	Sea Wave	1	0	1	-1	0	0	0	-1
+3550	jbrg01.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3551	jbrg02.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3552	jbrg03.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3553	jbrg04.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
 3560	jjrg01.par	Single-handed Sword Poison Attack 1	Sea Wave	1	0	1	-1	0	0	0	-1
-3561	jjrg02.par	µ¥ÊÖ½£¶¾¹¥2	Sea Wave	1	0	1	-1	0	0	0	-1
-3562	jjrg03.par	µ¥ÊÖ½£¶¾¹¥3	Sea Wave	1	0	1	-1	0	0	0	-1
-3563	jjrg04.par	µ¥ÊÖ½£¶¾¹¥4	Sea Wave	1	0	1	-1	0	0	0	-1
-3570	jsrg01.par	Ø°Ê×¶¾¹¥1	Sea Wave	1	0	1	-1	0	0	0	-1
-3571	jsrg02.par	Ø°Ê×¶¾¹¥2	Sea Wave	1	0	1	-1	0	0	0	-1
-3572	jsrg03.par	Ø°Ê×¶¾¹¥3	Sea Wave	1	0	1	-1	0	0	0	-1
-3573	jsrg04.par	Ø°Ê×¶¾¹¥4	Sea Wave	1	0	1	-1	0	0	0	-1
-3580	jbyg01.par	¾Ş½£¶¾Ôö1	Sea Wave	1	0	1	-1	0	0	0	-1
-3581	jbyg02.par	¾Ş½£¶¾Ôö2	Sea Wave	1	0	1	-1	0	0	0	-1
-3582	jbyg03.par	¾Ş½£¶¾Ôö3	Sea Wave	1	0	1	-1	0	0	0	-1
-3583	jbyg04.par	¾Ş½£¶¾Ôö4	Sea Wave	1	0	1	-1	0	0	0	-1
-3590	jjyg01.par	µ¥ÊÖ½£¶¾Ôö1	Sea Wave	1	0	1	-1	0	0	0	-1
-3591	jjyg02.par	µ¥ÊÖ½£¶¾Ôö2	Sea Wave	1	0	1	-1	0	0	0	-1
-3592	jjyg03.par	µ¥ÊÖ½£¶¾Ôö3	Sea Wave	1	0	1	-1	0	0	0	-1
+3561	jjrg02.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3562	jjrg03.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3563	jjrg04.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3570	jsrg01.par	Ø°ï¿½×¶ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3571	jsrg02.par	Ø°ï¿½×¶ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3572	jsrg03.par	Ø°ï¿½×¶ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3573	jsrg04.par	Ø°ï¿½×¶ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3580	jbyg01.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3581	jbyg02.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3582	jbyg03.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3583	jbyg04.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3590	jjyg01.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3591	jjyg02.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3592	jjyg03.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
 3593	jjyg04.par	Single-handed Sword Poison Bonus 4	Sea Wave	1	0	1	-1	0	0	0	-1
-3600	jsyg01.par	Ø°Ê×¶¾Ôö1	Sea Wave	1	0	1	-1	0	0	0	-1
-3601	jsyg02.par	Ø°Ê×¶¾Ôö2	Sea Wave	1	0	1	-1	0	0	0	-1
-3602	jsyg03.par	Ø°Ê×¶¾Ôö3	Sea Wave	1	0	1	-1	0	0	0	-1
-3603	jsyg04.par	Ø°Ê×¶¾Ôö4	Sea Wave	1	0	1	-1	0	0	0	-1
-3610	jbbg01.par	¾Ş½£¶¾·À1	Sea Wave	1	0	1	-1	0	0	0	-1
+3600	jsyg01.par	Ø°ï¿½×¶ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3601	jsyg02.par	Ø°ï¿½×¶ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3602	jsyg03.par	Ø°ï¿½×¶ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3603	jsyg04.par	Ø°ï¿½×¶ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3610	jbbg01.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
 3611	jbbg02.par	Greatsword Poison Resist 2	Sea Wave	1	0	1	-1	0	0	0	-1
-3612	jbbg03.par	¾Ş½£¶¾·À3	Sea Wave	1	0	1	-1	0	0	0	-1
-3613	jbbg04.par	¾Ş½£¶¾·À4	Sea Wave	1	0	1	-1	0	0	0	-1
-3620	jjbg01.par	µ¥ÊÖ½£¶¾·À1	Sea Wave	1	0	1	-1	0	0	0	-1
-3621	jjbg02.par	µ¥ÊÖ½£¶¾·À2	Sea Wave	1	0	1	-1	0	0	0	-1
-3622	jjbg03.par	µ¥ÊÖ½£¶¾·À3	Sea Wave	1	0	1	-1	0	0	0	-1
-3623	jjbg04.par	µ¥ÊÖ½£¶¾·À4	Sea Wave	1	0	1	-1	0	0	0	-1
-3630	jsbg01.par	Ø°Ê×¶¾·À1	Sea Wave	1	0	1	-1	0	0	0	-1
-3631	jsbg02.par	Ø°Ê×¶¾·À2	Sea Wave	1	0	1	-1	0	0	0	-1
-3632	jsbg03.par	Ø°Ê×¶¾·À3	Sea Wave	1	0	1	-1	0	0	0	-1
-3633	jsbg04.par	Ø°Ê×¶¾·À4	Sea Wave	1	0	1	-1	0	0	0	-1
-3640	jbg01.par	¾Ş½£¶¾1	Sea Wave	1	0	1	-1	0	0	0	-1
-3641	jbg02.par	¾Ş½£¶¾2	Sea Wave	1	0	1	-1	0	0	0	-1
-3642	jbg03.par	¾Ş½£¶¾3	Sea Wave	1	0	1	-1	0	0	0	-1
-3643	jbg04.par	¾Ş½£¶¾4	Sea Wave	1	0	1	-1	0	0	0	-1
-3650	jjg01.par	µ¥ÊÖ½£¶¾1	Sea Wave	1	0	1	-1	0	0	0	-1
+3612	jbbg03.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3613	jbbg04.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3620	jjbg01.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3621	jjbg02.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3622	jjbg03.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3623	jjbg04.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3630	jsbg01.par	Ø°ï¿½×¶ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3631	jsbg02.par	Ø°ï¿½×¶ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3632	jsbg03.par	Ø°ï¿½×¶ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3633	jsbg04.par	Ø°ï¿½×¶ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3640	jbg01.par	ï¿½Ş½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3641	jbg02.par	ï¿½Ş½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3642	jbg03.par	ï¿½Ş½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3643	jbg04.par	ï¿½Ş½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3650	jjg01.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
 3651	jjg02.par	Single-handed Sword Poison 2	Sea Wave	1	0	1	-1	0	0	0	-1
-3652	jjg03.par	µ¥ÊÖ½£¶¾3	Sea Wave	1	0	1	-1	0	0	0	-1
-3653	jjg04.par	µ¥ÊÖ½£¶¾4	Sea Wave	1	0	1	-1	0	0	0	-1
-3660	jsg01.par	Ø°Ê×¶¾1	Sea Wave	1	0	1	-1	0	0	0	-1
-3661	jsg02.par	Ø°Ê×¶¾2	Sea Wave	1	0	1	-1	0	0	0	-1
-3662	jsg03.par	Ø°Ê×¶¾3	Sea Wave	1	0	1	-1	0	0	0	-1
-3663	jsg04.par	Ø°Ê×¶¾4	Sea Wave	1	0	1	-1	0	0	0	-1
-3670	jjrgb01.par	½£¹¥¶¾·À1	Sea Wave	1	0	1	-1	0	0	0	-1
-3671	jjrgb02.par	½£¹¥¶¾·À2	Sea Wave	1	0	1	-1	0	0	0	-1
-3672	jjrgb03.par	½£¹¥¶¾·À3	Sea Wave	1	0	1	-1	0	0	0	-1
-3673	jjrgb04.par	½£¹¥¶¾·À4	Sea Wave	1	0	1	-1	0	0	0	-1
-3680	jjryg01.par	½£¹¥Ôö¶¾1	Sea Wave	1	0	1	-1	0	0	0	-1
-3681	jjryg02.par	½£¹¥Ôö¶¾2	Sea Wave	1	0	1	-1	0	0	0	-1
-3682	jjryg03.par	½£¹¥Ôö¶¾3	Sea Wave	1	0	1	-1	0	0	0	-1
-3683	jjryg04.par	½£¹¥Ôö¶¾4	Sea Wave	1	0	1	-1	0	0	0	-1
-3690	jjgyb01.par	½£¶¾Ôö·À1	Sea Wave	1	0	1	-1	0	0	0	-1
-3691	jjgyb02.par	½£¶¾Ôö·À3	Sea Wave	1	0	1	-1	0	0	0	-1
-3692	jjgyb03.par	½£¶¾Ôö·À3	Sea Wave	1	0	1	-1	0	0	0	-1
-3693	jjgyb04.par	½£¶¾Ôö·À4	Sea Wave	1	0	1	-1	0	0	0	-1
-3700	jbrgb01.par	¾Ş½£¹¥¶¾·À1	Sea Wave	1	0	1	-1	0	0	0	-1
-3701	jbrgb02.par	¾Ş½£¹¥¶¾·À2	Sea Wave	1	0	1	-1	0	0	0	-1
-3702	jbrgb03.par	¾Ş½£¹¥¶¾·À3	Sea Wave	1	0	1	-1	0	0	0	-1
-3703	jbrgb04.par	¾Ş½£¹¥¶¾·À4	Sea Wave	1	0	1	-1	0	0	0	-1
-3710	jbryg01.par	¾Ş½£¹¥Ôö¶¾1	Sea Wave	1	0	1	-1	0	0	0	-1
-3711	jbryg02.par	¾Ş½£¹¥Ôö¶¾2	Sea Wave	1	0	1	-1	0	0	0	-1
-3712	jbryg03.par	¾Ş½£¹¥Ôö¶¾3	Sea Wave	1	0	1	-1	0	0	0	-1
-3713	jbryg04.par	¾Ş½£¹¥Ôö¶¾4	Sea Wave	1	0	1	-1	0	0	0	-1
-3720	jbgyb01.par	¾Ş½£¶¾Ôö·À1	Sea Wave	1	0	1	-1	0	0	0	-1
-3721	jbgyb02.par	¾Ş½£¶¾Ôö·À3	Sea Wave	1	0	1	-1	0	0	0	-1
-3722	jbgyb03.par	¾Ş½£¶¾Ôö·À3	Sea Wave	1	0	1	-1	0	0	0	-1
-3723	jbgyb04.par	¾Ş½£¶¾Ôö·À4	Sea Wave	1	0	1	-1	0	0	0	-1
-3730	jsrgb01.par	Ø°Ê×¹¥¶¾·À1	Sea Wave	1	0	1	-1	0	0	0	-1
-3731	jsrgb02.par	Ø°Ê×¹¥¶¾·À2	Sea Wave	1	0	1	-1	0	0	0	-1
-3732	jsrgb03.par	Ø°Ê×¹¥¶¾·À3	Sea Wave	1	0	1	-1	0	0	0	-1
-3733	jsrgb04.par	Ø°Ê×¹¥¶¾·À4	Sea Wave	1	0	1	-1	0	0	0	-1
-3740	jsryg01.par	Ø°Ê×¹¥Ôö¶¾1	Sea Wave	1	0	1	-1	0	0	0	-1
-3741	jsryg02.par	Ø°Ê×¹¥Ôö¶¾2	Sea Wave	1	0	1	-1	0	0	0	-1
-3742	jsryg03.par	Ø°Ê×¹¥Ôö¶¾3	Sea Wave	1	0	1	-1	0	0	0	-1
-3743	jsryg04.par	Ø°Ê×¹¥Ôö¶¾4	Sea Wave	1	0	1	-1	0	0	0	-1
-3750	jsgyb01.par	Ø°Ê×¶¾Ôö·À1	Sea Wave	1	0	1	-1	0	0	0	-1
-3751	jsgyb02.par	Ø°Ê×¶¾Ôö·À3	Sea Wave	1	0	1	-1	0	0	0	-1
-3752	jsgyb03.par	Ø°Ê×¶¾Ôö·À3	Sea Wave	1	0	1	-1	0	0	0	-1
-3753	jsgyb04.par	Ø°Ê×¶¾Ôö·À4	Sea Wave	1	0	1	-1	0	0	0	-1
-3760	jgb01.par	Ç¹¶¾¹¥·ÀÉíÌå1	Sea Wave	1	0	1	-1	0	0	0	-1
-3761	jgb01.par	Ç¹¶¾¹¥·ÀÉíÌå2	Sea Wave	1	0	1	-1	0	0	0	-1
-3762	jgrb01.par	Ç¹¶¾¹¥·ÀÉíÌå3	Sea Wave	1	0	1	-1	0	0	0	-1
-3763	jgrb02.par	Ç¹¶¾¹¥·ÀÉíÌå4	Sea Wave	1	0	1	-1	0	0	0	-1
-3770	jgy01.par	Ç¹¶¾¹¥ÔöÉíÌå1	Sea Wave	1	0	1	-1	0	0	0	-1
-3771	jgy01.par	Ç¹¶¾¹¥ÔöÉíÌå2	Sea Wave	1	0	1	-1	0	0	0	-1
-3772	jgry01.par	Ç¹¶¾¹¥ÔöÉíÌå3	Sea Wave	1	0	1	-1	0	0	0	-1
-3773	jgry02.par	Ç¹¶¾¹¥ÔöÉíÌå4	Sea Wave	1	0	1	-1	0	0	0	-1
-3780	jfq02.par	·¨ÕÈ¶¾·ÀÔöÉíÌåµ­	Sea Wave	1	0	1	-1	0	0	0	-1
-3781	jfrb01.par	·¨ÕÈ¶¾·ÀÔöÉíÌåÓĞ	Sea Wave	1	0	1	-1	0	0	0	-1
-3782	jfrb01.par	·¨ÕÈ¶¾·ÀÔöÉíÌåÓĞ	Sea Wave	1	0	1	-1	0	0	0	-1
-3783	jfrb01.par	·¨ÕÈ¶¾·ÀÔöÉíÌåÓĞ	Sea Wave	1	0	1	-1	0	0	0	-1
-3790	jfg004.par	·¨ÕÈ¶¾·ÀÔöÍ·1	Sea Wave	1	0	1	-1	0	0	0	-1
-3791	jfg003.par	·¨ÕÈ¶¾·ÀÔöÍ·2	Sea Wave	1	0	1	-1	0	0	0	-1
-3792	jfg002.par	·¨ÕÈ¶¾·ÀÔöÍ·3	Sea Wave	1	0	1	-1	0	0	0	-1
-3793	jfrgb01.par	·¨ÕÈ¶¾·ÀÔöÍ·4	Sea Wave	1	0	1	-1	0	0	0	-1
-3800	jfrb02.par	·¨ÕÈ¹¥¶¾·ÀÉíÌåµ­	Sea Wave	1	0	1	-1	0	0	0	-1
+3652	jjg03.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3653	jjg04.par	ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3660	jsg01.par	Ø°ï¿½×¶ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3661	jsg02.par	Ø°ï¿½×¶ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3662	jsg03.par	Ø°ï¿½×¶ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3663	jsg04.par	Ø°ï¿½×¶ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3670	jjrgb01.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3671	jjrgb02.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3672	jjrgb03.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3673	jjrgb04.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3680	jjryg01.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3681	jjryg02.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3682	jjryg03.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3683	jjryg04.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3690	jjgyb01.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3691	jjgyb02.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3692	jjgyb03.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3693	jjgyb04.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3700	jbrgb01.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3701	jbrgb02.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3702	jbrgb03.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3703	jbrgb04.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3710	jbryg01.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3711	jbryg02.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3712	jbryg03.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3713	jbryg04.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3720	jbgyb01.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3721	jbgyb02.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3722	jbgyb03.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3723	jbgyb04.par	ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3730	jsrgb01.par	Ø°ï¿½×¹ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3731	jsrgb02.par	Ø°ï¿½×¹ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3732	jsrgb03.par	Ø°ï¿½×¹ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3733	jsrgb04.par	Ø°ï¿½×¹ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3740	jsryg01.par	Ø°ï¿½×¹ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3741	jsryg02.par	Ø°ï¿½×¹ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3742	jsryg03.par	Ø°ï¿½×¹ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3743	jsryg04.par	Ø°ï¿½×¹ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3750	jsgyb01.par	Ø°ï¿½×¶ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3751	jsgyb02.par	Ø°ï¿½×¶ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3752	jsgyb03.par	Ø°ï¿½×¶ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3753	jsgyb04.par	Ø°ï¿½×¶ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3760	jgb01.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3761	jgb01.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3762	jgrb01.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3763	jgrb02.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3770	jgy01.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3771	jgy01.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3772	jgry01.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3773	jgry02.par	Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3780	jfq02.par	ï¿½ï¿½ï¿½È¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½åµ­	Sea Wave	1	0	1	-1	0	0	0	-1
+3781	jfrb01.par	ï¿½ï¿½ï¿½È¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3782	jfrb01.par	ï¿½ï¿½ï¿½È¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3783	jfrb01.par	ï¿½ï¿½ï¿½È¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3790	jfg004.par	ï¿½ï¿½ï¿½È¶ï¿½ï¿½ï¿½ï¿½ï¿½Í·1	Sea Wave	1	0	1	-1	0	0	0	-1
+3791	jfg003.par	ï¿½ï¿½ï¿½È¶ï¿½ï¿½ï¿½ï¿½ï¿½Í·2	Sea Wave	1	0	1	-1	0	0	0	-1
+3792	jfg002.par	ï¿½ï¿½ï¿½È¶ï¿½ï¿½ï¿½ï¿½ï¿½Í·3	Sea Wave	1	0	1	-1	0	0	0	-1
+3793	jfrgb01.par	ï¿½ï¿½ï¿½È¶ï¿½ï¿½ï¿½ï¿½ï¿½Í·4	Sea Wave	1	0	1	-1	0	0	0	-1
+3800	jfrb02.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½åµ­	Sea Wave	1	0	1	-1	0	0	0	-1
 3801	jfry01.par	Base Resist to Staff Poison Attack	Sea Wave	1	0	1	-1	0	0	0	-1
 3802	jfry01.par	Base Resist to Staff Poison Attack	Sea Wave	1	0	1	-1	0	0	0	-1
 3803	jfry01.par	Base Resist to Staff Poison Attack	Sea Wave	1	0	1	-1	0	0	0	-1
-3810	jfg004.par	·¨ÕÈ¹¥¶¾·ÀÍ·1	Sea Wave	1	0	1	-1	0	0	0	-1
-3811	jfg003.par	·¨ÕÈ¹¥¶¾·ÀÍ·2	Sea Wave	1	0	1	-1	0	0	0	-1
-3812	jfg002.par	·¨ÕÈ¹¥¶¾·ÀÍ·3	Sea Wave	1	0	1	-1	0	0	0	-1
-3813	jfryg01.par	·¨ÕÈ¹¥¶¾·ÀÍ·4	Sea Wave	1	0	1	-1	0	0	0	-1
-3820	jfry02.par	·¨ÕÈ¹¥Ôö¶¾ÉíÌåµ­	Sea Wave	1	0	1	-1	0	0	0	-1
-3821	jfq03.par	·¨ÕÈ¹¥Ôö¶¾ÉíÌåÓĞ	Sea Wave	1	0	1	-1	0	0	0	-1
-3822	jfq03.par	·¨ÕÈ¹¥Ôö¶¾ÉíÌåÓĞ	Sea Wave	1	0	1	-1	0	0	0	-1
-3823	jfq03.par	·¨ÕÈ¹¥Ôö¶¾ÉíÌåÓĞ	Sea Wave	1	0	1	-1	0	0	0	-1
-3830	jfg004.par	·¨ÕÈ¹¥Ôö¶¾Í·1	Sea Wave	1	0	1	-1	0	0	0	-1
-3831	jfg003.par	·¨ÕÈ¹¥Ôö¶¾Í·2	Sea Wave	1	0	1	-1	0	0	0	-1
-3832	jfg002.par	·¨ÕÈ¹¥Ôö¶¾Í·3	Sea Wave	1	0	1	-1	0	0	0	-1
-3833	jfgyb01.par	·¨ÕÈ¹¥Ôö¶¾Í·4	Sea Wave	1	0	1	-1	0	0	0	-1
-3840	jlg01.par	¸«Í·¶¾1	Sea Wave	1	0	1	-1	0	0	0	-1
-3841	jlg02.par	¸«Í·¶¾2	Sea Wave	1	0	1	-1	0	0	0	-1
-3842	jlg03.par	¸«Í·¶¾3	Sea Wave	1	0	1	-1	0	0	0	-1
+3810	jfg004.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½Í·1	Sea Wave	1	0	1	-1	0	0	0	-1
+3811	jfg003.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½Í·2	Sea Wave	1	0	1	-1	0	0	0	-1
+3812	jfg002.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½Í·3	Sea Wave	1	0	1	-1	0	0	0	-1
+3813	jfryg01.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½Í·4	Sea Wave	1	0	1	-1	0	0	0	-1
+3820	jfry02.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½åµ­	Sea Wave	1	0	1	-1	0	0	0	-1
+3821	jfq03.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3822	jfq03.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3823	jfq03.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	Sea Wave	1	0	1	-1	0	0	0	-1
+3830	jfg004.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½Í·1	Sea Wave	1	0	1	-1	0	0	0	-1
+3831	jfg003.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½Í·2	Sea Wave	1	0	1	-1	0	0	0	-1
+3832	jfg002.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½Í·3	Sea Wave	1	0	1	-1	0	0	0	-1
+3833	jfgyb01.par	ï¿½ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½Í·4	Sea Wave	1	0	1	-1	0	0	0	-1
+3840	jlg01.par	ï¿½ï¿½Í·ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3841	jlg02.par	ï¿½ï¿½Í·ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3842	jlg03.par	ï¿½ï¿½Í·ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
 3843	jlg04.par	Axe Poison 4	Sea Wave	1	0	1	-1	0	0	0	-1
-3850	jlr01.par	¸«Í·¹¥1	Sea Wave	1	0	1	-1	0	0	0	-1
-3851	jlr02.par	¸«Í·¹¥2	Sea Wave	1	0	1	-1	0	0	0	-1
-3852	jlr03.par	¸«Í·¹¥3	Sea Wave	1	0	1	-1	0	0	0	-1
-3853	jlr04.par	¸«Í·¹¥4	Sea Wave	1	0	1	-1	0	0	0	-1
-3860	jlb01.par	¸«Í··À1	Sea Wave	1	0	1	-1	0	0	0	-1
-3861	jlb02.par	¸«Í··À2	Sea Wave	1	0	1	-1	0	0	0	-1
-3862	jlb03.par	¸«Í··À3	Sea Wave	1	0	1	-1	0	0	0	-1
-3863	jlb04.par	¸«Í··À4	Sea Wave	1	0	1	-1	0	0	0	-1
-3870	jly01.par	¸«Í·Ôö1	Sea Wave	1	0	1	-1	0	0	0	-1
-3871	jly02.par	¸«Í·Ôö2	Sea Wave	1	0	1	-1	0	0	0	-1
-3872	jly03.par	¸«Í·Ôö3	Sea Wave	1	0	1	-1	0	0	0	-1
-3873	jly04.par	¸«Í·Ôö4	Sea Wave	1	0	1	-1	0	0	0	-1
-3880	jlrgy01.par	¸«Í·¹¥Ôö¶¾1	Sea Wave	1	0	1	-1	0	0	0	-1
-3881	jlrgy02.par	¸«Í·¹¥Ôö¶¾2	Sea Wave	1	0	1	-1	0	0	0	-1
-3882	jlrgy03.par	¸«Í·¹¥Ôö¶¾3	Sea Wave	1	0	1	-1	0	0	0	-1
-3883	jlrgy04.par	¸«Í·¹¥Ôö¶¾4	Sea Wave	1	0	1	-1	0	0	0	-1
-3890	jlrgb01.par	¸«Í·¹¥¶¾·À1	Sea Wave	1	0	1	-1	0	0	0	-1
-3891	jlrgb02.par	¸«Í·¹¥¶¾·À2	Sea Wave	1	0	1	-1	0	0	0	-1
-3892	jlrgb03.par	¸«Í·¹¥¶¾·À3	Sea Wave	1	0	1	-1	0	0	0	-1
-3893	jlrgb04.par	¸«Í·¹¥¶¾·À4	Sea Wave	1	0	1	-1	0	0	0	-1
+3850	jlr01.par	ï¿½ï¿½Í·ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3851	jlr02.par	ï¿½ï¿½Í·ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3852	jlr03.par	ï¿½ï¿½Í·ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3853	jlr04.par	ï¿½ï¿½Í·ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3860	jlb01.par	ï¿½ï¿½Í·ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3861	jlb02.par	ï¿½ï¿½Í·ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3862	jlb03.par	ï¿½ï¿½Í·ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3863	jlb04.par	ï¿½ï¿½Í·ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3870	jly01.par	ï¿½ï¿½Í·ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3871	jly02.par	ï¿½ï¿½Í·ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3872	jly03.par	ï¿½ï¿½Í·ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3873	jly04.par	ï¿½ï¿½Í·ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3880	jlrgy01.par	ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3881	jlrgy02.par	ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3882	jlrgy03.par	ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3883	jlrgy04.par	ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3890	jlrgb01.par	ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3891	jlrgb02.par	ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3892	jlrgb03.par	ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3893	jlrgb04.par	ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
 3900	jlgyb01.par	Axe Poison Resist Bonus 1	Sea Wave	1	0	1	-1	0	0	0	-1
-3901	jlgyb02.par	¸«Í·¶¾·ÀÔö2	Sea Wave	1	0	1	-1	0	0	0	-1
-3902	jlgyb03.par	¸«Í·¶¾·ÀÔö3	Sea Wave	1	0	1	-1	0	0	0	-1
-3903	jlgyb04.par	¸«Í·¶¾·ÀÔö4	Sea Wave	1	0	1	-1	0	0	0	-1
-3910	jlrby01.par	¸«Í·¹¥·ÀÔö1	Sea Wave	1	0	1	-1	0	0	0	-1
-3911	jlrby02.par	¸«Í·¹¥·ÀÔö2	Sea Wave	1	0	1	-1	0	0	0	-1
-3912	jlrby03.par	¸«Í·¹¥·ÀÔö3	Sea Wave	1	0	1	-1	0	0	0	-1
-3913	jlrby04.par	¸«Í·¹¥·ÀÔö4	Sea Wave	1	0	1	-1	0	0	0	-1
-3920	jf000.par	¸«Í·¶¾1	Sea Wave	1	0	1	-1	0	0	0	-1
-3921	jf000.par	¸«Í·¶¾2	Sea Wave	1	0	1	-1	0	0	0	-1
-3922	jlhg03.par	¸«Í·¶¾3	Sea Wave	1	0	1	-1	0	0	0	-1
+3901	jlgyb02.par	ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3902	jlgyb03.par	ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3903	jlgyb04.par	ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3910	jlrby01.par	ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3911	jlrby02.par	ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3912	jlrby03.par	ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3913	jlrby04.par	ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3920	jf000.par	ï¿½ï¿½Í·ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3921	jf000.par	ï¿½ï¿½Í·ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3922	jlhg03.par	ï¿½ï¿½Í·ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
 3923	jlhg02.par	Axe Poison 4	Sea Wave	1	0	1	-1	0	0	0	-1
-3930	jf000.par	¸«Í··À1	Sea Wave	1	0	1	-1	0	0	0	-1
-3931	jf000.par	¸«Í··À2	Sea Wave	1	0	1	-1	0	0	0	-1
-3932	jlhb03.par	¸«Í··À3	Sea Wave	1	0	1	-1	0	0	0	-1
-3933	jlhb02.par	¸«Í··À4	Sea Wave	1	0	1	-1	0	0	0	-1
-3940	jf000.par	¸«Í·¹¥1	Sea Wave	1	0	1	-1	0	0	0	-1
-3941	jf000.par	¸«Í·¹¥2	Sea Wave	1	0	1	-1	0	0	0	-1
-3942	jlhr03.par	¸«Í·¹¥3	Sea Wave	1	0	1	-1	0	0	0	-1
-3943	jlhr02.par	¸«Í·¹¥4	Sea Wave	1	0	1	-1	0	0	0	-1
-3950	jswb01.par	ÍäØ°Ê×·À1	Sea Wave	1	0	1	-1	0	0	0	-1
-3951	jswb01.par	ÍäØ°Ê×·À2	Sea Wave	1	0	1	-1	0	0	0	-1
-3952	jswb01.par	ÍäØ°Ê×·À3	Sea Wave	1	0	1	-1	0	0	0	-1
-3953	jswb01.par	ÍäØ°Ê×·À4	Sea Wave	1	0	1	-1	0	0	0	-1
-3960	jswr01.par	ÍäØ°Ê×¹¥1	Sea Wave	1	0	1	-1	0	0	0	-1
-3961	jswr01.par	ÍäØ°Ê×¹¥2	Sea Wave	1	0	1	-1	0	0	0	-1
-3962	jswr01.par	ÍäØ°Ê×¹¥3	Sea Wave	1	0	1	-1	0	0	0	-1
-3963	jswr01.par	ÍäØ°Ê×¹¥4	Sea Wave	1	0	1	-1	0	0	0	-1
-3970	jswy01.par	ÍäØ°Ê×Ôö1	Sea Wave	1	0	1	-1	0	0	0	-1
-3971	jswy01.par	ÍäØ°Ê×Ôö2	Sea Wave	1	0	1	-1	0	0	0	-1
-3972	jswy01.par	ÍäØ°Ê×Ôö3	Sea Wave	1	0	1	-1	0	0	0	-1
-3973	jswy01.par	ÍäØ°Ê×Ôö4	Sea Wave	1	0	1	-1	0	0	0	-1
-3980	jswg01.par	ÍäØ°Ê×¶¾1	Sea Wave	1	0	1	-1	0	0	0	-1
-3981	jswg01.par	ÍäØ°Ê×¶¾2	Sea Wave	1	0	1	-1	0	0	0	-1
-3982	jswg01.par	ÍäØ°Ê×¶¾3	Sea Wave	1	0	1	-1	0	0	0	-1
-3983	jswg01.par	ÍäØ°Ê×¶¾4	Sea Wave	1	0	1	-1	0	0	0	-1
+3930	jf000.par	ï¿½ï¿½Í·ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3931	jf000.par	ï¿½ï¿½Í·ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3932	jlhb03.par	ï¿½ï¿½Í·ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3933	jlhb02.par	ï¿½ï¿½Í·ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3940	jf000.par	ï¿½ï¿½Í·ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3941	jf000.par	ï¿½ï¿½Í·ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3942	jlhr03.par	ï¿½ï¿½Í·ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3943	jlhr02.par	ï¿½ï¿½Í·ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3950	jswb01.par	ï¿½ï¿½Ø°ï¿½×·ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3951	jswb01.par	ï¿½ï¿½Ø°ï¿½×·ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3952	jswb01.par	ï¿½ï¿½Ø°ï¿½×·ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3953	jswb01.par	ï¿½ï¿½Ø°ï¿½×·ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3960	jswr01.par	ï¿½ï¿½Ø°ï¿½×¹ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3961	jswr01.par	ï¿½ï¿½Ø°ï¿½×¹ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3962	jswr01.par	ï¿½ï¿½Ø°ï¿½×¹ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3963	jswr01.par	ï¿½ï¿½Ø°ï¿½×¹ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3970	jswy01.par	ï¿½ï¿½Ø°ï¿½ï¿½ï¿½ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3971	jswy01.par	ï¿½ï¿½Ø°ï¿½ï¿½ï¿½ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3972	jswy01.par	ï¿½ï¿½Ø°ï¿½ï¿½ï¿½ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3973	jswy01.par	ï¿½ï¿½Ø°ï¿½ï¿½ï¿½ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
+3980	jswg01.par	ï¿½ï¿½Ø°ï¿½×¶ï¿½1	Sea Wave	1	0	1	-1	0	0	0	-1
+3981	jswg01.par	ï¿½ï¿½Ø°ï¿½×¶ï¿½2	Sea Wave	1	0	1	-1	0	0	0	-1
+3982	jswg01.par	ï¿½ï¿½Ø°ï¿½×¶ï¿½3	Sea Wave	1	0	1	-1	0	0	0	-1
+3983	jswg01.par	ï¿½ï¿½Ø°ï¿½×¶ï¿½4	Sea Wave	1	0	1	-1	0	0	0	-1
 3990	cangying.par	Insect Swarm 1	Sea Wave	1	0	1	-1	0	0	0	-1
 3991	cangying.par	Insect Swarm 2	Sea Wave	1	0	1	-1	0	0	0	-1
 3992	cangying.par	Insect Swarm 3	Sea Wave	1	0	1	-1	0	0	0	-1
@@ -1065,7 +1065,7 @@
 4019	shihuns.par	Sayajin Blue	Sea Wave	1	0	0	-1	0	0	0	-1
 4020	dbzaura.par	Sayajin Yellow	Sea Wave	1	0	0	-1	0	0	0	-1
 4021	poxuec.par	???a3?D?	Sea Wave	1	0	0	-1	0	0	0	-1
-4022	vipneck.par	VIP??ÉÖ¡É	o©S½Ç?	1	0	0	-1	3	0	0	-1
+4022	vipneck.par	VIP??ï¿½Ö¡ï¿½	oï¿½Sï¿½ï¿½?	1	0	0	-1	3	0	0	-1
 4023	fcring.par	Lightning Bolt P	Sea Wave	0	0	0	-1	0	1	0	-1
 4024	vln1.par	Wings of thunder	Wings	0	0	0	-1	0	1	0	-1
 4025	thnd.par	Wings of thunder	Wings	0	0	0	-1	0	1	0	-1
@@ -1076,31 +1076,31 @@
 4035	nght.par	Wing	Sea Wave	1	0	24	-1	0	0	0	-1
 4036	frst.par	Wing	Sea Wave	1	0	24	-1	0	0	0	-1
 4037	break_wing.par	Wing	Sea Wave	1	0	24	-1	0	0	0	-1
-4060	01020029.par	ĞÜÃ¨ÇïÇ§(À¶)	º£ÀË	1	0	3	-1	0	0	0	-1
-4061	01020029(2).par	ĞÜÃ¨ÇïÇ§(¿¨)	º£ÀË	1	0	3	-1	0	0	0	-1
-4062	01020029(3).par	ĞÜÃ¨ÇïÇ§(·Æ)	º£ÀË	1	0	24	-1	0	0	0	-1
-4063	01020029(4).par	ĞÜÃ¨ÇïÇ§(°¬)	º£ÀË	1	0	3	-1	0	0	0	-1
-4064	01020031.par	°®ĞÄÇïÇ§(À¶)	º£ÀË	1	0	3	-1	0	0	0	-1
-4065	01020031(2).par	°®ĞÄÇïÇ§(¿¨)	º£ÀË	1	0	3	-1	0	0	0	-1
-4066	01020031(3).par	°®ĞÄÇïÇ§(·Æ)	º£ÀË	1	0	24	-1	0	0	0	-1
-4067	01020031(4).par	°®ĞÄÇïÇ§(°¬)	º£ÀË	1	0	3	-1	0	0	0	-1
-4068	01020037.par	HelloKittyÇïÇ§(	º£ÀË	1	0	3	-1	0	0	0	-1
-4069	01020037(2).par	HelloKittyÇïÇ§(	º£ÀË	1	0	3	-1	0	0	0	-1
-4070	01020037(3).par	HelloKittyÇïÇ§(	º£ÀË	1	0	24	-1	0	0	0	-1
-4071	01020037(4).par	HelloKittyÇïÇ§(	º£ÀË	1	0	3	-1	0	0	0	-1
-4072	01020039.par	ÇáËÉĞÜÇïÇ§(À¶)	º£ÀË	1	0	3	-1	0	0	0	-1
-4073	01020039(2).par	ÇáËÉĞÜÇïÇ§(¿¨)	º£ÀË	1	0	3	-1	0	0	0	-1
-4074	01020039(3).par	ÇáËÉĞÜÇïÇ§(·Æ)	º£ÀË	1	0	24	-1	0	0	0	-1
-4075	01020039(4).par	ÇáËÉĞÜÇïÇ§(°¬)	º£ÀË	1	0	3	-1	0	0	0	-1
-4076	01020041.par	¿É°®÷¼÷ÃÍ·ÇïÇ§(	º£ÀË	1	0	3	-1	0	0	0	-1
-4077	01020041(2).par	¿É°®÷¼÷ÃÍ·ÇïÇ§(	º£ÀË	1	0	3	-1	0	0	0	-1
-4078	01020041(3).par	¿É°®÷¼÷ÃÍ·ÇïÇ§(	º£ÀË	1	0	24	-1	0	0	0	-1
-4079	01020041(4).par	¿É°®÷¼÷ÃÍ·ÇïÇ§(	º£ÀË	1	0	3	-1	0	0	0	-1
-4080	01020042.par	Ê®×Ö¾üÇïÇ§(À¶)	º£ÀË	1	0	3	-1	0	0	0	-1
-4081	01020042(2).par	Ê®×Ö¾üÇïÇ§(¿¨)	º£ÀË	1	0	3	-1	0	0	0	-1
-4082	01020042(3).par	Ê®×Ö¾üÇïÇ§(·Æ)	º£ÀË	1	0	24	-1	0	0	0	-1
-4083	01020042(4).par	Ê®×Ö¾üÇïÇ§(°¬)	º£ÀË	1	0	3	-1	0	0	0	-1
-4084	01020043.par	ÍõÕßÇïÇ§(À¶)	º£ÀË	1	0	3	-1	0	0	0	-1
-4085	01020043(2).par	ÍõÕßÇïÇ§(¿¨)	º£ÀË	1	0	3	-1	0	0	0	-1
-4086	01020043(3).par	ÍõÕßÇïÇ§(·Æ)	º£ÀË	1	0	24	-1	0	0	0	-1
-4087	01020043(4).par	ÍõÕßÇïÇ§(°¬)	º£ÀË	1	0	3	-1	0	0	0	-1						
+4060	01020029.par	ï¿½ï¿½Ã¨ï¿½ï¿½Ç§(ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½	1	0	3	-1	0	0	0	-1
+4061	01020029(2).par	ï¿½ï¿½Ã¨ï¿½ï¿½Ç§(ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½	1	0	3	-1	0	0	0	-1
+4062	01020029(3).par	ï¿½ï¿½Ã¨ï¿½ï¿½Ç§(ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½	1	0	24	-1	0	0	0	-1
+4063	01020029(4).par	ï¿½ï¿½Ã¨ï¿½ï¿½Ç§(ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½	1	0	3	-1	0	0	0	-1
+4064	01020031.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç§(ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½	1	0	3	-1	0	0	0	-1
+4065	01020031(2).par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç§(ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½	1	0	3	-1	0	0	0	-1
+4066	01020031(3).par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç§(ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½	1	0	24	-1	0	0	0	-1
+4067	01020031(4).par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç§(ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½	1	0	3	-1	0	0	0	-1
+4068	01020037.par	HelloKittyï¿½ï¿½Ç§(	ï¿½ï¿½ï¿½ï¿½	1	0	3	-1	0	0	0	-1
+4069	01020037(2).par	HelloKittyï¿½ï¿½Ç§(	ï¿½ï¿½ï¿½ï¿½	1	0	3	-1	0	0	0	-1
+4070	01020037(3).par	HelloKittyï¿½ï¿½Ç§(	ï¿½ï¿½ï¿½ï¿½	1	0	24	-1	0	0	0	-1
+4071	01020037(4).par	HelloKittyï¿½ï¿½Ç§(	ï¿½ï¿½ï¿½ï¿½	1	0	3	-1	0	0	0	-1
+4072	01020039.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç§(ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½	1	0	3	-1	0	0	0	-1
+4073	01020039(2).par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç§(ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½	1	0	3	-1	0	0	0	-1
+4074	01020039(3).par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç§(ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½	1	0	24	-1	0	0	0	-1
+4075	01020039(4).par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç§(ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½	1	0	3	-1	0	0	0	-1
+4076	01020041.par	ï¿½É°ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½Ç§(	ï¿½ï¿½ï¿½ï¿½	1	0	3	-1	0	0	0	-1
+4077	01020041(2).par	ï¿½É°ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½Ç§(	ï¿½ï¿½ï¿½ï¿½	1	0	3	-1	0	0	0	-1
+4078	01020041(3).par	ï¿½É°ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½Ç§(	ï¿½ï¿½ï¿½ï¿½	1	0	24	-1	0	0	0	-1
+4079	01020041(4).par	ï¿½É°ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½Ç§(	ï¿½ï¿½ï¿½ï¿½	1	0	3	-1	0	0	0	-1
+4080	01020042.par	Ê®ï¿½Ö¾ï¿½ï¿½ï¿½Ç§(ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½	1	0	3	-1	0	0	0	-1
+4081	01020042(2).par	Ê®ï¿½Ö¾ï¿½ï¿½ï¿½Ç§(ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½	1	0	3	-1	0	0	0	-1
+4082	01020042(3).par	Ê®ï¿½Ö¾ï¿½ï¿½ï¿½Ç§(ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½	1	0	24	-1	0	0	0	-1
+4083	01020042(4).par	Ê®ï¿½Ö¾ï¿½ï¿½ï¿½Ç§(ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½	1	0	3	-1	0	0	0	-1
+4084	01020043.par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç§(ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½	1	0	3	-1	0	0	0	-1
+4085	01020043(2).par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç§(ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½	1	0	3	-1	0	0	0	-1
+4086	01020043(3).par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç§(ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½	1	0	24	-1	0	0	0	-1
+4087	01020043(4).par	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç§(ï¿½ï¿½)	ï¿½ï¿½ï¿½ï¿½	1	0	3	-1	0	0	0	-1

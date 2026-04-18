@@ -1,0 +1,361 @@
+MSBuild version 17.7.2+d6990bcfa for .NET Framework
+
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(541,5): warning MSB8029: The Intermediate directory or Output directory cannot reside under the Temporary directory as it could lead to issues with incremental build. [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9014: invalid value '2733' for '/w3'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9014: invalid value '2733' for '/wd'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9025: overriding '/EHs' with '/EHa' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+  stdafx.cpp
+cl : command line  warning D9014: invalid value '2733' for '/w3'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9014: invalid value '2733' for '/wd'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9025: overriding '/EHs' with '/EHa' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9014: invalid value '2733' for '/w3'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9014: invalid value '2733' for '/wd'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9025: overriding '/EHs' with '/EHa' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9014: invalid value '2733' for '/w3'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9014: invalid value '2733' for '/wd'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9025: overriding '/EHs' with '/EHa' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+  Actor.cpp
+  Algo.cpp
+cl : command line  warning D9014: invalid value '2733' for '/w3'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9014: invalid value '2733' for '/wd'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9025: overriding '/EHs' with '/EHa' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9014: invalid value '2733' for '/w3'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9014: invalid value '2733' for '/wd'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9025: overriding '/EHs' with '/EHa' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+  AppScript.cpp
+cl : command line  warning D9014: invalid value '2733' for '/w3'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9014: invalid value '2733' for '/wd'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9025: overriding '/EHs' with '/EHa' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9014: invalid value '2733' for '/w3'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9014: invalid value '2733' for '/wd'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9025: overriding '/EHs' with '/EHa' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9014: invalid value '2733' for '/w3'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9014: invalid value '2733' for '/wd'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9025: overriding '/EHs' with '/EHa' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9014: invalid value '2733' for '/w3'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9014: invalid value '2733' for '/wd'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9025: overriding '/EHs' with '/EHa' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+  ArcTrack.cpp
+  AudioThread.cpp
+cl : command line  warning D9014: invalid value '2733' for '/w3'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9014: invalid value '2733' for '/wd'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9025: overriding '/EHs' with '/EHa' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9014: invalid value '2733' for '/w3'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9014: invalid value '2733' for '/wd'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9025: overriding '/EHs' with '/EHa' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+  AutoAttack.cpp
+cl : command line  warning D9014: invalid value '2733' for '/w3'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9014: invalid value '2733' for '/wd'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9025: overriding '/EHs' with '/EHa' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9014: invalid value '2733' for '/w3'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9014: invalid value '2733' for '/wd'; assuming '5999' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+cl : command line  warning D9025: overriding '/EHs' with '/EHa' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+  CameraCtrl.cpp
+  Character.cpp
+  CharacterAction.cpp
+  CharacterModel.cpp
+  ChaScript.cpp
+  ChaState.cpp
+  ChatRecord.cpp
+  Connection.cpp
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(9,9): error C2485: 'naked': unrecognized extended attribute [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+  CRCircle.cpp
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(11,5): error C4235: nonstandard extension used: '__asm' keyword not supported on this architecture [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(12,9): error C2065: 'push': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(12,14): error C2146: syntax error: missing ';' before identifier 'ebp' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\CharacterModel.cpp(1327,9): error C4235: nonstandard extension used: '__asm' keyword not supported on this architecture [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(12,14): error C2065: 'ebp': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\CharacterModel.cpp(1327,19): error C2059: syntax error: 'constant' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(13,9): error C2146: syntax error: missing ';' before identifier 'mov' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(13,9): error C2065: 'mov': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(13,13): error C2146: syntax error: missing ';' before identifier 'ebp' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(13,13): error C2065: 'ebp': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(13,18): error C2065: 'esp': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+  CRCursor.cpp
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(14,9): error C2146: syntax error: missing ';' before identifier 'sub' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+  CRCursorObj.cpp
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(14,9): error C2065: 'sub': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(14,13): error C2146: syntax error: missing ';' before identifier 'esp' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(14,13): error C2065: 'esp': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(14,18): error C3688: invalid literal suffix 'h'; literal operator or literal operator template 'operator ""h' not found [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(15,13): error C2065: 'esp': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(15,18): error C3688: invalid literal suffix 'FFFFFFF0h'; literal operator or literal operator template 'operator ""FFFFFFF0h' not found [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(16,9): error C2146: syntax error: missing ';' before identifier 'fld' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(16,9): error C2065: 'fld': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(16,13): error C2146: syntax error: missing ';' before identifier 'st' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(16,13): error C3861: 'st': identifier not found [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(17,9): error C2146: syntax error: missing ';' before identifier 'fst' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(17,9): error C2065: 'fst': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(17,13): error C2146: syntax error: missing ';' before identifier 'dword' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(17,13): error C2065: 'dword': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(17,19): error C2146: syntax error: missing ';' before identifier 'ptr' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(17,19): error C2065: 'ptr': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(17,24): error C2065: 'esp': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(17,30): error C3688: invalid literal suffix 'h'; literal operator or literal operator template 'operator ""h' not found [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(18,9): error C2146: syntax error: missing ';' before identifier 'fistp' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(18,9): error C2065: 'fistp': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(18,15): error C2146: syntax error: missing ';' before identifier 'qword' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(18,15): error C2065: 'qword': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(18,21): error C2146: syntax error: missing ';' before identifier 'ptr' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(18,21): error C2065: 'ptr': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(18,26): error C2065: 'esp': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+  CreateChaScene.cpp
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(18,32): error C3688: invalid literal suffix 'h'; literal operator or literal operator template 'operator ""h' not found [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(19,9): error C2146: syntax error: missing ';' before identifier 'fild' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(19,9): error C2065: 'fild': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(19,14): error C2146: syntax error: missing ';' before identifier 'qword' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(19,14): error C2065: 'qword': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(19,20): error C2146: syntax error: missing ';' before identifier 'ptr' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(19,20): error C2065: 'ptr': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(19,25): error C2065: 'esp': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(19,31): error C3688: invalid literal suffix 'h'; literal operator or literal operator template 'operator ""h' not found [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(20,9): error C2146: syntax error: missing ';' before identifier 'mov' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(20,9): error C2065: 'mov': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(20,13): error C2146: syntax error: missing ';' before identifier 'edx' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(20,13): error C2065: 'edx': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(20,18): error C2065: 'dword': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(20,24): error C2146: syntax error: missing ';' before identifier 'ptr' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(20,24): error C2065: 'ptr': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(20,29): error C2065: 'esp': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(20,35): error C3688: invalid literal suffix 'h'; literal operator or literal operator template 'operator ""h' not found [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(21,9): error C2146: syntax error: missing ';' before identifier 'mov' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(21,9): error C2065: 'mov': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(21,13): error C2146: syntax error: missing ';' before identifier 'eax' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(21,13): error C2065: 'eax': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(21,18): error C2065: 'dword': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(21,24): error C2146: syntax error: missing ';' before identifier 'ptr' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(21,24): error C2065: 'ptr': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(21,29): error C2065: 'esp': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(21,35): error C3688: invalid literal suffix 'h'; literal operator or literal operator template 'operator ""h' not found [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(22,9): error C2146: syntax error: missing ';' before identifier 'test' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(22,9): error C2065: 'test': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(22,14): error C2146: syntax error: missing ';' before identifier 'eax' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(22,14): error C2065: 'eax': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(22,19): error C2065: 'eax': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(23,9): error C2146: syntax error: missing ';' before identifier 'je' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(23,9): error C2065: 'je': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(23,12): error C2146: syntax error: missing ';' before identifier 'L3' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(23,12): error C2065: 'L3': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(25,1): error C2146: syntax error: missing ';' before identifier 'L1' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(26,9): error C2065: 'fsubp': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(26,15): error C2146: syntax error: missing ';' before identifier 'st' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(26,15): error C3861: 'st': identifier not found [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(26,22): error C2065: 'st': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(27,9): error C2146: syntax error: missing ';' before identifier 'test' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(27,9): error C2065: 'test': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(27,14): error C2146: syntax error: missing ';' before identifier 'edx' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(27,14): error C2065: 'edx': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(27,19): error C2065: 'edx': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(28,9): error C2146: syntax error: missing ';' before identifier 'jns' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(28,9): error C2065: 'jns': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(28,13): error C2146: syntax error: missing ';' before identifier 'L2' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(28,13): error C2065: 'L2': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(29,9): error C2146: syntax error: missing ';' before identifier 'fstp' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(29,9): error C2065: 'fstp': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(29,14): error C2146: syntax error: missing ';' before identifier 'dword' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(29,14): error C2065: 'dword': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(29,20): error C2146: syntax error: missing ';' before identifier 'ptr' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(29,20): error C2065: 'ptr': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(29,25): error C2065: 'esp': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(30,9): error C2146: syntax error: missing ';' before identifier 'mov' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(30,9): error C2065: 'mov': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(30,13): error C2146: syntax error: missing ';' before identifier 'ecx' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(30,13): error C2065: 'ecx': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(30,18): error C2065: 'dword': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(30,24): error C2146: syntax error: missing ';' before identifier 'ptr' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(30,24): error C2065: 'ptr': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(30,29): error C2065: 'esp': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(31,13): error C2065: 'ecx': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Algo.cpp(31,16): fatal  error C1003: error count exceeds 100; stopping compilation [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+  d3des.cpp
+  DrawPointList.cpp
+  DSoundInstance.cpp
+  DSoundManager.cpp
+  EffDelay.cpp
+  EffectObj.cpp
+  Event.cpp
+  FindPath.cpp
+  FrndInviteFormMgr.cpp
+  GameAppFrameMove.cpp
+  GameAppInit.cpp
+  GameAppInterface.cpp
+C:\TalesOfPirateDX9\sources\Client\src\EffectObj.cpp(1355,3): error C4235: nonstandard extension used: '__asm' keyword not supported on this architecture [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+  GameAppMsg.cpp
+  GameAppNet.cpp
+C:\TalesOfPirateDX9\sources\Client\src\EffectObj.cpp(1355,13): error C2059: syntax error: 'constant' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+  GameAppRender.cpp
+  GameConfig.cpp
+  GameLoading.cpp
+  GameMovie.cpp
+  -------------Primitive Culling Opened-------------
+  GameWG.cpp
+  GlobalVar.cpp
+  GuildData.cpp
+C:\TalesOfPirateDX9\sources\Client\src\GameAppMsg.cpp(1446,3): error C4235: nonstandard extension used: '__asm' keyword not supported on this architecture [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\GameAppMsg.cpp(1446,12): error C2059: syntax error: 'constant' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+  GuildListData.cpp
+  GuildListMgr.cpp
+  GuildMemberData.cpp
+  GuildMembersMgr.cpp
+  HairTool.cpp
+  HMAttack.cpp
+  HMManage.cpp
+  HMSynchroObj.cpp
+  IsSkillUse.cpp
+  ItemLit.cpp
+  ItemLitAnim.cpp
+  Language.cpp
+  LitLoad.cpp
+  LoginScene.cpp
+  LootFilter.cpp
+  lua_platform.cpp
+  Main.cpp
+  MouseDown.cpp
+  MPEditor.cpp
+  MusicThread.cpp
+  NetChat.cpp
+  NetGuild.cpp
+C:\TalesOfPirateDX9\sources\Client\src\lua_platform.cpp(191,16): error C2664: 'HWND CreateDialogParamA(HINSTANCE,LPCSTR,HWND,DLGPROC,LPARAM)': cannot convert argument 4 from 'BOOL (__cdecl *)(HWND,UINT,WPARAM,LPARAM)' to 'DLGPROC' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+  NetIF.cpp
+C:\TalesOfPirateDX9\sources\Client\src\lua_platform.cpp(191,16): message : None of the functions with this name in scope match the target type [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\winuser.h(4993,1): message : see declaration of 'CreateDialogParamA' (compiling source file ..\src\lua_platform.cpp) [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\lua_platform.cpp(191,16): message : while trying to match the argument list '(HINSTANCE, LPSTR, HWND, overloaded-function, long)' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+  NetPkChat.cpp
+  NetPkGuild.cpp
+  NetProtocol.cpp
+  NPCHelper.cpp
+  PacketCmd_CS.cpp
+  PacketCmd_SC.cpp
+C:\TalesOfPirateDX9\sources\Client\src\Main.cpp(945,66): error C2065: 'GWL_WNDPROC': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Main.cpp(1013,30): error C2065: 'GWL_WNDPROC': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+  PackFile.cpp
+  ProCirculateCC.cpp
+  ProCirculateCS.cpp
+  RecruitMemberData.cpp
+  RecruitMembersMgr.cpp
+  RenderStateMgr.cpp
+  Scene.cpp
+  SceneArea.cpp
+  SceneCreateNode.cpp
+  SceneFrameMove.cpp
+  SceneItem.cpp
+  SceneLight.cpp
+  SceneMsg.cpp
+  SceneNode.cpp
+  SceneObj.cpp
+  SceneObjFile.cpp
+  SceneRender.cpp
+  SceneScript.cpp
+C:\TalesOfPirateDX9\sources\Client\src\Scene.cpp(2022,13): error C4235: nonstandard extension used: '__asm' keyword not supported on this architecture [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+C:\TalesOfPirateDX9\sources\Client\src\Scene.cpp(2022,23): error C2059: syntax error: 'constant' [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+  SceneSign.cpp
+  Script.cpp
+  SelectChaScene.cpp
+  ShipFactory.cpp
+  SMallMap.cpp
+  SoundCommon.cpp
+  state_reading.cpp
+  STAttack.cpp
+  SteadyFrame.cpp
+  STMove.cpp
+  STNpcTalk.cpp
+  STPose.cpp
+  STReadyDie.cpp
+  STSeat.cpp
+  STStateObj.cpp
+  TalkSessionFormMgr.cpp
+  TeamInviteFormMgr.cpp
+  TestDemo.cpp
+  ThreadBase.cpp
+  Tools.cpp
+  UI3DCompent.cpp
+  UIBankForm.cpp
+  UIBoatForm.cpp
+  UIBoothForm.cpp
+  UIBourseForm.cpp
+  UIBoxForm.cpp
+  UIBreakForm.cpp
+  UIChat.cpp
+  UICheckBox.cpp
+  UICheckBoxItem.cpp
+  UIChurchChallenge.cpp
+  UICloneForm.cpp
+  UICombo.cpp
+  UICommand.cpp
+  UICommandCompent.cpp
+  UICompent.cpp
+  UIComposeForm.cpp
+  UICookingForm.cpp
+  UICozeForm.cpp
+  UICursor.cpp
+  UIDoublePwdForm.cpp
+  UIDragTitle.cpp
+C:\TalesOfPirateDX9\sources\Client\src\UICursor.cpp(25,46): error C2065: 'GCL_HCURSOR': undeclared identifier [C:\TalesOfPirateDX9\sources\Client\proj\kop.vcxproj]
+  UIEdit.cpp
+  UIEditData.cpp
+  UIEditKey.cpp
+  UIEditor.cpp
+  UIEditStrategy.cpp
+  UIEquipForm.cpp
+  UIFastCommand.cpp
+  UIFindTeamForm.cpp
+  UIFont.cpp
+  UIForgeForm.cpp
+  UIForm.cpp
+  UIFormMgr.cpp
+  UIFoundForm.cpp
+  UIGlobalVar.cpp
+  UIGoodsGrid.cpp
+  UIGraph.cpp
+  UIGrid.cpp
+  UIGuiData.cpp
+  UIGuildApply.cpp
+  UIGuildBankForm.cpp
+  UIGuildChallengeForm.cpp
+  UIGuildList.cpp
+  UIGuildMgr.cpp
+  UIHaircutForm.cpp
+  UIHeadSay.cpp
+  UIHelpInfoForm.cpp
+  UIImage.cpp
+  UIImeInput.cpp
+  UIItem.cpp
+  UIItemCommand.cpp
+  UILabel.cpp
+  UIList.cpp
+  UIListView.cpp
+  UIMailForm.cpp
+  UIMakeEquipForm.cpp
+  UIMemo.cpp
+  UIMenu.cpp
+  UIMinimapForm.cpp
+  UIMisLogForm.cpp
+  UIMissionForm.cpp
+  UINpcTalkForm.cpp
+  UINpcTradeForm.cpp
+  UINumAnswer.cpp
+  UIPage.cpp
+  UIPicList.cpp
+  UIPicture.cpp
+  UIPKDialog.cpp
+  UIPKSilverForm.cpp
+  UIProgressBar.cpp
+  UIPurifyForm.cpp
+  UIRender.cpp
+  UIRichEdit.cpp
+  UIScript.cpp
+  UIScroll.cpp
+  UISkillCommand.cpp
+  UISkillList.cpp
+  UISpiritForm.cpp
+  UIStartForm.cpp
+  UIStateForm.cpp
+  UIStoreForm.cpp
+  UISystemForm.cpp
+  UITeam.cpp
+  UITextButton.cpp
+  UITextParse.cpp
+  UITitle.cpp
+  UITradeForm.cpp
+  UITreeView.cpp
+  WorldScene.cpp

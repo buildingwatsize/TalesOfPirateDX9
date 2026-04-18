@@ -46,7 +46,7 @@ CForm* CCloneForm::Clone()
 
 	if( _nCount>30 )
 	{
-		LG( "error", g_oLangRec.GetString(490), rv->GetName(), _nCount );
+		LG( "error", RES_STRING(CL_LANGUAGE_MATCH_490), rv->GetName(), _nCount );
 	}
 	return rv;
 }
@@ -62,7 +62,7 @@ bool CCloneForm::Release( CForm* p )
 
 			if( i!=_nCount )
 			{
-				// ²»ÊÇ×îºóÒ»¸ö£¬Òª½»»»Á½¸ö±íµ¥
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				CForm* tmp = _vfrm[i];
 				_vfrm[i] = _vfrm[_nCount];
 				_vfrm[_nCount] = tmp;
@@ -97,7 +97,7 @@ CForm* CHideForm::GetHide()
 
 	if( _vfrm.size()>30 )
 	{
-		LG( "error", g_oLangRec.GetString(491), frm->GetName(), _vfrm.size() );
+		LG( "error", RES_STRING(CL_LANGUAGE_MATCH_491), frm->GetName(), _vfrm.size() );
 	}
 
 	return frm;

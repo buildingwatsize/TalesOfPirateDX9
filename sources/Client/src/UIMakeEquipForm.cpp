@@ -32,7 +32,7 @@ namespace GUI
 		frmMakeEquip = mgr.Find("frmMakeEquip");
 		if ( !frmMakeEquip)
 		{
-			LG("gui", g_oLangRec.GetString(685));
+			LG("gui", RES_STRING(CMISS_000685));
 			return false;
 		}
 		frmMakeEquip->evtEntrustMouseEvent = _MainMouseEvent;
@@ -41,7 +41,7 @@ namespace GUI
 		cmdRouleau = dynamic_cast<COneCommand*>(frmMakeEquip->Find("cmdRouLeau"));
 		if (!cmdRouleau)
 		{
-			return Error(g_oLangRec.GetString(561),
+			return Error(RES_STRING(CMISS_000561),
 						 frmMakeEquip->GetName(), 
 						 "cmdRouleau");
 		}
@@ -50,7 +50,7 @@ namespace GUI
 		cmdLastEquip = dynamic_cast<COneCommand*>(frmMakeEquip->Find("cmdLastEquip"));
 		if (!cmdLastEquip)
 		{
-			return Error(g_oLangRec.GetString(561),
+			return Error(RES_STRING(CMISS_000561),
 						 frmMakeEquip->GetName(), 
 						 "cmdForgeItem");
 		}
@@ -61,7 +61,7 @@ namespace GUI
 			sprintf(szBuf, "cmdItem%d", i);
 			cmdItem[i] = dynamic_cast<COneCommand*>(frmMakeEquip->Find(szBuf));
 			if (!cmdItem[i]) 
-				return Error(g_oLangRec.GetString(561),
+				return Error(RES_STRING(CMISS_000561),
 							 frmMakeEquip->GetName(), 
 							 szBuf);
 		}
@@ -73,7 +73,7 @@ namespace GUI
 		labForgeGold = dynamic_cast<CLabel*>(frmMakeEquip->Find("labForgeGold"));
 		if (!labForgeGold)
 		{
-			return Error(g_oLangRec.GetString(561),
+			return Error(RES_STRING(CMISS_000561),
 						 frmMakeEquip->GetName(), 
 						 "labForgeGold");
 		}
@@ -81,11 +81,11 @@ namespace GUI
 
 		memForgeItemState = dynamic_cast<CMemo*> (frmMakeEquip->Find("memForgeItemState")) ;
 		if( !memForgeItemState ) 
-			return Error(g_oLangRec.GetString(561), frmMakeEquip->GetName(), "memForgeItemState");	
+			return Error(RES_STRING(CMISS_000561), frmMakeEquip->GetName(), "memForgeItemState");	
 
 		btnYes = dynamic_cast<CTextButton*>(frmMakeEquip->Find("btnForgeYes"));
 		if( !btnYes ) 
-			return Error(g_oLangRec.GetString(561), frmMakeEquip->GetName(), "btnForgeYes");
+			return Error(RES_STRING(CMISS_000561), frmMakeEquip->GetName(), "btnForgeYes");
 
 		return true;
 	}
@@ -114,7 +114,7 @@ namespace GUI
 			frmMakeEquip->Refresh();
 			frmMakeEquip->Show();
 
-			//Í¬Ê±´ò¿ªÍæ¼ÒµÄ×°±¸À¸
+			//Í¬Ê±ï¿½ï¿½ï¿½ï¿½Òµï¿½×°ï¿½ï¿½ï¿½ï¿½
 			int x = frmMakeEquip->GetX() + frmMakeEquip->GetWidth();
 			int y = frmMakeEquip->GetY();
 			g_stUIEquip.GetItemForm()->SetPos(x, y);
@@ -138,7 +138,7 @@ namespace GUI
 	void CMakeEquipMgr::ShowConfirmDialog(long lMoney)
 	{
 		char szBuf[255] = { 0 };
-		sprintf( szBuf, g_oLangRec.GetString(568), lMoney );
+		sprintf( szBuf, RES_STRING(CMISS_000568), lMoney );
 		GUI::stSelectBox * pBox = g_stUIBox.ShowSelectBox( _evtConfirmEvent, szBuf, true );
 		pBox->frmDialog->evtEscClose = _evtConfirmCancelEvent;
 	}
@@ -201,7 +201,7 @@ namespace GUI
 			break;
 		case EQUIP_FUSION_TYPE:
 			if (iIndex == 0)
-			{	// ÒÆÈ¥Íâ¹Û£¬Í¬Ê±ÒÆÈ¥×°±¸
+			{	// ï¿½ï¿½È¥ï¿½ï¿½Û£ï¿½Í¬Ê±ï¿½ï¿½È¥×°ï¿½ï¿½
 				PopItem(iIndex);
 
 				CItemCommand* pEquipItemCommand = 
@@ -212,11 +212,11 @@ namespace GUI
 				}
 			}
 			else if (iIndex == 1)
-			{	// ÒÆÈ¥×°±¸
+			{	// ï¿½ï¿½È¥×°ï¿½ï¿½
 				PopItem(iIndex);
 			}
 			else if (iIndex == 2)
-			{	// ÒÆÈ¥´ß»¯¼Á
+			{	// ï¿½ï¿½È¥ï¿½ß»ï¿½ï¿½ï¿½
 				PopItem(iIndex);
 			}
 			break;
@@ -272,7 +272,7 @@ namespace GUI
 			return;
 
 		int iNum(0), iPos(-1);
-		// ¸üÐÂÏàÓ¦µÄCOneCommandµÄÊý¾Ý
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½COneCommandï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (pOldItemCommand->GetIsPile())
 		{
 		}
@@ -282,7 +282,7 @@ namespace GUI
 		}
 
 		//int iPos = g_stUIEquip.GetGoodsGrid()->GetDragIndex();
-		//// ¸üÐÂÏàÓ¦µÄEquipList
+		//// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½EquipList
 		//EquipInfo* pEquipInfo = new EquipInfo();
 		//pEquipInfo->iPos = iPos;
 		//pEquipInfo->iNum = iNum;
@@ -294,9 +294,9 @@ namespace GUI
 	//-----------------------------------------------------------------------------
 	void CMakeEquipMgr::PopEquipItem(int iIndex)
 	{
-		// Çå³ýÏàÓ¦COneCommandµÄÊý¾Ý
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦COneCommandï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-		// Çå³ýÏàÓ¦µÄEquipList
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½EquipList
 		ClearEquipList(iIndex);
 	}
 	//-----------------------------------------------------------------------------
@@ -310,7 +310,7 @@ namespace GUI
 			}
 			else 
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(686));
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_686));
 				return;
 			}
 		}
@@ -320,12 +320,12 @@ namespace GUI
 				dynamic_cast<CItemCommand*>(cmdItem[0]->GetCommand());
 			if (!pItemCommand)
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(687));
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_687));
 				return;
 			}
 
 			// modify by Philip.Wu  2006-06-11
-			// ÈÛºÏÊ±£¬Íâ¹Û×°±¸ÀàÐÍÎª 27£¬²¢ÇÒÊôÐÔ×°±¸ÀàÐÍÎª 22 Ê±£¬²»×÷Æ¥ÅäÅÐ¶Ï
+			// ï¿½Ûºï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª 27ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª 22 Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½Ð¶ï¿½
 			if ((pItemCommand->GetItemInfo()->sType == 27 && rItem.GetItemInfo()->sType == 22) ||
 				(IsSameAppearEquip(rItem, *pItemCommand)))
 			{
@@ -333,7 +333,7 @@ namespace GUI
 			}
 			else
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(688));
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_688));
 				return;
 			}
 		}
@@ -345,7 +345,7 @@ namespace GUI
 			}
 			else
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(689));
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_689));
 				return;
 			}
 		}
@@ -366,7 +366,7 @@ namespace GUI
 			}
 			else
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(690));
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_690));
 				return;
 			}
 		}
@@ -378,7 +378,7 @@ namespace GUI
 			}
 			else
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(691));
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_691));
 				return;
 			}
 		}
@@ -391,7 +391,7 @@ namespace GUI
 	//-----------------------------------------------------------------------------
 	void CMakeEquipMgr::PushRouleau(CItemCommand& rItem)
 	{
-		// ²é¿´ÊÇ·ñÒÑ¾­ÓÐ¾íÖáÁË£¬Èç¹ûÓÐÔòÒÆ³ö¸Ã¾íÖá
+		// ï¿½é¿´ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½Ð¾ï¿½ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ³ï¿½ï¿½Ã¾ï¿½ï¿½ï¿½
 		CItemCommand* pItemCommand =  
 			dynamic_cast<CItemCommand*>(cmdRouleau->GetCommand());
 		if (pItemCommand)
@@ -406,23 +406,23 @@ namespace GUI
 			}
 		}
 
-		// ¼ÇÂ¼¾íÖáÔÚÎïÆ·À¸ÖÐµÄÎ»ÖÃ
+		// ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½Ðµï¿½Î»ï¿½ï¿½
 		m_iRouleauPos = g_stUIEquip.GetGoodsGrid()->GetDragIndex();
 
-		// ½«¾íÖáÏàÓ¦µÄÎïÆ·À¸»Òµ÷
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½Òµï¿½
 		rItem.SetIsValid(false);
-		// ½«´´½¨µÄCommand·ÅÈë
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Commandï¿½ï¿½ï¿½ï¿½
 		CItemCommand* pItemCmd = new CItemCommand(rItem);
 		cmdRouleau->AddCommand(pItemCmd);
 		pItemCmd->SetIsValid(true);
 		
-		// ¸üÐÂÏàÓ¦Åä·½µÄCOneCommandµÄÊý¾Ý,ÕâÀï·Ö³ÉÁ½¸öÁ÷³Ì£¬µÀ¾ß¾«Á¶ºÍ±¦Ê¯ºÏ³É
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ä·½ï¿½ï¿½COneCommandï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Ö³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì£ï¿½ï¿½ï¿½ï¿½ß¾ï¿½ï¿½ï¿½ï¿½Í±ï¿½Ê¯ï¿½Ï³ï¿½
 		if (rItem.GetItemInfo()->sType == GEM_ROULEAU_TYPE)
-		{	//±¦Ê¯ºÏ³É
+		{	//ï¿½ï¿½Ê¯ï¿½Ï³ï¿½
 			PushNewGems();
 		}
 		else
-		{	//µÀ¾ß¾«Á¶
+		{	//ï¿½ï¿½ï¿½ß¾ï¿½ï¿½ï¿½
 			PushNewEquips(*(rItem.GetItemInfo()));
 		}
 
@@ -439,7 +439,7 @@ namespace GUI
 	//-----------------------------------------------------------------------------
 	void CMakeEquipMgr::PopRouleau()
 	{
-		// Çå³ýÏàÓ¦COneCommandµÄÊý¾Ý
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦COneCommandï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (m_iRouleauPos == -1)
 			return;
 		
@@ -447,14 +447,14 @@ namespace GUI
 		if (pCmdObj)
 			pCmdObj->SetIsValid(true);
 
-		// É¾³ýÆäÖÐµÄCommand (DelCommand()ÖÐµ÷ÓÃdeleteÉ¾³ý)
+		// É¾ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½Command (DelCommand()ï¿½Ðµï¿½ï¿½ï¿½deleteÉ¾ï¿½ï¿½)
 		cmdRouleau->DelCommand();
 
-		// Çå³ýÈý¸öÅä·½COneCommandÏàÓ¦µÄÊý¾Ý
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä·½COneCommandï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		for (int i(0); i<ITEM_NUM; ++i)
 			PopItem(i);
 
-		// Çå³ý×îºóºÏ³ÉµÄÎïÆ·
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï³Éµï¿½ï¿½ï¿½Æ·
 		PopLastEquip();
 
 		this->SetMakeEquipUI();
@@ -486,7 +486,7 @@ namespace GUI
 		for (; iter != end; ++iter)
 		{
 			//delete (*iter);
-			SAFE_DELETE(*iter); // UIµ±»ú´¦Àí
+			SAFE_DELETE(*iter); // UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 		equipItems[iIndex].clear();
 
@@ -495,19 +495,19 @@ namespace GUI
 	//-----------------------------------------------------------------------------
 	void CMakeEquipMgr::Clear()
 	{
-		// Çå³ýUI±íµ¥Êý¾Ý
+		// ï¿½ï¿½ï¿½UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		labForgeGold->SetCaption("");
 		btnYes->SetIsEnabled(false);
 
 
-		// Çå³ý¾íÖá£¨Í¬Ê±»áÇå³ýÆäËûItem£©
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á£¨Í¬Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Itemï¿½ï¿½
 		PopRouleau();
 	}
 
 	//-----------------------------------------------------------------------------
 	void CMakeEquipMgr::ClearEquips()
 	{
-		// Çå³ý¾«Á¶¶ÔÓ¦µÄ×°±¸À¸ÎïÆ·
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 		EquipListIter iter, end;
 		for (int i(0); i<ITEM_NUM; ++i)
 		{
@@ -529,18 +529,18 @@ namespace GUI
 		if (!pItemRecord)
 			return false;
 
-		//  ²»ÊÇ±¦Ê¯ºÍ¾«Á¶Ê¯Ö±½Ó·µ»Øfalse
+		//  ï¿½ï¿½ï¿½Ç±ï¿½Ê¯ï¿½Í¾ï¿½ï¿½ï¿½Ê¯Ö±ï¿½Ó·ï¿½ï¿½ï¿½false
 		if (pItemRecord->sType != GEN_STONE_TYPE && pItemRecord->sType != FORGE_STONE_TYPE)
 		{
-			g_pGameApp->MsgBox(g_oLangRec.GetString(692));
+			g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_571));
 			return false;
 		}
 
-		// ¼ì²âÁíÒ»¸öÎ»ÖÃÊÇ·ñÓÐ±¦Ê¯
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ð±ï¿½Ê¯
 		int iOtherIndex = iIndex == 0 ? 1 : 0;
 		CItemCommand* pOtherItem = dynamic_cast<CItemCommand* >(cmdItem[iOtherIndex]->GetCommand());
 		if (pOtherItem)
-		{	//ÁíÒ»¸öÎ»ÖÃÓÐ±¦Ê¯£¬Ôò½öµ±IDºÅÏàÍ¬²Å·µ»Øtrue
+		{	//ï¿½ï¿½Ò»ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ð±ï¿½Ê¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½ï¿½ï¿½Í¬ï¿½Å·ï¿½ï¿½ï¿½true
 			CItemRecord* pOtherItemRecord = pOtherItem->GetItemInfo();
 			if (pItemRecord->lID == pOtherItemRecord->lID)
 			{
@@ -548,11 +548,11 @@ namespace GUI
 			}
 			else
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(693));
+				g_pGameApp->MsgBox(RES_STRING(CMISS_000693));
 				return false;
 			}
 		}
-		else //ÁíÒ»¸öÎ»ÖÃÃ»ÓÐ±¦Ê¯£¬Ö±½Ó·µ»Øtrue
+		else //ï¿½ï¿½Ò»ï¿½ï¿½Î»ï¿½ï¿½Ã»ï¿½Ð±ï¿½Ê¯ï¿½ï¿½Ö±ï¿½Ó·ï¿½ï¿½ï¿½true
 		{
 			return true;
 		}
@@ -562,7 +562,7 @@ namespace GUI
 	//-----------------------------------------------------------------------------
 	void CMakeEquipMgr::PushItem(int iIndex, CItemCommand& rItem, int iItemNum)
 	{
-		// ²é¿´Ô­À´µÄCmdÖÐÊÇ·ñÒÑ¾­ÓÐItemÁË£¬Èç¹ûÓÐÔòÒÆ³ö
+		// ï¿½é¿´Ô­ï¿½ï¿½ï¿½ï¿½Cmdï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½Itemï¿½Ë£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ³ï¿½
 		CItemCommand* pItemCommand =  
 			dynamic_cast<CItemCommand*>(cmdItem[iIndex]->GetCommand());
 		if (pItemCommand)
@@ -572,17 +572,17 @@ namespace GUI
 
 		if (iItemNum == 1)
 		{
-			// ¼ÇÂ¼ItemÔÚÎïÆ·À¸ÖÐµÄÎ»ÖÃ
+			// ï¿½ï¿½Â¼Itemï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½Ðµï¿½Î»ï¿½ï¿½
 			EquipInfo* pEquipInfo = new EquipInfo();
 			pEquipInfo->iPos = g_stUIEquip.GetGoodsGrid()->GetDragIndex();
 			pEquipInfo->iNum = iItemNum;
 			equipItems[iIndex].resize(1);
 			equipItems[iIndex][0] = pEquipInfo;
 
-			// ½«ItemÏàÓ¦µÄÎïÆ·À¸»Òµ÷
+			// ï¿½ï¿½Itemï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½Òµï¿½
 			rItem.SetIsValid(false);
 
-			// ½«´´½¨µÄItem·ÅÈëCmdÖÐ£¬ÕâÀïÓÃnew½«»áÔÚPopItem()ÖÐÉ¾³ý
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Itemï¿½ï¿½ï¿½ï¿½Cmdï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½newï¿½ï¿½ï¿½ï¿½ï¿½ï¿½PopItem()ï¿½ï¿½É¾ï¿½ï¿½
 			CItemCommand* pItemCmd = new CItemCommand(rItem);
 			pItemCmd->SetIsValid(true);
 			cmdItem[iIndex]->AddCommand(pItemCmd);
@@ -598,13 +598,13 @@ namespace GUI
 	//-----------------------------------------------------------------------------
 	void CMakeEquipMgr::PopItem(int iIndex)
 	{
-		// É¾³ýCmdÖÐµÄItem£¬¸ÃItem»áÔÚPushItem()ÖÐÓÉnewÉú³É
+		// É¾ï¿½ï¿½Cmdï¿½Ðµï¿½Itemï¿½ï¿½ï¿½ï¿½Itemï¿½ï¿½ï¿½ï¿½PushItem()ï¿½ï¿½ï¿½ï¿½newï¿½ï¿½ï¿½ï¿½
 		CItemCommand* pItemCommand =  
 			dynamic_cast<CItemCommand*>(cmdItem[iIndex]->GetCommand());
 		if (pItemCommand)
-			cmdItem[iIndex]->DelCommand();	// ¸Ãº¯Êý½«É¾³ýdelete Item
+			cmdItem[iIndex]->DelCommand();	// ï¿½Ãºï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½delete Item
 
-		// ½«ItemÏàÓ¦µÄÎïÆ·À¸»Òµ÷
+		// ï¿½ï¿½Itemï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½Òµï¿½
 		CCommandObj* pItem(0);
 		EquipListIter iter = equipItems[iIndex].begin();
 		EquipListIter end  = equipItems[iIndex].end();
@@ -633,7 +633,7 @@ namespace GUI
 		{
 			if (this->CanPushStone(iIndex, rItem))
 			{
-				// ²é¿´Ô­À´µÄCmdÖÐÊÇ·ñÒÑ¾­ÓÐItemÁË£¬Èç¹ûÓÐÔòÒÆ³ö
+				// ï¿½é¿´Ô­ï¿½ï¿½ï¿½ï¿½Cmdï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½Itemï¿½Ë£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ³ï¿½
 				CItemCommand* pItemCommand =  
 					dynamic_cast<CItemCommand*>(cmdItem[iIndex]->GetCommand());
 				if (pItemCommand)
@@ -641,16 +641,16 @@ namespace GUI
 					PopItem(iIndex);
 				}
 
-				// ¼ÇÂ¼ItemÔÚÎïÆ·À¸ÖÐµÄÎ»ÖÃ
+				// ï¿½ï¿½Â¼Itemï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½Ðµï¿½Î»ï¿½ï¿½
 				EquipInfo* pEquipInfo = new EquipInfo();
 				pEquipInfo->iPos = g_stUIEquip.GetGoodsGrid()->GetDragIndex();
 				pEquipInfo->iNum = 1;
 				equipItems[iIndex].push_back(pEquipInfo);
 
-				// ½«ItemÏàÓ¦µÄÎïÆ·À¸»Òµ÷
+				// ï¿½ï¿½Itemï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½Òµï¿½
 				rItem.SetIsValid(false);
 
-				// ½«´´½¨µÄItem·ÅÈëCmdÖÐ£¬ÕâÀïÓÃnew½«»áÔÚPopItem()ÖÐÉ¾³ý
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Itemï¿½ï¿½ï¿½ï¿½Cmdï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½newï¿½ï¿½ï¿½ï¿½ï¿½ï¿½PopItem()ï¿½ï¿½É¾ï¿½ï¿½
 				CItemCommand* pItemCmd = new CItemCommand(rItem);
 				pItemCmd->SetIsValid(true);
 				cmdItem[iIndex]->AddCommand(pItemCmd);
@@ -725,7 +725,7 @@ namespace GUI
 		CItemRecord* pEquipRecord = rEquipItem.GetItemInfo();
 		CItemRecord* pAppearRecord = rAppearItem.GetItemInfo();
 
-		// comment by Philip.Wu  2006-08-15  ÔÊÐíÍâ¹Û×°±¸Ò²ÊÇÈÛºÏ¹ýµÄ×°±¸
+		// comment by Philip.Wu  2006-08-15  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ÛºÏ¹ï¿½ï¿½ï¿½×°ï¿½ï¿½
 		//if (IsAppearanceEquip(rEquipItem))
 		//{
 		//	return false;
@@ -764,7 +764,7 @@ namespace GUI
 
 		if (pItemRecord) {
 			short sType = pItemRecord->sType;
-			//	Close by alfred.shi 20080912 Ã±×ÓÒ²¿ÉÒÔ´òÄ¥
+			//	Close by alfred.shi 20080912 Ã±ï¿½ï¿½Ò²ï¿½ï¿½ï¿½Ô´ï¿½Ä¥
 			
 			switch(sType){
 				case enumItemTypeSword		:
@@ -793,13 +793,13 @@ namespace GUI
 		return false;
 	}
 	//-----------------------------------------------------------------------------
-	// »Øµ÷º¯Êý
+	// ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
 	//-----------------------------------------------------------------------------
 	void CMakeEquipMgr::_MainMouseEvent(CCompent *pSender, int nMsgType, int x, int y, DWORD dwKey)
 	{
 		string name = pSender->GetName();
 		if( name=="btnClose"  || name == "btnForgeNo" )  
-		{ ///¹Ø±Õ±íµ¥
+		{ ///ï¿½Ø±Õ±ï¿½ï¿½ï¿½
 
 			g_stUIMakeEquip.ShowMakeEquipForm(false);
 			return;
@@ -811,7 +811,7 @@ namespace GUI
 				if (!g_stUIMakeEquip.cmdItem[2]->GetCommand())
 				{
 					g_stUIBox.ShowSelectBox( _evtFusionNoCatalyzerConfirmEvent, 
-						g_oLangRec.GetString(694), 
+						RES_STRING(CL_LANGUAGE_MATCH_694), 
 						true );
 				}
 				else
@@ -851,7 +851,7 @@ namespace GUI
 			}
 			else
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(695));
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_695));
 			}
 			break;
 		case EQUIP_FUSION_TYPE:
@@ -862,7 +862,7 @@ namespace GUI
 			}
 			else
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(696));
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_696));
 			}
 			break;
 		case EQUIP_UPGRADE_TYPE:
@@ -873,10 +873,10 @@ namespace GUI
 			}
 			else
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(697));
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_697));
 			}
 			break;
-		case ELF_SHIFT_TYPE:	// ¾«Áé¶þ×ª
+		case ELF_SHIFT_TYPE:	// ï¿½ï¿½ï¿½ï¿½ï¿½×ª
 			if (g_stUIMakeEquip.IsElfShiftStone(*pItemCommand))
 			{
 				g_stUIMakeEquip.PushRouleau(*pItemCommand);
@@ -884,7 +884,7 @@ namespace GUI
 			}
 			else
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(698));
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_698));
 			}
 		}
 
@@ -950,7 +950,7 @@ namespace GUI
 
 
 	//-----------------------------------------------------------------------------
-	// Ë½ÓÐº¯Êý
+	// Ë½ï¿½Ðºï¿½ï¿½ï¿½
 	//-----------------------------------------------------------------------------
 	void CMakeEquipMgr::DragEvtEquipItem(int index, CGuiData *pSender, CCommandObj* pItem, bool& isAccept)
 	{
@@ -974,37 +974,37 @@ namespace GUI
 
 		if (!cmdRouleau->GetCommand())
 		{
-			// by Philip.Wu  ÐÞ¸ÄÔ­ÏÈÅÐ¶¨Âß¼­£¬µ±¶¥¸ñ¹Ø¼üµÀ¾ßÊ¾Î´·ÅÈëÊ±£¬ÏÂÃæµÄµÀ¾ß²»ÔÊÐíÍÏÈë
+			// by Philip.Wu  ï¿½Þ¸ï¿½Ô­ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾Î´ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ß²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			switch(this->m_iType)
 			{
 			case MAKE_EQUIP_TYPE:
 			case EQUIP_FUSION_TYPE:
 			case EQUIP_UPGRADE_TYPE:
-				g_pGameApp->MsgBox(g_oLangRec.GetString(699));
+				g_pGameApp->MsgBox(RES_STRING(CMISS_000699));
 				break;
 
 			case ELF_SHIFT_TYPE:
-				g_pGameApp->MsgBox(g_oLangRec.GetString(700));
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_700));
 				break;
 
 			default:
-				g_pGameApp->MsgBox(g_oLangRec.GetString(701));
+				g_pGameApp->MsgBox(RES_STRING(CMISS_000701));
 				break;
 			}
 
 			return;
 
-			// ÒÔÏÂÊÇÔ­ÏÈµÄ´¦Àí£¬ÔÝÊ±±£Áô
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ÈµÄ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 			//if (IsEquipMakeRouleau(*pItemCommand) || 
 			//	IsEquipFusionRouleau(*pItemCommand) || 
 			//	IsEquipUpgradeRouleau(*pItemCommand))
 			//{
-			//	g_pGameApp->MsgBox("Çë½«¾íÖá·ÅÈë¶¥¸ñ");
+			//	g_pGameApp->MsgBox("ï¿½ë½«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë¶¥ï¿½ï¿½");
 			//	return;
 			//}
 			//else
 			//{
-			//	g_pGameApp->MsgBox("ÇëÏÈ·ÅÈë¾íÖá");
+			//	g_pGameApp->MsgBox("ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			//	return;
 			//}
 		}
@@ -1056,7 +1056,7 @@ namespace GUI
 	//-----------------------------------------------------------------------------
 	void CMakeEquipMgr::SetMakeEquipUI()
 	{
-		//memForgeItemState->SetCaption("ÕâÀïÐ´¾ßÌåµÄÄÚÈÝ");
+		//memForgeItemState->SetCaption("ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		//memForgeItemState->ProcessCaption();
 		switch(m_iType) 
 		{
@@ -1115,22 +1115,22 @@ namespace GUI
 	void CMakeEquipMgr::SendMakeEquipProtocol()
 	{
 		stNetItemForgeAsk kNetItemForgeAsk;
-		kNetItemForgeAsk.chType = char(m_iType);	// ºÏ³É
+		kNetItemForgeAsk.chType = char(m_iType);	// ï¿½Ï³ï¿½
 
 		if (m_iType == MAKE_EQUIP_TYPE)
 		{
 			if (IsMakeGem())
 			{
-				// ¾íÖá0
+				// ï¿½ï¿½ï¿½ï¿½0
 				kNetItemForgeAsk.SGroup[0].sCellNum = 1;
 				kNetItemForgeAsk.SGroup[0].pCell = new SForgeCell::SCell[1];
 				kNetItemForgeAsk.SGroup[0].pCell[0].sNum = 1;
 				kNetItemForgeAsk.SGroup[0].pCell[0].sPosID = m_iRouleauPos;
 
-				// ±¦Ê¯1¡«2
+				// ï¿½ï¿½Ê¯1ï¿½ï¿½2
 				for (int i(1); i<=STONE_ITEM_NUM; ++i)
 				{
-					kNetItemForgeAsk.SGroup[i].sCellNum = 1;		// ºÏ³ÉÊ¼ÖÕÊÇ1
+					kNetItemForgeAsk.SGroup[i].sCellNum = 1;		// ï¿½Ï³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½1
 					kNetItemForgeAsk.SGroup[i].pCell = new SForgeCell::SCell[1];
 					kNetItemForgeAsk.SGroup[i].pCell[0].sNum = equipItems[i-1][0]->iNum;
 					kNetItemForgeAsk.SGroup[i].pCell[0].sPosID = equipItems[i-1][0]->iPos;
@@ -1140,7 +1140,7 @@ namespace GUI
 			{
 				for (int i(0); i<ITEM_NUM; ++i)
 				{
-					kNetItemForgeAsk.SGroup[i].sCellNum = 1;		// ºÏ³ÉÊ¼ÖÕÊÇ1
+					kNetItemForgeAsk.SGroup[i].sCellNum = 1;		// ï¿½Ï³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½1
 					kNetItemForgeAsk.SGroup[i].pCell = new SForgeCell::SCell[1];
 					kNetItemForgeAsk.SGroup[i].pCell[1].sNum = 1;
 					//kNetItemForgeAsk.SGroup[i].pCell[1].sPosID = m_iForgeItemPos[i];
@@ -1149,8 +1149,8 @@ namespace GUI
 			}
 		}
 		else
-		{	// ÈÜºÏºÍÉý¼¶
-			// ¾íÖá0
+		{	// ï¿½ÜºÏºï¿½ï¿½ï¿½ï¿½ï¿½
+			// ï¿½ï¿½ï¿½ï¿½0
 			kNetItemForgeAsk.SGroup[0].sCellNum = 1;
 			kNetItemForgeAsk.SGroup[0].pCell = new SForgeCell::SCell[1];
 			kNetItemForgeAsk.SGroup[0].pCell[0].sNum = 1;
@@ -1179,7 +1179,7 @@ namespace GUI
 
 			for (int i(1); i<=iNum; ++i)
 			{
-				kNetItemForgeAsk.SGroup[i].sCellNum = 1;		// ºÏ³ÉÊ¼ÖÕÊÇ1
+				kNetItemForgeAsk.SGroup[i].sCellNum = 1;		// ï¿½Ï³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½1
 				kNetItemForgeAsk.SGroup[i].pCell = new SForgeCell::SCell[1];
 				kNetItemForgeAsk.SGroup[i].pCell[0].sNum = equipItems[i-1][0]->iNum;
 				kNetItemForgeAsk.SGroup[i].pCell[0].sPosID = equipItems[i-1][0]->iPos;
@@ -1209,13 +1209,13 @@ namespace GUI
 			return EQUIP_FUSION_MONEY * pItemCommand->GetItemInfo()->sNeedLv;
 			break;
 		case EQUIP_UPGRADE_TYPE:
-			// ×°±¸µÈ¼¶+1µÄÆ½·½*1W(²ß»®ÎÄµµ)
+			// ×°ï¿½ï¿½ï¿½È¼ï¿½+1ï¿½ï¿½Æ½ï¿½ï¿½*1W(ï¿½ß»ï¿½ï¿½Äµï¿½)
 			pItemCommand = dynamic_cast<CItemCommand*>(cmdItem[0]->GetCommand());	
 			iLevelPlusOne = pItemCommand->GetData().GetItemLevel() + 1;
 			return EQUIP_UPGRADE_MONEY * iLevelPlusOne * iLevelPlusOne;
 			break;
 		case ELF_SHIFT_TYPE:
-			// ¾«Áé¶þ×ª£¨²ß»®ÎÄµµ£©
+			// ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ß»ï¿½ï¿½Äµï¿½ï¿½ï¿½
 			pItemCommand = dynamic_cast<CItemCommand*>(cmdItem[0]->GetCommand());
 			nLevel1  = pItemCommand->GetData().GetItemLevel();
 			pItemCommand = dynamic_cast<CItemCommand*>(cmdItem[1]->GetCommand());
@@ -1227,7 +1227,7 @@ namespace GUI
 	}
 
 
-	// ÊÇ·ñÊÇ¾«Áé¶þ×ªËùÐèµÄ¶ñÄ§¹ûÊµ
+	// ï¿½Ç·ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½Ä¶ï¿½Ä§ï¿½ï¿½Êµ
 	bool CMakeEquipMgr::IsElfShiftStone(CItemCommand& rItem)
 	{
 		CItemRecord* pItem = rItem.GetItemInfo();
@@ -1241,7 +1241,7 @@ namespace GUI
 	}
 
 
-	// ÊÇ·ñÊÇ¾«Áé
+	// ï¿½Ç·ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½
 	bool CMakeEquipMgr::IsElfShiftItem(CItemCommand& rItem)
 	{
 		CItemRecord* pItemRecord = rItem.GetItemInfo();
@@ -1254,7 +1254,7 @@ namespace GUI
 	}
 
 
-	// ·ÅÈë¾«Áé
+	// ï¿½ï¿½ï¿½ë¾«ï¿½ï¿½
 	void CMakeEquipMgr::PushElfShiftItem(int iIndex, CItemCommand& rItem)
 	{
 		CItemCommand* pItemCommand = NULL;
@@ -1262,7 +1262,7 @@ namespace GUI
 		memset(&sItemHint, 0, sizeof(SItemHint));
 		sItemHint.Convert(rItem.GetData(), rItem.GetItemInfo());
 
-		// ¼ÆËã¾«ÁéµÈ¼¶
+		// ï¿½ï¿½ï¿½ã¾«ï¿½ï¿½È¼ï¿½
 		int nLevel = sItemHint.sInstAttr[ITEMATTR_VAL_STR] +
 					 sItemHint.sInstAttr[ITEMATTR_VAL_AGI] +
 					 sItemHint.sInstAttr[ITEMATTR_VAL_DEX] +
@@ -1271,7 +1271,7 @@ namespace GUI
 
 		if(20 > nLevel)
 		{
-			g_pGameApp->MsgBox(g_oLangRec.GetString(702));
+			g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_702));
 			return;
 		}
 
@@ -1279,7 +1279,7 @@ namespace GUI
 		{
 			pItemCommand = dynamic_cast<CItemCommand*>(cmdItem[1]->GetCommand());
 
-			// ÅÐ¶ÏÊÇ·ñÊÇ¾«Áé£¬²¢ÇÒ²»ÄÜÓëµÚ¶þ¸ñµÄ¾«ÁéIDÏàÍ¬
+			// ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½Ç¾ï¿½ï¿½é£¬ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½IDï¿½ï¿½Í¬
 			if (IsElfShiftItem(rItem) && 
 				(NULL == pItemCommand || (rItem.GetItemInfo()->lID != pItemCommand->GetItemInfo()->lID)))
 			{
@@ -1287,7 +1287,7 @@ namespace GUI
 			}
 			else 
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(703));
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_703));
 				return;
 			}
 		}
@@ -1295,7 +1295,7 @@ namespace GUI
 		{
 			pItemCommand = dynamic_cast<CItemCommand*>(cmdItem[0]->GetCommand());
 
-			// ÅÐ¶ÏÊÇ·ñÊÇ¾«Áé£¬²¢ÇÒ²»ÄÜÓëµÚÒ»¸ñµÄ¾«ÁéIDÏàÍ¬
+			// ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½Ç¾ï¿½ï¿½é£¬ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½IDï¿½ï¿½Í¬
 			if (IsElfShiftItem(rItem) && 
 				(NULL == pItemCommand || (rItem.GetItemInfo()->lID != pItemCommand->GetItemInfo()->lID)))
 			{
@@ -1303,7 +1303,7 @@ namespace GUI
 			}
 			else 
 			{
-				g_pGameApp->MsgBox(g_oLangRec.GetString(703));
+				g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_703));
 				return;
 			}
 		}

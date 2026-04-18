@@ -33,6 +33,122 @@ namespace ui
 #define  HLSIZE 0
 #define  ASSIZE 0
 
+static inline bool IsThaiZeroWidthChar(unsigned char c)
+{
+	return (c == 0xD1) ||
+	       (c >= 0xD4 && c <= 0xD9) ||
+	       (c >= 0xE7 && c <= 0xEE);
+}
+
+static inline bool IsThaiBaseChar(unsigned char c)
+{
+	return (c >= 0xA1) && !IsThaiZeroWidthChar(c);
+}
+
+static int BuildThaiCluster(const char* text, int pos, int totalLen, char* cluster)
+{
+	cluster[0] = text[pos];
+	int len = 1;
+	while (len < 4 && pos + len < totalLen &&
+	       IsThaiZeroWidthChar((unsigned char)text[pos + len]))
+	{
+		cluster[len] = text[pos + len];
+		len++;
+	}
+	cluster[len] = '\0';
+	return len;
+}
+
+static WORD ThaiClusterKey(const char* cluster, int len)
+{
+	if (len <= 1) return MAKEWORD(cluster[0], 0);
+	if (len == 2) return MAKEWORD(cluster[0], cluster[1]);
+	return MAKEWORD((unsigned char)cluster[0] ^ 0x80,
+	                (unsigned char)cluster[1] ^ (unsigned char)cluster[2]);
+}
+
+static bool GetTTFFamilyName(const char* ttfPath, char* familyName, int maxLen)
+{
+	FILE* f = fopen(ttfPath, "rb");
+	if (!f) return false;
+
+	unsigned char header[12];
+	if (fread(header, 1, 12, f) != 12) { fclose(f); return false; }
+
+	unsigned short numTables = (header[4] << 8) | header[5];
+
+	for (int i = 0; i < numTables; i++)
+	{
+		unsigned char entry[16];
+		if (fread(entry, 1, 16, f) != 16) { fclose(f); return false; }
+
+		if (entry[0]=='n' && entry[1]=='a' && entry[2]=='m' && entry[3]=='e')
+		{
+			unsigned int tblOff = (entry[8]<<24)|(entry[9]<<16)|(entry[10]<<8)|entry[11];
+
+			fseek(f, tblOff, SEEK_SET);
+			unsigned char nh[6];
+			if (fread(nh, 1, 6, f) != 6) { fclose(f); return false; }
+
+			unsigned short count = (nh[2]<<8)|nh[3];
+			unsigned short strOff = (nh[4]<<8)|nh[5];
+
+			for (int j = 0; j < count; j++)
+			{
+				unsigned char rec[12];
+				if (fread(rec, 1, 12, f) != 12) { fclose(f); return false; }
+
+				unsigned short pid = (rec[0]<<8)|rec[1];
+				unsigned short nid = (rec[6]<<8)|rec[7];
+				unsigned short nLen = (rec[8]<<8)|rec[9];
+				unsigned short nOff = (rec[10]<<8)|rec[11];
+
+				if (nid == 1 && pid == 1 && nLen < maxLen)
+				{
+					long saved = ftell(f);
+					fseek(f, tblOff + strOff + nOff, SEEK_SET);
+					if ((int)fread(familyName, 1, nLen, f) == nLen)
+					{
+						familyName[nLen] = '\0';
+						fclose(f);
+						return true;
+					}
+					fseek(f, saved, SEEK_SET);
+				}
+			}
+			break;
+		}
+	}
+	fclose(f);
+	return false;
+}
+
+static bool ParseXMLFontFilename(const char* xmlPath, char* ttfPath, int maxLen)
+{
+	const char* path = xmlPath;
+	if (path[0] == '.' && (path[1] == '/' || path[1] == '\\'))
+		path += 2;
+	FILE* f = fopen(path, "r");
+	if (!f) f = fopen(xmlPath, "r");
+	if (!f) return false;
+
+	char buf[512];
+	size_t nRead = fread(buf, 1, sizeof(buf)-1, f);
+	fclose(f);
+	buf[nRead] = '\0';
+
+	const char* attr = strstr(buf, "Filename=\"");
+	if (!attr) return false;
+	attr += 10;
+	const char* end = strchr(attr, '"');
+	if (!end || (int)(end - attr) >= maxLen) return false;
+
+	int len = (int)(end - attr);
+	memcpy(ttfPath, attr, len);
+	ttfPath[len] = '\0';
+	return true;
+}
+
 CMPFont::CMPFont() : _hDc(NULL), _hBmp(NULL), _hFont(NULL),_hBmpOld(NULL),_hFontOld(NULL),
 _Max(0), _RowNum(0), _pBits(NULL), 
 _TextSize(0), _TextureSize(0),
@@ -79,6 +195,35 @@ bool CMPFont::CreateFont( LPDIRECT3DDEVICE8 pd3dDevice, char szFontName[], int n
 	if( nLevel< 1 || nLevel>5 )
 		return false;	
 
+	char resolvedFontName[LF_FACESIZE] = {0};
+	if (strstr(szFontName, ".xml"))
+	{
+		char ttfPath[256];
+		if (ParseXMLFontFilename(szFontName, ttfPath, sizeof(ttfPath)))
+		{
+			for (char* p = ttfPath; *p; p++)
+				if (*p == '/') *p = '\\';
+			int nFontsAdded = AddFontResourceExA(ttfPath, FR_PRIVATE, 0);
+			char family[LF_FACESIZE];
+			if (GetTTFFamilyName(ttfPath, family, sizeof(family)))
+			{
+				lstrcpyA(resolvedFontName, family);
+				{FILE*_tf=fopen("log\\font_trace.log","a");if(_tf){fprintf(_tf,"[FONT] XML=%s TTF=%s added=%d family=%s\n",szFontName,ttfPath,nFontsAdded,family);fflush(_tf);fclose(_tf);}}
+			}
+			else
+			{
+				{FILE*_tf=fopen("log\\font_trace.log","a");if(_tf){fprintf(_tf,"[FONT] XML=%s TTF=%s added=%d FAILED GetTTFFamilyName\n",szFontName,ttfPath,nFontsAdded);fflush(_tf);fclose(_tf);}}
+			}
+		}
+		else
+		{
+			{FILE*_tf=fopen("log\\font_trace.log","a");if(_tf){fprintf(_tf,"[FONT] FAILED ParseXML for %s\n",szFontName);fflush(_tf);fclose(_tf);}}
+		}
+	}
+	if (resolvedFontName[0] == '\0')
+		lstrcpyA(resolvedFontName, szFontName);
+	{FILE*_tf=fopen("log\\font_trace.log","a");if(_tf){fprintf(_tf,"[FONT] CreateFont name=%s resolved=%s size=%d\n",szFontName,resolvedFontName,nSize);fflush(_tf);fclose(_tf);}}
+
 	_hDc = CreateCompatibleDC(NULL);
 	if(!_hDc)
 	{
@@ -87,17 +232,8 @@ bool CMPFont::CreateFont( LPDIRECT3DDEVICE8 pd3dDevice, char szFontName[], int n
 	}
 	::SetMapMode( _hDc, MM_TEXT );
 
-	_bWidthEqual = true;
-	SIZE size1, size2;
-	::GetTextExtentPoint(_hDc,"a",1,&size1);
-	::GetTextExtentPoint(_hDc,"i",1,&size2);
-	if( size1.cx != size2.cx )
-	{
-		_bWidthEqual = false;
-	}
-
 	SIZE size;
-	::GetTextExtentPoint(_hDc,"��",1,&size);
+	::GetTextExtentPoint(_hDc,"a",1,&size);
 
 	_TextSize	 = /*size.cy;//*/	nSize;//
 	_TextureSize = 32 << nLevel;		
@@ -128,7 +264,7 @@ bool CMPFont::CreateFont( LPDIRECT3DDEVICE8 pd3dDevice, char szFontName[], int n
 	LogFont.lfClipPrecision		= CLIP_DEFAULT_PRECIS; 
 	LogFont.lfQuality			= ANTIALIASED_QUALITY;
 	LogFont.lfPitchAndFamily	= VARIABLE_PITCH;
-	lstrcpy( LogFont.lfFaceName, szFontName );
+	lstrcpy( LogFont.lfFaceName, resolvedFontName );
 
 	_hFont = CreateFontIndirect( &LogFont );
 	if ( NULL == _hFont )
@@ -137,6 +273,14 @@ bool CMPFont::CreateFont( LPDIRECT3DDEVICE8 pd3dDevice, char szFontName[], int n
 		MessageBox(NULL,"CreateFontIndirect","ERROR",0);
 		return false;
 	}
+	HFONT hOldFont = (HFONT)SelectObject(_hDc, _hFont);
+	{
+		char actualFace[LF_FACESIZE] = {0};
+		GetTextFaceA(_hDc, LF_FACESIZE, actualFace);
+		FILE*_tf=fopen("log\\font_trace.log","a");
+		if(_tf){fprintf(_tf,"[FONT] Requested=%s Actual=%s height=%d\n",resolvedFontName,actualFace,_TextSize);fflush(_tf);fclose(_tf);}
+	}
+	SelectObject(_hDc, hOldFont);
 
 	BITMAPINFO bmi;
 	ZeroMemory(&bmi.bmiHeader, sizeof(BITMAPINFOHEADER));
@@ -159,6 +303,15 @@ bool CMPFont::CreateFont( LPDIRECT3DDEVICE8 pd3dDevice, char szFontName[], int n
 
 	_hBmpOld  = SelectObject( _hDc, _hBmp );
 	_hFontOld = (HFONT)SelectObject( _hDc, _hFont );
+
+	_bWidthEqual = true;
+	SIZE size1, size2;
+	::GetTextExtentPoint(_hDc,"a",1,&size1);
+	::GetTextExtentPoint(_hDc,"i",1,&size2);
+	if( size1.cx != size2.cx )
+	{
+		_bWidthEqual = false;
+	}
 
 	SetTextColor( _hDc, RGB(255,255,255) );
 	SetBkColor( _hDc, 0x00000000 );
@@ -325,8 +478,28 @@ SIZE* CMPFont::GetTextSize(char* szText, SIZE* pSize ,float fScale)
 
 		if ( *ch & 0x80 )
 		{
-			ch++;
-			offset = w * 2 + ASSIZE;
+			if ((unsigned char)*ch >= 0xA1)
+			{
+				if (IsThaiBaseChar((unsigned char)*ch))
+				{
+					SIZE sz;
+					::GetTextExtentPoint(_hDc, ch, 1, &sz);
+					offset = sz.cx + HLSIZE;
+					// Skip following combining marks
+					while (*(ch+1) && IsThaiZeroWidthChar((unsigned char)*(ch+1)))
+						ch++;
+				}
+				else
+				{
+					offset = 0;
+				}
+			}
+			else
+			{
+				// Chinese GBK DBCS: skip second byte
+				ch++;
+				offset = w * 2 + ASSIZE;
+			}
 		}
 		else
 		{
@@ -370,11 +543,11 @@ bool CMPFont::TextToTexture( char c1, char c2, float & tX, float & tY )
 
 		RECT rect = {0, 0, _TextSize, _TextSize/* + 1*/};
 		char sz[3] = {c1, c2, '\0'};
-
+		int nCharLen = (c2 != '\0') ? 2 : 1;
 
 		FillRect( _hDc, &rect, (HBRUSH)GetStockObject(BLACK_BRUSH) );
 
-		::TextOut( _hDc, 0, 0, sz, c1 & 0x80 ? 2 : 1 );
+		::TextOut( _hDc, 0, 0, sz, nCharLen );
 
 		D3DLOCKED_RECT d3dlr;
 
@@ -409,6 +582,57 @@ bool CMPFont::TextToTexture( char c1, char c2, float & tX, float & tY )
 	}
 	return true;
 }
+
+bool CMPFont::TextClusterToTexture(const char* cluster, int len, float & tX, float & tY)
+{
+	WORD w = ThaiClusterKey(cluster, len);
+
+	vector<WORD>::iterator it = std::find(_vecBuf.begin(), _vecBuf.end(), w);
+	if (it == _vecBuf.end())
+	{
+		it = find(_vecBuf.begin(), _vecBuf.end(), (WORD)0);
+		if (it == _vecBuf.end())
+		{
+			memset(&_vecBuf.front(), 0, sizeof(WORD)*_Max);
+			it = _vecBuf.begin();
+		}
+		int at = (int)(it - _vecBuf.begin());
+		tX = (float)(at % _RowNum) * _TextSize;
+		tY = (float)(at / _RowNum) * _TextSize;
+		(*it) = w;
+
+		RECT rect = {0, 0, _TextSize, _TextSize};
+		FillRect(_hDc, &rect, (HBRUSH)GetStockObject(BLACK_BRUSH));
+		::TextOut(_hDc, 0, 0, cluster, len);
+
+		D3DLOCKED_RECT d3dlr;
+		_pTex->GetTex()->LockRect(0, &d3dlr, NULL, 0);
+		BYTE* pDstRow = (BYTE*)((WORD*)d3dlr.pBits + (int)tY * _TextureSize + (int)tX);
+		for (WORD y = 0; y < _TextSize; y++)
+		{
+			WORD* pDst16 = (WORD*)pDstRow;
+			for (WORD x = 0; x < _TextSize; x++)
+			{
+				BYTE bAlpha = (BYTE)((_pBits[_TextSize * y + x] & 0xff) >> 4);
+				if (bAlpha > 0)
+					*pDst16 = (bAlpha << 12) | 0x0fff;
+				else
+					*pDst16 = 0x0000;
+				pDst16++;
+			}
+			pDstRow += d3dlr.Pitch;
+		}
+		_pTex->GetTex()->UnlockRect(NULL);
+	}
+	else
+	{
+		int at = (int)(it - _vecBuf.begin());
+		tX = (float)(at % _RowNum) * _TextSize;
+		tY = (float)(at / _RowNum) * _TextSize;
+	}
+	return true;
+}
+
 void CMPFont::DrawTextClipOnce(char* szText, int nLen, LPRECT psrc, LPRECT pclip,D3DXCOLOR color)
 {
 	int x,y;
@@ -450,9 +674,32 @@ void CMPFont::DrawTextClipOnce(char* szText, int nLen, LPRECT psrc, LPRECT pclip
 
 		if ( ch[0] & 0x80 )
 		{
-			n++;
-			ch[1] = szText[n];
-			offset = w + ASSIZE;
+			if ((unsigned char)ch[0] >= 0xA1)
+			{
+				if (IsThaiBaseChar((unsigned char)ch[0]))
+				{
+					char cluster[5];
+					int cLen = BuildThaiCluster(szText, n, nLen, cluster);
+					n += cLen - 1;
+					ch[0] = cluster[0];
+					ch[1] = (cLen >= 2) ? cluster[1] : '\0';
+					SIZE sz;
+					::GetTextExtentPoint(_hDc, &ch[0], 1, &sz);
+					offset = sz.cx + HLSIZE;
+				}
+				else
+				{
+					ch[1] = '\0';
+					offset = 0;
+				}
+			}
+			else
+			{
+				// Chinese GBK DBCS: consume 2 bytes
+				n++;
+				ch[1] = szText[n];
+				offset = w + ASSIZE;
+			}
 		}
 		else
 		{
@@ -638,14 +885,46 @@ bool CMPFont::DrawTextClip( char* szText, int nLen, LPRECT psrc, LPRECT pclip,D3
 
 		if ( ch[0] & 0x80 )
 		{
-			n++;
-			ch[1] = szText[n];
-			offset = w + ASSIZE;
+			if ((unsigned char)ch[0] >= 0xA1)
+			{
+				if (IsThaiBaseChar((unsigned char)ch[0]))
+				{
+					char cluster[5];
+					int cLen = BuildThaiCluster(szText, n, nLen, cluster);
+					n += cLen - 1;
+					ch[0] = cluster[0];
+					ch[1] = (cLen >= 2) ? cluster[1] : '\0';
+					SIZE sz;
+					::GetTextExtentPoint(_hDc, &ch[0], 1, &sz);
+					offset = sz.cx + HLSIZE;
+				}
+				else
+				{
+					ch[1] = '\0';
+					offset = 0;
+				}
+			}
+			else
+			{
+				// Chinese GBK DBCS: consume 2 bytes
+				n++;
+				ch[1] = szText[n];
+				offset = w + ASSIZE;
+			}
 		}
 		else
 		{
 			ch[1] = '\0';
-			offset = w/2 + HLSIZE ;
+			if( !_bWidthEqual )
+			{
+				SIZE size;
+				::GetTextExtentPoint(_hDc,&ch[0],1,&size);
+				offset = size.cx + HLSIZE ;
+			}
+			else
+			{
+				offset = w/2 + HLSIZE ;
+			}
 		}
 
 		float a, b;
@@ -804,11 +1083,8 @@ bool CMPFont::DrawText( char* szText, int x, int y, D3DXCOLOR color,  float fSca
 				goto __ret;
 		}
 		BeginClip();
-		_pCEffectFile->SetTechnique(_iRenderIdx);
-		_pCEffectFile->Begin(D3DXFX_DONOTSAVESTATE);
-		_pCEffectFile->Pass(0);
+		ApplyFontRenderStates();
 		DrawTextClipOnce(szText,nLen,&vsrc, &vdest,color);
-		_pCEffectFile->End();
 		EndClip();
 		return true;
 	}
@@ -860,9 +1136,32 @@ __ret:
 
 		if ( ch[0] & 0x80 )
 		{
-			n++;
-			ch[1] = szText[n];
-			offset = w + ASSIZE;
+			if ((unsigned char)ch[0] >= 0xA1)
+			{
+				if (IsThaiBaseChar((unsigned char)ch[0]))
+				{
+					char cluster[5];
+					int cLen = BuildThaiCluster(szText, n, nLen, cluster);
+					n += cLen - 1;
+					ch[0] = cluster[0];
+					ch[1] = (cLen >= 2) ? cluster[1] : '\0';
+					SIZE sz;
+					::GetTextExtentPoint(_hDc, &ch[0], 1, &sz);
+					offset = sz.cx + HLSIZE;
+				}
+				else
+				{
+					ch[1] = '\0';
+					offset = 0;
+				}
+			}
+			else
+			{
+				// Chinese GBK DBCS: consume 2 bytes
+				n++;
+				ch[1] = szText[n];
+				offset = w + ASSIZE;
+			}
 		}
 		else
 		{
@@ -948,9 +1247,7 @@ __ret:
 	rcFont->iHslNum = iHslNum/4;
 #endif
 
-	_pCEffectFile->SetTechnique(_iRenderIdx);
-	_pCEffectFile->Begin(D3DXFX_DONOTSAVESTATE);
-	_pCEffectFile->Pass(0);
+	ApplyFontRenderStates();
 
 	_pDev->SetVertexShader(NULL);
 	_pDev->SetFVF( D3DFVF_FONT );
@@ -964,7 +1261,6 @@ __ret:
 		_pDev->SetTexture( 0, _pTex->GetTex() );
 		_pDev->GetDevice()->DrawPrimitiveUP(D3DPT_TRIANGLELIST, iHslNum, _vecVer,sizeof(FONT_VER));
 	}
-	_pCEffectFile->End();
 
 	return true;
 }
@@ -974,9 +1270,7 @@ __ret:
 void  CMPFont::RenderOptimize(int iIdx)
 {
 	MPFontRect *prc = &_vecFontRect[iIdx];
-	_pCEffectFile->SetTechnique(_iRenderIdx);
-	_pCEffectFile->Begin(D3DXFX_DONOTSAVESTATE);
-	_pCEffectFile->Pass(0);
+	ApplyFontRenderStates();
 
 	_pDev->SetVertexShader(NULL);
 	_pDev->SetFVF( D3DFVF_FONT );
@@ -990,7 +1284,6 @@ void  CMPFont::RenderOptimize(int iIdx)
 		_pDev->SetTexture( 0, _pTex->GetTex() );
 		_pDev->GetDevice()->DrawPrimitiveUP(D3DPT_TRIANGLELIST, prc->iHslNum, &prc->_vecHsl.front(),sizeof(FONT_VER));
 	}
-	_pCEffectFile->End();
 	_pDev->SetRenderStateForced(D3DRS_ZENABLE,TRUE);
 	_pDev->SetRenderStateForced(D3DRS_ZWRITEENABLE,TRUE);
 }
@@ -1149,19 +1442,46 @@ void CMPFont::RenderDrawOptimize(int iIdx)
 }
 #endif
 
+inline void CMPFont::ApplyFontRenderStates()
+{
+	IDirect3DDeviceX* dev = _pDev->GetDevice();
+	dev->SetPixelShader(NULL);
+	dev->SetRenderState(D3DRS_ZENABLE, FALSE);
+	dev->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+	dev->SetRenderState(D3DRS_STENCILENABLE, FALSE);
+	dev->SetRenderState(D3DRS_DITHERENABLE, FALSE);
+	dev->SetRenderState(D3DRS_FOGENABLE, FALSE);
+	dev->SetRenderState(D3DRS_SPECULARENABLE, FALSE);
+	dev->SetRenderState(D3DRS_CLIPPING, FALSE);
+	dev->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_FLAT);
+	dev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	dev->SetRenderState(D3DRS_LIGHTING, FALSE);
+	dev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	dev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	dev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	dev->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+	dev->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_POINT);
+	dev->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_POINT);
+	dev->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP);
+	dev->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_CLAMP);
+	dev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+	dev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+	dev->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+	dev->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+	dev->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+	dev->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+	dev->SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_DISABLE);
+	dev->SetTextureStageState(1, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
+}
+
 inline void CMPFont::Begin()
 {
 	_lpCurTex  = _pTex;
 #ifdef DRAWONCE
-	_pCEffectFile->SetTechnique(_iRenderIdx);
-	_pCEffectFile->Begin(D3DXFX_DONOTSAVESTATE);
-	_pCEffectFile->Pass(0);
-
+	ApplyFontRenderStates();
 #else
 	_pVB->BeginSet();
-	_pCEffectFile->SetTechnique(_iRenderIdx);
-	_pCEffectFile->Begin();
-	_pCEffectFile->Pass(0);
+	ApplyFontRenderStates();
 	{
 		_pDev->SetVertexShader( *_pdwVS );
 		D3DXMATRIX matIdentity;
@@ -1174,9 +1494,7 @@ inline void CMPFont::Begin()
 inline void CMPFont::End()
 {
 #ifdef DRAWONCE
-	_pCEffectFile->End();
 #else
-	_pCEffectFile->End();
 	_pVB->EndSet();
 	_pDev->SetVertexShader( D3DFVF_FONT);
 #endif
@@ -1282,14 +1600,46 @@ __ret:
 
 		if ( ch[0] & 0x80 )
 		{
-			n++;
-			ch[1] = szText[n];
-			offset = w + ASSIZE;
+			if ((unsigned char)ch[0] >= 0xA1)
+			{
+				if (IsThaiBaseChar((unsigned char)ch[0]))
+				{
+					char cluster[5];
+					int cLen = BuildThaiCluster(szText, n, nLen, cluster);
+					n += cLen - 1;
+					ch[0] = cluster[0];
+					ch[1] = (cLen >= 2) ? cluster[1] : '\0';
+					SIZE sz;
+					::GetTextExtentPoint(_hDc, &ch[0], 1, &sz);
+					offset = sz.cx + HLSIZE;
+				}
+				else
+				{
+					ch[1] = '\0';
+					offset = 0;
+				}
+			}
+			else
+			{
+				// Chinese GBK DBCS: consume 2 bytes
+				n++;
+				ch[1] = szText[n];
+				offset = w + ASSIZE;
+			}
 		}
 		else
 		{
 			ch[1] = '\0';
-			offset = w/2 + HLSIZE ;
+			if( !_bWidthEqual )
+			{
+				SIZE size;
+				::GetTextExtentPoint(_hDc,&ch[0],1,&size);
+				offset = size.cx + HLSIZE ;
+			}
+			else
+			{
+				offset = w/2 + HLSIZE ;
+			}
 		}
 
 		float a, b;
@@ -1642,8 +1992,26 @@ skip:
 
 		if ( ch[0] & 0x80 )
 		{
-			n++;
-			ch[1] = szText[n];
+			if ((unsigned char)ch[0] >= 0xA1)
+			{
+				if (IsThaiBaseChar((unsigned char)ch[0]))
+				{
+					char cluster[5];
+					int cLen = BuildThaiCluster(szText, n, nLen, cluster);
+					n += cLen - 1;
+					ch[0] = cluster[0];
+					ch[1] = (cLen >= 2) ? cluster[1] : '\0';
+				}
+				else
+				{
+					ch[1] = '\0';
+				}
+			}
+			else
+			{
+				n++;
+				ch[1] = szText[n];
+			}
 		}
 		else
 		{
@@ -1678,11 +2046,11 @@ skip:
 
 			RECT rect = {0, 0, _TextSize, _TextSize};
 			char sz[3] = {ch[0], ch[1], '\0'};
-
+			int nCharLen = (ch[1] != '\0') ? 2 : 1;
 
 			FillRect( _hDc, &rect, (HBRUSH)GetStockObject(BLACK_BRUSH) );
 
-			::TextOut( _hDc, 0, 0, sz, ch[0] & 0x80 ? 2 : 1 );
+			::TextOut( _hDc, 0, 0, sz, nCharLen );
 
 			D3DLOCKED_RECT d3dlr;
 #ifdef USE_RENDER

@@ -4,13 +4,23 @@
 #include "CommRPC.h"
 #include "PacketQueue.h"
 #include "Connection.h"
-#include "cryptlib.h"
-#include "osrng.h"
-#include "rsa.h"
-#include "base64.h"
-#include "gcm.h"
-#include "filters.h"
-#include "aes.h"
+#include <windows.h>
+#include <bcrypt.h>
+#include <vector>
+#include <cstdint>
+#pragma comment(lib, "bcrypt.lib")
+
+class WinRandomPool {
+public:
+	void GenerateBlock(uint8_t* output, size_t size) {
+		if (BCryptGenRandom(NULL, output, (ULONG)size, BCRYPT_USE_SYSTEM_PREFERRED_RNG) != 0) {
+			srand((unsigned)GetTickCount());
+			for (size_t i = 0; i < size; i++)
+				output[i] = (uint8_t)(rand() & 0xFF);
+		}
+	}
+};
+
 class CProCirculate;
 
 _DBC_USING
@@ -64,8 +74,8 @@ public:
 	virtual void	OnDisconnect(dbc::DataSocket *datasock,int reason);		//reasonֵ:0-���س��������˳���-1-Socket����-3-���类�Է��رգ�-5-�����ȳ������ơ�
 	std::string GetDisconnectErrText(int reason)const;
 
-	bool  EncryptAES(char* ciphertext, uLong ciphertext_len, cChar* plaintext, unsigned long& ciphersize, const CryptoPP::SecByteBlock& key);
-	bool  DecryptAES(cChar* ciphertext, char* plaintext, unsigned long& textsize, const CryptoPP::SecByteBlock& key);
+	bool  EncryptAES(char* ciphertext, uLong ciphertext_len, cChar* plaintext, unsigned long& ciphersize, const std::vector<uint8_t>& key);
+	bool  DecryptAES(cChar* ciphertext, char* plaintext, unsigned long& textsize, const std::vector<uint8_t>& key);
 
 	bool IsConnected(){return m_connect.IsConnected();}
 	int	 GetConnStat(){return m_connect.GetConnStat();}
@@ -95,10 +105,11 @@ public:
 	char			m_accounts[100];
 	char			m_passwd[100];
 	
-	// RSA-AES Network encryption
-	CryptoPP::SecByteBlock cliPrivateKey{ CryptoPP::AES::MIN_KEYLENGTH };
-	CryptoPP::RSA::PublicKey   srvPublicKey;
-	CryptoPP::AutoSeededRandomPool rng;
+	// RSA-AES Network encryption (CryptoPP-free for x64 stability)
+	std::vector<uint8_t> cliPrivateKey;
+	std::vector<uint8_t> srvModulus;
+	std::vector<uint8_t> srvExponent;
+	WinRandomPool rng;
 	bool			handshakeDone;
 
 

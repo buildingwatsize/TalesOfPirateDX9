@@ -412,5 +412,5 @@ void CGameConfig::Load(const char *pszFileName)   //  ��kop.cfg
 void CGameConfig::SetMoveClient( bool v )  // �����Ƿ���ͻ���ͬ��
 {
 	m_IsMoveClient = v;
-	//g_pGameApp->SysInfo( g_Config.m_IsMoveClient ? g_oLangRec.GetString(142) : g_oLangRec.GetString(141) );
+	//g_pGameApp->SysInfo( g_Config.m_IsMoveClient ? RES_STRING(CL_LANGUAGE_MATCH_141) : RES_STRING(CL_LANGUAGE_MATCH_142) );
 }

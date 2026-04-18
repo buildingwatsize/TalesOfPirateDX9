@@ -592,7 +592,7 @@ UI_ButtonSetHint(btnNextStep,"Next")
 
 
 -------------------------------------------------------------------------
--- 定义角色详细介绍界面    该界面仅在进入各角色转职路线介绍界面后点击任意一个角色后显示
+--     
 -------------------------------------------------------------------------
 frmRoleAllInfo = UI_CreateForm("frmRoleAllInfo", TRUE, 447, 373, 50 , 450, TRUE,TRUE)
 UI_ShowForm(frmRoleAllInfo, FALSE )
@@ -603,9 +603,9 @@ UI_AddFormToTemplete( frmRoleAllInfo, FORM_CREATE_CHA )
 
 UI_FormSetHotKey( frmRoleAllInfo, ALT_KEY, HOTKEY_X ) 
 
---加载背景显示窗体
+--
 
--- 加载背景图片
+-- 
 imgFoundTop = UI_CreateCompent( frmRoleAllInfo, IMAGE_TYPE, "imgFoundTop", 256, 256, 0, 0 )
 UI_LoadImage( imgFoundTop, "texture/ui/newshelp/frmRoleInfo01.tga", NORMAL, 256, 256, 0, 0 )
 
@@ -619,7 +619,7 @@ imgFoundDownR = UI_CreateCompent( frmRoleAllInfo, IMAGE_TYPE, "imgFoundDownR", 1
 UI_LoadImage( imgFoundDownR, "texture/ui/newshelp/frmRoleInfo03.tga", NORMAL, 191, 117, 0, 117 )
 
 
---加载描述
+--
 memChaDescribeUp  = UI_CreateCompent( frmRoleAllInfo, MEMO_TYPE, "memChaDescribeUp", 162, 154, 287, 26 )
 UI_SetTextColor( memChaDescribeUp, COLOR_BLACK )
 UI_SetLabelExFont( memChaDescribeUp, DEFAULT_FONT, TRUE, COLOR_WHITE )
@@ -632,9 +632,9 @@ UI_SetLabelExFont( memChaDescribeDown, DEFAULT_FONT, TRUE, COLOR_WHITE )
 UI_SetMemoMaxNumPerRow( memChaDescribeDown, 24 )
 UI_SetMemoPageShowNum( memChaDescribeDown, 7 )
 
---加载图片显示
+--
 local tabImage = {}
---蓝器
+--
 tabImage[1]  = UI_CreateCompent( frmRoleAllInfo, IMAGE_TYPE, "imgChaView1", 220, 300, 30, 30 )
 UI_LoadImage( tabImage[1], "texture/ui/newshelp/char03.tga", NORMAL, 82,102, 0, 0 )
 
@@ -656,7 +656,7 @@ UI_LoadImage( tabImage[6], "texture/ui/newshelp/char03.tga", NORMAL, 82,102, 164
 tabImage[7]  = UI_CreateCompent( frmRoleAllInfo, IMAGE_TYPE, "imgChaView7", 220, 300, 30, 30 )
 UI_LoadImage( tabImage[7], "texture/ui/newshelp/char02.tga", NORMAL, 82,102, 0, 0 )
 
---卡四斯
+--
 tabImage[8]  = UI_CreateCompent( frmRoleAllInfo, IMAGE_TYPE, "imgChaView8", 220, 300, 30, 30 )
 UI_LoadImage( tabImage[8], "texture/ui/newshelp/char02.tga", NORMAL, 82,102, 0, 102 )
 
@@ -666,7 +666,7 @@ UI_LoadImage( tabImage[9], "texture/ui/newshelp/char02.tga", NORMAL, 82,102, 82,
 tabImage[10]  = UI_CreateCompent( frmRoleAllInfo, IMAGE_TYPE, "imgChaView10", 220, 300, 30, 30 )
 UI_LoadImage( tabImage[10], "texture/ui/newshelp/char02.tga", NORMAL, 82,102, 164, 102 )
 
---非里尔
+--
 tabImage[11]  = UI_CreateCompent( frmRoleAllInfo, IMAGE_TYPE, "imgChaView11", 220, 300, 30, 30 )
 UI_LoadImage( tabImage[11], "texture/ui/newshelp/char02.tga", NORMAL, 82,102, 82, 0 )
 
@@ -691,7 +691,7 @@ UI_LoadImage( tabImage[17], "texture/ui/newshelp/char04.tga", NORMAL, 82,102, 82
 tabImage[18]  = UI_CreateCompent( frmRoleAllInfo, IMAGE_TYPE, "imgChaView18", 220, 300, 30, 30 )
 UI_LoadImage( tabImage[18], "texture/ui/newshelp/char04.tga", NORMAL, 82,102, 164, 102 )
 
---爱米
+--
 tabImage[19]  = UI_CreateCompent( frmRoleAllInfo, IMAGE_TYPE, "imgChaView19", 220, 300, 30, 30 )
 UI_LoadImage( tabImage[19], "texture/ui/newshelp/char01.tga", NORMAL, 82,102, 0, 0 )
 
@@ -714,7 +714,7 @@ for i=1,24,1 do
 	UI_SetIsShow(tabImage[i],FALSE)
 end
 
---加载返回按钮
+--
 btnPrevStep = UI_CreateCompent(frmRoleAllInfo, BUTTON_TYPE,"btnPrevStep", 100,41, 173, 408)
 UI_LoadButtonImage( btnPrevStep, "texture/ui/newshelp/buton_next_prev.tga", 100, 41, 100, 0, FALSE )
 UI_ButtonSetHint(btnPrevStep,"Previous")

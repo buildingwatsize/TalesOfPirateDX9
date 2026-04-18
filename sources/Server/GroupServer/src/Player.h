@@ -98,7 +98,7 @@ public:
 	 * @supplierCardinality 1..* 
 	 */
 	GateServer* m_gate{}; // Player is connected to the gate the member datasock is connected to
-	uLong 				m_gtAddr{};				//The ID allocated on the GateServer is actually the memory address of the internal data structure.
+	LONG64 				m_gtAddr{};				//The ID allocated on the GateServer is actually the memory address of the internal data structure.
 	bool				m_bCheat;
 	long				m_lChatMoney;
 	long				m_lTradeChatMoney{ 1000 };

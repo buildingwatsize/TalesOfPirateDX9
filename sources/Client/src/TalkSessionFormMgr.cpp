@@ -54,7 +54,7 @@ bool _Error(const char* strInfo, const char* strFormName, const char* strCompent
 }
 
 //------------------------------------------------------------------------
-//	CSessionMemberÀàÊµÏÖ
+//	CSessionMemberï¿½ï¿½Êµï¿½ï¿½
 //------------------------------------------------------------------------
 
 CSessionMember::CSessionMember(stNetSessCreate *pMember)
@@ -74,7 +74,7 @@ CSessionMember::~CSessionMember()
 CMenu* CTalkSessionForm::m_playerMouseRight=NULL;
 
 //------------------------------------------------------------------------
-//	CTalkSessionFormÀàÊµÏÖ
+//	CTalkSessionFormï¿½ï¿½Êµï¿½ï¿½
 //------------------------------------------------------------------------
 
 CTalkSessionForm::CTalkSessionForm(DWORD sessionID,eTalkSessionStyle style) : 
@@ -82,13 +82,13 @@ m_dwSessioinID(sessionID), m_strWaitForSend(""), m_bActive(true), m_pForm(NULL),
 m_strTalkMsg(""), /*m_pList(NULL),*/ m_pInformTextBtn(NULL), m_pInformTitle(NULL), m_nShowChannel(NULL),
 m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlashTimes(0), m_pTimer1(NULL), m_pTimer2(NULL)
 {
-	//½¨Á¢Form
+	//ï¿½ï¿½ï¿½ï¿½Form
 	m_bActive=(m_dwSessioinID!=0)?true:false;
 	CTextButton *btn;
 	static CForm *frmRemind=CFormMgr::s_Mgr.Find("frmRemind");
 	if (!frmRemind)
 	{
-		if( !frmRemind ) Error(g_oLangRec.GetString(410));
+		if( !frmRemind ) Error(RES_STRING(CMISS_000410));
 		return;
 	}
 	dupe1.SetSample(frmRemind);
@@ -96,7 +96,7 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	m_pInformTextBtn = dynamic_cast<CTextButton*>(m_pInformForm->Find("btnCheck"));
 	if( !m_pInformTextBtn )
 	{
-		_Error(g_oLangRec.GetString(411), m_pInformForm->GetName(), "btnCheck" );
+		_Error(RES_STRING(CMISS_000411), m_pInformForm->GetName(), "btnCheck" );
 		return;
 	}
 	m_pInformTextBtn->evtMouseClick=_OnMouseInformButton;
@@ -104,13 +104,13 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	m_pInformTitle = dynamic_cast<CLabelEx*>(m_pInformForm->Find("labTitle"));
 	if( !m_pInformTitle )
 	{
-		_Error(g_oLangRec.GetString(411), m_pInformForm->GetName(), "labTitle" );
+		_Error(RES_STRING(CMISS_000411), m_pInformForm->GetName(), "labTitle" );
 		return;
 	}
 	btn = dynamic_cast<CTextButton*>(m_pInformForm->Find("btnYes"));
 	if( !btn )
 	{
-		_Error(g_oLangRec.GetString(411), m_pInformForm->GetName(), "btnYes" );
+		_Error(RES_STRING(CMISS_000411), m_pInformForm->GetName(), "btnYes" );
 		return;
 	}
 	btn->evtMouseClick=_OnMouseInformButton;
@@ -118,7 +118,7 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	btn = dynamic_cast<CTextButton*>(m_pInformForm->Find("btnNo"));
 	if( !btn )
 	{
-		_Error(g_oLangRec.GetString(411), m_pInformForm->GetName(), "btnNo" );
+		_Error(RES_STRING(CMISS_000411), m_pInformForm->GetName(), "btnNo" );
 		return;
 	}
 	btn->evtMouseClick=_OnMouseQuitButton;
@@ -128,7 +128,7 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	static CForm *frmChat=CFormMgr::s_Mgr.Find("frmChat");
 	if (!frmChat)
 	{
-		if( !frmChat ) Error(g_oLangRec.GetString(412));
+		if( !frmChat ) Error(RES_STRING(CMISS_000412));
 		 return;
 	}
 	dupe2.SetSample(frmChat);
@@ -143,7 +143,7 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	btn = dynamic_cast<CTextButton*>(m_pNormalForm->Find("btnMin"));
 	if( !btn )
 	{
-		_Error(g_oLangRec.GetString(411), m_pNormalForm->GetName(), "btnMin" );
+		_Error(RES_STRING(CMISS_000411), m_pNormalForm->GetName(), "btnMin" );
 		return;
 	}
 	btn->evtMouseClick=_OnMouseMinimizeButton;
@@ -151,7 +151,7 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	btn = dynamic_cast<CTextButton*>(m_pNormalForm->Find("btnClose"));
 	if( !btn )
 	{
-		_Error(g_oLangRec.GetString(411), m_pNormalForm->GetName(), "btnClose" );
+		_Error(RES_STRING(CMISS_000411), m_pNormalForm->GetName(), "btnClose" );
 		return;
 	}
 	btn->evtMouseClick=_OnMouseCloseButton;
@@ -159,7 +159,7 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	//btn = dynamic_cast<CTextButton*>(m_pNormalForm->Find("btnCloseD"));
 	//if( !btn )
 	//{
-	//	_Error("chat.clu½çÃæ<%s>ÉÏÕÒ²»µ½¿Ø¼þ<%s>", m_pNormalForm->GetName(), "btnCloseD" );
+	//	_Error("chat.cluï¿½ï¿½ï¿½ï¿½<%s>ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½<%s>", m_pNormalForm->GetName(), "btnCloseD" );
 	//	return;
 	//}
 	//btn->evtMouseClick=_OnMouseQuitButton;
@@ -167,7 +167,7 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	btn = dynamic_cast<CTextButton*>(m_pNormalForm->Find("btnChat"));
 	if( !btn )
 	{
-		_Error(g_oLangRec.GetString(411), m_pNormalForm->GetName(), "btnChat" );
+		_Error(RES_STRING(CMISS_000411), m_pNormalForm->GetName(), "btnChat" );
 		return;
 	}
 	btn->evtMouseClick=_OnMouseSaveButton;
@@ -175,7 +175,7 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	btn = dynamic_cast<CTextButton*>(m_pNormalForm->Find("btnSend"));
 	if( !btn )
 	{
-		_Error(g_oLangRec.GetString(411), m_pNormalForm->GetName(), "btnSend" );
+		_Error(RES_STRING(CMISS_000411), m_pNormalForm->GetName(), "btnSend" );
 		return;
 	}
 	btn->evtMouseClick=_OnMouseSendButton;
@@ -183,7 +183,7 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	m_pNormalEdit = dynamic_cast<CEdit*>(m_pNormalForm->Find("edtChat"));
 	if( !m_pNormalEdit )
 	{
-		_Error(g_oLangRec.GetString(411), m_pNormalForm->GetName(), "edtChat" );
+		_Error(RES_STRING(CMISS_000411), m_pNormalForm->GetName(), "edtChat" );
 		return;
 	}
 	m_pNormalEdit->SetEnterButton(btn);
@@ -193,7 +193,7 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	//m_pNormalList = dynamic_cast<CList*>(m_pNormalForm->Find("memCtrl"));
 	//if( !m_pNormalList )
 	//{
-	//	_Error("chat.clu½çÃæ<%s>ÉÏÕÒ²»µ½¿Ø¼þ<%s>", m_pNormalForm->GetName(), "memCtrl" );
+	//	_Error("chat.cluï¿½ï¿½ï¿½ï¿½<%s>ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½<%s>", m_pNormalForm->GetName(), "memCtrl" );
 	//	return;
 	//}
 	//m_pNormalList->SetRowHeight(20);
@@ -201,7 +201,7 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	m_pNormalMemo = dynamic_cast<CRichMemo*>(m_pNormalForm->Find("memChat"));
 	if( !m_pNormalMemo )
 	{
-		_Error(g_oLangRec.GetString(411), m_pNormalForm->GetName(), "memChat" );
+		_Error(RES_STRING(CMISS_000411), m_pNormalForm->GetName(), "memChat" );
 		return;
 	}
 	m_pNormalMemo->SetAutoScroll(true);
@@ -216,7 +216,7 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	btn = dynamic_cast<CTextButton*>(m_pNormalForm->Find("btnBrow"));
 	if( !btn )
 	{
-		_Error( g_oLangRec.GetString(411), m_pNormalForm->GetName(), "btnBrow" );
+		_Error( RES_STRING(CMISS_000411), m_pNormalForm->GetName(), "btnBrow" );
 		return;
 	}
 	btn->evtMouseClick=_OnMouseFaceListButton;
@@ -224,7 +224,7 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	btn = dynamic_cast<CTextButton*>(m_pNormalForm->Find("btnClean"));
 	if( !btn )
 	{
-		_Error( g_oLangRec.GetString(411), m_pNormalForm->GetName(), "btnClean" );
+		_Error( RES_STRING(CMISS_000411), m_pNormalForm->GetName(), "btnClean" );
 		return;
 	}
 	btn->evtMouseClick=_OnMouseCleanText;
@@ -232,7 +232,7 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	m_pFaceGrid = dynamic_cast<CGrid*>(m_pNormalForm->Find("grdFace"));
 	if( !m_pFaceGrid )
 	{
-		Error( g_oLangRec.GetString(411), m_pNormalForm->GetName(), "grdFace" );
+		Error( RES_STRING(CMISS_000411), m_pNormalForm->GetName(), "grdFace" );
 		return;
 	}
 	m_pFaceGrid->evtSelectChange =_OnMouseSelectFace;
@@ -241,7 +241,7 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	m_pNormalNameList = dynamic_cast<CList*>(m_pNormalForm->Find("lstChat"));
 	if( !m_pNormalNameList )
 	{
-		_Error( g_oLangRec.GetString(411), m_pNormalForm->GetName(), "lstChat" );
+		_Error( RES_STRING(CMISS_000411), m_pNormalForm->GetName(), "lstChat" );
 		return;
 	}
 	m_pNormalNameList->SetRowHeight(16);
@@ -249,14 +249,14 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	m_playerMouseRight=CMenu::FindMenu("ListMouseRight");
 	if (!m_playerMouseRight)
 	{
-		_Error(g_oLangRec.GetString(411), m_pNormalForm->GetName(), "ListMouseRight" );
+		_Error(RES_STRING(CMISS_000411), m_pNormalForm->GetName(), "ListMouseRight" );
 		return;
 	}
 	m_playerMouseRight->evtListMouseDown=_OnPlayerSelect;
 	btn = dynamic_cast<CTextButton*>(m_pNormalForm->Find("btnQuit"));
 	if( !btn )
 	{
-		_Error(g_oLangRec.GetString(411), m_pNormalForm->GetName(), "btnQuit" );
+		_Error(RES_STRING(CMISS_000411), m_pNormalForm->GetName(), "btnQuit" );
 		return;
 	}
 	btn->evtMouseClick=_OnMouseQuitButton;
@@ -265,7 +265,7 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	static CForm *frmChatMd=CFormMgr::s_Mgr.Find("frmChatMd");
 	if (!frmChatMd)
 	{
-		if( !frmChatMd ) Error(g_oLangRec.GetString(413));
+		if( !frmChatMd ) Error(RES_STRING(CMISS_000413));
 		return;
 	}
 	dupe3.SetSample(frmChatMd);
@@ -273,7 +273,7 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	btn = dynamic_cast<CTextButton*>(m_pSmallForm->Find("btnMin"));
 	if( !btn )
 	{
-		_Error(g_oLangRec.GetString(411), m_pSmallForm->GetName(), "btnMin" );
+		_Error(RES_STRING(CMISS_000411), m_pSmallForm->GetName(), "btnMin" );
 		return;
 	}
 	btn->evtMouseClick=_OnMouseMinimizeButton;
@@ -281,7 +281,7 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	btn = dynamic_cast<CTextButton*>(m_pSmallForm->Find("btnReturn"));
 	if( !btn )
 	{
-		_Error(g_oLangRec.GetString(411), m_pSmallForm->GetName(), "btnReturn" );
+		_Error(RES_STRING(CMISS_000411), m_pSmallForm->GetName(), "btnReturn" );
 		return;
 	}
 	btn->evtMouseClick=_OnMouseNormalButton;
@@ -289,7 +289,7 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	btn = dynamic_cast<CTextButton*>(m_pSmallForm->Find("btnClose"));
 	if( !btn )
 	{
-		_Error(g_oLangRec.GetString(411), m_pSmallForm->GetName(), "btnClose" );
+		_Error(RES_STRING(CMISS_000411), m_pSmallForm->GetName(), "btnClose" );
 		return;
 	}
 	btn->evtMouseClick=_OnMouseQuitButton;
@@ -297,7 +297,7 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	btn = dynamic_cast<CTextButton*>(m_pSmallForm->Find("btnSend"));
 	if( !btn )
 	{
-		_Error(g_oLangRec.GetString(411), m_pSmallForm->GetName(), "btnSend" );
+		_Error(RES_STRING(CMISS_000411), m_pSmallForm->GetName(), "btnSend" );
 		return;
 	}
 	btn->evtMouseClick=_OnMouseSendButton;
@@ -305,14 +305,14 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	m_pSmallEdit = dynamic_cast<CEdit*>(m_pSmallForm->Find("edtTradeGold"));
 	if( !m_pSmallEdit )
 	{
-		_Error(g_oLangRec.GetString(411), m_pNormalForm->GetName(), "edtTradeGold" );
+		_Error(RES_STRING(CMISS_000411), m_pNormalForm->GetName(), "edtTradeGold" );
 		return;
 	}
 	m_pSmallEdit->SetEnterButton(btn);
 	//m_pSmallList = dynamic_cast<CList*>(m_pSmallForm->Find("memCtrl"));
 	//if( !m_pSmallList )
 	//{
-	//	_Error("chat.clu½çÃæ<%s>ÉÏÕÒ²»µ½¿Ø¼þ<%s>", m_pSmallForm->GetName(), "memCtrl" );
+	//	_Error("chat.cluï¿½ï¿½ï¿½ï¿½<%s>ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½<%s>", m_pSmallForm->GetName(), "memCtrl" );
 	//	return;
 	//}
 
@@ -322,7 +322,7 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	static CForm *frmChatMin=CFormMgr::s_Mgr.Find("frmChatMin");
 	if (!frmChatMin)
 	{
-		if( !frmChatMin ) Error(g_oLangRec.GetString(414));
+		if( !frmChatMin ) Error(RES_STRING(CMISS_000414));
 		return;
 	}
 	dupe4.SetSample(frmChatMin);
@@ -331,7 +331,7 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	btn = dynamic_cast<CTextButton*>(m_pMinimizeForm->Find("btnMax"));
 	if( !btn )
 	{
-		_Error(g_oLangRec.GetString(411), m_pMinimizeForm->GetName(), "btnMax" );
+		_Error(RES_STRING(CMISS_000411), m_pMinimizeForm->GetName(), "btnMax" );
 		return;
 	}
 	btn->evtMouseClick=_OnMouseNormalButton;
@@ -339,7 +339,7 @@ m_nShowSx(NULL), m_nShowSy(NULL), m_strWaitForAdded(""), m_bFlash(NULL), m_nFlas
 	btn = dynamic_cast<CTextButton*>(m_pMinimizeForm->Find("btnClose"));
 	if( !btn )
 	{
-		_Error(g_oLangRec.GetString(411), m_pMinimizeForm->GetName(), "btnClose" );
+		_Error(RES_STRING(CMISS_000411), m_pMinimizeForm->GetName(), "btnClose" );
 		return;
 	}
 	btn->evtMouseClick=_OnMouseCloseButton;
@@ -384,7 +384,7 @@ CTalkSessionForm::~CTalkSessionForm(void)
 		Iter=m_Members.begin();
 		pNode=*Iter;
 		//delete pNode;
-		SAFE_DELETE(pNode); // UIµ±»ú´¦Àí
+		SAFE_DELETE(pNode); // UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		m_Members.erase(Iter);
 	}
 	ClearMsg();
@@ -463,7 +463,7 @@ bool CTalkSessionForm::DelMember(DWORD chaID)
 		if (chaID==(*Iter)->GetID())
 		{
 			//delete (*Iter);
-			SAFE_DELETE(*Iter); // UIµ±»ú´¦Àí
+			SAFE_DELETE(*Iter); // UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			m_Members.erase(Iter);
 			m_playerMouseRight->SetIsShow(false);
 			RefreshForm();
@@ -606,11 +606,11 @@ void CTalkSessionForm::RefreshForm()
 	string str;
 	if (total==1)
 	{
-		str=string(g_oLangRec.GetString(415))+GetMemberByIndex(0)->GetName()+g_oLangRec.GetString(416);
+		str=string(RES_STRING(CL_LANGUAGE_MATCH_415))+GetMemberByIndex(0)->GetName()+RES_STRING(CL_LANGUAGE_MATCH_416);
 	}
 	else
 	{
-		sprintf(buf,g_oLangRec.GetString(417),total);
+		sprintf(buf,RES_STRING(CL_LANGUAGE_MATCH_417),total);
 		str=buf;
 	}
 
@@ -621,21 +621,21 @@ void CTalkSessionForm::RefreshForm()
 	}
 	else
 	{
-		_Error(g_oLangRec.GetString(411), m_pMinimizeForm->GetName(), "labName" );
+		_Error(RES_STRING(CMISS_000411), m_pMinimizeForm->GetName(), "labName" );
 	}
 	if (total==1)
 	{
-		str=string(g_oLangRec.GetString(415))+GetMemberByIndex(0)->GetName();
+		str=string(RES_STRING(CL_LANGUAGE_MATCH_415))+GetMemberByIndex(0)->GetName();
 		if (strlen(GetMemberByIndex(0)->GetMotto())>0)
 		{
 			str+=string("(")+GetMemberByIndex(0)->GetMotto()+string(")");
 		}
 		str=StringLimit(str,31);
-		str+=g_oLangRec.GetString(416);
+		str+=RES_STRING(CL_LANGUAGE_MATCH_416);
 	}
 	else
 	{
-		sprintf(buf,g_oLangRec.GetString(418),total);
+		sprintf(buf,RES_STRING(CMISS_000418),total);
 		str=buf;
 		for (int i=0;i<total;i++)
 		{
@@ -652,9 +652,9 @@ void CTalkSessionForm::RefreshForm()
 	}
 	else
 	{
-		_Error(g_oLangRec.GetString(411), m_pNormalForm->GetName(), "labName1" );
+		_Error(RES_STRING(CMISS_000411), m_pNormalForm->GetName(), "labName1" );
 	}
-	sprintf(buf,g_oLangRec.GetString(419),total);
+	sprintf(buf,RES_STRING(CMISS_000419),total);
 	str=buf;
 	pText=dynamic_cast<CLabelEx*>(m_pNormalForm->Find("labParty"));
 	if (pText)
@@ -663,7 +663,7 @@ void CTalkSessionForm::RefreshForm()
 	}
 	else
 	{
-		_Error(g_oLangRec.GetString(411), m_pNormalForm->GetName(), "labParty" );
+		_Error(RES_STRING(CMISS_000411), m_pNormalForm->GetName(), "labParty" );
 	}
 
 	m_pNormalNameList->GetItems()->Clear();
@@ -884,14 +884,14 @@ void CTalkSessionForm::_OnMouseSendButton(CGuiData *pSender, int x, int y, DWORD
 		pThis->m_pEdit->SetCaption("");
 	}
 	
-	// Add by ning.yan  20080726  ËæÊ±±£´æ·¢ËÍµÄÁÄÌìÄÚÈÝ  Begin
+	// Add by ning.yan  20080726  ï¿½ï¿½Ê±ï¿½ï¿½ï¿½æ·¢ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  Begin
 	string strName = CGameScene::GetMainCha()->getName();
 	string strMotto = CGameScene::GetMainCha()->getSecondName();
 	__time64_t t;
 	_time64(&t);
 	tm *ltime=_gmtime64(&t);
 	char ch[12];
-	sprintf(ch,"  %d:%d:%d",ltime->tm_hour+8,ltime->tm_min,ltime->tm_sec);
+	sprintf(ch,"  %d:%d:%d",ltime->tm_hour+7,ltime->tm_min,ltime->tm_sec); // GMT+7 (BKK)
 	string time = ch;
 	if ( strMotto.size() == 0 )
 	{
@@ -905,15 +905,15 @@ void CTalkSessionForm::_OnMouseSendButton(CGuiData *pSender, int x, int y, DWORD
 	saveText += strName + sendText + "\r\n\r\n";
 
 	for(DWORD i=0; i< pThis->GetTotalMembers(); i++)
-	{ // forÑ­»·´¦Àí¶àÈËÁÄÌì
+	{ // forÑ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (CChatRecord::Save(pThis->GetMemberByIndex(i)->GetName(),pThis->GetTotalMembers(),saveText))
 		{
-			//string str="ÒÑ³É¹¦±£´æµ½ÎÄ¼þ:\""+CChatRecord::GetLastSavePath()+"\"Àï";
+			//string str="ï¿½Ñ³É¹ï¿½ï¿½ï¿½ï¿½æµ½ï¿½Ä¼ï¿½:\""+CChatRecord::GetLastSavePath()+"\"ï¿½ï¿½";
 			//CCozeForm::GetInstance()->OnSystemMsg(str.c_str());
 		}
 		else
 		{
-			//CCozeForm::GetInstance()->OnSystemMsg("±£´æÊ§°Ü£¨ÄÚÈÝ¿Õ°×£¬´ÅÅÌ¿Õ¼ä²»×ã»òÎÄ¼þÄ¿Â¼Ã»ÓÐ¿ÉÐ´È¨ÏÞ£©");
+			//CCozeForm::GetInstance()->OnSystemMsg("ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½Ý¿Õ°×£ï¿½ï¿½ï¿½ï¿½Ì¿Õ¼ä²»ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Ä¿Â¼Ã»ï¿½Ð¿ï¿½Ð´È¨ï¿½Þ£ï¿½");
 		}
 	}
 	// End
@@ -1032,7 +1032,7 @@ void CTalkSessionForm::_OnPlayerSelect(CGuiData *pSender, int x, int y, DWORD ke
 	CMenuItem* pItem=m_playerMouseRight->GetSelectMenu();
 	if (!pItem) return;
 	string str=pItem->GetString();
-	if (str=="Ìí¼ÓºÃÓÑ" )
+	if (str=="ï¿½ï¿½ï¿½Óºï¿½ï¿½ï¿½" )
 	{
 		CSessionMember* pSessionMember=static_cast<CSessionMember*>(m_playerMouseRight->GetPointer());
 		CS_Frnd_Invite(pSessionMember->GetName());
@@ -1040,7 +1040,7 @@ void CTalkSessionForm::_OnPlayerSelect(CGuiData *pSender, int x, int y, DWORD ke
 }
 
 void CTalkSessionForm::_OnMouseSaveButton(CGuiData *pSender, int x, int y, DWORD key)
-{   //delete by ning.yan 2008-07-29 È¥µôÊÖ¶¯±£´æÁÄÌì¼ÇÂ¼¹¦ÄÜ£¬¸ÄÎª×Ô¶¯±£´æ Begin
+{   //delete by ning.yan 2008-07-29 È¥ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Îªï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ Begin
 	//CTalkSessionForm *pThis=((CTalkSessionForm*)pSender->GetPointer());
 	//if (!pThis || !pThis->GetMemberByIndex(0)) return;
 	//string saveText;
@@ -1060,14 +1060,14 @@ void CTalkSessionForm::_OnMouseSaveButton(CGuiData *pSender, int x, int y, DWORD
 	//}
 	//if (CChatRecord::Save(pThis->GetMemberByIndex(0)->GetName(),pThis->GetTotalMembers(),saveText))
 	//{
-	//	string str="ÒÑ³É¹¦±£´æµ½ÎÄ¼þ:\""+CChatRecord::GetLastSavePath()+"\"Àï";
+	//	string str="ï¿½Ñ³É¹ï¿½ï¿½ï¿½ï¿½æµ½ï¿½Ä¼ï¿½:\""+CChatRecord::GetLastSavePath()+"\"ï¿½ï¿½";
 	//	//g_stUICoze.OnSystemSay( str.c_str() );
 	//	CCozeForm::GetInstance()->OnSystemMsg(str.c_str());
 	//}
 	//else
 	//{
-	//	//g_stUICoze.OnSystemSay( "±£´æÊ§°Ü£¨ÄÚÈÝ¿Õ°×£¬´ÅÅÌ¿Õ¼ä²»×ã»òÎÄ¼þÄ¿Â¼Ã»ÓÐ¿ÉÐ´È¨ÏÞ£©" );
-	//	CCozeForm::GetInstance()->OnSystemMsg("±£´æÊ§°Ü£¨ÄÚÈÝ¿Õ°×£¬´ÅÅÌ¿Õ¼ä²»×ã»òÎÄ¼þÄ¿Â¼Ã»ÓÐ¿ÉÐ´È¨ÏÞ£©");
+	//	//g_stUICoze.OnSystemSay( "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½Ý¿Õ°×£ï¿½ï¿½ï¿½ï¿½Ì¿Õ¼ä²»ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Ä¿Â¼Ã»ï¿½Ð¿ï¿½Ð´È¨ï¿½Þ£ï¿½" );
+	//	CCozeForm::GetInstance()->OnSystemMsg("ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½Ý¿Õ°×£ï¿½ï¿½ï¿½ï¿½Ì¿Õ¼ä²»ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Ä¿Â¼Ã»ï¿½Ð¿ï¿½Ð´È¨ï¿½Þ£ï¿½");
 	//}
 	//End
 
@@ -1093,7 +1093,7 @@ void CTalkSessionForm::GetMsg(DWORD chaID,string talkMsg)
 		}
 		else
 		{
-			nameBuf="×Ô¼º";
+			nameBuf="ï¿½Ô¼ï¿½";
 			secondNameBuf="";
 		}
 	}
@@ -1105,7 +1105,7 @@ void CTalkSessionForm::GetMsg(DWORD chaID,string talkMsg)
 	//m_strTalkMsg+=buf+string(" : ")+talkMsg+"\n";
 	RefreshForm();
 
-	// Add by ning.yan  20080727  ËæÊ±±£´æ½ÓÊÕµ½µÄÁÄÌìÄÚÈÝ  Begin
+	// Add by ning.yan  20080727  ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  Begin
 	if( pMsg->name != CGameScene::GetMainCha()->getName())
 	{
 		string strName =pMsg->name;
@@ -1113,7 +1113,7 @@ void CTalkSessionForm::GetMsg(DWORD chaID,string talkMsg)
 		_time64(&t);
 		tm *ltime=_gmtime64(&t);
 		char ch[12];
-		sprintf(ch,"  %d:%d:%d",ltime->tm_hour+8,ltime->tm_min,ltime->tm_sec);
+		sprintf(ch,"  %d:%d:%d",ltime->tm_hour+7,ltime->tm_min,ltime->tm_sec); // GMT+7 (BKK)
 		string time = ch;
 		if ( pMsg->motto.size() == 0 )
 		{
@@ -1130,12 +1130,12 @@ void CTalkSessionForm::GetMsg(DWORD chaID,string talkMsg)
 		{
 			if (CChatRecord::Save( GetMemberByIndex(i)->GetName(), GetTotalMembers(), saveText))
 			{
-				//string str="ÒÑ³É¹¦±£´æµ½ÎÄ¼þ:\""+CChatRecord::GetLastSavePath()+"\"Àï";
+				//string str="ï¿½Ñ³É¹ï¿½ï¿½ï¿½ï¿½æµ½ï¿½Ä¼ï¿½:\""+CChatRecord::GetLastSavePath()+"\"ï¿½ï¿½";
 				//CCozeForm::GetInstance()->OnSystemMsg(str.c_str());
 			}
 			else
 			{
-				//CCozeForm::GetInstance()->OnSystemMsg("±£´æÊ§°Ü£¨ÄÚÈÝ¿Õ°×£¬´ÅÅÌ¿Õ¼ä²»×ã»òÎÄ¼þÄ¿Â¼Ã»ÓÐ¿ÉÐ´È¨ÏÞ£©");
+				//CCozeForm::GetInstance()->OnSystemMsg("ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½Ý¿Õ°×£ï¿½ï¿½ï¿½ï¿½Ì¿Õ¼ä²»ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Ä¿Â¼Ã»ï¿½Ð¿ï¿½Ð´È¨ï¿½Þ£ï¿½");
 			}
 		}
 	}
@@ -1156,7 +1156,7 @@ void CTalkSessionForm::SendBufferMsg()
 		}
 		m_strWaitForSend.clear();
 		//delete buf;
-		SAFE_DELETE_ARRAY(buf); // UIµ±»ú´¦Àí
+		SAFE_DELETE_ARRAY(buf); // UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}
 	if (!m_strWaitForAdded.empty())
 	{
@@ -1170,7 +1170,7 @@ void CTalkSessionForm::SendBufferMsg()
 		}
 		m_strWaitForAdded.clear();
 		//delete buf;
-		SAFE_DELETE_ARRAY(buf); // UIµ±»ú´¦Àí
+		SAFE_DELETE_ARRAY(buf); // UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		//CS_Sess_Add(GetSessionID(),m_strWaitForAdded.c_str());
 		//m_strWaitForAdded.clear();
 	}
@@ -1184,7 +1184,7 @@ void CTalkSessionForm::ClearMsg()
 		Iter=m_TalkMsg.begin();
 		sTalkMsg* pNode=*Iter;
 		//delete pNode;
-		SAFE_DELETE(pNode); // UIµ±»ú´¦Àí
+		SAFE_DELETE(pNode); // UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		m_TalkMsg.erase(Iter);
 	}
 }
@@ -1210,7 +1210,7 @@ void CTalkSessionForm::GuiFormEscCloseEvent(CForm *pForm)
 }
 
 //------------------------------------------------------------------------
-//	CTalkSessionFormMgrÀàÊµÏÖ
+//	CTalkSessionFormMgrï¿½ï¿½Êµï¿½ï¿½
 //------------------------------------------------------------------------
 
 //RECT CTalkSessionFormMgr::INFORM_FORM;
@@ -1234,7 +1234,7 @@ CTalkSessionFormMgr::~CTalkSessionFormMgr(void)
 	{
 		Iter=m_SessionFormsLink.begin();
 		//delete (*Iter);
-		SAFE_DELETE(*Iter); // UIµ±»ú´¦Àí
+		SAFE_DELETE(*Iter); // UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		m_SessionFormsLink.erase(Iter);
 	}
 }
@@ -1294,7 +1294,7 @@ bool CTalkSessionFormMgr::AddToSession(DWORD sessionID,stNetSessCreate *pMember)
 	CTalkSessionForm *pSessionForm=GetSessionFormByID(sessionID);
 	if (!pSessionForm) return false;
 	pSessionForm->AddMembers(&pMember);
-	//pSessionForm->SetInformText("ÏµÍ³ÏûÏ¢",pMember.  );
+	//pSessionForm->SetInformText("ÏµÍ³ï¿½ï¿½Ï¢",pMember.  );
 	return true;
 }
 
@@ -1308,7 +1308,7 @@ void CTalkSessionFormMgr::CloseSessionForm(DWORD sessionID)
 			g_stUIChat.GetSessionNode()->DelItem((CItemObj*)((*Iter)->GetData()));
 			g_stUIChat.GetTeamView()->Refresh();
 			//delete (*Iter);
-			SAFE_DELETE(*Iter); // UIµ±»ú´¦Àí
+			SAFE_DELETE(*Iter); // UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			m_SessionFormsLink.erase(Iter);
 			--m_SessionCounts;
 			return;
@@ -1323,7 +1323,7 @@ void CTalkSessionFormMgr::ClearAll()
 	{
 		Iter=m_SessionFormsLink.begin();
 		//delete (*Iter);
-		SAFE_DELETE(*Iter); // UIµ±»ú´¦Àí
+		SAFE_DELETE(*Iter); // UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		m_SessionFormsLink.erase(Iter);
 	}
 	m_SessionCounts=0;
@@ -1618,7 +1618,7 @@ void CTalkSessionFormMgr::SessionReceiveMsg(DWORD sessionID,DWORD chaID,string t
 //
 //void CTalkSessionFormMgr::SetInformSize(RECT rectFrom,RECT rectTitle)
 //{
-//	//Õý¹æ»¯¾ØÐÎ¿ò
+//	//ï¿½ï¿½ï¿½æ»¯ï¿½ï¿½ï¿½Î¿ï¿½
 //	LONG tmp;
 //	if (rectFrom.top>rectFrom.bottom)
 //	{
@@ -1930,7 +1930,7 @@ void CTalkSessionFormMgr::PrintTraceInfo()
 		CTalkSessionForm* pSessionForm=(*Iter);
 		DWORD dwSessionID=pSessionForm->GetSessionID();
 		int nMemberCount=pSessionForm->GetTotalMembers();
-		sprintf(szBuf,"»á»°ID=%d ÈËÊý=%d ³ÉÔ±:",nMemberCount,dwSessionID);
+		sprintf(szBuf,"ï¿½á»°ID=%d ï¿½ï¿½ï¿½ï¿½=%d ï¿½ï¿½Ô±:",nMemberCount,dwSessionID);
 		strInfo+=szBuf;
 		for (int i=0;i<nMemberCount;i++)
 		{

@@ -1,6 +1,6 @@
 #pragma once
 
-// 仇恨度系统 - 伤害值管理
+// Forward declaration (harm / hate list references CCharacter)
 class CCharacter;
 
 #define MAX_HARM_REC    5
@@ -9,21 +9,21 @@ class CCharacter;
 
 extern BOOL g_bLogHarmRec;
 
-struct SHarmRec // 伤害记录
+struct SHarmRec // One attacker's contribution (damage + hate) toward a victim
 {
-	CCharacter *pAtk;		// 攻击者指针
-	DWORD		sHarm;		// 累加伤害值
-	DWORD       sHate;      // 仇恨度
-	BYTE		btValid;	// 是否有效
+	CCharacter *pAtk;		// Attacking character
+	DWORD		sHarm;		// Accumulated damage from this attacker
+	DWORD       sHate;      // Hate / threat value (used for targeting order)
+	BYTE		btValid;	// Freshness weight (decays over time; caps at MAX_VALID_CNT)
 	DWORD		dwID;
-	DWORD		dwTime;		// 第一次攻击的时间
+	DWORD		dwTime;		// Game run-tick when this slot was last assigned
 
 	SHarmRec(): pAtk(0), sHarm(0), sHate(0), btValid(0), dwID(0), dwTime(0)
 	{
 	
 	}
 	
-	bool IsChaValid() // 返回一个角色是否还有效
+	bool IsChaValid() // Attacker pointer still refers to a live entity with matching ID
 	{
 		if (!pAtk)
 		{
@@ -79,7 +79,7 @@ inline CCharacter* CHateMgr::GetCurTarget()
 
 inline void CHateMgr::ClearHarmRec()
 {
-	// 已有角色累加伤害
+	// Cumulative damage of existing characters
 	for(int i = 0; i < MAX_HARM_REC; i++)
 	{
 		SHarmRec *pHarm = &_HarmRec[i];
@@ -114,31 +114,31 @@ inline void CHateMgr::AddHarm(CCharacter *pAtk, short sHarm, DWORD dwID)
 {
 	if(g_bLogHarmRec)
 	{
-		//LG("harm", "开始添加伤害, 攻击者[%s], 伤害%d\n", pAtk->GetName(), sHarm);
-		LG("harm", "begin to add harm, attacker[%s], harm%d\n", pAtk->GetName(), sHarm);
+		//LG("harm", "AddHarm begin, attacker[%s], harm=%d\n", pAtk->GetName(), sHarm);
+		LG("harm", "begin to add harm, attacker[%s], harm=%d\n", pAtk->GetName(), sHarm);
 	}
-	// 已有角色累加伤害
+	// Merge into existing slot if this attacker is already recorded
 	for(int i = 0; i < MAX_HARM_REC; i++)
 	{
 		SHarmRec *pHarm = &_HarmRec[i];
 		if(pHarm->pAtk==pAtk && pHarm->pAtk->GetID()==dwID)
 		{
 			pHarm->sHarm+=sHarm;
-			pHarm->sHate+=sHarm; // 普通伤害时, 伤害和仇恨同步增加
+			pHarm->sHate+=sHarm; // Damage also increases hate by the same amount
 			if(pHarm->btValid < MAX_VALID_CNT)
 			{
 				pHarm->btValid++;
 				if(g_bLogHarmRec)
 				{
-					//LG("harm", "攻击者[%s], 累计伤害=%d，valid=%d\n", pAtk->GetName(), pHarm->sHarm, pHarm->btValid);
-					LG("harm", "attacker[%s], accunulative harm=%d，valid=%d\n", pAtk->GetName(), pHarm->sHarm, pHarm->btValid);
+					//LG("harm", "attacker[%s], cumulative harm=%d, valid=%d\n", pAtk->GetName(), pHarm->sHarm, pHarm->btValid);
+					LG("harm", "attacker[%s], cumulative harm=%d, valid=%d\n", pAtk->GetName(), pHarm->sHarm, pHarm->btValid);
 				}
 			}
 			return;
 		}
 	}
 
-	// 添加新的伤害
+	// Otherwise take the first free slot and start a new record
 	for(int i = 0; i < MAX_HARM_REC; i++)
 	{
 		SHarmRec *pHarm = &_HarmRec[i];
@@ -152,7 +152,7 @@ inline void CHateMgr::AddHarm(CCharacter *pAtk, short sHarm, DWORD dwID)
 			pHarm->dwTime  = g_pGameApp->m_dwRunCnt;
 			if(g_bLogHarmRec)
 			{
-				//LG("harm", "添加新的攻击者[%s], 伤害 = %d\n", pAtk->GetName(), pHarm->sHarm);
+				//LG("harm", "new attacker slot[%s], harm = %d\n", pAtk->GetName(), pHarm->sHarm);
 				LG("harm", "add new attacker[%s], harm = %d\n", pAtk->GetName(), pHarm->sHarm);
 			}
 			break;
@@ -160,7 +160,7 @@ inline void CHateMgr::AddHarm(CCharacter *pAtk, short sHarm, DWORD dwID)
 	}
 }
 
-// 仅添加伤害而不添加仇恨
+// Adjust hate only (no damage); may create a slot for positive hate
 inline void CHateMgr::AddHate(CCharacter *pAtk, short sHate, DWORD dwID)
 {
 	for(int i = 0; i < MAX_HARM_REC; i++)
@@ -195,7 +195,7 @@ inline void CHateMgr::AddHate(CCharacter *pAtk, short sHate, DWORD dwID)
 
 	if(sHate > 0)
 	{
-		// 添加新的hate
+		// Positive hate on a new attacker: grab a free slot
 		for(int i = 0; i < MAX_HARM_REC; i++)
 		{
 			SHarmRec *pHarm = &_HarmRec[i];
@@ -228,7 +228,7 @@ inline void CHateMgr::UpdateHarmRec(CCharacter *pSelf)
 {
 	DWORD dwCurTick = GetTickCount();
 	
-	// 重新记录有效的HarmRec
+	// Compact: move still-valid HarmRec entries to the front of the array
 	int nValid = 0;
 	for(int i = 0; i < MAX_HARM_REC; i++)
 	{
@@ -240,7 +240,7 @@ inline void CHateMgr::UpdateHarmRec(CCharacter *pSelf)
 		}
 	}
 
-	// 剩下的都清除, 保证HarmRec是紧凑的, 没有空位
+	// Clear unused tail slots after compaction
 	for(int j = nValid; j < MAX_HARM_REC; j++)
 	{
 		SHarmRec *pHarm = &_HarmRec[j];
@@ -252,7 +252,7 @@ inline void CHateMgr::UpdateHarmRec(CCharacter *pSelf)
 		pHarm->dwTime  = 0;
 	}
 	
-	// 每 2 秒钟,排序一次
+	// Every ~2s, resort by hate (highest first via CompareHarm)
 	if((dwCurTick - _dwLastSortTick) > 2000)
 	{
 		_dwLastSortTick = dwCurTick;
@@ -264,7 +264,7 @@ inline void CHateMgr::UpdateHarmRec(CCharacter *pSelf)
 		}
 	}
 
-	// 每 5 秒钟 btValid - 1
+	// Every ~5s, decay btValid by 1 for each non-empty slot
 	if((dwCurTick - _dwLastDecValid) > 5000)
 	{
 		_dwLastDecValid = dwCurTick;	
@@ -274,18 +274,18 @@ inline void CHateMgr::UpdateHarmRec(CCharacter *pSelf)
 			if(pHarm->btValid > 0)
 			{
 				pHarm->btValid--;
-				if(pHarm->btValid==0) // 忘掉了
+				if(pHarm->btValid==0) // Slot fully expired
 				{
-					pHarm->sHarm  = 0;		// 伤害不累计
-					pHarm->sHate  = 0;		// 仇恨不累计
-					pHarm->dwTime = 0;		// 时间清0
+					pHarm->sHarm  = 0;		// Clear damage
+					pHarm->sHate  = 0;		// Clear hate
+					pHarm->dwTime = 0;		// Clear timestamp
 					pHarm->pAtk   = NULL;
 					pHarm->dwID   = 0;
 				}
 				if(g_bLogHarmRec)
 				{
-					//LG("harm", "攻击者[%s]的valid--, valid = %d\n", pHarm->pAtk->GetName(), pHarm->btValid);
-					LG("harm", "attacker[%s]的valid--, valid = %d\n", pHarm->pAtk->GetName(), pHarm->btValid);
+					//LG("harm", "attacker[%s] valid decayed, valid = %d\n", pHarm->pAtk->GetName(), pHarm->btValid);
+					LG("harm", "attacker[%s] valid decayed, valid = %d\n", pHarm->pAtk->GetName(), pHarm->btValid);
 				}
 			}
 		}
@@ -295,7 +295,7 @@ inline void CHateMgr::UpdateHarmRec(CCharacter *pSelf)
 inline void CHateMgr::DebugNotice(CCharacter *pSelf)
 {
 	std::string strNotice = pSelf->GetName();
-	//strNotice+="目标列表:";
+	//strNotice+="Hate list:";
 	strNotice+=RES_STRING(GM_HARMREC_H_00001);
 	BOOL bSend = FALSE;
 	char szHate[64];

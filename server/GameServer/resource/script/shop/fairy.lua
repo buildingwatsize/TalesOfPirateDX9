@@ -45,6 +45,11 @@ IGS.Category[MainTabName][SubTabName3].Packs[7] = AddMallPack("Great Icespire Pl
 IGS.Category[MainTabName][SubTabName3].Packs[8] = AddMallPack("Great Zephyr Fish Floss", "Zephyr Fish Floss can increases the Accuracy of pet by 2.", 7, 1, {0278}, 1, -1)
 IGS.Category[MainTabName][SubTabName3].Packs[9] = AddMallPack("Great Argent Mango", "Argent Mango can increases the Constitution of pet by 2.", 7, 1, {0279}, 1, -1)
 IGS.Category[MainTabName][SubTabName3].Packs[10] = AddMallPack("Great Shaitan Biscuit", "Shaitan Biscuit can increases the Spirit of pet by 2.", 7, 1, {0280}, 1, -1)
+IGS.Category[MainTabName][SubTabName3].Packs[11] = AddMallPack("Improved Strength Fruit", "Improved Strength Fruit can increases the Strength of pet by 4.", 10, 1, {7003}, 1, -1)
+IGS.Category[MainTabName][SubTabName3].Packs[12] = AddMallPack("Improved Agility Fruit", "Improved Agility Fruit can increases the Agility of pet by 4.", 10, 1, {7004}, 1, -1)
+IGS.Category[MainTabName][SubTabName3].Packs[13] = AddMallPack("Improved Accuracy Fruit", "Improved Accuracy Fruit can increases the Accuracy of pet by 4.", 10, 1, {7005}, 1, -1)
+IGS.Category[MainTabName][SubTabName3].Packs[14] = AddMallPack("Improved Constitution Fruit", "Improved Constitution Fruit can increases the Constitution of pet by 4.", 10, 1, {7006}, 1, -1)
+IGS.Category[MainTabName][SubTabName3].Packs[15] = AddMallPack("Improved Spirit Fruit", "Improved Spirit Fruit can increases the Spirit of pet by 4.", 10, 1, {7007}, 1, -1)
 --	Marriage Fruits.
 IGS.Category[MainTabName][SubTabName4].Packs[1] = AddMallPack("Demonic Fruit of Acidity", "Use during pet marriage to conceive a Fairy of Luck.", 19, 1, {3918}, 1, -1)
 IGS.Category[MainTabName][SubTabName4].Packs[2] = AddMallPack("Demonic Fruit of Courage", "Use during pet marriage to conceive a Fairy of Constitution.", 19, 1, {3919}, 1, -1)
@@ -65,6 +70,12 @@ IGS.Category[MainTabName][SubTabName5].Packs[7 ] = AddMallPack("Standard Berserk
 IGS.Category[MainTabName][SubTabName5].Packs[8 ] = AddMallPack("Standard Magic", "Pet Skill", 6, 1, {0250}, 1, -1)
 IGS.Category[MainTabName][SubTabName5].Packs[9 ] = AddMallPack("Standard Recover", "Pet Skill", 6, 1, {0253}, 1, -1)
 IGS.Category[MainTabName][SubTabName5].Packs[10] = AddMallPack("Standard Meditation", "Pet Skill", 6, 1, {0260}, 1, -1)
+--	Expert Fairy Skills.
+IGS.Category[MainTabName][SubTabName5].Packs[11] = AddMallPack("Expert Protection", "Pet Skill", 6, 1, {0245}, 1, -1)
+IGS.Category[MainTabName][SubTabName5].Packs[12] = AddMallPack("Expert Berserk", "Pet Skill", 6, 1, {0248}, 1, -1)
+IGS.Category[MainTabName][SubTabName5].Packs[13] = AddMallPack("Expert Magic", "Pet Skill", 6, 1, {0251}, 1, -1)
+IGS.Category[MainTabName][SubTabName5].Packs[14] = AddMallPack("Expert Recover", "Pet Skill", 6, 1, {0254}, 1, -1)
+IGS.Category[MainTabName][SubTabName5].Packs[15] = AddMallPack("Expert Meditation", "Pet Skill", 6, 1, {0261}, 1, -1)
 
 IGS.Category[MainTabName][MainTabName].Pointer = AddMallTab(MainTabName, IGS.Category[MainTabName][MainTabName].Packs)
 IGS.Category[MainTabName][SubTabName1].Pointer = AddMallTab(SubTabName1, IGS.Category[MainTabName][SubTabName1].Packs, IGS.Category[MainTabName][MainTabName].Pointer)

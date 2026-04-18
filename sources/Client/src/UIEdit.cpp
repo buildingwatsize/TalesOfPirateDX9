@@ -384,9 +384,9 @@ bool CEdit::OnChar( char c )
 	case '@':{
 		DWORD dwThreadID = GetCurrentThreadId();
 		HKL hCurKeyboard = GetKeyboardLayout(dwThreadID);
-		unsigned int keyboard = reinterpret_cast<int> (hCurKeyboard);
-		unsigned int layout = keyboard>>16;
-		unsigned int lang = keyboard&0xFFFF;
+		UINT_PTR keyboard = reinterpret_cast<UINT_PTR>(hCurKeyboard);
+		unsigned int layout = (unsigned int)(keyboard>>16) & 0xFFFF;
+		unsigned int lang = (unsigned int)(keyboard & 0xFFFF);
 		if(layout == 0x0407 || layout == 0xf012 ){
 			_str+=c;
 			SetCaption(_str.c_str());
@@ -789,7 +789,8 @@ void CEdit::SetCaption( const char * str)
 { 
 	if( GetActive()==this )
 	{
-		if(strlen(str) <= this->GetMaxNum()) // Add by lark.li 20080820
+		//if (strlen(str) <= this->GetMaxNum()) // Add by lark.li 20080820
+		if((int)strlen(str) <= this->GetMaxNum())
 		{
 			g_InputBox.SetText(str);
 			g_InputBox.SetCursorTail();

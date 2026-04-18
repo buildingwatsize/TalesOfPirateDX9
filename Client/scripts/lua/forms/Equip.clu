@@ -441,7 +441,7 @@ UI_LoadButtonImage( btnRight3d, "texture/ui/corsairs/coButtons.png",  32, 32, 21
 ---------------------------------------
 --  Npc/ Monster Helper from Top II  --
 ----------------------------------------
---  Lee ��NPC �����ѯ���  20080715  --
+--  Lee NPC   20080715  --
 ----------------------------------------
 frmNpcShow= UI_CreateForm( "frmNpcShow", FALSE, 420, 544, 0, 0, FALSE, FALSE )
 UI_ShowForm( frmNpcShow, TRUE )

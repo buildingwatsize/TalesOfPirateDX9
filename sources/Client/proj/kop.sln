@@ -7,21 +7,21 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "kop.vcxproj", "{595
 		{3A1C94CD-CCBA-4F62-9AF1-919B10C582E6} = {3A1C94CD-CCBA-4F62-9AF1-919B10C582E6}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MindPower3D", "..\engine\sdk\proj\MindPower3D.vcxproj", "{8661B70A-8D22-4082-9E71-00312294DF0F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MindPower3D", "..\..\Engine\proj\MindPower3D.vcxproj", "{8661B70A-8D22-4082-9E71-00312294DF0F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Common", "..\..\CommonLibs\common\Proj\Common.vcxproj", "{58B6753C-75DA-449A-97F9-3B26DA4B6FB5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Common", "..\..\Libraries\common\Proj\Common.vcxproj", "{58B6753C-75DA-449A-97F9-3B26DA4B6FB5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EncLib", "..\..\CommonLibs\EncLib\proj\EncLib.vcxproj", "{C8FF6997-B107-46E6-88E1-F804DABD9F77}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EncLib", "..\..\Libraries\EncLib\proj\EncLib.vcxproj", "{C8FF6997-B107-46E6-88E1-F804DABD9F77}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LIBDBC", "..\..\CommonLibs\Server\sdk\Proj\LIBDBC.vcxproj", "{C9B950BB-F1B8-4274-B077-E07B16A16F1B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LIBDBC", "..\..\Libraries\Server\sdk\Proj\LIBDBC.vcxproj", "{C9B950BB-F1B8-4274-B077-E07B16A16F1B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Status", "..\..\CommonLibs\Status\Proj\Status.vcxproj", "{1BDA542A-FAFB-4B7B-B7BD-3AD14BB78768}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Status", "..\..\Libraries\Status\Proj\Status.vcxproj", "{1BDA542A-FAFB-4B7B-B7BD-3AD14BB78768}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "logutil", "..\..\CommonLibs\Util\src\logutil.vcxproj", "{8C999608-91A8-4A85-BCD8-975B65EEC5F4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "logutil", "..\..\Libraries\Util\src\logutil.vcxproj", "{8C999608-91A8-4A85-BCD8-975B65EEC5F4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AudioSDL", "..\..\CommonLibs\AudioSDL\proj\AudioSDL.vcxproj", "{3A1C94CD-CCBA-4F62-9AF1-919B10C582E6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AudioSDL", "..\..\Libraries\AudioSDL\proj\AudioSDL.vcxproj", "{3A1C94CD-CCBA-4F62-9AF1-919B10C582E6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cryptlib", "..\..\CommonLibs\Cryptopp\cryptlib.vcxproj", "{C39F4B46-6E89-4074-902E-CA57073044D2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cryptlib", "..\..\Libraries\Cryptopp\cryptlib.vcxproj", "{C39F4B46-6E89-4074-902E-CA57073044D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

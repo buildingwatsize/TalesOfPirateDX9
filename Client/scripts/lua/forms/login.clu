@@ -254,9 +254,9 @@ UI_LoadButtonImage( btnKeyboard, "texture/ui/corsairs/coButtons.png", 41, 19, 0,
 --UI_LoadButtonImage( btnRegister, "texture/ui/Keyboard4.tga", 57, 17, 197, 85, FALSE )
 
 -----------------------------------------------------------------------
--- 定义健康通告
+-- 
 -----------------------------------------------------------------------	
--- 创建健康通告表单
+-- 
 frmAnnounce = UI_CreateForm( "frmAnnounce", FALSE, 198, 207, 396, 190, FALSE, FALSE )
 UI_LoadFormImage( frmAnnounce, "texture/ui/Game.bmp", 198, 207, 0, 0, "", 0, 0 )
 UI_AddFormToTemplete( frmAnnounce, FORM_LOGIN )
@@ -265,12 +265,12 @@ UI_SetFormStyle( frmAnnounce, 2 )
 UI_FormSetIsEscClose( frmAnnounce, FALSE )
 
 
--- 加载界面title
+-- title
 imgAnnTitle = UI_CreateCompent( frmAnnounce, IMAGE_TYPE, "imgAnnTitle", 73, 13, 10, 4 )
 UI_LoadImage( imgAnnTitle, "texture/ui/Word.dds", NORMAL, 73, 13, 0, 58 )
 
 
---加载确定按钮
+--
 btnYes = UI_CreateCompent( frmAnnounce, BUTTON_TYPE, "btnYes", 41, 19, 100, 180 )
 UI_LoadButtonImage( btnYes, "texture/ui/PublicC.tga", 41, 19, 0, 0, TRUE )
 UI_SetAlign( btnYes, caWidthCenter )
@@ -373,9 +373,9 @@ UI_SetEditMaxNum( edtRegEmail, 254 )
 UI_SetEditMaxNumVisible( edtRegEmail, 12 )
 
 -----------------------------------------------------------------------
--- 定义软件盘
+-- 
 -----------------------------------------------------------------------	
--- 创建软件盘表单
+-- 
 frmKeyboard = UI_CreateForm( "frmKeyboard", FALSE, 447, 122, 396, 178, FALSE, FALSE )
 --UI_LoadFormImage( frmKeyboard, "texture/ui/Game.bmp", 198, 207, 0, 0, "", 0, 0 )
 UI_AddFormToTemplete( frmKeyboard, FORM_LOGIN )
@@ -385,7 +385,7 @@ UI_FormSetIsEscClose( frmKeyboard, FALSE )
 --UI_FormSetHotKey( frmKeyboard, ALT_KEY, 75 ) --'K'
 
 
--- 加载背景图片
+-- 
 imgKeyboard1 = UI_CreateCompent( frmKeyboard, IMAGE_TYPE, "imgKeyboard1", 256, 122, -4, 0 )
 UI_LoadImage( imgKeyboard1, "texture/ui/Keyboard1.tga", NORMAL, 256, 122, 0, 0 )
 UI_SetImageAlpha( imgKeyboard1, 210 )
@@ -394,7 +394,7 @@ imgKeyboard2 = UI_CreateCompent( frmKeyboard, IMAGE_TYPE, "imgKeyboard2", 191, 1
 UI_LoadImage( imgKeyboard2, "texture/ui/Keyboard1.tga", NORMAL, 191, 122, 0, 123 )
 UI_SetImageAlpha( imgKeyboard2, 210 )
 
--- 加载界面title
+-- title
 labTitle1 = UI_CreateCompent( frmKeyboard, LABELEX_TYPE, "labTitle1", 24, 10, 112, 4 )
 UI_SetCaption( labTitle1, "For the safety of your account" )
 UI_SetTextColor( labTitle1, COLOR_BLACK )
@@ -405,7 +405,7 @@ UI_SetCaption( labTitle2, "please use the soft keyboard to input your password" 
 UI_SetTextColor( labTitle2, COLOR_BLACK )
 UI_SetLabelExFont( labTitle2, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
---加载数值按钮
+--
 btnNum1 = UI_CreateCompent( frmKeyboard, BUTTON_TYPE, "btnNum1", 27, 17, 28, 50 )
 UI_LoadButtonImage( btnNum1, "texture/ui/Keyboard2.tga", 27, 17, 108, 17, TRUE )
 btnNum2 = UI_CreateCompent( frmKeyboard, BUTTON_TYPE, "btnNum2", 27, 17, 55, 50 )
@@ -427,7 +427,7 @@ UI_LoadButtonImage( btnNum9, "texture/ui/Keyboard3.tga", 27, 17, 108, 102, TRUE 
 btnNum0 = UI_CreateCompent( frmKeyboard, BUTTON_TYPE, "btnNum0", 27, 17, 271, 50 )
 UI_LoadButtonImage( btnNum0, "texture/ui/Keyboard3.tga", 27, 17, 0, 187, TRUE )
 
---加载字母按钮
+--
 btnLetterA = UI_CreateCompent( frmKeyboard, BUTTON_TYPE, "btnLetterA", 27, 17, 1, 84 )
 UI_LoadButtonImage( btnLetterA, "texture/ui/Keyboard2.tga", 27, 17, 0, 51, TRUE )
 btnLetterB = UI_CreateCompent( frmKeyboard, BUTTON_TYPE, "btnLetterB", 27, 17, 109, 101 )
@@ -481,33 +481,33 @@ UI_LoadButtonImage( btnLetterY, "texture/ui/Keyboard2.tga", 27, 17, 108, 204, TR
 btnLetterZ = UI_CreateCompent( frmKeyboard, BUTTON_TYPE, "btnLetterZ", 27, 17, 1, 101 )
 UI_LoadButtonImage( btnLetterZ, "texture/ui/Keyboard2.tga", 27, 17, 0, 68, TRUE )
 
----------------加载功能按钮
---加载确定按钮
+---------------
+--
 btnYes = UI_CreateCompent( frmKeyboard, BUTTON_TYPE, "btnYes", 83, 34, 352, 84 )
 UI_LoadButtonImage( btnYes, "texture/ui/Keyboard4.tga", 83, 34, 57, 85, FALSE )
 --UI_SetAlign( btnYes, caWidthCenter )
 UI_SetCaption( btnYes, "" )
 
---加载关闭按钮
+--
 btnClose = UI_CreateCompent( frmKeyboard, BUTTON_TYPE, "btnClose", 57, 17, 379, 8 )
 UI_LoadButtonImage( btnClose, "texture/ui/Keyboard4.tga", 57, 17, 140, 153, FALSE )
 
 
 
---加载大小写切换开关
+--
 chkShift = UI_CreateCompent( frmKeyboard, CHECK_TYPE, "chkShift", 57, 17, 379, 67 )
 UI_LoadImage( chkShift, "texture/ui/Keyboard4.tga", UNCHECKED, 57, 17, 140, 85 )
 UI_LoadImage( chkShift, "texture/ui/Keyboard4.tga", CHECKED, 57, 17, 140, 119 )
 
 
 
---加载退格按钮
+--
 btnDel = UI_CreateCompent( frmKeyboard, BUTTON_TYPE, "btnDel", 57, 34, 379, 33 )
 UI_LoadButtonImage( btnDel, "texture/ui/Keyboard4.tga", 57, 34, 0, 85, FALSE )
 --UI_SetAlign( btnDel, caWidthCenter )
 UI_SetCaption( btnDel, "" )
 
---加载其他按钮
+--
 btnOther101 = UI_CreateCompent( frmKeyboard, BUTTON_TYPE, "btnOther101", 27, 17, 1, 33 )
 UI_LoadButtonImage( btnOther101, "texture/ui/Keyboard2.tga", 27, 17, 0, 0, TRUE )
 btnOther102 = UI_CreateCompent( frmKeyboard, BUTTON_TYPE, "btnOther102", 27, 17, 28, 33 )
@@ -579,7 +579,7 @@ UI_LoadButtonImage( btnOther506, "texture/ui/Keyboard4.tga", 27, 17, 0, 68, TRUE
 
 
 -----------------------------------------------------------------------
--- 测试FORM1 -added by Arcol
+-- FORM1 -added by Arcol
 -----------------------------------------------------------------------	
 frmTest1 = UI_CreateForm( "frmTest1_Arcol", FALSE, 160, 120, 600, 200, FALSE, FALSE )
 UI_LoadFormImage( frmTest1, "texture/ui/Test1.bmp", 160, 120, 0, 0, "", 0, 0 )
@@ -587,7 +587,7 @@ UI_AddFormToTemplete( frmTest1, FORM_LOGIN )
 UI_SetIsDrag( frmTest1, TRUE )
 
 -----------------------------------------------------------------------
--- 测试FORM2 -added by Arcol
+-- FORM2 -added by Arcol
 -----------------------------------------------------------------------	
 frmTest2 = UI_CreateForm( "frmTest2_Arcol", FALSE, 160, 120, 600, 400, FALSE, FALSE )
 UI_LoadFormImage( frmTest2, "texture/ui/Test2.bmp", 160, 120, 0, 0, "", 0, 0 )
@@ -637,7 +637,7 @@ edtDoublePwdCreateRetry = UI_CreateCompent(frmDoublePwdCreate, EDIT_TYPE,"edtDou
 UI_SetEditMaxNum( edtDoublePwdCreateRetry, 12 )
 UI_SetEditMaxNumVisible(edtDoublePwdCreateRetry,12)
 
---创建TITLE
+--TITLE
 --labID = UI_CreateCompent( frmDoublePwdCreate, LABELEX_TYPE, "labID", 210, 11, 16, 84)
 --UI_SetCaption( labID, "For the safety of your account, please make a security code" )
 --UI_SetTextColor( labID,COLOR_RED )
@@ -816,9 +816,9 @@ UI_SetLabelExFont( labText5, DEFAULT_FONT, TRUE, COLOR_WHITE )
 --UI_SetLabelExFont( labText6, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
 -----------------------------------------------------------------------
--- 定义版本Logo界面
+-- Logo
 -----------------------------------------------------------------------	
--- 创建版本Logo界面
+-- Logo
 frmPathLogo = UI_CreateForm("frmPathLogo", TRUE, 256, 129, 50 , 450, TRUE,TRUE)
 UI_ShowForm(frmPathLogo, FALSE )
 UI_AddAllFormTemplete( frmPathLogo)
@@ -827,7 +827,7 @@ UI_FormSetIsEscClose(frmPathLogo, FALSE)
 
 --UI_FormSetHotKey( frmPathLogo, ALT_KEY, HOTKEY_Z ) 
 
--- 加载背景图片
+-- 
 imgPathLogo = UI_CreateCompent(frmPathLogo, IMAGE_TYPE,"imgPathLogo", 256, 129, 0, 0)
 --UI_LoadImage( imgPathLogo, "texture/ui/PathLogo.tga", NORMAL, 256,129, 0, 0)
 
@@ -931,7 +931,7 @@ UI_LoadButtonImage( btnYes, "texture/ui/PublicC.tga", 41, 19, 0, 0, TRUE )
 
 
 -----------------------------------------------------------------------
--- 定义改名界面，该界面仅对台湾版本有效，请做好备份工作
+-- 
 -----------------------------------------------------------------------	
 frmChaNameAlter = UI_CreateForm("frmChaNameAlter", TRUE, 500, 170, 0 , 0, TRUE,TRUE)
 UI_ShowForm(frmChaNameAlter, FALSE )
@@ -940,37 +940,37 @@ UI_FormSetIsEscClose(frmChaNameAlter, FALSE)
 UI_SetFormStyle(frmChaNameAlter,1)
 UI_AddFormToTemplete( frmChaNameAlter, FORM_SELECT )
 
---加载背景
+--
 imgCreateOKNotice1 = UI_CreateCompent(frmChaNameAlter, IMAGE_TYPE,"imgCreateOKNotice1", 256, 150, 0, 0)
 UI_LoadImage( imgCreateOKNotice1, "texture/ui/newshelp/login_out_01.tga", NORMAL, 256,150, 0, 0)
 UI_SetImageAlpha(imgCreateOKNotice1,220)
 
---加载标题
+--
 labTitle = UI_CreateCompent( frmChaNameAlter, LABELEX_TYPE, "labTitle", 400, 150, 10, 3 )
 UI_SetCaption( labTitle, "Edit character name")
 UI_SetTextColor( labTitle, COLOR_BLACK )
 UI_SetLabelExFont( labTitle, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
---修改面板
+--
 labText1 = UI_CreateCompent( frmChaNameAlter, LABELEX_TYPE, "labText1", 400, 150, 10, 20)
 UI_SetCaption( labText1, "Please change character name")
 UI_SetTextColor( labText1, COLOR_BLACK )
 UI_SetLabelExFont( labText1, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
 
---新角色名
+--
 labTitle = UI_CreateCompent( frmChaNameAlter, LABELEX_TYPE, "labTitle", 400, 150, 40, 30 )
 UI_SetCaption( labTitle, "New character name")
 UI_SetTextColor( labTitle, COLOR_BLACK )
 UI_SetLabelExFont( labTitle, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
---重新输入
+--
 labTitle = UI_CreateCompent( frmChaNameAlter, LABELEX_TYPE, "labTitle", 400, 150, 40, 50 )
 UI_SetCaption( labTitle, "Edit character name")
 UI_SetTextColor( labTitle, COLOR_BLACK )
 UI_SetLabelExFont( labTitle, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
---修改框
+--
 edtChaNameNew = UI_CreateCompent(frmChaNameAlter, EDIT_TYPE,"edtChaNameNew", 66, 14, 140, 30)
 UI_SetEditMaxNum( edtDoublePwdAlterNew, 12 )
 UI_SetEditMaxNumVisible(edtDoublePwdAlterNew,12)
@@ -979,7 +979,7 @@ edtChaNameNewRetry = UI_CreateCompent(frmChaNameAlter, EDIT_TYPE,"edtChaNameNewR
 UI_SetEditMaxNum( edtDoublePwdAlterNewRetry, 12 )
 UI_SetEditMaxNumVisible(edtDoublePwdAlterNewRetry,12)
 
---确定，取消按钮
+--
 btnYes = UI_CreateCompent( frmChaNameAlter, BUTTON_TYPE, "btnYes", 41, 19, 50, 120 )
 UI_LoadButtonImage( btnYes, "texture/ui/PublicC.tga", 41, 19, 0, 0, TRUE )
 

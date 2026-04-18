@@ -91,7 +91,7 @@ void CColorItem::ParseScript( const char szScript[], USHORT sStartCom, DWORD dwD
 		{
 			if( strDesp.size() > 0 )
 			{
-				// Ìí¼ÓÎÄ×ÖÏÔÊ¾Êý¾Ýµ½ÁÐ±íÖÐ
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ýµï¿½ï¿½Ð±ï¿½ï¿½ï¿½
 				ITEM_TEXT_DATA Data;
 				Data.dwColor = dwColor;
 				Data.sxPos = sxPos;
@@ -104,7 +104,7 @@ void CColorItem::ParseScript( const char szScript[], USHORT sStartCom, DWORD dwD
 			pszTemp++;
 			if( pszTemp[0] == 'p' )
 			{
-				dwColor = 0xFFFF00FF; // ×ÏÉ«
+				dwColor = 0xFFFF00FF; // ï¿½ï¿½É«
 				if( pszTemp[1] == '>' )
 				{
 					pszTemp++;
@@ -158,16 +158,16 @@ void CColorItem::ParseScript( const char szScript[], USHORT sStartCom, DWORD dwD
 			}
 			else
 			{
-				// Î´ÖªÀàÐÍ±¨´í£¡
+				// Î´Öªï¿½ï¿½ï¿½Í±ï¿½ï¿½ï¿½ï¿½ï¿½
 				continue;
 			}
 
-			// Ê¹ÓÃÐÂµÄ×Ö·û¼ÇÂ¼
+			// Ê¹ï¿½ï¿½ï¿½Âµï¿½ï¿½Ö·ï¿½ï¿½ï¿½Â¼
 			pszTemp++;
 		}
 		else if( pszTemp[0] == '>' )
 		{
-			// Ìí¼ÓÎÄ×ÖÏÔÊ¾Êý¾Ýµ½ÁÐ±íÖÐ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ýµï¿½ï¿½Ð±ï¿½ï¿½ï¿½
 			ITEM_TEXT_DATA Data;
 			Data.dwColor = dwColor;
 			Data.sxPos = sxPos;
@@ -181,7 +181,7 @@ void CColorItem::ParseScript( const char szScript[], USHORT sStartCom, DWORD dwD
 			continue;
 		}
 
-		// ÅÐ¶ÏÊÇ·ñÒ»¸öGBK
+		// ï¿½Ð¶ï¿½ï¿½Ç·ï¿½Ò»ï¿½ï¿½GBK
 		BOOL bFlag1 = 0x81 <= (BYTE)pszTemp[0] && (BYTE)pszTemp[0] <= 0xFE;
 		BOOL bFlag2 = (0x40 <= (BYTE)pszTemp[1] && (BYTE)pszTemp[1] <= 0x7E) || (0x7E <= (BYTE)pszTemp[1] && (BYTE)pszTemp[1] <= 0xFE);
 		if( bFlag1 && bFlag2 )
@@ -190,7 +190,7 @@ void CColorItem::ParseScript( const char szScript[], USHORT sStartCom, DWORD dwD
 			szData[1] = pszTemp[1];
 			strDesp += szData;
 			
-			// ÒÆ¶¯ÁÐºÍÖ¸ÏòÏÂÒ»¸ö×Ö·û
+			// ï¿½Æ¶ï¿½ï¿½Ðºï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö·ï¿½
 			sCom += 2;
 			pszTemp += 2;
 		}
@@ -199,7 +199,7 @@ void CColorItem::ParseScript( const char szScript[], USHORT sStartCom, DWORD dwD
 			szData[0] = pszTemp[0];
 			strDesp += szData;
 			
-			// ÒÆ¶¯ÁÐºÍÖ¸ÏòÏÂÒ»¸ö×Ö·û
+			// ï¿½Æ¶ï¿½ï¿½Ðºï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö·ï¿½
 			sCom++;
 			pszTemp++;
 		}
@@ -256,12 +256,12 @@ void CItemRow::_Clear()
 		if( _items[i] != _GetNullItem() )
 		{
 			//delete _items[i];
-			SAFE_DELETE(_items[i]); // UIµ±»ú´¦Àí
+			SAFE_DELETE(_items[i]); // UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 
 	//delete [] _items;
-	SAFE_DELETE_ARRAY(_items); // UIµ±»ú´¦Àí
+	SAFE_DELETE_ARRAY(_items); // UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	_pTag = NULL;
 }
 
@@ -285,27 +285,27 @@ void CItemRow::SetColor( DWORD c )
 //---------------------------------------------------------------------------
 // class CItemEx
 //---------------------------------------------------------------------------
-void CItemEx::ProcessString( int length ) // ²ÎÊý£º½ÇÉ«Ãû³ÆµÄ³¤¶È
+void CItemEx::ProcessString( int length ) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ÆµÄ³ï¿½ï¿½ï¿½
 {
-	_strLine[0] = _str.substr( 0 , length ); //µÚÒ»ÐÐÏÔÊ¾½ÇÉ«µÄÃû³Æ
+	_strLine[0] = _str.substr( 0 , length ); //ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	if ( _str.size() - length <= 32)  //Êµ¼ÊÎÄ×Ö²»×ã32¸ö×Ö·û,Ôò2ÐÐÏÔÊ¾
+	if ( _str.size() - length <= 32)  //Êµï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½32ï¿½ï¿½ï¿½Ö·ï¿½,ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½Ê¾
 	{
 		_strLine[1] = _str.substr (length , _str.size() - length ) ;
 		_nLineNum = 2;
 	}
-	else       //Êµ¼ÊÎÄ×Ö³¤ÓÚ32¸ö×Ö·û,Ôò3ÐÐÏÔÊ¾,×î¶à3ÐÐ
+	else       //Êµï¿½ï¿½ï¿½ï¿½ï¿½Ö³ï¿½ï¿½ï¿½32ï¿½ï¿½ï¿½Ö·ï¿½,ï¿½ï¿½3ï¿½ï¿½ï¿½ï¿½Ê¾,ï¿½ï¿½ï¿½3ï¿½ï¿½
 	{
 		int i ;
 		i = length ;					
-		while((int) _strLine[1].size() < 32 )   //µÚ2ÐÐ
+		while((int) _strLine[1].size() < 32 )   //ï¿½ï¿½2ï¿½ï¿½
 		{
-			if ( _str[i] & 0x80 ) //ºº×Ö
+			if ( _str[i] & 0x80 ) //ï¿½ï¿½ï¿½ï¿½
 			{
 				_strLine[1] +=  _str.substr (i , 2  );
 				i += 2 ;
 			}						
-			else //ÆäËû×Ö·û
+			else //ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½
 			{
 				//Modify by sunny.sun20080901
 				//begin
@@ -344,7 +344,7 @@ void CItemEx::ProcessString( int length ) // ²ÎÊý£º½ÇÉ«Ãû³ÆµÄ³¤¶È
 			}
 		}
 
-		while ( (int)_strLine[1].size() >= 32 && (int)_strLine[2].size() < 32 && i < (int)_str.size()) //µÚ3ÐÐ
+		while ( (int)_strLine[1].size() >= 32 && (int)_strLine[2].size() < 32 && i < (int)_str.size()) //ï¿½ï¿½3ï¿½ï¿½
 		{
 			if ( _str[i] & 0x80 )
 			{
@@ -443,11 +443,11 @@ void CItemEx::Render( int x, int y )
 	int sy=0;
 	if (m_Allign==eAlignCenter)
 	{
-		sy=(_nHeight-CGuiFont::s_Font.GetHeight(g_oLangRec.GetString(623)))/2;
+		sy=(_nHeight-CGuiFont::s_Font.GetHeight(RES_STRING(CL_LANGUAGE_MATCH_954)))/2;
 	}
 	else if (m_Allign==eAlignBottom)
 	{
-		sy=_nHeight-CGuiFont::s_Font.GetHeight(g_oLangRec.GetString(623));
+		sy=_nHeight-CGuiFont::s_Font.GetHeight(RES_STRING(CL_LANGUAGE_MATCH_954));
 	}
 	if( _bParseText ) 
 	{

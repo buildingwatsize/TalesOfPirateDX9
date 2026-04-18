@@ -130,7 +130,7 @@ inline  void	Part_bind(CMagicEff* pEffCtrl)
 	skip:
 			if(pCha->GetObjDummyRunTimeMatrix(&tMat,pEffCtrl->_iDummy))
 			{
-				LG("error",g_oLangRec.GetString(55),pEffCtrl->_iIdxID ,pEffCtrl->_iDummy, pCha->GetDefaultChaInfo()->szName );
+				LG("error",RES_STRING(CMISS_000055),pEffCtrl->_iIdxID ,pEffCtrl->_iDummy, pCha->GetDefaultChaInfo()->szName );
 				const auto v = D3DXVECTOR3(0, 0, 0);
 				pEffCtrl->MoveTo(&v);
 				return;
@@ -163,7 +163,7 @@ inline  void	Part_follow(CMagicEff* pEffCtrl)
 	iangle = pEffCtrl->_pObj->getYaw();
 	switch(pEffCtrl->getTypeID())
 	{
-	case 1:	//½ÇÉ«°ó¶¨ÌØÐ§
+	case 1:	//ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½Ð§
 		pCha = (CCharacter*)pEffCtrl->_pObj;
 		pEffCtrl->SetEffectDir(iangle);
 
@@ -185,7 +185,7 @@ inline  void	Part_follow(CMagicEff* pEffCtrl)
 			pEffCtrl->MoveTo(&tpos);
 		}
 		break;
-	case 2: //Îï¼þ°ó¶¨ÌØÐ§
+	case 2: //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§
 		lwMatrix44Identity(&tMat);
 		pObj = (CSceneObj*)pEffCtrl->_pObj;
 		tMat._41 = pObj->getPos().x;
@@ -217,7 +217,7 @@ inline  void	Part_foldir(CMagicEff* pEffCtrl)
 		goto __ret;
 	switch(pEffCtrl->getTypeID())
 	{
-	case 1:	//½ÇÉ«°ó¶¨ÌØÐ§
+	case 1:	//ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½Ð§
 		pCha = (CCharacter*)pEffCtrl->_pObj;
 		{
 			tpos = pCha->GetPos();
@@ -284,7 +284,7 @@ inline  void	Part_trace(CMagicCtrl* pEffCtrl, void*	pParam)
 		vTarget.z += 1.0f;
 	}
 
-	//!Èç¹ûÄ¿±êµÄÐÂÎ»ÖÃºÍÀÏÎ»ÖÃÏàÍ¬£¬·µ»Ø£¡
+	//!ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ãºï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½Ø£ï¿½
 	if(PointInstrPointRange(&vTarget, &pEffCtrl->_vOldTarget,1.0f))
 	{
 		return;
@@ -293,19 +293,19 @@ inline  void	Part_trace(CMagicCtrl* pEffCtrl, void*	pParam)
 	
 	pEffCtrl->ResetDir(&vTarget);
 
-	//!µÃµ½Ä¿±êµÄÀÏÎ»ÖÃÏòÐÂÎ»ÖÃÒÆ¶¯µÄ·½Ïò
+	//!ï¿½Ãµï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
 	pEffCtrl->_vTargDir = vTarget - pEffCtrl->_vOldTarget;
-	//!µÃµ½Ä¿±êµÄÀÏÎ»ÖÃºÍÐÂÎ»ÖÃÖ®¼äµÄ¾àÀë
+	//!ï¿½Ãµï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ãºï¿½ï¿½ï¿½Î»ï¿½ï¿½Ö®ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
 	pEffCtrl->_fTargDist = D3DXVec3LengthSq(&pEffCtrl->_vTargDir);
 	D3DXVec3Normalize(&pEffCtrl->_vTargDir, &pEffCtrl->_vTargDir);
 
-	//!µÃµ½Á£×ÓµÄÎ»ÖÃÐèÒªÏòÄ¿±êÒÆ¶¯µÄ·½ÏòÒÆ¶¯µÄ¾àÀë.
-	//	¹«Ê½Îª£º¾àÀë = Ä¿±êÒÆ¶¯µÄ¾àÀë / ×î³õ¼ÆËã³öµÄÔ´ºÍÄ¿±êµÄ¾àÀë * Á£×Óµ±Ç°Î»ÖÃºÍÉÏÒ»Ö¡Î»ÖÃµÄ¾àÀë
+	//!ï¿½Ãµï¿½ï¿½ï¿½ï¿½Óµï¿½Î»ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ä¿ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½.
+	//	ï¿½ï¿½Ê½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = Ä¿ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½ / ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½Ä¿ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½ * ï¿½ï¿½ï¿½Óµï¿½Ç°Î»ï¿½Ãºï¿½ï¿½ï¿½Ò»Ö¡Î»ï¿½ÃµÄ¾ï¿½ï¿½ï¿½
 	float flerp = (pEffCtrl->_fTargDist / pEffCtrl->_fDist) * fDist;
 
-	//!°´ÕÕÄ¿±êÒÆ¶¯µÄ·½ÏòÈ¥ÒÆ¶¯Á£×Ó
+	//!ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½Ä·ï¿½ï¿½ï¿½È¥ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½
 	pEffCtrl->_vPos	 += pEffCtrl->_vTargDir * flerp;
-	//!ÖØÐÂ¼ÆËãµ±Ç°Á£×ÓÐèÒªÒÆ¶¯µÄ·½ÏòºÍ¾àÀë¡£
+	//!ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ãµ±Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Æ¶ï¿½ï¿½Ä·ï¿½ï¿½ï¿½Í¾ï¿½ï¿½ë¡£
 	pEffCtrl->_vOldTarget = vTarget;
 	pEffCtrl->_vDir = vTarget - pEffCtrl->_vPos;
 	pEffCtrl->_fDist = D3DXVec3LengthSq(&pEffCtrl->_vDir);
@@ -669,7 +669,7 @@ void	CMagicEff::SetScene(CGameScene* pScene)
 BOOL	CMagicEff::Create(int iIdxID)
 {
 	_dwStartTime = CGameApp::GetCurTick();
-	if(iIdxID >= 1000 && iIdxID < 3000)//´´½¨·ÉÐÐÌØÐ§£¨IDÔÚ[1000,3000)£©
+	if(iIdxID >= 1000 && iIdxID < 3000)//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½IDï¿½ï¿½[1000,3000)ï¿½ï¿½
 	{
 		_bDail = false;
 		_fsCurTime = 0;
@@ -681,10 +681,10 @@ BOOL	CMagicEff::Create(int iIdxID)
 
 		if(	iIdxID < 2000)
 		{
-			if(!CreateMagic(iIdxID))			// Magic IDÔÚ[1000,2000)
+			if(!CreateMagic(iIdxID))			// Magic IDï¿½ï¿½[1000,2000)
 				return FALSE;
 		}else
-			if(!CreateGroupMagic( iIdxID))		// Group Magic IDÔÚ[2000, 3000)
+			if(!CreateGroupMagic( iIdxID))		// Group Magic IDï¿½ï¿½[2000, 3000)
 				return FALSE;
 
 		SkillCtrl ctrl;
@@ -692,7 +692,7 @@ BOOL	CMagicEff::Create(int iIdxID)
 		SetSkillCtrl(&ctrl);
 		return TRUE;
 	}
-	//´´½¨¾²Ì¬ÌØÐ§
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¬ï¿½ï¿½Ð§
 	if (_bMagic||_bGroupMagic)
 	{
 		_bMagic = FALSE;
@@ -721,7 +721,7 @@ BOOL	CMagicEff::Create(int iIdxID)
 
 		if(iIdxID< 100)
 			setTypeID(0);
-		else if((iIdxID>= 100 && iIdxID <400) || (iIdxID>= 650 && iIdxID <1000)) // Ôö¼Ó650~1000ÓÃÓÚÌØÐ§
+		else if((iIdxID>= 100 && iIdxID <400) || (iIdxID>= 650 && iIdxID <1000)) // ï¿½ï¿½ï¿½ï¿½650~1000ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§
 		{
 			setTypeID(4);
 			_bMagicEm = TRUE;
@@ -747,7 +747,7 @@ BOOL	CMagicEff::Create(int iIdxID)
 		ctrl.fSize = 1.0f;
 		SetSkillCtrl(&ctrl);
 
-		// ¶ÔÓÚÏàÍ¬µÄÌØÐ§£¬»Ö¸´Ëã·¨£¬ÒòÎªÔÚÉèÎªÎÞÐ§Ê±ÒÑ¾­½«Ëã·¨Éè¿Õ by lh 2005-10-27
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ã·¨ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ð§Ê±ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ã·¨ï¿½ï¿½ï¿½ by lh 2005-10-27
 		int nEffType = pInfo->nEffType;
 		switch(nEffType)
 		{
@@ -781,18 +781,18 @@ BOOL	CMagicEff::Create(int iIdxID)
 	switch(Property.m_iEffType)
 	{
 	case 0:
-		Property.m_iIdxRender = -1;//Èç¹ûÊÇ³¡¾°ÌØÐ§£¬²»Ê¹ÓÃËã·¨
+		Property.m_iIdxRender = -1;//ï¿½ï¿½ï¿½ï¿½Ç³ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ã·¨
 		break;
 	case 1:
 	case 2:
 	case 3:
- 		Property.m_iIdxRender = pInfo->nObjType;//Ê¹ÓÃ°ó¶¨dummyµÄËã·¨»ò¸úËæËã·¨
+ 		Property.m_iIdxRender = pInfo->nObjType;//Ê¹ï¿½Ã°ï¿½dummyï¿½ï¿½ï¿½ã·¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã·¨
 		break;
 	case 4:
-		Property.m_iIdxRender = pInfo->nObjType;//Ê¹ÓÃÌØ¶¨µÄËã·¨¡£
+		Property.m_iIdxRender = pInfo->nObjType;//Ê¹ï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½ï¿½ã·¨ï¿½ï¿½
 		break;
 	case 5:
-		Property.m_iIdxRender = pInfo->nObjType;//Èç¹ûÊÇ´ø·½ÏòÌØÐ§£¬Ê¹ÓÃ Ëã·¨
+		Property.m_iIdxRender = pInfo->nObjType;//ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½Ê¹ï¿½ï¿½ ï¿½ã·¨
 		break;
 	default:
 		return FALSE;
@@ -809,8 +809,8 @@ BOOL	CMagicEff::Create(int iIdxID)
 
 	if(iIdxID< 100)
 		setTypeID(0);
-	else if((iIdxID>= 100 && iIdxID <400) || (iIdxID>= 800 && iIdxID <1000) || // Ôö¼Ó800~1000ÓÃÓÚÌØÐ§
-		(iIdxID >= 564 && iIdxID < 600))	// 07Ê¥µ®Ê÷ÑÌ»¨
+	else if((iIdxID>= 100 && iIdxID <400) || (iIdxID>= 800 && iIdxID <1000) || // ï¿½ï¿½ï¿½ï¿½800~1000ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§
+		(iIdxID >= 564 && iIdxID < 600))	// 07Ê¥ï¿½ï¿½ï¿½ï¿½ï¿½Ì»ï¿½
 	{
 		setTypeID(4);
 		_bMagicEm = TRUE;
@@ -1337,7 +1337,7 @@ void	CMagicEff::Emission(int iID, D3DXVECTOR3* vBegin, D3DXVECTOR3* vEnd, int iT
 	if(_bMagicEm)
 	{
 		if (809 <= _iIdxID && _iIdxID <= 818 )
-			_pEffCtrl->GetPartCtrl()->Play(0);	// ÕâÀïÊÇ±íÇéµÄÌØÐÔ
+			_pEffCtrl->GetPartCtrl()->Play(0);	// ï¿½ï¿½ï¿½ï¿½ï¿½Ç±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		else
 			_pEffCtrl->GetPartCtrl()->Play(!_bloop/*0*/);
 		if(_bloop)
@@ -1352,7 +1352,7 @@ void	CMagicEff::Emission(int iID, D3DXVECTOR3* vBegin, D3DXVECTOR3* vEnd, int iT
 	}
 	catch(...)
 	{
-		__asm int 3;
+		__debugbreak();
 	}
 }
  
@@ -1417,17 +1417,17 @@ void	CMagicEff::_UpdateScale(float fx,float fy,float fz)
 void	CMagicEff::SetInvalidByTime(DWORD dwDailTime)
 {
 	if (_iIdxID >=1 && _iIdxID < 100)
-	{	// ³¡¾°ÌØÐ§²»É¾³ý
+	{	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½É¾ï¿½ï¿½
 		return;
 	}
 
 	if (_iIdxID >=3000)
-	{	// ¾«Á¶ÌØÐ§²»É¾³ý
+	{	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½É¾ï¿½ï¿½
 		return;
 	}
 
 	if (_bloop)
-	{	// ÊÖ¶¯ÉèÖÃÑ­»·µÄÌØÐ§²»É¾³ý
+	{	// ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½É¾ï¿½ï¿½
 		return;
 	}
 
@@ -1490,7 +1490,7 @@ bool	CShadeEff::Create( CShadeInfo* pInfo)
 		return false;
 	if (pInfo->nUseAlphaTest)
 	{
-		//Ê¹ÓÃAlphaTest
+		//Ê¹ï¿½ï¿½AlphaTest
 		SetRenderIndex(4);
 	}
 	switch(pInfo->nAlphaType) 
@@ -1534,7 +1534,7 @@ bool	CShadeEff::CreateAttachLight(int iIdxID, float fRange,D3DXCOLOR dwcolor)
 		return false;
 	if (pInfo->nUseAlphaTest)
 	{
-		//Ê¹ÓÃAlphaTest
+		//Ê¹ï¿½ï¿½AlphaTest
 		SetRenderIndex(4);
 	}
 	switch(pInfo->nAlphaType) 
@@ -1586,7 +1586,7 @@ void	CShadeEff::Render()
 
 	switch(getTypeID())
 	{
-	case 1://½ÇÉ«µÄÓ°×Ó
+	case 1://ï¿½ï¿½É«ï¿½ï¿½Ó°ï¿½ï¿½
 		if(_iChaID >= 0)
 		{
 			pCha = _pScene->GetCha(_iChaID);
@@ -1597,7 +1597,7 @@ void	CShadeEff::Render()
 			}
 		}
 		break;
-	case 2://µÀ¾ßµÄÓ°×Ó
+	case 2://ï¿½ï¿½ï¿½ßµï¿½Ó°ï¿½ï¿½
 		if(_iChaID >= 0)
 		{
 			pItem = _pScene->GetSceneItem(_iChaID);
@@ -1608,7 +1608,7 @@ void	CShadeEff::Render()
 			}
 		}
 		break;
-	case 3://µÆ¹âµÄÓ°×Ó
+	case 3://ï¿½Æ¹ï¿½ï¿½Ó°ï¿½ï¿½
 		if(_iChaID >= 0)
 		{
 			pObj = _pScene->GetSceneObj(_iChaID);
@@ -1796,46 +1796,46 @@ void CNavigationBar::SetTarget(const char* pszName, D3DXVECTOR3& pTarget)
 	s_string	strTar = pszName;
 	_strName = g_pGameApp->GetCurScene()->GetTerrainName();
 	if(_strName == "garner")
-		_strName = g_oLangRec.GetString(56);
+		_strName = RES_STRING(CL_LANGUAGE_MATCH_56);
 	else if(_strName == "magicsea")
-		_strName = g_oLangRec.GetString(57);
+		_strName = RES_STRING(CL_LANGUAGE_MATCH_57);
 	else if(_strName == "darkblue")
-		_strName = g_oLangRec.GetString(58);
+		_strName = RES_STRING(CL_LANGUAGE_MATCH_58);
 
 	{
 		_vTarget = pTarget;
-		if(_strName == g_oLangRec.GetString(56))
+		if(_strName == RES_STRING(CL_LANGUAGE_MATCH_56))
 		{
-			if(strTar == g_oLangRec.GetString(57))
+			if(strTar == RES_STRING(CL_LANGUAGE_MATCH_57))
 			{
 				_vTarget.x += 4096;
 			}
-			else if(strTar == g_oLangRec.GetString(58))
+			else if(strTar == RES_STRING(CL_LANGUAGE_MATCH_58))
 			{
 				_vTarget.x += 4096 * 2;
 			}
 		}
-		if(_strName == g_oLangRec.GetString(57))
+		if(_strName == RES_STRING(CL_LANGUAGE_MATCH_57))
 		{
 			_vTarget.x += 4096;
-			if(strTar == g_oLangRec.GetString(56))
+			if(strTar == RES_STRING(CL_LANGUAGE_MATCH_56))
 			{
 				_vTarget.x -= 4096;
 			}
-			else if(strTar == g_oLangRec.GetString(58))
+			else if(strTar == RES_STRING(CL_LANGUAGE_MATCH_58))
 			{
 				_vTarget.x += 4096;
 			}
 		}
-		if(_strName == g_oLangRec.GetString(58))
+		if(_strName == RES_STRING(CL_LANGUAGE_MATCH_58))
 		{
 			_vTarget.x += 4096 * 2;
 
-			if(strTar == g_oLangRec.GetString(56))
+			if(strTar == RES_STRING(CL_LANGUAGE_MATCH_56))
 			{
 				_vTarget.x -= 4096 * 2;
 			}
-			else if(strTar == g_oLangRec.GetString(57))
+			else if(strTar == RES_STRING(CL_LANGUAGE_MATCH_57))
 			{
 				_vTarget.x -= 4096;
 			}

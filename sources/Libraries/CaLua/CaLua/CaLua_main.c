@@ -283,9 +283,13 @@ int CLU_LoadScript(const char* filename, int isObfuscate)
 	strncpy(new_filename, filename, strlen(filename) - 4);
 	strcat(new_filename, ".bin");
 	fp_bin = fopen(new_filename, "wb");
-	if(fp_bin==NULL) return 0;
+	if(fp_bin==NULL) { fclose(fp); free(aux); return 0; }
 	fwrite(aux, dwSize, 1, fp_bin);
-	
+	fflush(fp_bin);
+	fclose(fp_bin);
+	fclose(fp);
+	free(aux);
+
 	}
 	
 }
@@ -544,7 +548,7 @@ int CLU_RegisterFunction(const char* name, const char* ret, const char* args, in
 		}
 	}
 
-	CLU_ExpandBuffer(&funcs[numFuncs]->passType, sizeof(int*), 0, funcs[numFuncs]->numPassArgs);
+	CLU_ExpandBuffer(&funcs[numFuncs]->passType, sizeof(int), 0, funcs[numFuncs]->numPassArgs);
 
 	for(i=1; i <= funcs[numFuncs]->numPassArgs; i++)
 	{

@@ -1,0 +1,57 @@
+=== Lines 405-460 (LoadTerrainSet/LoadResourceSet) ===
+405: 		_pDIKeyboard->Unacquire();
+406: 		_pDIMouse->Unacquire();
+407: 	}else
+408: 	{
+409: 		_pDIKeyboard->Acquire();
+410: 		_pDIMouse->Acquire();
+411: 	}
+412: 	_bActive = bActive;
+413: }
+414: BOOL MPGameApp::LoadTerrainSet(const char* file, BOOL bBinary)
+415: {
+416: 	MPTerrainSet *pTerrainSet = new MPTerrainSet(0, 100);
+417: 	//pTerrainSet->LoadRawDataInfo("scripts/table/TerrainInfo", FALSE);
+418:     return pTerrainSet->LoadRawDataInfo(file, bBinary);
+419: }
+420: BOOL MPGameApp::UnloadTerrainSet()
+421: {
+422:     MPTerrainSet *pTerrainSet = MPTerrainSet::I();
+423:     //SAFE_DELETE(pTerrainSet);
+424:     return TRUE;
+425: }
+426: //-----------------------------------------------------------------------------
+427: BOOL MPGameApp::LoadResourceSet(const char* file, int iMaxIndex, BOOL bBinary)
+428: {
+429: //#if RESOURCE_SCRIPT == 2 || RESOURCE_SCRIPT == 3
+430: 	MPResourceSet *pResourceSet = new MPResourceSet(0, iMaxIndex);
+431: 	return pResourceSet->LoadRawDataInfo(file, bBinary);
+432: //#endif
+433: 	return TRUE;
+434: }
+435: //-----------------------------------------------------------------------------
+436: BOOL MPGameApp::UnloadResourceSet()
+437: {
+438: 	//MPResourceSet *pResourceSet = MPResourceSet::GetInstancePtr();
+439: 	//SAFE_DELETE(pResourceSet);
+440: 
+441: 	//��ȫ�ͷ��ڴ�
+442: 	MPResourceSet* pResourceSet = MPResourceSet::GetInstancePtr();
+443: 	if( pResourceSet )
+444: 	{
+445: 		pResourceSet->Release();
+446: 		delete pResourceSet;
+447: 		MPResourceSet::m_pInstance = NULL;
+448: 	}
+449: 
+450: 	return TRUE;
+451: }
+452: //-----------------------------------------------------------------------------
+453: 
+454: void MPGameApp::_ReadKeyboardInput()
+455: {
+456: 	// set the single key strokes to 0 each time, so it just records changes between frames
+457: 	ZeroMemory(_btButtonState, sizeof(_btButtonState));			// 0 is no action
+458: 	_dwMouseKey = 0;
+459: 
+460: 	if(!_bActive)

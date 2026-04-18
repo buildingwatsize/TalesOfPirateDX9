@@ -34,8 +34,8 @@ long CSceneArea::Init(_TCHAR *ptcsAreaFile, bool bSilence)
 	{
 		if (!bSilence)
 		{
-			_stprintf(tcsPrint, _TEXT("%s %s"), ptcsAreaFile, _TEXT(g_oLangRec.GetString(339)));
-			MessageBox(NULL, tcsPrint, _TEXT(g_oLangRec.GetString(25)), 0);
+			_stprintf(tcsPrint, _TEXT("%s %s"), ptcsAreaFile, _TEXT(RES_STRING(CMISS_000339)));
+			MessageBox(NULL, tcsPrint, _TEXT(RES_STRING(CL_LANGUAGE_MATCH_25)), 0);
 		}
 		lRet = -1;
 		goto end;
@@ -45,8 +45,8 @@ long CSceneArea::Init(_TCHAR *ptcsAreaFile, bool bSilence)
 	{
 		if (!bSilence)
 		{
-			_stprintf(tcsPrint, _TEXT("%s %s"), ptcsAreaFile, _TEXT(g_oLangRec.GetString(340)));
-			MessageBox(NULL, tcsPrint, _TEXT(g_oLangRec.GetString(25)), 0);
+			_stprintf(tcsPrint, _TEXT("%s %s"), ptcsAreaFile, _TEXT(RES_STRING(CMISS_000340)));
+			MessageBox(NULL, tcsPrint, _TEXT(RES_STRING(CL_LANGUAGE_MATCH_25)), 0);
 		}
 		lRet = -2;
 		goto end;
@@ -123,7 +123,7 @@ long CSceneArea::CreateFileFromMap(_TCHAR *ptcsMapFile, _TCHAR *ptcsAreaFile)
 	return lRet;
 }
 
-// lUnitNO 从零开始
+// lUnitNO 锟斤拷锟姐开始
 long CSceneArea::ReadAreaInfo(long lUnitNO, SAreaUnit *pUnitData, long *lpUnitNum)
 {
 	if (!m_bInitSuccess)

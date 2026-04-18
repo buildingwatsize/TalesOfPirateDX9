@@ -4,8 +4,8 @@ using namespace std;
 using namespace dbc;
 
 ToGameServer::ToGameServer(char const* fname, ThreadPool* proc, ThreadPool* comm)
-: TcpServerApp(this, proc, comm), RPCMGR(this), _mut_game(),
-_game_heap(1, 20), _game_list(NULL), _map_game()
+	: TcpServerApp(this, proc, comm), RPCMGR(this), _mut_game(),
+	_game_heap(1, 20), _game_list(NULL), _map_game()
 {
 	_game_num = 0;
 
@@ -23,13 +23,13 @@ _game_heap(1, 20), _game_list(NULL), _map_game()
 	}
 }
 
-ToGameServer::~ToGameServer() {ShutDown(12 * 1000);}
+ToGameServer::~ToGameServer() { ShutDown(12 * 1000); }
 
 void ToGameServer::_add_game(GameServer* game)
 {
 	game->next = _game_list;
 	_game_list = game;
-	++ _game_num;
+	++_game_num;
 }
 
 bool ToGameServer::_exist_game(char const* game)
@@ -39,7 +39,7 @@ bool ToGameServer::_exist_game(char const* game)
 
 	while (curr)
 	{
-		if (curr->gamename == game) {exist = true; break;}
+		if (curr->gamename == game) { exist = true; break; }
 		curr = curr->next;
 	}
 
@@ -62,7 +62,7 @@ void ToGameServer::_del_game(GameServer* game)
 			prev->next = curr->next;
 		else
 			_game_list = curr->next;
-		-- _game_num;
+		--_game_num;
 	}
 }
 
@@ -73,15 +73,15 @@ bool ToGameServer::OnConnect(DataSocket* datasock) // ·µ»ØÖµ:true-ÔÊÐí
 	datasock->SetSendBuf(64 * 1024);
 	LogLine l_line(g_gatelog);
 	//l_line<<newln<<"GameServer= ["<<datasock->GetPeerIP()<<"] À´ÁË,SocketÊýÄ¿= "<<GetSockTotal()+1;
-	l_line<<newln<<"GameServer= ["<<datasock->GetPeerIP()<<"] come,Socket num= "<<GetSockTotal()+1;
+	l_line << newln << "GameServer= [" << datasock->GetPeerIP() << "] come,Socket num= " << GetSockTotal() + 1;
 	return true;
 }
 
 void ToGameServer::OnDisconnect(DataSocket* datasock, int reason) // reasonÖµ:0-±¾µØ³ÌÐòÕý³£ÍË³ö£»-3-ÍøÂç±»¶Ô·½¹Ø±Õ£»-1-Socket´íÎó;-5-°ü³¤¶È³¬¹ýÏÞÖÆ¡£
 {
 	LogLine l_line(g_gatelog);
-	l_line<<newln<<"GameServer= ["<<datasock->GetPeerIP()<<"] gone,Socket num= "<<GetSockTotal()+1<<",reason= "<<GetDisconnectErrText(reason).c_str();
-	l_line<<endln;
+	l_line << newln << "GameServer= [" << datasock->GetPeerIP() << "] gone,Socket num= " << GetSockTotal() + 1 << ",reason= " << GetDisconnectErrText(reason).c_str();
+	l_line << endln;
 
 	if (reason == DS_SHUTDOWN || reason == DS_DISCONN)
 	{
@@ -123,29 +123,38 @@ void ToGameServer::OnDisconnect(DataSocket* datasock, int reason) // reasonÖµ:
 	catch (...)
 	{
 		//l_line<<newln<<"Exception raised from OnDisconnect{´ÓÁ´±íÖÐÉ¾³ý´Ë GameServer}"<<endln;
-		l_line<<newln<<"Exception raised from OnDisconnect{delete GameServer from list}"<<endln;
+		l_line << newln << "Exception raised from OnDisconnect{delete GameServer from list}" << endln;
 	}
 	_mut_game.unlock();
 
 	if (already_delete) return;
+
+	// Guard: GroupServer must be connected before calling get_playerlist()
+	// If not ready, _gs.datasock is NULL → SyncCall(NULL,...) → crash at vtable
+	if (!g_gtsvr->gp_conn || !g_gtsvr->gp_conn->IsReady())
+	{
+		l_line << newln << "GroupServer not connected, skip player list notify" << endln;
+		return;
+	}
 
 	// Í¨ÖªÍ¨¹ý´ËGateServerÁ¬ÉÏ´ËGameServerµÄËùÓÐÓÃ»§£ºµØÍ¼·þÎñÆ÷¹ÊÕÏ
 	RPacket retpk = g_gtsvr->gp_conn->get_playerlist();
 	uShort ply_cnt = retpk.ReverseReadShort(); // ´ËGateServerÉÏËùÓÐÍæ¼Ò¸öÊý
 
 	ClientConnection* ply_addr{}; uLong db_id{};
-	auto ply_array = std::make_unique<ClientConnection* []>(ply_cnt);
-	uShort	l_notcount	=0;
-	for (uShort i = 0; i < ply_cnt; ++ i)
+	auto ply_array = std::make_unique<ClientConnection * []>(ply_cnt);
+	uShort	l_notcount = 0;
+	for (uShort i = 0; i < ply_cnt; ++i)
 	{
-		ply_addr = ToPointer<ClientConnection>(retpk.ReadLong());
+		ply_addr = ToPointer<ClientConnection>(retpk.ReadLongLong());
 		db_id = (uLong)retpk.ReadLong();
-		if(l_game ==ply_addr->game)
+		if (l_game == ply_addr->game)
 		{
-			ply_array[i -l_notcount] = ply_addr;
-		}else
+			ply_array[i - l_notcount] = ply_addr;
+		}
+		else
 		{
-			l_notcount	++;
+			l_notcount++;
 			continue;
 		}
 
@@ -154,7 +163,8 @@ void ToGameServer::OnDisconnect(DataSocket* datasock, int reason) // reasonÖµ:
 			uLong tmp_id = ply_addr->m_dbid;
 			if (tmp_id != db_id) // ´Ë½ÇÉ«ÒÑÏÂÏß
 				continue;
-		}catch (...)		// ²úÉúÒì³££¬±êÊ¶´Ë½ÇÉ«Í¬ÑùÒÑ²»ÔÚÏß
+		}
+		catch (...)		// ²úÉúÒì³££¬±êÊ¶´Ë½ÇÉ«Í¬ÑùÒÑ²»ÔÚÏß
 		{
 			continue;
 		}
@@ -162,7 +172,8 @@ void ToGameServer::OnDisconnect(DataSocket* datasock, int reason) // reasonÖµ:
 		try
 		{
 			g_gtsvr->cli_conn->post_mapcrash_msg(ply_addr); // ´ËÓÃ»§ÈÔÈ»ÔÚÏß£¬·¢ËÍµØÍ¼·þÎñÆ÷¹ÊÕÏÏûÏ¢
-		}catch (...)
+		}
+		catch (...)
 		{
 			continue;
 		}
@@ -170,21 +181,22 @@ void ToGameServer::OnDisconnect(DataSocket* datasock, int reason) // reasonÖµ:
 		continue;
 	}
 
-	ply_cnt	-=l_notcount;
+	ply_cnt -= l_notcount;
 	l_line << newln << "because GameServer trouble, notice " << ply_cnt << " user offline" << endln;
 	for (int i = 0; i < ply_cnt; ++i)
 	{
 		try			//Á¢¼´¶ÏµôÕâÌõÁ¬½Ó
 		{
-			l_line<<newln<<"because GameServer trouble, disconnect ["<<ply_array[i]->m_datasock->GetPeerIP()<<"] "<<endln;
-			g_gtsvr->cli_conn->Disconnect(ply_array[i]->m_datasock,100,-29);
-		}catch (...)
+			l_line << newln << "because GameServer trouble, disconnect [" << ply_array[i]->m_datasock->GetPeerIP() << "] " << endln;
+			g_gtsvr->cli_conn->Disconnect(ply_array[i]->m_datasock, 100, -29);
+		}
+		catch (...)
 		{
 		}
 	}
 }
 
-WPacket ToGameServer::OnServeCall(DataSocket* datasock, RPacket &in_para)
+WPacket ToGameServer::OnServeCall(DataSocket* datasock, RPacket& in_para)
 {
 	/*
 	GameServer* l_game = (GameServer *)(datasock->GetPointer());
@@ -197,16 +209,16 @@ WPacket ToGameServer::OnServeCall(DataSocket* datasock, RPacket &in_para)
 	return NULL;
 }
 
-void ToGameServer::OnProcessData(DataSocket* datasock, RPacket &recvbuf)
+void ToGameServer::OnProcessData(DataSocket* datasock, RPacket& recvbuf)
 {
-	GameServer* l_game = (GameServer *)(datasock->GetPointer());
+	GameServer* l_game = (GameServer*)(datasock->GetPointer());
 
 	uShort l_cmd = recvbuf.ReadCmd();
 	//LG("ToGameServer", "-->l_cmd = %d\n", l_cmd);
 
 	printf("Incoming from GameServer Packet CMD ID: %d\n", l_cmd);
 	printf("Packet data size: %d bytes\n", recvbuf.GetDataLen());
-	printf("Packet total size: %d bytes\n",recvbuf.GetPktLen());
+	printf("Packet total size: %d bytes\n", recvbuf.GetPktLen());
 
 	try
 	{
@@ -217,18 +229,18 @@ void ToGameServer::OnProcessData(DataSocket* datasock, RPacket &recvbuf)
 			break;
 		}
 		case CMD_MT_LOGIN:
-			MT_LOGIN(datasock, recvbuf);        
+			MT_LOGIN(datasock, recvbuf);
 			break;
 		case CMD_MT_SWITCHMAP:
-			{
+		{
 			MT_SWITCHMAP(datasock, recvbuf);
-				break;
-			}
+			break;
+		}
 		case CMD_MC_ENTERMAP:
-			{
+		{
 			MC_ENTERMAP(datasock, recvbuf);
-				break;
-			}
+			break;
+		}
 		case CMD_MC_STARTEXIT:
 		{
 			MC_STARTEXIT(datasock, recvbuf);
@@ -245,75 +257,77 @@ void ToGameServer::OnProcessData(DataSocket* datasock, RPacket &recvbuf)
 			break;
 		}
 		case CMD_MT_KICKUSER:
-			{
+		{
 			MT_KICKUSER(datasock, recvbuf);
-				break;
-			}
-		case CMD_MT_MAPENTRY:
-			{
-			MT_MAPENTRY(datasock, recvbuf);
-			}
 			break;
+		}
+		case CMD_MT_MAPENTRY:
+		{
+			MT_MAPENTRY(datasock, recvbuf);
+		}
+		break;
 		default:		// È±Ê¡×ª·¢
+		{
+			if (l_cmd / 500 == CMD_MC_BASE / 500)
 			{
-				if(l_cmd/500 == CMD_MC_BASE/500)
+				RPacket	l_rpk = recvbuf;
+				uShort	l_aimnum = l_rpk.ReverseReadShort();
+				recvbuf.DiscardLast((sizeof(LONG64) + sizeof(uLong)) * l_aimnum + sizeof(uShort));
+				for (uShort i = 0; i < l_aimnum; i++)
 				{
-					RPacket	l_rpk		=recvbuf;
-					uShort	l_aimnum	=l_rpk.ReverseReadShort();
-					recvbuf.DiscardLast(sizeof(uLong)*2*l_aimnum + sizeof(uShort));
-					for(uShort i=0;i<l_aimnum;i++)
+					auto l_ply = ToPointer<ClientConnection>(l_rpk.ReverseReadLongLong());
+					if (!l_ply)
 					{
-						auto l_ply = ToPointer<ClientConnection>(l_rpk.ReverseReadLong());
+						continue;
+					}
+					if (l_ply->m_dbid == l_rpk.ReverseReadLong())
+					{
+						l_ply->SendPacketToClient(recvbuf);
+					}
+				}
+			}
+			else if (l_cmd / 500 == CMD_MP_BASE / 500)
+			{
+				RPacket l_rpk = recvbuf;
+				uShort	l_aimnum = l_rpk.ReverseReadShort();
+				recvbuf.DiscardLast((sizeof(LONG64) + sizeof(uLong)) * l_aimnum + sizeof(uShort));
+				if (l_aimnum > 0)
+				{
+					WPacket l_wpk, l_wpk0 = WPacket(recvbuf).Duplicate();
+					for (uShort i = 0; i < l_aimnum; i++)
+					{
+						auto l_ply = ToPointer<ClientConnection>(l_rpk.ReverseReadLongLong());
 						if (!l_ply)
 						{
 							continue;
 						}
 						if (l_ply->m_dbid == l_rpk.ReverseReadLong())
 						{
-							l_ply->SendPacketToClient(recvbuf);
+							l_wpk = l_wpk0;
+							l_wpk.WriteLongLong(ToAddress(l_ply));
+							l_wpk.WriteLongLong(l_ply->gp_addr);
+							g_gtsvr->gp_conn->SendData(g_gtsvr->gp_conn->get_datasock(), l_wpk);
 						}
-					}
-				}else if(l_cmd/500 == CMD_MP_BASE/500)
-				{
-					RPacket l_rpk		=recvbuf;
-					uShort	l_aimnum	=l_rpk.ReverseReadShort();
-					recvbuf.DiscardLast(sizeof(uLong)*2*l_aimnum + sizeof(uShort));
-					if( l_aimnum > 0 )
-					{
-						WPacket l_wpk,l_wpk0 =WPacket(recvbuf).Duplicate();
-						for(uShort i=0;i<l_aimnum;i++)
-						{
-							auto l_ply	=ToPointer<ClientConnection>(l_rpk.ReverseReadLong());
-							if (!l_ply)
-							{
-								continue;
-							}
-							if(l_ply->m_dbid ==l_rpk.ReverseReadLong())
-							{
-								l_wpk			=l_wpk0;
-								l_wpk.WriteLong(ToAddress(l_ply));
-								l_wpk.WriteLong(l_ply->gp_addr);
-								g_gtsvr->gp_conn->SendData(g_gtsvr->gp_conn->get_datasock(),l_wpk);
-							}
-						}
-					}
-					else
-					{
-						WPacket l_wpk =WPacket(recvbuf).Duplicate();
-						g_gtsvr->gp_conn->SendData(g_gtsvr->gp_conn->get_datasock(),l_wpk);
-					}
-				}else if(l_cmd/500 ==CMD_MM_BASE/500)
-				{
-					for(GameServer *l_game =_game_list;l_game;l_game =l_game ->next)
-					{
-						g_gtsvr->gm_conn->SendData(l_game->m_datasock,recvbuf);
 					}
 				}
-				break;
+				else
+				{
+					WPacket l_wpk = WPacket(recvbuf).Duplicate();
+					g_gtsvr->gp_conn->SendData(g_gtsvr->gp_conn->get_datasock(), l_wpk);
+				}
 			}
+			else if (l_cmd / 500 == CMD_MM_BASE / 500)
+			{
+				for (GameServer* l_game = _game_list; l_game; l_game = l_game->next)
+				{
+					g_gtsvr->gm_conn->SendData(l_game->m_datasock, recvbuf);
+				}
+			}
+			break;
+		}
 		}
 	}
-	catch(...)
+	catch (...)
 	{
 		LG("ToGameServerError", "l_cmd = %d\n", l_cmd);
 	}
@@ -333,15 +347,16 @@ void ToGameServer::MT_LOGIN(DataSocket* datasock, RPacket& rpk)
 	int cnt = Util_ResolveTextLine(map_list, gms->maplist, MAX_MAP, ';', 0);
 	LogLine l_line(g_gatelog);
 	//l_line<<newln<<"ÊÕµ½GameServer ["<<gms_name<<"] µØÍ¼´®["<<map_list<<"] ¹²["<<cnt<<"]¸ö"<<endln;
-	l_line<<newln<<"recieve GameServer ["<<gms_name<<"] map string ["<<map_list<<"] total ["<<cnt<<"]"<<endln;
+	l_line << newln << "recieve GameServer [" << gms_name << "] map string [" << map_list << "] total [" << cnt << "]" << endln;
 	if (cnt <= 0)
 	{ // MAP´®Óï·¨ÓÐ´í
 		//l_line<<newln<<"µØÍ¼´® ["<<map_list<<"] ´æÔÚÓï·¨´íÎó£¬ÇëÒÔ';'·Ö¸ô"<<endln;
-		l_line<<newln<<"map string ["<<map_list<<"] has syntax mistake, please use ';'compart"<<endln;
+		l_line << newln << "map string [" << map_list << "] has syntax mistake, please use ';'compart" << endln;
 		retpk.WriteShort(ERR_TM_MAPERR);
 		datasock->SetPointer(NULL);
 		gms->Free();
-	}else
+	}
+	else
 	{
 		gms->gamename = gms_name;
 		gms->mapcnt = cnt;
@@ -354,19 +369,19 @@ void ToGameServer::MT_LOGIN(DataSocket* datasock, RPacket& rpk)
 				if (_exist_game(gms_name))
 				{
 					//l_line<<newln<<"´æÔÚÍ¬ÃûµÄGameServer: "<<gms_name<<endln;
-					l_line<<newln<<"the same name GameServer exsit: "<<gms_name<<endln;
+					l_line << newln << "the same name GameServer exsit: " << gms_name << endln;
 					retpk.WriteShort(ERR_TM_OVERNAME);
 					datasock->SetPointer(NULL);
 					valid = false; break;
 				}
 
 				// Æä´Î¼ì²éµØÍ¼ÃûÊÇ·ñ»áÓÐÖØ¸´µÄ
-				for (i = 0; i < cnt; ++ i)
+				for (i = 0; i < cnt; ++i)
 				{
 					if (find(gms->maplist[i].c_str()) != NULL)
 					{
 						//l_line<<newln<<"´æÔÚÍ¬ÃûµÄMAP: "<<gms->maplist[i].c_str()<<endln;
-						l_line<<newln<<"the same name MAP exsit: "<<gms->maplist[i].c_str()<<endln;
+						l_line << newln << "the same name MAP exsit: " << gms->maplist[i].c_str() << endln;
 						retpk.WriteShort(ERR_TM_OVERMAP);
 						datasock->SetPointer(NULL);
 						valid = false;
@@ -379,16 +394,16 @@ void ToGameServer::MT_LOGIN(DataSocket* datasock, RPacket& rpk)
 			{ // ºÏ·¨µÄ GameServer£¬ ¼ÓÈëµ½±íÖÐ
 				_add_game(gms); // Ìí¼Óµ½Á´±íÖÐ
 				//l_line<<newln<<"Ìí¼ÓGameServer ["<<gms_name<<"] ³É¹¦"<<endln;
-				l_line<<newln<<"add GameServer ["<<gms_name<<"] ok"<<endln;
-				for (i = 0; i < cnt; ++ i) // Ìí¼Óµ½ map ÖÐ
+				l_line << newln << "add GameServer [" << gms_name << "] ok" << endln;
+				for (i = 0; i < cnt; ++i) // Ìí¼Óµ½ map ÖÐ
 				{
 					//l_line<<newln<<"Ìí¼Ó ["<<gms_name<<"] ÉÏµÄ ["<<gms->maplist[i].c_str()<<"] µØÍ¼³É¹¦"<<endln;
-					l_line<<newln<<"add ["<<gms_name<<"]  ["<<gms->maplist[i].c_str()<<"] map ok"<<endln;
+					l_line << newln << "add [" << gms_name << "]  [" << gms->maplist[i].c_str() << "] map ok" << endln;
 					_map_game[gms->maplist[i]] = gms;
 				}
 
 				datasock->SetPointer(gms);
-				gms->m_datasock	= datasock;
+				gms->m_datasock = datasock;
 				retpk.WriteShort(ERR_SUCCESS);
 				retpk.WriteString(g_gtsvr->gp_conn->_myself.c_str());
 			}
@@ -400,7 +415,7 @@ void ToGameServer::MT_LOGIN(DataSocket* datasock, RPacket& rpk)
 		catch (...)
 		{
 			//l_line<<newln<<"Exception raised from MT_LOGIN{Ìí¼ÓµØÍ¼}"<<endln;
-			l_line<<newln<<"Exception raised from MT_LOGIN{add map}"<<endln;
+			l_line << newln << "Exception raised from MT_LOGIN{add map}" << endln;
 		}
 		_mut_game.unlock();
 
@@ -415,13 +430,13 @@ void ToGameServer::MT_SWITCHMAP(DataSocket* datasock, RPacket& recvbuf)
 	RPacket	l_rpk = recvbuf;
 	uShort	l_aimnum = l_rpk.ReverseReadShort();		//l_aimnumÓÀÔ¶µÈÓÚ1
 
-	auto l_ply = ToPointer<ClientConnection>(l_rpk.ReverseReadLong());
+	auto l_ply = ToPointer<ClientConnection>(l_rpk.ReverseReadLongLong());
 	if (l_ply->m_dbid != l_rpk.ReverseReadLong())					//chaid
 	{
 		return;
 	}
 	uChar	l_return = l_rpk.ReverseReadChar();
-	recvbuf.DiscardLast(sizeof(uChar) + sizeof(uLong) * 2 * l_aimnum + sizeof(uShort));
+	recvbuf.DiscardLast(sizeof(uChar) + (sizeof(LONG64) + sizeof(uLong)) * l_aimnum + sizeof(uShort));
 
 	cChar* l_srcmap = l_rpk.ReadString();
 	Long	lSrcMapCopyNO = l_rpk.ReadLong();
@@ -445,7 +460,7 @@ void ToGameServer::MT_SWITCHMAP(DataSocket* datasock, RPacket& recvbuf)
 		l_line << newln << "clinet: " << l_ply->m_datasock->GetPeerIP() << ":" << l_ply->m_datasock->GetPeerPort()
 			<< "	Switch to map,to Gate[" << l_game->m_datasock->GetPeerIP() << "]send EnterMap command,dbid:" << l_ply->m_dbid
 			<< uppercase << hex << ",Gate address:" << ToAddress(l_ply) << dec << nouppercase << endln;
-		l_game->EnterMap(l_ply, l_ply->m_loginID, l_ply->m_dbid, l_ply->m_worldid, l_map, lMapCopyNO, l_x, l_y, 1, l_ply->m_sGarnerWiner);	
+		l_game->EnterMap(l_ply, l_ply->m_loginID, l_ply->m_dbid, l_ply->m_worldid, l_map, lMapCopyNO, l_x, l_y, 1, l_ply->m_sGarnerWiner);
 		l_game->m_plynum++;
 	}
 	else if (!l_return)
@@ -492,10 +507,10 @@ void ToGameServer::MC_ENTERMAP(dbc::DataSocket* datasock, dbc::RPacket& recvbuf)
 	const auto l_aimnum = l_rpk.ReverseReadShort();					//l_aimnumÓÀÔ¶µÈÓÚ1
 
 	auto game = static_cast<GameServer*>(datasock->GetPointer());
-	auto l_ply = ToPointer<ClientConnection>(l_rpk.ReverseReadLong());
+	auto l_ply = ToPointer<ClientConnection>(l_rpk.ReverseReadLongLong());
 	if (!l_ply)
 	{
-		LG("Error", "l_ply nullptr in " __FUNCTION__ );
+		LG("Error", "l_ply nullptr in " __FUNCTION__);
 		return;
 	}
 
@@ -520,14 +535,14 @@ void ToGameServer::MC_ENTERMAP(dbc::DataSocket* datasock, dbc::RPacket& recvbuf)
 			<< "	Gate recieve from [" << datasock->GetPeerIP() << "]failed EnterMap command ,Error:"
 			<< l_retcode << endln;
 
-		recvbuf.DiscardLast(sizeof(uShort) + sizeof(uLong) * 2 * l_aimnum);
+		recvbuf.DiscardLast(sizeof(uShort) + (sizeof(LONG64) + sizeof(uLong)) * l_aimnum);
 		//g_gtsvr->cli_conn->SendData(l_ply->m_datasock,recvbuf);
 		g_gtsvr->cli_conn->Disconnect(l_ply->m_datasock, 10, -33);
 		return;
 	}
 
 	l_ply->game = static_cast<GameServer*>(datasock->GetPointer());
-	l_ply->gm_addr = l_rpk.ReverseReadLong();
+	l_ply->gm_addr = l_rpk.ReverseReadLongLong();
 	game->m_plynum = l_rpk.ReverseReadLong();
 	const auto l_isSwitch = l_rpk.ReverseReadChar();
 
@@ -535,7 +550,7 @@ void ToGameServer::MC_ENTERMAP(dbc::DataSocket* datasock, dbc::RPacket& recvbuf)
 		<< "	recieve Gate  from [" << datasock->GetPeerIP() << "]success EnterMap command,Game address:"
 		<< uppercase << hex << l_ply->gm_addr << ",Gate address:" << ToAddress(l_ply) << dec << nouppercase << endln;
 
-	recvbuf.DiscardLast(sizeof(uShort) + sizeof(uLong) * 2 * l_aimnum + sizeof(uLong) * 2 + sizeof(uChar));
+	recvbuf.DiscardLast(sizeof(uShort) + (sizeof(LONG64) + sizeof(uLong)) * l_aimnum + sizeof(LONG64) + sizeof(uLong) + sizeof(uChar));
 
 	l_ply->SendPacketToClient(recvbuf);
 
@@ -543,8 +558,8 @@ void ToGameServer::MC_ENTERMAP(dbc::DataSocket* datasock, dbc::RPacket& recvbuf)
 		WPacket l_wpk = GetWPacket();
 		l_wpk.WriteCmd(CMD_MP_ENTERMAP);
 		l_wpk.WriteChar(l_isSwitch);
-		l_wpk.WriteLong(ToAddress(l_ply));
-		l_wpk.WriteLong(l_ply->gp_addr);
+		l_wpk.WriteLongLong(ToAddress(l_ply));
+		l_wpk.WriteLongLong(l_ply->gp_addr);
 		g_gtsvr->gp_conn->SendData(g_gtsvr->gp_conn->get_datasock(), l_wpk);
 	}
 }
@@ -553,7 +568,7 @@ void ToGameServer::MC_STARTEXIT(dbc::DataSocket* datasock, dbc::RPacket& recvbuf
 {
 	RPacket	l_rpk = recvbuf;
 	uShort	l_aimnum = l_rpk.ReverseReadShort();					//l_aimnum永远等于1
-	auto l_ply = ToPointer<ClientConnection>(recvbuf.ReverseReadLong());
+	auto l_ply = ToPointer<ClientConnection>(recvbuf.ReverseReadLongLong());
 	if (l_ply)
 	{
 		g_gtsvr->cli_conn->SendData(l_ply->m_datasock, recvbuf);
@@ -565,7 +580,7 @@ void ToGameServer::MC_CANCELEXIT(dbc::DataSocket* datasock, dbc::RPacket& recvbu
 {
 	RPacket	l_rpk = recvbuf;
 	uShort	l_aimnum = l_rpk.ReverseReadShort();					//l_aimnum永远等于1
-	auto l_ply = ToPointer<ClientConnection>(recvbuf.ReverseReadLong());
+	auto l_ply = ToPointer<ClientConnection>(recvbuf.ReverseReadLongLong());
 	if (l_ply)
 	{
 		auto const l_lockStat = std::lock_guard{ l_ply->m_mtxstat };
@@ -583,7 +598,7 @@ void ToGameServer::MT_PALYEREXIT(dbc::DataSocket* datasock, dbc::RPacket& recvbu
 	uShort	l_aimnum = recvbuf.ReverseReadShort();
 	for (uShort i = 0; i < l_aimnum; i++)
 	{
-		auto l_ply = ToPointer<ClientConnection>(recvbuf.ReverseReadLong());
+		auto l_ply = ToPointer<ClientConnection>(recvbuf.ReverseReadLongLong());
 		if (l_ply && l_ply->m_dbid == recvbuf.ReverseReadLong())
 		{
 			auto const l_lockStat = std::lock_guard{ l_ply->m_mtxstat };
@@ -593,8 +608,8 @@ void ToGameServer::MT_PALYEREXIT(dbc::DataSocket* datasock, dbc::RPacket& recvbu
 			{
 				WPacket l_wpk = g_gtsvr->gp_conn->GetWPacket();
 				l_wpk.WriteCmd(CMD_TP_ENDPLAY);
-				l_wpk.WriteLong(ToAddress(l_ply));
-				l_wpk.WriteLong(l_ply->gp_addr);
+				l_wpk.WriteLongLong(ToAddress(l_ply));
+				l_wpk.WriteLongLong(l_ply->gp_addr);
 				l_wpk = g_gtsvr->gp_conn->SyncCall(g_gtsvr->gp_conn->get_datasock(), l_wpk, l_ulMilliseconds);
 				if (!l_wpk.HasData())
 				{
@@ -637,8 +652,8 @@ void ToGameServer::MT_PALYEREXIT(dbc::DataSocket* datasock, dbc::RPacket& recvbu
 
 				l_wpk = g_gtsvr->gp_conn->get_datasock()->GetWPacket();
 				l_wpk.WriteCmd(CMD_TP_USER_LOGOUT);
-				l_wpk.WriteLong(ToAddress(l_ply));
-				l_wpk.WriteLong(l_ply->gp_addr);
+				l_wpk.WriteLongLong(ToAddress(l_ply));
+				l_wpk.WriteLongLong(l_ply->gp_addr);
 				l_ply->gp_addr = 0;
 				RPacket l_retpk = g_gtsvr->gp_conn->SyncCall(g_gtsvr->gp_conn->get_datasock(), l_wpk, l_ulMilliseconds);
 				//printf( "PlayerExit 释放角色id = %d, status = %d\n", l_ply->m_actid, l_ply->m_status );
@@ -652,7 +667,7 @@ void ToGameServer::MT_PALYEREXIT(dbc::DataSocket* datasock, dbc::RPacket& recvbu
 void ToGameServer::MT_KICKUSER(dbc::DataSocket* datasock, dbc::RPacket& recvbuf)
 {
 	uShort l_aimnum = recvbuf.ReverseReadShort();
-	auto l_ply = ToPointer<ClientConnection>(recvbuf.ReverseReadLong());
+	auto l_ply = ToPointer<ClientConnection>(recvbuf.ReverseReadLongLong());
 	uLong b = recvbuf.ReverseReadLong();
 	if (l_ply && l_ply->m_dbid == b)
 	{
@@ -667,9 +682,10 @@ GameServer* ToGameServer::find(cChar* mapname)
 	{
 		LogLine l_line(g_gatelog);
 		//l_line<<newln<<"Î´ÕÒµ½ ["<<mapname<<"] µØÍ¼£¡£¡£¡";
-		l_line<<newln<<"not found ["<<mapname<<"] map!!!";
+		l_line << newln << "not found [" << mapname << "] map!!!";
 		return NULL;
-	}else
+	}
+	else
 		return (*it).second;
 }
 
@@ -695,11 +711,11 @@ void GameServer::Finally()
 	mapcnt = 0;
 }
 
-void GameServer::EnterMap(ClientConnection *ply,uLong actid, uLong dbid,uLong worldid,cChar *map, Long lMapCpyNO,uLong x,uLong y,char entertype,short swiner)
+void GameServer::EnterMap(ClientConnection* ply, uLong actid, uLong dbid, uLong worldid, cChar* map, Long lMapCpyNO, uLong x, uLong y, char entertype, short swiner)
 {
-	WPacket l_wpk	=m_datasock->GetWPacket();
+	WPacket l_wpk = m_datasock->GetWPacket();
 	l_wpk.WriteCmd(CMD_TM_ENTERMAP);
-    l_wpk.WriteLong(actid);
+	l_wpk.WriteLong(actid);
 	l_wpk.WriteString(ply->m_password);
 	l_wpk.WriteLong(dbid);
 	l_wpk.WriteLong(worldid);
@@ -708,8 +724,8 @@ void GameServer::EnterMap(ClientConnection *ply,uLong actid, uLong dbid,uLong wo
 	l_wpk.WriteLong(x);
 	l_wpk.WriteLong(y);
 	l_wpk.WriteChar(entertype);
-	l_wpk.WriteLong(ToAddress(ply));		//µÚÒ»´Î¸½¼ÓÉÏ×Ô¼ºµÄµØÖ·
+	l_wpk.WriteLongLong(ToAddress(ply));		//µÚÒ»´Î¸½¼ÓÉÏ×Ô¼ºµÄµØÖ·
 	l_wpk.WriteShort(swiner);
-	g_gtsvr->gm_conn->SendData(m_datasock,l_wpk);
+	g_gtsvr->gm_conn->SendData(m_datasock, l_wpk);
 	ply->SetMapName(map); // Chaos Blind
 }

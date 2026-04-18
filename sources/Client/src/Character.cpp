@@ -156,28 +156,28 @@ inline void SetPreName( int nItem, char* szName, DWORD& dwColor )
 
 	switch( nItem )
 	{
-	case 3936:	strcpy( szName, g_oLangRec.GetString(7) );   dwColor = D3DCOLOR_ARGB(255,192,192,192); return;
-	case 3937:	strcpy( szName, g_oLangRec.GetString(8) );   dwColor = D3DCOLOR_ARGB(255,000,255,012); return;
-	case 3938:	strcpy( szName, g_oLangRec.GetString(9) );   dwColor = D3DCOLOR_ARGB(255,217,255,119); return;
-	case 3939:	strcpy( szName, g_oLangRec.GetString(10) );  dwColor = D3DCOLOR_ARGB(255,070,182,240); return;
-	case 3940:	strcpy( szName, g_oLangRec.GetString(11) );  dwColor = D3DCOLOR_ARGB(255,255,207,000); return;
-	case 3941:	strcpy( szName, g_oLangRec.GetString(12) );  dwColor = D3DCOLOR_ARGB(255,255,000,000); return;
-	case 3942:	strcpy( szName, g_oLangRec.GetString(13) );  dwColor = D3DCOLOR_ARGB(255,241,014,240); return;
+	case 3936:	strcpy( szName, RES_STRING(CL_LANGUAGE_MATCH_10) );   dwColor = D3DCOLOR_ARGB(255,192,192,192); return;
+	case 3937:	strcpy( szName, RES_STRING(CL_LANGUAGE_MATCH_8) );   dwColor = D3DCOLOR_ARGB(255,000,255,012); return;
+	case 3938:	strcpy( szName, RES_STRING(CL_LANGUAGE_MATCH_12) );   dwColor = D3DCOLOR_ARGB(255,217,255,119); return;
+	case 3939:	strcpy( szName, RES_STRING(CL_LANGUAGE_MATCH_10) );  dwColor = D3DCOLOR_ARGB(255,070,182,240); return;
+	case 3940:	strcpy( szName, RES_STRING(CMISS_000011) );  dwColor = D3DCOLOR_ARGB(255,255,207,000); return;
+	case 3941:	strcpy( szName, RES_STRING(CL_LANGUAGE_MATCH_528) );  dwColor = D3DCOLOR_ARGB(255,255,000,000); return;
+	case 3942:	strcpy( szName, RES_STRING(CL_LANGUAGE_MATCH_13) );  dwColor = D3DCOLOR_ARGB(255,241,014,240); return;
 
-	case 5331:	strcpy( szName, g_oLangRec.GetString(922) ); dwColor = COLOR_SKYBLUE; return;//D3DCOLOR_ARGB(255,192,192,192); return;
-	case 5332:	strcpy( szName, g_oLangRec.GetString(923) ); dwColor = COLOR_SKYBLUE; return;//D3DCOLOR_ARGB(255,135,135,135); return;
-	case 5333:	strcpy( szName, g_oLangRec.GetString(924) ); dwColor = COLOR_SKYBLUE; return;//D3DCOLOR_ARGB(255,255,255,255); return;
-	case 5334:	strcpy( szName, g_oLangRec.GetString(925) ); dwColor = COLOR_SKYBLUE; return;//D3DCOLOR_ARGB(255,070,182,240); return;
-	case 5335:	strcpy( szName, g_oLangRec.GetString(926) ); dwColor = COLOR_SKYBLUE; return;//D3DCOLOR_ARGB(255,000,255,012); return;
-	case 5336:	strcpy( szName, g_oLangRec.GetString(927) ); dwColor = COLOR_SKYBLUE; return;//D3DCOLOR_ARGB(255,217,255,119); return;
-	case 5337:	strcpy( szName, g_oLangRec.GetString(928) ); dwColor = COLOR_SKYBLUE; return;//D3DCOLOR_ARGB(255,255,207,000); return;
-	case 5338:	strcpy( szName, g_oLangRec.GetString(929) ); dwColor = COLOR_SKYBLUE; return;//D3DCOLOR_ARGB(255,255,127,000); return;
-	case 5339:	strcpy( szName, g_oLangRec.GetString(930) ); dwColor = COLOR_SKYBLUE; return;//D3DCOLOR_ARGB(255,255,000,000); return;
-	case 5340:	strcpy( szName, g_oLangRec.GetString(931) ); dwColor = COLOR_SKYBLUE; return;//D3DCOLOR_ARGB(255,241,014,240); return;
+	case 5331:	strcpy( szName, RES_STRING(CL_LANGUAGE_MATCH_922) ); dwColor = COLOR_SKYBLUE; return;//D3DCOLOR_ARGB(255,192,192,192); return;
+	case 5332:	strcpy( szName, RES_STRING(CL_LANGUAGE_MATCH_923) ); dwColor = COLOR_SKYBLUE; return;//D3DCOLOR_ARGB(255,135,135,135); return;
+	case 5333:	strcpy( szName, RES_STRING(CL_LANGUAGE_MATCH_924) ); dwColor = COLOR_SKYBLUE; return;//D3DCOLOR_ARGB(255,255,255,255); return;
+	case 5334:	strcpy( szName, RES_STRING(CL_LANGUAGE_MATCH_925) ); dwColor = COLOR_SKYBLUE; return;//D3DCOLOR_ARGB(255,070,182,240); return;
+	case 5335:	strcpy( szName, RES_STRING(CL_LANGUAGE_MATCH_926) ); dwColor = COLOR_SKYBLUE; return;//D3DCOLOR_ARGB(255,000,255,012); return;
+	case 5336:	strcpy( szName, RES_STRING(CL_LANGUAGE_MATCH_927) ); dwColor = COLOR_SKYBLUE; return;//D3DCOLOR_ARGB(255,217,255,119); return;
+	case 5337:	strcpy( szName, RES_STRING(CL_LANGUAGE_MATCH_928) ); dwColor = COLOR_SKYBLUE; return;//D3DCOLOR_ARGB(255,255,207,000); return;
+	case 5338:	strcpy( szName, RES_STRING(CL_LANGUAGE_MATCH_929) ); dwColor = COLOR_SKYBLUE; return;//D3DCOLOR_ARGB(255,255,127,000); return;
+	case 5339:	strcpy( szName, RES_STRING(CL_LANGUAGE_MATCH_930) ); dwColor = COLOR_SKYBLUE; return;//D3DCOLOR_ARGB(255,255,000,000); return;
+	case 5340:	strcpy( szName, RES_STRING(CL_LANGUAGE_MATCH_931) ); dwColor = COLOR_SKYBLUE; return;//D3DCOLOR_ARGB(255,241,014,240); return;
 
 	// TOM�汾
-	case 822:	strcpy( szName, g_oLangRec.GetString(14) );  dwColor = D3DCOLOR_ARGB(255,255,000,000); return;	// ����ѫ��
-	case 823:	strcpy( szName, g_oLangRec.GetString(15) );  dwColor = D3DCOLOR_ARGB(255,241,014,240); return;	// �Ƹ�ѫ��
+	case 822:	strcpy( szName, RES_STRING(CL_LANGUAGE_MATCH_14) );  dwColor = D3DCOLOR_ARGB(255,255,000,000); return;	// ����ѫ��
+	case 823:	strcpy( szName, RES_STRING(CL_LANGUAGE_MATCH_15) );  dwColor = D3DCOLOR_ARGB(255,241,014,240); return;	// �Ƹ�ѫ��
 	default: szName[0] = '\0';
 	}
 }
@@ -340,7 +340,7 @@ int CCharacter::LoadCha( const LoadChaInfo* info )
     {
         if( FAILED( LoadBone( info->bone ) ) )
         {
-            LG("error", g_oLangRec.GetString(16) );
+            LG("error", RES_STRING(CL_LANGUAGE_MATCH_16) );
             return FALSE;
         }
     }
@@ -352,7 +352,7 @@ int CCharacter::LoadCha( const LoadChaInfo* info )
 
         if( FAILED( LoadPart( i, info->part[i] ) ) )
         {
-            LG("error", g_oLangRec.GetString(16) );
+            LG("error", RES_STRING(CL_LANGUAGE_MATCH_16) );
             return FALSE;
         }
 
@@ -682,7 +682,7 @@ void CCharacter::RefreshLevel( int nMainLevel )
     }
     else
     {
-        _pHeadSay->SetNameColor( COLOR_WHITE );
+        _pHeadSay->SetNameColor( COLOR_YELLOW );
     }
 }
 
@@ -1027,7 +1027,7 @@ bool CCharacter::ChangeReadySkill( int nSkillID )
 	CSkillRecord *p =  GetSkillRecordInfo( nSkillID );
 	if( !p )
 	{
-		g_pGameApp->AddTipText( g_oLangRec.GetString(17), p->szName );
+		g_pGameApp->AddTipText( RES_STRING(CMISS_000017), p->szName );
 		return false;
 	}
 
@@ -1035,11 +1035,11 @@ bool CCharacter::ChangeReadySkill( int nSkillID )
 
     if( !p->GetIsValid() )
     {
-		g_pGameApp->SysInfo( g_oLangRec.GetString(18), p->szName );
+		g_pGameApp->SysInfo( RES_STRING(CMISS_000018), p->szName );
         return false;
     }
 
-	g_pGameApp->AddTipText( g_oLangRec.GetString(19), p->szName );
+	g_pGameApp->AddTipText( RES_STRING(CL_LANGUAGE_MATCH_19), p->szName );
 	_SetReadySkill( p );
     return true;
 }
@@ -1647,7 +1647,7 @@ xShipInfo* CCharacter::ConvertPartTo8DWORD( stNetChangeChaPart& stPart, DWORD* d
 	xShipInfo* pInfo = ::GetShipInfo( stPart.sBoatID );
 	if( !pInfo ) 
 	{
-		LG( "boat_error", g_oLangRec.GetString(20), stPart.sBoatID );
+		LG( "boat_error", RES_STRING(CMISS_000020), stPart.sBoatID );
 		return NULL;
 	}
 
@@ -1655,7 +1655,7 @@ xShipInfo* CCharacter::ConvertPartTo8DWORD( stNetChangeChaPart& stPart, DWORD* d
 	xShipPartInfo* pData = GetShipPartInfo( pInfo->sBody );
 	if( pData == NULL ) 
 	{
-		LG( "boat_error", g_oLangRec.GetString(21), pInfo->sBody );
+		LG( "boat_error", RES_STRING(CMISS_000021), pInfo->sBody );
 		return NULL;
 	}
 		
@@ -1665,7 +1665,7 @@ xShipInfo* CCharacter::ConvertPartTo8DWORD( stNetChangeChaPart& stPart, DWORD* d
 		pData = GetShipPartInfo( stPart.sHeader );
 		if( pData == NULL ) 
 		{
-			LG( "boat_error", g_oLangRec.GetString(22), stPart.sHeader );
+			LG( "boat_error", RES_STRING(CMISS_000022), stPart.sHeader );
 			return NULL;
 		}
 		dwBuf[1] = pData->dwModel;
@@ -1673,7 +1673,7 @@ xShipInfo* CCharacter::ConvertPartTo8DWORD( stNetChangeChaPart& stPart, DWORD* d
 		pData = GetShipPartInfo( stPart.sEngine );
 		if( pData == NULL ) 
 		{
-			LG( "boat_error", g_oLangRec.GetString(23), stPart.sEngine );
+			LG( "boat_error", RES_STRING(CMISS_000023), stPart.sEngine );
 			return NULL;
 		}
 		dwBuf[2] = pData->dwModel;

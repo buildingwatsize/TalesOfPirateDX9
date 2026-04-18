@@ -68,16 +68,16 @@ CSkillCommand& CSkillCommand::operator=( const CSkillCommand& rhs )
 CSkillCommand::~CSkillCommand()
 {
     //delete _pImage;
-	SAFE_DELETE(_pImage); // UIµ±»ú´¦Àí
+	SAFE_DELETE(_pImage); // UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
 void CSkillCommand::Render( int x, int y )
 {
 	if( _pSkill->GetSkillGrid().chState )
 		_pImage->Render( x, y );
-	//else if(338 <= _pSkill->sID && _pSkill->sID <= 341)	// Éú»î¼¼ÄÜÌØÊâ´¦Àí
+	//else if(338 <= _pSkill->sID && _pSkill->sID <= 341)	// ï¿½ï¿½ï¿½î¼¼ï¿½ï¿½ï¿½ï¿½ï¿½â´¦ï¿½ï¿½
 	//	_pImage->Render( x, y );
-	//else if(_pSkill->sID == 459)	// ×ªÉú¼¼ÄÜ
+	//else if(_pSkill->sID == 459)	// ×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	//	_pImage->Render( x, y );
 	else if( GetIsSpecial(enumHighLight) )
 		_pImage->Render( x, y );
@@ -105,7 +105,7 @@ bool CSkillCommand::UseCommand(bool value)
 	CCharacter* pCha = CGameScene::GetMainCha();
 	if( !pCha ) return false;
 
-	// ±»¶¯¼¼ÄÜ£¬²»Ö´ÐÐ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Ö´ï¿½ï¿½
 	if( !_pSkill->GetIsUse() )
 		return false;
 
@@ -163,15 +163,15 @@ bool CSkillCommand::IsAllowUse()
 	CCharacter* pCha = g_stUIBoat.GetHuman();
 	if( !pCha ) return false;
 
-	if(g_stUIBank.GetBankGoodsGrid()->GetForm()->GetIsShow())	// Î÷ÃÅÎÄµµÐÞ¸Ä£¬´ò¿ªÒøÐÐÊ±²»ÔÊÐí·Å¼¼ÄÜ
+	if(g_stUIBank.GetBankGoodsGrid()->GetForm()->GetIsShow())	// ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½Þ¸Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¼ï¿½ï¿½ï¿½
 	{
-		g_pGameApp->SysInfo( g_oLangRec.GetString(748) );
+		g_pGameApp->SysInfo( RES_STRING(CL_LANGUAGE_MATCH_748) );
 		return false;
 	}
 
 	if( pCha->GetChaState()->IsFalse(enumChaStateUseSkill) )
 	{
-		g_pGameApp->SysInfo( g_oLangRec.GetString(748) );
+		g_pGameApp->SysInfo( RES_STRING(CL_LANGUAGE_MATCH_748) );
 		return false;
 	}
 
@@ -181,7 +181,7 @@ bool CSkillCommand::IsAllowUse()
 		return false;
 	}
 
-    // ÔÊÐíÊ¹ÓÃµÄÁ½ÖÖÇé¿ö:1.Ã»ÓÐÔÙÊ©·ÅÊ±¼ä,2.ÒÑµ½´ïÔÙÊ©·ÅÊ±¼ä
+    // ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:1.Ã»ï¿½ï¿½ï¿½ï¿½Ê©ï¿½ï¿½Ê±ï¿½ï¿½,2.ï¿½Ñµï¿½ï¿½ï¿½ï¿½ï¿½Ê©ï¿½ï¿½Ê±ï¿½ï¿½
     if( _GetSkillTime()<=0 ) 
 	{
 		return true;
@@ -222,7 +222,7 @@ bool CSkillCommand::ReadyUse()
 
 void CSkillCommand::Error()
 {    
-	g_pGameApp->AddTipText(g_oLangRec.GetString(750), _pSkill->szName );
+	g_pGameApp->AddTipText(RES_STRING(CMISS_000750), _pSkill->szName );
 }
 
 void CSkillCommand::AddHint( int x, int y )
@@ -238,7 +238,7 @@ void CSkillCommand::AddHint( int x, int y )
 		switch( _pSkill->chFightType )
 		{
 		case enumSKILL_LAND_LIVE:
-			PushHint( g_oLangRec.GetString(751), pMain->IsBoat() ? COLOR_RED : COLOR_WHITE );
+			PushHint( RES_STRING(CMISS_000751), pMain->IsBoat() ? COLOR_RED : COLOR_WHITE );
 			break;
 
 		case enumSKILL_FIGHT:
@@ -246,45 +246,45 @@ void CSkillCommand::AddHint( int x, int y )
 			{
 				if( _pSkill->chSrcType==1 )
 				{
-					PushHint( g_oLangRec.GetString(752), pMain->IsBoat() ? COLOR_RED : COLOR_WHITE );
+					PushHint( RES_STRING(CL_LANGUAGE_MATCH_752), pMain->IsBoat() ? COLOR_RED : COLOR_WHITE );
 				}
 				else
 				{
-					PushHint( g_oLangRec.GetString(753), !pMain->IsBoat() ? COLOR_RED : COLOR_WHITE );
+					PushHint( RES_STRING(CL_LANGUAGE_MATCH_753), !pMain->IsBoat() ? COLOR_RED : COLOR_WHITE );
 				}
 			}
 			else
 			{
-				PushHint( g_oLangRec.GetString(754), COLOR_WHITE );
+				PushHint( RES_STRING(CL_LANGUAGE_MATCH_754), COLOR_WHITE );
 			}
 			break;
 
 		case enumSKILL_SAIL:
-			//PushHint( g_oLangRec.GetString(755), pMain->IsBoat() ? COLOR_WHITE : COLOR_RED );
-			PushHint( g_oLangRec.GetString(755), COLOR_WHITE );
+			//PushHint( RES_STRING(CMISS_000755), pMain->IsBoat() ? COLOR_WHITE : COLOR_RED );
+			PushHint( RES_STRING(CMISS_000755), COLOR_WHITE );
 			break;
 
 		case enumSKILL_SEE_LIVE:
-			PushHint( g_oLangRec.GetString(756), pMain->IsBoat() ? COLOR_WHITE : COLOR_RED );		
+			PushHint( RES_STRING(CMISS_000756), pMain->IsBoat() ? COLOR_WHITE : COLOR_RED );		
 			break;
 		}
 	}
 
-	PushHint( g_oLangRec.GetString(757) );
+	PushHint( RES_STRING(CMISS_000757) );
 	StringNewLine( szBuf, HINT_WIDTH, _pSkill->szDescribeHint, (unsigned int)strlen(_pSkill->szDescribeHint) );
 	PushHint( szBuf );
 
-	PushHint( g_oLangRec.GetString(758) );
+	PushHint( RES_STRING(CL_LANGUAGE_MATCH_758) );
 	StringNewLine( szBuf, HINT_WIDTH, _pSkill->szEffectHint, (unsigned int)strlen(_pSkill->szEffectHint) );
 	PushHint( szBuf );
 
-	PushHint( g_oLangRec.GetString(759) );
+	PushHint( RES_STRING(CMISS_000759) );
 	StringNewLine( szBuf, HINT_WIDTH, _pSkill->szExpendHint, (unsigned int)strlen(_pSkill->szExpendHint) );
 	PushHint( szBuf );
 
 	if( _pSkill->GetIsActive() )
 	{
-		PushHint( g_oLangRec.GetString(760) );
+		PushHint( RES_STRING(CMISS_000760) );
 	}
 }
 
@@ -343,14 +343,14 @@ bool CSkillCommand::GetIsSpecial(eSpecialType SpecialType)
 	{
 	case enumHighLight:
 		{
-			if(338 <= nID && nID <= 341) return true;	// Éú»î¼¼ÄÜÌØÊâ´¦Àí
-			if(459 == nID) return true;					// ×ªÉú¼¼ÄÜ
+			if(338 <= nID && nID <= 341) return true;	// ï¿½ï¿½ï¿½î¼¼ï¿½ï¿½ï¿½ï¿½ï¿½â´¦ï¿½ï¿½
+			if(459 == nID) return true;					// ×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 		break;
 
 	case enumNotUpgrade:
 		{
-			if(453 <= nID && nID <= 459) return true;	// ×ªÉú¼¼ÄÜ
+			if(453 <= nID && nID <= 459) return true;	// ×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 		break;
 

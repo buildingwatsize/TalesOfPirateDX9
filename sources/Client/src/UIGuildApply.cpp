@@ -52,9 +52,9 @@ void CUIGuildApply::ShowForm()
 	m_pGuildNameEdit->SetActive(m_pGuildNameEdit);
 }
 
-//±¾º¯Êý¹¦ÄÜ°üÀ¨¼ì²é×Ö·û´®ÖÐGBKË«×Ö½Úºº×Ö×Ö·ûµÄÍêÕûÐÔ¡¢ÍøÂç°üÖÐ×Ö·û´®µÄÍêÕûÐÔµÈ¡£
-//nameÎªÖ»ÔÊÐíÓÐ´óÐ¡Ð´×ÖÄ¸Êý×ÖºÍºº×Ö£¨È¥³ýÈ«½Ç¿Õ¸ñ£©²Å·µ»Øtrue;
-//len²ÎÊýÎª×Ö·û´®nameµÄ³¤¶È=strlen(name),²»°üÀ¨½áÎ²NULL×Ö·û¡£
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½GBKË«ï¿½Ö½Úºï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÔµÈ¡ï¿½
+//nameÎªÖ»ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½Ð¡Ð´ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ÖºÍºï¿½ï¿½Ö£ï¿½È¥ï¿½ï¿½È«ï¿½Ç¿Õ¸ñ£©²Å·ï¿½ï¿½ï¿½true;
+//lenï¿½ï¿½ï¿½ï¿½Îªï¿½Ö·ï¿½ï¿½ï¿½nameï¿½Ä³ï¿½ï¿½ï¿½=strlen(name),ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î²NULLï¿½Ö·ï¿½ï¿½ï¿½
 inline bool IsValidGuildName(const char *name,unsigned short len, bool bEng)
 {
 	const unsigned char *l_name =reinterpret_cast<const unsigned char *>(name);
@@ -66,7 +66,7 @@ inline bool IsValidGuildName(const char *name,unsigned short len, bool bEng)
 			return false;
 		}else if(l_ishan)
 		{
-			if(l_name[i-1] ==0xA1 && l_name[i] ==0xA1)	//¹ýÂËÈ«½Ç¿Õ¸ñ
+			if(l_name[i-1] ==0xA1 && l_name[i] ==0xA1)	//ï¿½ï¿½ï¿½ï¿½È«ï¿½Ç¿Õ¸ï¿½
 			{
 				return false;
 			}
@@ -119,7 +119,7 @@ void CUIGuildApply::OnConfirm(CCompent *pSender, int nMsgType, int x, int y, DWO
 		if( !CTextFilter::IsLegalText(CTextFilter::DIALOG_TABLE, name ) )
 		{
 			m_pGuildNameEdit->SetCaption("");
-			CBoxMgr::ShowMsgBox( OnShowForm, "¹«»áÃû³Æ·Ç·¨£¡", true );
+			CBoxMgr::ShowMsgBox( OnShowForm, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·Ç·ï¿½ï¿½ï¿½", true );
 			return;
 		}
 
@@ -135,7 +135,7 @@ void CUIGuildApply::OnConfirm(CCompent *pSender, int nMsgType, int x, int y, DWO
 
         if(!IsValidGuildName(name.c_str(), (unsigned short)name.length(), bEnglishName))
 		{
-			CBoxMgr::ShowMsgBox( OnShowForm, g_oLangRec.GetString(51), true );
+			CBoxMgr::ShowMsgBox( OnShowForm, RES_STRING(CL_LANGUAGE_MATCH_51), true );
 		}
 		else
 		{
@@ -150,18 +150,18 @@ void CUIGuildApply::OnConfirm(CCompent *pSender, int nMsgType, int x, int y, DWO
 				{
 					m_pGuildPasswordEdit->SetCaption("");
 					m_pGuildConfirmEdit->SetCaption("");
-					CBoxMgr::ShowMsgBox( OnShowForm, g_oLangRec.GetString(580), true );
+					CBoxMgr::ShowMsgBox( OnShowForm, RES_STRING(CL_LANGUAGE_MATCH_580), true );
 				}
 			}
 			else
 			{
-				CBoxMgr::ShowMsgBox( OnShowForm, g_oLangRec.GetString(581), true );
+				CBoxMgr::ShowMsgBox( OnShowForm, RES_STRING(CL_LANGUAGE_MATCH_581), true );
 			}
 		}
 	}
 	else
 	{
-		CBoxMgr::ShowMsgBox( OnShowForm, g_oLangRec.GetString(582), true );
+		CBoxMgr::ShowMsgBox( OnShowForm, RES_STRING(CL_LANGUAGE_MATCH_582), true );
 	}
 }
 

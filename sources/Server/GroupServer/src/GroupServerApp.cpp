@@ -342,8 +342,8 @@ void GroupServerApp::SendToClient(Player* ply[],short cli_num,const WPacket &wpk
 		{
 			if (ply[i]->m_gate == &gate && ply[i]->m_currcha >= 0)
 			{
-				l_wpk2.WriteLong(ToAddress(ply[i]));
-				l_wpk2.WriteLong(ply[i]->m_gtAddr);
+				l_wpk2.WriteLongLong(ToAddress(ply[i]));
+				l_wpk2.WriteLongLong(ply[i]->m_gtAddr);
 				++l_count2;
 			}
 		}
@@ -358,8 +358,8 @@ void GroupServerApp::SendToClient(Player* ply,WPacket &wpk)
 {
 	if(ply && ply->m_gate)
 	{
-		wpk.WriteLong(ToAddress(ply));
-		wpk.WriteLong(ply->m_gtAddr);
+		wpk.WriteLongLong(ToAddress(ply));
+		wpk.WriteLongLong(ply->m_gtAddr);
 		wpk.WriteShort(1);
 		ply->m_gate->m_datasock->SendData(wpk);
 	}

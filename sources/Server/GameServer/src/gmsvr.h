@@ -59,9 +59,9 @@ public:
     std::string ipaddr;
     unsigned short port;
     
-    // Player Ë«Á´±í
+    // Player åŒé“¾è¡¨
     GatePlayer* m_playerlist;
-	GatePlayer* m_listcurplayer;	// ÓÃÓÚ±éÀúÁ´±í
+	GatePlayer* m_listcurplayer;	// ç”¨äºéå†é“¾è¡¨
     std::string m_gtname;
     
     };
@@ -104,7 +104,7 @@ public:
     bool sendtoclient(Packet* pkt, int array_cnt, uplayer* uplayer_array);
     bool sendtogame(Packet* pkt, uplayer* uplyr);
 
-    bool addplayer(GatePlayer* gtplayer, GateServer* gt, unsigned long gtaddr);
+    bool addplayer(GatePlayer* gtplayer, GateServer* gt, LONG64 gtaddr);
     bool delplayer(GatePlayer* gtplayer);
     bool kickplayer(GatePlayer* gtplayer, long lTimeSec = 0);
 	// add by xuedong

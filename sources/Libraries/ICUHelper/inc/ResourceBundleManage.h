@@ -1,8 +1,8 @@
 #pragma once
-#include "unicode/resbund.h"		//×ÊÔ´¹ÜÀíÐÅÏ¢
-#include "unicode/ucnv.h"			//×Ö·û±àÂë×ª»»
-#include "unicode/uclean.h"			//×Ö·û±àÂë×ª»»
-#include "unicode/msgfmt.h"			//¸ñÊ½»¯×Ö·û´®
+#include "unicode/resbund.h"		//ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+#include "unicode/ucnv.h"			//ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½
+#include "unicode/uclean.h"			//ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½
+#include "unicode/msgfmt.h"			//ï¿½ï¿½Ê½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 	
 //#include "pi_Alloc.h"
 
@@ -34,7 +34,7 @@ typedef std::map <const char*, std::unique_ptr<char[]>, charValueLess> StringMap
 class CFormatParameter
 {
 private:
-	Formattable* m_MsgArgs;
+	icu::Formattable* m_MsgArgs;
 	int paraNum;
 private:
 	CFormatParameter(){}
@@ -42,19 +42,20 @@ public:
 	CFormatParameter(int paraNum);
 	~CFormatParameter();
 
-	Formattable* GetMsgArgs(){ return m_MsgArgs;} 
+	icu::Formattable* GetMsgArgs(){ return m_MsgArgs;} 
 	int GetParaNum() { return paraNum; }
 	void setDouble(int index, double d);
 	void  setLong(int index, int32_t l);
 	void  setInt64(int index, int64_t ll) ;
 	void  setDate(int index, UDate d) ;
-	void  setString(int index, const UnicodeString &stringToCopy);
+	void  setString(int index, const icu::UnicodeString &stringToCopy);
 };
 
 class CResourceBundleManage
 {
 
 public:
+	CResourceBundleManage() {}
 	CResourceBundleManage(const char* configFileName);
 	virtual ~CResourceBundleManage(void);
 
@@ -62,8 +63,10 @@ private:
 	std::unique_ptr<char[]> m_ResDir{};
 	std::unique_ptr<char[]> m_ResLocale{};
 
+	icu::Locale* m_pLocale;			// ï¿½ï¿½ï¿½ï¿½ï¿½è¶¨
+
 	StringMap mapRes;
-	ResourceBundle* m_pResourceBundle;
+	icu::ResourceBundle* m_pResourceBundle;
 	UConverter *m_pConverter;
 	int m_MaxSize;
 
@@ -71,17 +74,45 @@ private:
 
 	FILE* m_LogFile;
 
+	static CResourceBundleManage* _instance;
+
 private:
 	UErrorCode ToCodePageString(UConverter *conv, UChar* source, char* target, int destCapacity, int& len);
 	bool Init();
 
 public:
-	int GetSize(void);			// È¡µÃ×ÊÔ´¸öÊý
+	static CResourceBundleManage* Instance(const char* configFileName = NULL);
+	const icu::Locale& GetLocale() { return *m_pLocale; }
+	const UConverter* GetConverter() { return m_pConverter; }
+
+	int GetSize(void);			// È¡ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½
 	
 	void Release(void);
 
 	const char* LoadResString(const char* key);
-	UnicodeString LoadUResString(const char* key);
+	icu::UnicodeString LoadUResString(const char* key);
 
 	int Format(const char* key, CFormatParameter& parameter, char buffer[]);
+	int FormatString(const char* formatStr, CFormatParameter& parameter, char buffer[]);
+};
+
+/**
+ * @class CBreakLine
+ * @author Lark.Li
+ * @brief ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ð´ï¿½ï¿½ï¿½
+*/
+class CBreakLine
+{
+public:
+	/**
+	* @brief ï¿½ï¿½ï¿½ï¿½
+	* @param[in]  const UnicodeString&  Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
+	* @param[in]  const Locale&  ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	* @param[in]  int32_t Ã¿ï¿½Ðµï¿½ï¿½Ö·ï¿½ï¿½ï¿½
+	* @param[out]  int32_t[] Ã¿ï¿½Ðµï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½Ê¼Î»ï¿½ï¿½
+	* @param[out]  int32_t[] Ã¿ï¿½Ðµï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½Ö¹Î»ï¿½ï¿½
+	* @param[in]  int32_t ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	* @return int Êµï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½
+	*/
+	static int32_t WrapParagraph(const icu::UnicodeString& s, const icu::Locale& locale, int32_t maxCharsPreLine, int32_t lineStarts[], int32_t lineEnds[], int32_t maxLines);
 };

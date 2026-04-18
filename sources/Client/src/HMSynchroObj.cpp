@@ -71,7 +71,7 @@ void CSynchroManage::FrameMove( DWORD dwTime )
 			static CCharacter* pCha = NULL;
 			if( p->_isExec || dwTime >= p->_dwExecTime )
 			{
-				// Èç¹ûÇ°ÃæÓÐÎ´Ö´ÐÐµÄÍ¬½ÇÉ«ÉËº¦°ü£¬ÔòÔÝ²»Ö´ÐÐ
+				// ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Î´Ö´ï¿½Ðµï¿½Í¬ï¿½ï¿½É«ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý²ï¿½Ö´ï¿½ï¿½
 				pCha = p->GetHarmCha();
 				if( pCha && find( noexec.begin(), noexec.end(), pCha )!=noexec.end() )
 					continue;
@@ -156,7 +156,7 @@ bool CSynchroManage::_DelState( CStateSynchro* pState)
 		LG( "CSynchroManage", "DelState(), SynchroNum[%d], Head[%d], Tail[%d], ID[%d]\n", _nSynchroNum, _dwHead, _dwTail, nID );
 		return true;
 	}
-	LG( "CSynchroManage", g_oLangRec.GetString(148), _nSynchroNum, _dwHead, _dwTail, nID );
+	LG( "CSynchroManage", RES_STRING(CL_LANGUAGE_MATCH_148), _nSynchroNum, _dwHead, _dwTail, nID );
     return false;
 }
 

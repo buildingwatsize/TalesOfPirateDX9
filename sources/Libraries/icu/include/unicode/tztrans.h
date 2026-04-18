@@ -1,6 +1,8 @@
+// © 2016 and later: Unicode, Inc. and others.
+// License & terms of use: http://www.unicode.org/copyright.html
 /*
 *******************************************************************************
-* Copyright (C) 2007, International Business Machines Corporation and         *
+* Copyright (C) 2007-2008, International Business Machines Corporation and         *
 * others. All Rights Reserved.                                                *
 *******************************************************************************
 */
@@ -14,6 +16,8 @@
 
 #include "unicode/utypes.h"
 
+#if U_SHOW_CPLUSPLUS_API
+
 #if !UCONFIG_NO_FORMATTING
 
 #include "unicode/uobject.h"
@@ -26,7 +30,7 @@ class TimeZoneRule;
 /**
  * <code>TimeZoneTransition</code> is a class representing a time zone transition.
  * An instance has a time of transition and rules for both before and after the transition.
- * @draft ICU 3.8
+ * @stable ICU 3.8
  */
 class U_I18N_API TimeZoneTransition : public UObject {
 public:
@@ -37,26 +41,26 @@ public:
      * @param time  The time of transition in milliseconds since the base time.
      * @param from  The time zone rule used before the transition.
      * @param to    The time zone rule used after the transition.
-     * @draft ICU 3.8
+     * @stable ICU 3.8
      */
     TimeZoneTransition(UDate time, const TimeZoneRule& from, const TimeZoneRule& to);
 
     /**
      * Constructs an empty <code>TimeZoneTransition</code>
-     * @draft ICU 3.8
+     * @stable ICU 3.8
      */
     TimeZoneTransition();
 
     /**
      * Copy constructor.
      * @param source    The TimeZoneTransition object to be copied.
-     * @draft ICU 3.8
+     * @stable ICU 3.8
      */
     TimeZoneTransition(const TimeZoneTransition& source);
 
     /**
      * Destructor.
-     * @draft ICU 3.8
+     * @stable ICU 3.8
      */
     ~TimeZoneTransition();
 
@@ -64,14 +68,14 @@ public:
      * Clone this TimeZoneTransition object polymorphically. The caller owns the result and
      * should delete it when done.
      * @return  A copy of the object.
-     * @draft ICU 3.8
+     * @stable ICU 3.8
      */
-    TimeZoneTransition* clone(void) const;
+    TimeZoneTransition* clone() const;
 
     /**
      * Assignment operator.
      * @param right The object to be copied.
-     * @draft ICU 3.8
+     * @stable ICU 3.8
      */
     TimeZoneTransition& operator=(const TimeZoneTransition& right);
 
@@ -80,45 +84,45 @@ public:
      * of different subclasses are considered unequal.
      * @param that  The object to be compared with.
      * @return  true if the given TimeZoneTransition objects are semantically equal.
-     * @draft ICU 3.8
+     * @stable ICU 3.8
      */
-    UBool operator==(const TimeZoneTransition& that) const;
+    bool operator==(const TimeZoneTransition& that) const;
 
     /**
      * Return true if the given TimeZoneTransition objects are semantically unequal. Objects
      * of different subclasses are considered unequal.
      * @param that  The object to be compared with.
      * @return  true if the given TimeZoneTransition objects are semantically unequal.
-     * @draft ICU 3.8
+     * @stable ICU 3.8
      */
-    UBool operator!=(const TimeZoneTransition& that) const;
+    bool operator!=(const TimeZoneTransition& that) const;
 
     /**
      * Returns the time of transition in milliseconds.
      * @return The time of the transition in milliseconds since the 1970 Jan 1 epoch time.
-     * @draft ICU 3.8
+     * @stable ICU 3.8
      */
-    UDate getTime(void) const;
+    UDate getTime() const;
 
     /**
      * Sets the time of transition in milliseconds.
      * @param time The time of the transition in milliseconds since the 1970 Jan 1 epoch time.
-     * @draft ICU 3.8
+     * @stable ICU 3.8
      */
     void setTime(UDate time);
 
     /**
      * Returns the rule used before the transition.
      * @return The time zone rule used after the transition.
-     * @draft ICU 3.8
+     * @stable ICU 3.8
      */
-    const TimeZoneRule* getFrom(void) const;
+    const TimeZoneRule* getFrom() const;
 
     /**
      * Sets the rule used before the transition.  The caller remains
      * responsible for deleting the <code>TimeZoneRule</code> object.
      * @param from The time zone rule used before the transition.
-     * @draft ICU 3.8
+     * @stable ICU 3.8
      */
     void setFrom(const TimeZoneRule& from);
 
@@ -126,7 +130,7 @@ public:
      * Adopts the rule used before the transition.  The caller must
      * not delete the <code>TimeZoneRule</code> object passed in.
      * @param from The time zone rule used before the transition.
-     * @draft ICU 3.8
+     * @stable ICU 3.8
      */
     void adoptFrom(TimeZoneRule* from);
 
@@ -134,7 +138,7 @@ public:
      * Sets the rule used after the transition.  The caller remains
      * responsible for deleting the <code>TimeZoneRule</code> object.
      * @param to The time zone rule used after the transition.
-     * @draft ICU 3.8
+     * @stable ICU 3.8
      */
     void setTo(const TimeZoneRule& to);
 
@@ -142,16 +146,16 @@ public:
      * Adopts the rule used after the transition.  The caller must
      * not delete the <code>TimeZoneRule</code> object passed in.
      * @param to The time zone rule used after the transition.
-     * @draft ICU 3.8
+     * @stable ICU 3.8
      */
     void adoptTo(TimeZoneRule* to);
 
     /**
      * Returns the rule used after the transition.
      * @return The time zone rule used after the transition.
-     * @draft ICU 3.8
+     * @stable ICU 3.8
      */
-    const TimeZoneRule* getTo(void) const;
+    const TimeZoneRule* getTo() const;
 
 private:
     UDate   fTime;
@@ -168,9 +172,9 @@ public:
      * .       erived::getStaticClassID()) ...
      * </pre>
      * @return          The class ID for all objects of this class.
-     * @draft ICU 3.8
+     * @stable ICU 3.8
      */
-    static UClassID U_EXPORT2 getStaticClassID(void);
+    static UClassID U_EXPORT2 getStaticClassID();
 
     /**
      * Returns a unique class ID POLYMORPHICALLY. Pure virtual override. This
@@ -181,14 +185,16 @@ public:
      * @return          The class ID for this object. All objects of a
      *                  given class have the same class ID.  Objects of
      *                  other classes have different class IDs.
-     * @draft ICU 3.8
+     * @stable ICU 3.8
      */
-    virtual UClassID getDynamicClassID(void) const;
+    virtual UClassID getDynamicClassID() const override;
 };
 
 U_NAMESPACE_END
 
 #endif /* #if !UCONFIG_NO_FORMATTING */
+
+#endif /* U_SHOW_CPLUSPLUS_API */
 
 #endif // TZTRANS_H
 

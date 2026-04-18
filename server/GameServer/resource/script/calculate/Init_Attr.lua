@@ -7,7 +7,7 @@ function Init_attr()
 end
 
 Init_attr()
-SetChaAttrMax(ATTR_LV, 80)
+SetChaAttrMax(ATTR_LV, 130)
 SetChaAttrMax(ATTR_HP, 2000000000)
 SetChaAttrMax(ATTR_SP, 2000000000)
 SetChaAttrMax(ATTR_JOB, 100)

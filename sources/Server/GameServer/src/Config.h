@@ -10,7 +10,7 @@ class CGameCommand
 {
 public:
 	CGameCommand();
-	bool	Load(const  char *pszFileName);
+	bool	Load(const  char* pszFileName);
 	void	SetDefault();
 
 	// commands
@@ -51,31 +51,31 @@ public:
 class CGameConfig
 {
 
-public:	
-	
-    CGameConfig();
-	
-	bool	Load(char *pszFileName);
+public:
+
+	CGameConfig();
+
+	bool	Load(char* pszFileName);
 	void	SetDefault();
-	bool	Reload(char *pszFileName);
-	bool	LoadCmd(char *pszFileName);
-	
+	bool	Reload(char* pszFileName);
+	bool	LoadCmd(char* pszFileName);
+
 public:
 
 	// 请注意此处不要放置任何非固定内存尺寸的变量, 比如模板, string之类的,
 	// 此类将被直接写盘和读盘
 	char    m_szGateIP[MAX_GATE][64];  // GateIP地址列表
-    int     m_nGatePort[MAX_GATE];     // Gate Port列表
-    int     m_nGateCnt;                // Gate数量
-    char    m_szInfoIP[64];            // InfoServer IP
-    int     m_nInfoPort;               // InfoServer Port
+	int     m_nGatePort[MAX_GATE];     // Gate Port列表
+	int     m_nGateCnt;                // Gate数量
+	char    m_szInfoIP[64];            // InfoServer IP
+	int     m_nInfoPort;               // InfoServer Port
 	char	m_szInfoPwd[33];		   // InfoServer验证码
 	int		m_nSection;				   // 小区号
-    char    m_szMapList[MAX_MAP][MAX_MAPNAME_LENGTH];
+	char    m_szMapList[MAX_MAP][MAX_MAPNAME_LENGTH];
 	BYTE	m_btMapOK[MAX_MAP];		   // 地图是否初始化成功
 	int     m_nMapCnt;				   // 地图数量
 	char	m_szEqument[MAX_MAPNAME_LENGTH];   // 世界守护神
-    char    m_szName[64];			   // 服务器名字
+	char    m_szName[64];			   // 服务器名字
 	char	m_szDBIP[64];			   // DB IP
 	char	m_szDBUsr[32];			   // DB 用户名
 	char	m_szDBPass[32];			   // DB 密码
@@ -92,6 +92,8 @@ public:
 
 	long	m_lSocketAlive;            // Socket保持活动
 	int		m_nMaxPly;                 // 最大玩家数
+	int		m_nMaxShip;                // 最大船只数 //本机调试GS，占用较少内存，从cfg读入max_ship数据(如果读不到，默认值为以前的1000) -Waiting Add 2009-03-23
+	int		m_nMaxRes;		           // 最大资源数 //本机调试GS，占用较少内存，从cfg读入max_ship数据(如果读不到，默认值为以前的1000) -Waiting Add 2009-03-23
 	int		m_nMaxCha;                 // 最大角色数
 	int		m_nMaxItem;                // 最大道具数
 	int		m_nMaxTNpc;                // 最大对话NPC
@@ -109,8 +111,10 @@ public:
 	BOOL	m_bLogCal;				   // 是否打开数值计算的log
 	BOOL	m_bLogMission;			   // 是否打开Mission的log
 
+	BOOL	m_ResetFlag;				//是否更新crystalTrade表
+
 	BOOL	m_bSuperCmd;
-	
+
 	// Add by lark.li 20080731 begin
 	std::vector<int>	m_vGMCmd;
 	// End
@@ -120,8 +124,8 @@ public:
 	BOOL	m_bDiscStall;
 	BOOL	m_bBlindChaos;
 	char	m_szChaosMap[32];
-	DWORD	m_dwStallTime;		
-	
+	DWORD	m_dwStallTime;
+
 	BOOL	m_bLogDB;				   // 是否把玩家行为记录到数据库
 	BOOL    m_bInstantIGS;
 

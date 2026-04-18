@@ -93,7 +93,7 @@ btnSignRight = UI_CreateCompent( frmShipBiuld, BUTTON_TYPE, "btnSignRight", 13, 
 UI_LoadButtonImage( btnSignRight, "texture/ui/SystemBotton3.tga", 13, 13, 0, 211, TRUE )
 
 
---创建配件名称显示
+--
 labShipCanon = UI_CreateCompent( frmShipBiuld, LABELEX_TYPE, "labShipCanon", 103, 13, 62, 335 )
 UI_SetCaption( labShipCanon, "Cannon" )
 UI_SetTextColor( labShipCanon, COLOR_BLACK )
@@ -255,7 +255,7 @@ frmNPCShip = UI_CreateForm( "frmNPCShip", FALSE, 320, 241, 240, 70, TRUE, FALSE 
 UI_ShowForm( frmNPCShip, TRUE )
 UI_AddFormToTemplete( frmNPCShip, FORM_MAIN )
 --UI_FormSetHotKey( frmNPCShip, ALT_KEY, HOTKEY_V )
-UI_SetFormStyle( frmNPCShip, 2 )---左右居中
+UI_SetFormStyle( frmNPCShip, 2 )---
 UI_SetIsDrag( frmNPCShip, TRUE )
 
 imgBakLeft = UI_CreateCompent( frmNPCShip, IMAGE_TYPE, "imgBakLeft", 320, 241, 0, 0 )
@@ -314,9 +314,9 @@ btnNo = UI_CreateCompent( frmNPCShip, BUTTON_TYPE, "btnNo", 41, 19, 257, 208 )
 UI_LoadButtonImage( btnNo, "texture/ui/PublicC.tga", 41, 19, 0, 214, TRUE )
 
 -----------------------------------------------------------------------
--- 定义船只航行界面
+-- 
 -----------------------------------------------------------------------
---创建船只航行表单
+--
 frmShipsail = UI_CreateForm( "frmShipsail", FALSE, 305, 46, 294, 0, FALSE, FALSE )
 UI_ShowForm( frmShipsail, FALSE )
 UI_AddFormToTemplete( frmShipsail, FORM_MAIN )
@@ -325,7 +325,7 @@ UI_SetFormStyleEx( frmShipsail, 2, 0, 0 )
 --UI_FormSetHotKey( frmShipsail, ALT_KEY, HOTKEY_T ) 
 UI_FormSetIsEscClose( frmShipsail, FALSE )
 
--- 加载背景图片
+-- 
 imgBakLeft = UI_CreateCompent( frmShipsail, IMAGE_TYPE, "imgBakLeft", 143, 41, -32, 14 )
 UI_LoadImage( imgBakLeft, "texture/ui/Shipdetail.tga", NORMAL, 143, 41, 0, 0 )
 
@@ -338,39 +338,39 @@ UI_LoadImage( imgBakLeftTop, "texture/ui/shipinfo.tga", NORMAL, 256, 46, 0, 0 )
 imgBakRightTop = UI_CreateCompent( frmShipsail, IMAGE_TYPE, "imgBakRightTop", 49, 28, 256, 7 )
 UI_LoadImage( imgBakRightTop, "texture/ui/shipinfo.tga", NORMAL, 49, 28, 0, 51 )
 
---耐久
+--
 labSailorShow1 = UI_CreateCompent( frmShipsail, LABELEX_TYPE, "labSailorShow1", 62, 12, 25, 9 )
 UI_SetCaption( labSailorShow1, "22222/22222" )
 UI_SetTextColor( labSailorShow1, COLOR_WHITE )
 UI_SetLabelExFont( labSailorShow1, DEFAULT_FONT, TRUE, COLOR_BLACK )
 
---补给
+--
 labCanonShow1 = UI_CreateCompent( frmShipsail, LABELEX_TYPE, "labCanonShow1", 62, 12, 217, 9 )
 UI_SetCaption( labCanonShow1, "33333/33333" )
 UI_SetTextColor( labCanonShow1, COLOR_WHITE )
 UI_SetLabelExFont( labCanonShow1, DEFAULT_FONT, TRUE, COLOR_BLACK )
 
---熟练
+--
 labExpship = UI_CreateCompent( frmShipsail, LABELEX_TYPE, "labExpship", 62, 12, 298, 37 )
 UI_SetCaption( labExpship, "10000" )
 UI_SetTextColor( labExpship, COLOR_WHITE )
 UI_SetLabelExFont( labExpship, DEFAULT_FONT, TRUE, COLOR_BLACK )
 
---等级
+--
 labLvship = UI_CreateCompent( frmShipsail, LABELEX_TYPE, "labLvship", 62, 12, 40, 37 )
 UI_SetCaption( labLvship, "100" )
 UI_SetTextColor( labLvship, COLOR_WHITE )
 UI_SetLabelExFont( labLvship, DEFAULT_FONT, TRUE, COLOR_BLACK )
 
---创建耐久
+--
 proSailor = UI_CreateCompent( frmShipsail, PROGRESS_TYPE, "proSailor", 98, 4, 8, 22 )
 UI_LoadScaleImage( proSailor, "texture/ui/shipinfo.tga", PROGRESS_PROGRESS, 98, 4, 8, 86, 1.0, 1.0 )
 
---创建补给
+--
 proCanon = UI_CreateCompent( frmShipsail, PROGRESS_TYPE, "proCanon", 98, 4, 199, 22 )
 UI_LoadScaleImage( proCanon, "texture/ui/shipinfo.tga", PROGRESS_PROGRESS, 98, 4, 8, 93, 1.0, 1.0 )
 
---创建船只属性按钮
+--
 btnShip = UI_CreateCompent( frmShipsail, BUTTON_TYPE, "btnShip", 28, 25, 139, 9 )
 UI_LoadButtonImage( btnShip, "texture/ui/shipinfo.tga", 28, 25, 4, 102, TRUE )
 UI_SetHint( btnShip, "Check ship attribute" )

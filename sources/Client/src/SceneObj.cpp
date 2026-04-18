@@ -35,7 +35,7 @@ BOOL CSceneObj::_Create(int nScriptID,int nType)
 	CSceneObjInfo *pInfo = GetSceneObjInfo(nScriptID);
     if(pInfo==NULL)
     {
-        LG("scene", g_oLangRec.GetString(354), nScriptID);
+        LG("scene", RES_STRING(CL_LANGUAGE_MATCH_354), nScriptID);
         return FALSE;
     }
 
@@ -98,13 +98,20 @@ void CSceneObj::Render()
 
         DWORD x = 0;
         lwIModel* model = MPSceneObject::GetObject();
+        if(!model)
+        {
+            CSceneNode::Render();
+            return;
+        }
         DWORD pri_num = model->GetPrimitiveNum();
 
         for( DWORD i = 0; i < pri_num; i++ )
         {
             lwIPrimitive* p = MPSceneObject::GetObject()->GetPrimitive( i );
+            if(!p) continue;
             lwMatrix44* m = p->GetMatrixGlobal();
-            lwIBoundingBox* box = p->GetHelperObject()->GetBoundingBox();
+            lwIHelperObject* helper = p->GetHelperObject();
+            lwIBoundingBox* box = helper ? helper->GetBoundingBox() : NULL;
             if( box == NULL || box->GetObjNum() == 0 )
             {
                 model->RenderPrimitive( i );
@@ -114,6 +121,12 @@ void CSceneObj::Render()
 
             lwMatrix44 mat;
             lwBoundingBoxInfo* box_info = box->GetDataInfo( 0 );
+            if(!box_info || !m)
+            {
+                model->RenderPrimitive( i );
+                x += 1;
+                continue;
+            }
             lwMatrix44Multiply( &mat, &box_info->mat, m );
 
             MPVector3 u = box_info->box.c - box_info->box.r;

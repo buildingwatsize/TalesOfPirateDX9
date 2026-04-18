@@ -131,7 +131,7 @@ namespace GUI
    //     string szName = pSender->GetName();
    //     if(szName == "btnSort")
    //     {
-   //         //  ±éÀú±³°ü
+   //         //  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
    //         CGoodsGrid* pGrid  = g_stUIEquip.GetGoodsGrid();
 			//CItemCommand* pCmd = NULL;
    //         CItemRecord* pItemRecord = NULL;
@@ -151,7 +151,7 @@ namespace GUI
 			//		}
 			//	}
 			//}
-   //         g_pGameApp->MsgBox(g_oLangRec.GetString(849));
+   //         g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_849));
    //     }
    // }
 

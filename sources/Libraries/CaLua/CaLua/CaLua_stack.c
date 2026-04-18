@@ -34,7 +34,7 @@ void* PopRegTable(int regStruct)
 		lua_rawget(virtualMachine, -2);
 
 		CLU_ExpandBuffer(&(void*)dPointers,sizeof(void*), i, 1);
-		CLU_ExpandBuffer(&(void*)dTypes,sizeof(int*), i, 1);
+		CLU_ExpandBuffer(&(void*)dTypes,sizeof(int), i, 1);
 
 		dTypes[i] = structs[regStruct]->memberType[i];
 		

@@ -408,7 +408,7 @@ void CMonsterItem::Exec()
 
     if( !pEffect->Create( nEffectID ) )
     {
-		LG("protocol", g_oLangRec.GetString(1), nEffectID );
+		LG("protocol", RES_STRING(CMISS_000001), nEffectID );
         return;
     }
 	pEffect->setFollowObj((CSceneNode*)_pItem, NODE_ITEM);
@@ -439,13 +439,13 @@ void CMissionTrigger::SetData( stNetNpcMission& v )
 void CMissionTrigger::Exec()
 {
 	char szData[64] = {0};
-	strcpy(szData, g_oLangRec.GetString(2));
+	strcpy(szData, RES_STRING(CO_COMMFUNC_CPP_00030));
 
 	CChaRecord* pCharRecord = GetChaRecordInfo( _pData->sID );
 	if( pCharRecord )
 	{
 		strncpy( szData, pCharRecord->szName, sizeof(szData) );
 	}
-	g_pGameApp->ShowMidText( g_oLangRec.GetString(3), szData, _pData->sCount, _pData->sNum );
+	g_pGameApp->ShowMidText( RES_STRING(CL_LANGUAGE_MATCH_3), szData, _pData->sCount, _pData->sNum );
 }
 

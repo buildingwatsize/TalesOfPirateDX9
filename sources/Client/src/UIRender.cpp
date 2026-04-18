@@ -225,7 +225,7 @@ char* UIGetOpenFileName( char* strInitDir )
 	of.nMaxCustFilter = 0L;
 	of.lpstrFilter = szFilter;
 	of.nFilterIndex = 1L;
-	of.lpstrTitle = g_oLangRec.GetString(745);
+	of.lpstrTitle = RES_STRING(CMISS_000745);
 	of.nFileOffset = 0;
 	of.nFileExtension = 0;
 	of.lpstrDefExt = "*.*";
@@ -287,7 +287,7 @@ int CDrag::BeginMouseRun( CGuiData* gui, bool InRect, int x, int y, DWORD key )
                 _nDragX = x - _nStartX;
                 _nDragY = y - _nStartY;
 
-                // ¿ªÊ¼ÍÏ¶¯
+                // ï¿½ï¿½Ê¼ï¿½Ï¶ï¿½
                 if( (abs(_nStartX - x)>=(int)_nYareLen || abs(_nStartY - y)>=(int)_nYareLen) )
                 {
                     _eState = stDrag;
@@ -317,7 +317,7 @@ void CDrag::Reset()
 
 bool CDrag::MouseRun( int x, int y, DWORD key )
 {
-    // ÍÏ¶¯Íê±Ï
+    // ï¿½Ï¶ï¿½ï¿½ï¿½ï¿½
     if( key & Mouse_LUp )
     {
         if( _IsUseGrid )
@@ -640,7 +640,7 @@ void UIRender::SetScreen( int w, int h, bool isFull )
 {
 	_IsFullScreen = isFull;
 
-    int sw, sh;     // Êµ¼ÊÏÔÊ¾ÇøÓò
+    int sw, sh;     // Êµï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
     RECT rc;
     ::GetClientRect( g_pGameApp->GetHWND(), &rc );
     sw = rc.right  - rc.left;	
@@ -748,7 +748,7 @@ bool CGuiPic::LoadImage( int frame, int nTextureID, int tx, int ty, int tw, int 
 	pTex->nTexSY	= ty;
 	pTex->nTexW	= tw;
 	pTex->nTexH	= th;
-	if( scale_x<=0.000001f ) // ÌùÍ¼À­Éýµ½´°¿Ú³ß´ç
+	if( scale_x<=0.000001f ) // ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú³ß´ï¿½
 	{
 		if( _pParent )
 		{
@@ -1011,7 +1011,7 @@ bool CGuiFont::Clear()
 	{
 		(*it)->ReleaseFont();
 		//delete (*it);
-		SAFE_DELETE(*it); // UIµ±»ú´¦Àí
+		SAFE_DELETE(*it); // UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}
 
 	_fonts.clear();
@@ -1161,10 +1161,10 @@ void CEdit::ShowFocus()
 {
 	if( !IsNormal() ) return;
 
-	RefreshText();   // Ë¢ÐÂÎÄ×ÖÏÔÊ¾
-	RefreshCursor(); // Ë¢ÐÂ¹â±êÏÔÊ¾
+	RefreshText();   // Ë¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+	RefreshCursor(); // Ë¢ï¿½Â¹ï¿½ï¿½ï¿½ï¿½Ê¾
 
-	// ÏÔÊ¾ÉÁË¸¹â±ê
+	// ï¿½ï¿½Ê¾ï¿½ï¿½Ë¸ï¿½ï¿½ï¿½
 	++_nCursorFlashCount;
 	if( _nCursorFlashCount>=10 )
 	{
@@ -1173,7 +1173,7 @@ void CEdit::ShowFocus()
 	}
 	if( _bCursorIsShow )
 	{
-		//²ÉÓÃ¾ø¶Ô×ø±êÈ·¶¨¹â±êµÄÎ»ÖÃ
+		//ï¿½ï¿½ï¿½Ã¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
 		//GetRender().RenderTextureAbsRect( _nCursorX, _nCursorY, &_CursorImage );
 		GetRender().FillFrame( _nCursorX, _nCursorY, _nCursorX+2, _nCursorY+_nCursorHeight, _nCursorColor );
 	}
@@ -1350,12 +1350,18 @@ void CCursor::Init()
     _hCursor[stRepair] = LoadCursorFromFile("cursor/repair.ani"); 	
     _hCursor[stFeed] = LoadCursorFromFile("cursor/feed.ani"); 	
 	
-    for( int i=0; i<CCursor::stEnd; i++ )
     {
-        if( !_hCursor[i] )
+        int loaded = 0, failed = 0;
+        for( int i=0; i<CCursor::stEnd; i++ )
         {
-            LG( "error", g_oLangRec.GetString(746), i );
+            if( !_hCursor[i] )
+            {
+                LG( "error", RES_STRING(CMISS_000746), i );
+                failed++;
+            }
+            else loaded++;
         }
+        LG("init", "CCursor::Init loaded=%d failed=%d\n", loaded, failed);
     }
     
 	SetCursor( stNormal );
@@ -1404,38 +1410,50 @@ bool CFormMgr::Init(HWND hWnd)
 {
 	if( !_bInit )
 	{
+		{FILE*_tf=fopen("log\\fm_trace.log","a");if(_tf){fprintf(_tf,"[FM] InitCursor\n");fflush(_tf);fclose(_tf);}}
 		CEdit::InitCursor( "texture/ui/editcursor.tga" );
 
+		{FILE*_tf=fopen("log\\fm_trace.log","a");if(_tf){fprintf(_tf,"[FM] font.bin\n");fflush(_tf);fclose(_tf);}}
 		CLU_LoadScript("scripts/lua/font.bin", 0);
-		if( !CGuiFont::s_Font.Init() ) 
+		if( !CGuiFont::s_Font.Init() )
 		{
-			LG( "ui", g_oLangRec.GetString(747) );
+			LG( "ui", RES_STRING(CMISS_000747) );
 			return false;
 		}
+		{FILE*_tf=fopen("log\\fm_trace.log","a");if(_tf){fprintf(_tf,"[FM] font OK\n");fflush(_tf);fclose(_tf);}}
 
 		GetRender().SetScreen( g_Render.GetScrWidth(), g_Render.GetScrHeight(), (g_Render.IsFullScreen()!=0 ? true: false) );
 
+		{FILE*_tf=fopen("log\\fm_trace.log","a");if(_tf){fprintf(_tf,"[FM] gui.bin ENTER\n");fflush(_tf);fclose(_tf);}}
 		CLU_LoadScript("scripts/lua/gui.bin", 0);
+		{FILE*_tf=fopen("log\\fm_trace.log","a");if(_tf){fprintf(_tf,"[FM] gui.bin DONE\n");fflush(_tf);fclose(_tf);}}
 
-		if( g_Config.m_bEditor ) CLU_LoadScript("scripts/lua/forms/editor.bin", 0); 
+		{FILE*_tf=fopen("log\\fm_trace.log","a");if(_tf){fprintf(_tf,"[FM] editor check: m_bEditor=%d\n",g_Config.m_bEditor);fflush(_tf);fclose(_tf);}}
+		if( g_Config.m_bEditor ) CLU_LoadScript("scripts/lua/forms/editor.bin", 0);
 
+		{FILE*_tf=fopen("log\\fm_trace.log","a");if(_tf){fprintf(_tf,"[FM] IME/Cursor/TextParse\n");fflush(_tf);fclose(_tf);}}
 		CImeInput::s_Ime.Init();
 		CCursor::I()->Init();
 		g_TextParse.Init();
 
+		{FILE*_tf=fopen("log\\fm_trace.log","a");if(_tf){fprintf(_tf,"[FM] GuiData::InitMemory\n");fflush(_tf);fclose(_tf);}}
 		CGuiData::InitMemory();
 
+		{FILE*_tf=fopen("log\\fm_trace.log","a");if(_tf){fprintf(_tf,"[FM] allForms Init count=%d\n",(int)_allForms.size());fflush(_tf);fclose(_tf);}}
 		for( vfrm::iterator it=_allForms.begin(); it!=_allForms.end(); it++ )
 			(*it)->Init();
 
+		{FILE*_tf=fopen("log\\fm_trace.log","a");if(_tf){fprintf(_tf,"[FM] _InitFormID\n");fflush(_tf);fclose(_tf);}}
 		_InitFormID();
 
+		{FILE*_tf=fopen("log\\fm_trace.log","a");if(_tf){fprintf(_tf,"[FM] vinits callbacks count=%d\n",(int)_vinits.size());fflush(_tf);fclose(_tf);}}
 		for( vinits::iterator it=_vinits.begin(); it!=_vinits.end(); it++ )
 		{
 			if( !(*it)(this) )
 				return false;
 		}
 
+		{FILE*_tf=fopen("log\\fm_trace.log","a");if(_tf){fprintf(_tf,"[FM] Refresh\n");fflush(_tf);fclose(_tf);}}
 		Refresh();
 		_bInit = true;
 	}
@@ -1481,7 +1499,7 @@ inline void UIRender::RenderSprite(LPTEXTURE tex, RECT* rc, VECTOR2* vscale, VEC
 
 		RECT* prc = &pCliper->GetClipRect();
 
-		// ¨ª?D??¨²2?????¨ªa¡ê?2???¨º?
+		// ï¿½ï¿½?D??ï¿½ï¿½2?????ï¿½ï¿½aï¿½ï¿½?2???ï¿½ï¿½?
 		if (vdest->x > prc->right || vdest->x < prc->left - w)
 		{
 			return;

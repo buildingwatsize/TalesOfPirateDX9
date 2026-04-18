@@ -5,6 +5,7 @@
 #include <memory>
 
 using namespace std;
+using namespace icu;
 
 #include "pi_Alloc.h"
 
@@ -64,35 +65,41 @@ void CFormatParameter::setString(int index, const UnicodeString &stringToCopy)
 	m_MsgArgs[index].setString(stringToCopy);
 }
 
+// Static singleton definition
+CResourceBundleManage* CResourceBundleManage::_instance = nullptr;
+
+CResourceBundleManage* CResourceBundleManage::Instance(const char* configFileName)
+{
+    return _instance;
+}
+
 CResourceBundleManage::CResourceBundleManage(const char* configFileName)
 :  m_pResourceBundle(NULL), m_pConverter(NULL), m_MaxSize(0), m_LogFile(NULL), m_LogFlag(0)
 {
+    _instance = this;
     char szPath[MAX_PATH]; 
     
     if( !GetModuleFileName( NULL, szPath, MAX_PATH ) )
     {
         throw "GetModuleFileName failed \n"; 
     }
-	// È¡µÃÈë¿Ú³ÌÐòµÄÂ·¾¶
 	const char* ret = strrchr(szPath, '\\');
-	long dirLength = (long)(ret - szPath);
+	ptrdiff_t dirLength = (ret - szPath);
 
 	size_t length = strlen(configFileName);
-	//char* fileName = new char[dirLength + length + 2 ];
 	auto fileName = std::make_unique<char[]>(dirLength + length + 2);
 	memcpy(fileName.get(), szPath, dirLength);
 	fileName[dirLength] = '\\';
 	memcpy(fileName.get() + dirLength + 1, configFileName, length);
 	fileName[dirLength + length + 1] = 0;
 
-	UErrorCode status;
-	Locale::setDefault(Locale::getEnglish(),status);
+	UErrorCode status = U_ZERO_ERROR;
+	Locale::setDefault(Locale("en_US"),status);
 
 	const char* lpAppName = "locale";
 	const char* lpLocaleKeyName = "locale";
 	const char* lpPathKeyName = "path";
 	const char* lpDefaultLocale = "en_US";
-	//char* lpDefaultPath = new char[dirLength + 1];
 	auto lpDefaultPath = std::make_unique<char[]>(dirLength + 1);
 	memcpy(lpDefaultPath.get(), szPath, dirLength);
 	lpDefaultPath[dirLength] = 0;
@@ -108,7 +115,6 @@ CResourceBundleManage::CResourceBundleManage(const char* configFileName)
 
 	length = GetPrivateProfileStringA(lpAppName,lpPathKeyName,lpDefaultPath.get(),lpReturnedPathString,sizeof(lpReturnedPathString),fileName.get());
 
-	
 	m_ResDir = make_unique<char[]>(length + 1);
 	memcpy(m_ResDir.get(), lpReturnedPathString, length);
 	m_ResDir[length] = 0;
@@ -118,23 +124,16 @@ CResourceBundleManage::CResourceBundleManage(const char* configFileName)
 	if(m_LogFlag)
 	{
 		string logFileName = string(m_ResDir.get()) + "\\res.log";
-		
 		m_LogFile = fopen(logFileName.c_str(), "w+");
 	}
 
 	status = U_ZERO_ERROR;
-	m_pConverter = ucnv_open(NULL, &status); //ucnv_open("cp936", &status); // windows-936-2000
+	m_pConverter = ucnv_open(NULL, &status);
 	
-	if(status == U_ZERO_ERROR)
+	if(status != U_ZERO_ERROR)
 	{
-
+		printf("[RBM] ucnv_open FAILED status=%d\n", (int)status); fflush(stdout);
 	}
-	else if(status == U_MEMORY_ALLOCATION_ERROR)
-		::MessageBox(NULL,"Memory allocation error",NULL,0);
-	else if(status == U_FILE_ACCESS_ERROR)
-		::MessageBox(NULL,"The requested file cannot be found",NULL,0);
-	else
-		::MessageBox(NULL,"Other error!",NULL,0);
 
 	m_MaxSize = ucnv_getMaxCharSize(m_pConverter);
 
@@ -148,13 +147,13 @@ CResourceBundleManage::~CResourceBundleManage(void)
 	Release();
 }
 
-// È¡µÃ×ÊÔ´¸öÊý
+// È¡ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½
 int CResourceBundleManage::GetSize(void)
 {
 	return (int)mapRes.size();
 }
 
-// °ÑUnicode×Ö·û´®×ª»»Îª¶à×Ö½Ú±¾»ú±àÂë
+// ï¿½ï¿½Unicodeï¿½Ö·ï¿½ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½ï¿½Ö½Ú±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 UErrorCode CResourceBundleManage::ToCodePageString(UConverter *conv, UChar* source, char* target, int destCapacity, int& len)
 {
   UErrorCode status = U_ZERO_ERROR;
@@ -167,7 +166,7 @@ UErrorCode CResourceBundleManage::ToCodePageString(UConverter *conv, UChar* sour
   return status;
 }
 
-// ³õÊ¼»¯×ÊÔ´¹ÜÀíÆ÷
+// ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 bool CResourceBundleManage::Init()
 {
 	int len = 0;
@@ -212,7 +211,7 @@ bool CResourceBundleManage::Init()
 	return false;
 }
 
-// ÊÍ·Å×ÊÔ´
+// ï¿½Í·ï¿½ï¿½ï¿½Ô´
 void CResourceBundleManage::Release(void)
 {
 	m_ResDir.reset(nullptr);
@@ -234,7 +233,7 @@ void CResourceBundleManage::Release(void)
 	}
 }
 
-// ¸ù¾ÝIDÈ¡µÃ×Ö·û´®
+// ï¿½ï¿½ï¿½ï¿½IDÈ¡ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 const char* CResourceBundleManage::LoadResString(const char* key)
 {
 	const char* ret ="";
@@ -268,7 +267,7 @@ UnicodeString CResourceBundleManage::LoadUResString(const char* key)
 	return m_pResourceBundle->getStringEx(key, status);
 }
 
-// ¸ñÊ½¸ù¾Ý²ÎÊý»¯Ò»¸ö×Ö·û´®
+// ï¿½ï¿½Ê½ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 int CResourceBundleManage::Format(const char* key, CFormatParameter& parameter, char buffer[])
 {
     UErrorCode status = U_ZERO_ERROR;

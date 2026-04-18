@@ -1,30 +1,23 @@
 #pragma once
 
-// Raw Data : 原始数据
-// Raw Data Set : 适用于实际数据只有一份, 使用该数据的实例却可以创建多个的应用场合
-// 例如 : Mesh模型数据, 贴图数据, 骨架数据等等,  也可以用在非游戏的各种软件里
-
-// RawDataSet类的主要功能
-//1. 原始数据的资源描述读入(文本,二进制)
-//2. 通过ID索引数据
-//3. 动态释放
-//4  资源打包和包数据存取
-
-// 目前的应用还只能为一些资源描述格式较为简单的数据做基类接口
-// 例如:  ID  数据来源(文件名) 简单参数集合 这类的格式
-
-// 索引方式:
-// 类型ID = 数组下标
-// 通过类型ID索引到原始数据
-
-
-// 子类在使用前, 必须继承以下的方法
-// virtual int				_GetRawDataInfoSize()										      // 每个子类的RawDataInfo都有不同, 取得RawDataInfo的数据尺寸
-// virtual void*			_CreateNewRawData(CRawDataInfo *pRawInfo)		    		      // 取得新的RawData数据, 可能模型数据指针，也可以是贴图表面指针
-// virtual void				_ReadRawDataInfo(CRawDataInfo *pRawInfo, list<string> &ParamList) // 资源文件每读到新的一行, 子类可以得到的回调处理
-// virtual void				_DeleteRawData(void *pData);								      // 删除资源, 资源的删除方式可能子类各有不同	
-
-// 另外, 子类必须在自己的构造里调用_Init()函数
+// Raw Data : a single resource record (mesh, texture, sound, etc.)
+// Raw Data Set : array of RawData indexed by integer ID, with name lookup map and optional pack-file support
+// Examples: Mesh resource table, texture table, sound table -- any resource loaded via table config
+//
+// Subclass contract for CRawDataSet:
+// 1. Override _CreateRawDataArray  -- allocate the typed info array (ID range, field count)
+// 2. Override _GetRawDataInfoSize  -- return sizeof(YourInfo) for binary I/O stride
+// 3. Override _CreateNewRawData    -- instantiate a resource from info (lazy / on-demand)
+// 4. Override _ReadRawDataInfo     -- parse a text row into CRawDataInfo + user fields
+//
+// Table file format (tab-separated, one row per resource):
+//   ID   DataName(unique)   Field1   Field2   ...
+//
+// ID assignment:
+//   Each ID maps 1:1 to the info array via offset = (ID - _nIDStart)
+//   IDs must not collide; new names get the next unused index.
+//
+// To use a subclass, override the four virtuals above, then call _Init() in your constructor.
 
 
 #include <fstream>
@@ -39,16 +32,16 @@
 class CRawDataInfo
 {
 public:
-	BOOL	bExist{ false };				// 资源是否存在
-	int		nIndex{ 0 };				// 在Array中的位置				
-	char	szDataName[72]{ "" };		// 数据来源(通常是数据文件名)
-	DWORD	dwLastUseTick{ 0 };		// 上次使用的时间
-	BOOL	bEnable{ true };			// 是否有效, 可以动态设置
-	void* pData{ nullptr };				// 实际数据
-	DWORD   dwPackOffset{ 0 };		// 在包文件中的数据偏移
-	DWORD   dwDataSize{ 0 };			// 原始数据尺寸(文件尺寸)
+	BOOL	bExist{ false };				// TRUE if this slot has been loaded from table
+	int		nIndex{ 0 };				// Index within the typed array
+	char	szDataName[72]{ "" };		// Unique resource name (also the map key)
+	DWORD	dwLastUseTick{ 0 };		// Last-access tick (for dynamic release)
+	BOOL	bEnable{ true };			// Enabled flag; disabled entries skip loading
+	void* pData{ nullptr };				// Pointer to the loaded resource object
+	DWORD   dwPackOffset{ 0 };		// Byte offset inside the .pak bundle file
+	DWORD   dwDataSize{ 0 };			// Resource size in bytes (as stored)
 	int     nID{ 0 };				// ID
-	DWORD   dwLoadCnt{ 0 };          // 资源读取次数
+	DWORD   dwLoadCnt{ 0 };          // Number of times this resource was loaded
 };
 
 
@@ -58,7 +51,7 @@ class CRawDataSet
 
 protected:
 
-	CRawDataSet(int nIDStart, int nIDCnt, int nFieldCnt = DEFAULT_FIELD_CNT) // 一定要继承使用
+	CRawDataSet(int nIDStart, int nIDCnt, int nFieldCnt = DEFAULT_FIELD_CNT) // ID range + max field count
 	:_nIDStart(nIDStart),
 	_nIDCnt(nIDCnt),
     _nIDLast(nIDCnt)
@@ -81,7 +74,7 @@ public:
 	BOOL			IsValidID(int nID);
     int             GetLastID() const {return _nIDLast;}
 	
-	// 对于动态释放的参数设置
+	// Dynamic release / capacity settings
     void			SetReleaseInterval(DWORD dwInterval)	{ _dwReleaseInterval = dwInterval;	}
 	void			SetMaxRawData(int nDataCnt)				{ _nMaxRawDataCnt	 = nDataCnt;	}
 	
@@ -90,13 +83,13 @@ public:
 	void			Release();
     void            FrameLoad(int nFrameLoad = 2);
 
-	// 打包有关
-    void			EnablePack(const char *pszPackName);	// 仅在读入二进制资源描述文件后有效
+	// Pack-file support
+    void			EnablePack(const char *pszPackName);	// Enable bundled pack-file loading (set NULL to disable)
 	void            Pack(const char *pszPackName, const char *pszBinName);
     void			PackFromDirectory(std::list<std::string> &DirList, const char *pszPackName, const char *pszBinName);
     BOOL            IsEnablePack()              { return _bEnablePack; } 
 	
-    // 资源读取
+    // Load a raw file from loose files or pack
     LPBYTE			LoadRawFileData(CRawDataInfo *pInfo);
 	
     void            EnableRequest(BOOL bEnable)   { _bEnableRequest = bEnable; }
@@ -121,7 +114,7 @@ protected:
 	BOOL		_LoadRawDataInfo_Txt(const char *pszFileName, int nSep = '\t');
 	void		_WriteRawDataInfo_Bin(const char *pszFileName);
     void        _Init();
-    CRawDataInfo*	_GetRawDataInfo(int nID); // 不作索引范围检测
+    CRawDataInfo*	_GetRawDataInfo(int nID); // Direct array access by ID offset
 
 protected:
 	
@@ -170,7 +163,7 @@ inline CRawDataInfo* CRawDataSet::GetRawDataInfo(int nID)
     else return NULL;
 }
 
-// 不作索引范围检测，不要单独调用
+// Compute byte offset into the typed info array by ID
 inline CRawDataInfo* CRawDataSet::_GetRawDataInfo(int nID)
 {
     LPBYTE pbtData = (LPBYTE)_RawDataArray;
@@ -183,7 +176,7 @@ inline CRawDataInfo* CRawDataSet::GetRawDataInfo(const char *pszDataName)
 {
 	std::map<std::string, CRawDataInfo*>::iterator it = _IDIdx.find(pszDataName);
 
-	if(it!=_IDIdx.end()) // 此ID已经存在
+	if(it!=_IDIdx.end()) // Found by name
 	{
 		return (*it).second;
     }
@@ -219,13 +212,13 @@ inline void* CRawDataSet::GetRawData(int nID, BOOL bRequest)
 	return pInfo->pData;
 }
 
-inline int CRawDataSet::GetRawDataID(const char *pszDataName) // 从名字获取ID, 如果没有则分配一个
+inline int CRawDataSet::GetRawDataID(const char *pszDataName) // Look up ID by name; auto-assign a new ID if not found
 {
 	CRawDataInfo *pInfo;
 
     std::map<std::string, CRawDataInfo*>::iterator it = _IDIdx.find(pszDataName);
 
-	if(it!=_IDIdx.end()) // 此ID已经存在
+	if(it!=_IDIdx.end()) // Found existing ID
 	{
 		pInfo = (*it).second;
 	}
@@ -269,16 +262,23 @@ extern BOOL  g_bBinaryTable;
 
 inline BOOL CRawDataSet::LoadRawDataInfo(const char *pszFile, BOOL bBinary)
 {
+	{FILE*_lf=fopen("log\\table_load.log","a");if(_lf){fprintf(_lf,"[LRI] ENTER file=%s bBin=%d this=%p\n",pszFile,bBinary,(void*)this);fflush(_lf);fclose(_lf);}}
+
 	char szTxtName[255], szBinName[255];
 
 	if(g_bBinaryTable) bBinary = TRUE;
-	
+
 	_bBinary  = bBinary;
 
 	sprintf(szTxtName, "%s.txt", pszFile);
 	sprintf(szBinName, "%s.bin", pszFile);
 
+	{FILE*_lf=fopen("log\\table_load.log","a");if(_lf){fprintf(_lf,"[LRI] file=%s bBin=%d\n",pszFile,bBinary);fflush(_lf);fclose(_lf);}}
+
     BOOL bRet = FALSE;
+#ifdef _WIN64
+	bRet = _LoadRawDataInfo_Txt(szTxtName);
+#else
 	if(bBinary) 
 	{
 		bRet = _LoadRawDataInfo_Bin(szBinName);
@@ -291,10 +291,15 @@ inline BOOL CRawDataSet::LoadRawDataInfo(const char *pszFile, BOOL bBinary)
 			_WriteRawDataInfo_Bin(szBinName);
 		}
 	}
+#endif
+
+	{FILE*_lf=fopen("log\\table_load.log","a");if(_lf){fprintf(_lf,"[LRI] bRet=%d pre _AfterLoad\n",bRet);fflush(_lf);fclose(_lf);}}
 
     try {
         _AfterLoad();
     } catch (...) {}
+
+	{FILE*_lf=fopen("log\\table_load.log","a");if(_lf){fprintf(_lf,"[LRI] post _AfterLoad returning\n");fflush(_lf);fclose(_lf);}}
 
     return bRet;
 }
@@ -392,12 +397,12 @@ inline void CRawDataSet::DynamicRelease(BOOL bClearAll)
 
 inline void CRawDataSet::Release()
 {
-	if( _nLoadedRawDataCnt > 0 ) //安全释放内存 by Waiting 2009-06-18
+	if( _nLoadedRawDataCnt > 0 ) // Guard against double-release  by Waiting 2009-06-18
 	{
 		for(int i = 0; i < _nIDCnt; i++)
 		{
 			CRawDataInfo *pInfo = GetRawDataInfo(_nIDStart + i);
-			if( NULL==pInfo || NULL==pInfo->pData )  //安全释放内存 by Waiting 2009-06-18
+			if( NULL==pInfo || NULL==pInfo->pData )  // Skip already-released slots  by Waiting 2009-06-18
 				continue;
 
 			_DeleteRawData(pInfo);
@@ -409,7 +414,7 @@ inline void CRawDataSet::Release()
 			}
 		}
 	}
-    //安全释放内存 by Waiting 2009-06-18
+    // Free the info array itself  by Waiting 2009-06-18
 	if( _RawDataArray )
 	{
 		_DeleteRawDataArray();
@@ -430,8 +435,8 @@ inline BOOL CRawDataSet::_LoadRawDataInfo_Bin(const char *pszFileName)
 	if(fp==NULL) 
 	{
 		LG2("error", "Load Raw Data Info Bin File [%s] Failed!\n", pszFileName);
-		//sprintf(szMsg, "打开表格文件失败：%s\n程序即将退出!\n", pszFileName);
-		//MessageBox(NULL, szMsg, "错误", MB_OK | MB_ICONERROR);
+		//sprintf(szMsg, "Failed to open table file: %s\nProgram will exit!\n", pszFileName);
+		//MessageBox(NULL, szMsg, "Error", MB_OK | MB_ICONERROR);
 		sprintf(szMsg, "Open table file failed:%s\nProgram will exit!\n", pszFileName);
 		MessageBox(NULL, szMsg, "Error", MB_OK | MB_ICONERROR);
 		return FALSE;
@@ -450,11 +455,11 @@ inline BOOL CRawDataSet::_LoadRawDataInfo_Bin(const char *pszFileName)
 	{
 		//sprintf(szMsg, "dwInfoSize: %d\n_GetRawDataInfoSize: %d!\n", dwInfoSize, _GetRawDataInfoSize());
 		//MessageBox(NULL, szMsg, "Error2", MB_OK | MB_ICONERROR);
-		//LG2("table", "msg读取表格文件[%s]时, 发现版本不一致!\n", pszFileName);
+		//LG2("table", "Read table file [%s] failed: version mismatch!\n", pszFileName);
 		LG2("table", "msg read table file [%s], version can't match!\n", pszFileName);
 		fclose(fp);
-		//sprintf(szMsg, "读取表格文件错误：%s\n程序即将退出!\n", pszFileName);
-		//MessageBox(NULL, szMsg, "错误", MB_OK | MB_ICONERROR);
+		//sprintf(szMsg, "Table file version mismatch: %s\nProgram will exit!\n", pszFileName);
+		//MessageBox(NULL, szMsg, "Error", MB_OK | MB_ICONERROR);
 		sprintf(szMsg, "Open table file failed:%s\nProgram will exit!\n", pszFileName);
 		MessageBox(NULL, szMsg, "Error", MB_OK | MB_ICONERROR);
 		exit(0);
@@ -492,7 +497,7 @@ inline BOOL CRawDataSet::_LoadRawDataInfo_Bin(const char *pszFileName)
         if(!pInfo->bExist) continue;
 		if(IsValidID(i)==FALSE) continue;
 		CRawDataInfo* pCurInfo = _GetRawDataInfo(pInfo->nID);
-		memcpy(pCurInfo, pInfo, nInfoSize); // 替代原有的信息
+		memcpy(pCurInfo, pInfo, nInfoSize); // Copy raw binary info into main array
          _IDIdx[pCurInfo->szDataName] = pCurInfo;
         //vector<string> ParamList; _ReadRawDataInfo(pCurInfo, ParamList);
         _ProcessRawDataInfo(pCurInfo);
@@ -585,22 +590,22 @@ const int LINE_SIZE = 2048;
 		if (n < 2) continue;
 		if (n > _nMaxFieldCnt)
 			{
-			//LG2("error", "msg在资源文件[%s]中，实际字段数大于预定义字段数\n", pszFileName);
+			//LG2("error", "Resource [%s]: field count exceeds predefined max\n", pszFileName);
 				LG2("error", "msg in resource [%s], the field num is greater than predefine count \n", pszFileName);
 			bRet = FALSE;
             break;}
 
-		// 记录下首行字段数目
+		// Record the field count from the first data row
 		if (!bSaveFieldCnt)
 			{
 			nFieldCnt = n;
             bSaveFieldCnt = TRUE;}
 		else {
-			// 比较此行字段数目与第一行字段数目是否相同
+			// Field count mismatch with previous rows
 			if (nFieldCnt != n)
 				{
-				// 如果不同，说明此资源文件存在数据错误
-				//LG2("error", "msg解析资源文件[%s]失败,序号[%s], 请检查格式和版本!\n",
+				// Inconsistent column count -- format or version problem
+				//LG2("error", "Parse resource file [%s] failed, row [%s]: format/version mismatch!\n",
 					LG2("error", "msg parse resource file [%s] failed ,No [%s], please chech format and version!\n",
                     pszFileName, pstrList[0].c_str());
 
@@ -611,7 +616,7 @@ const int LINE_SIZE = 2048;
         int	nID = Str2Int(pstrList[0]);
         if (!IsValidID(nID))
             {
-            //LG2("error", "msg索引[%d]超出预定范围，请检查资源文件[%s]\n", nID, pszFileName);
+            //LG2("error", "ID [%d] out of range, check resource file [%s]\n", nID, pszFileName);
 				LG2("error", "msg index [%d] overflow,please check resource file [%s]\n", nID, pszFileName);
             bRet = FALSE;
             break;}
@@ -628,10 +633,10 @@ const int LINE_SIZE = 2048;
 			ParamList.push_back(pstrList[i + 2]);
 		}
 		for(i = 0; i < 15; i++)
-			ParamList.push_back(""); // 放置空串,如果被后面代码读到, 表示格式不对
+			ParamList.push_back(""); // Pad with empty strings so subclass always has enough fields
 
 		//Util_TrimString(pstrList[1]);
-		Util_TrimTabString(pstrList[1]); // 修正英文 MAKEBIN 空格丢失问题  modify by Philip.Wu  2006-07-31
+		Util_TrimTabString(pstrList[1]); // Fix MAKEBIN tab/space issue  modify by Philip.Wu  2006-07-31
 
 		strcpy(pInfo->szDataName, pstrList[1].c_str());
 		// char *pszDataName = _strupr( _strdup( pInfo->szDataName ) );
@@ -650,12 +655,12 @@ const int LINE_SIZE = 2048;
 		}
         //catch (...)
         {
-		//	LG2("error", "msg解析资源文件[%s]发生未知的异常,导致失败，序号[%s], 请检查格式!\n", pszFileName, pstrList[0].c_str());
+		//	LG2("error", "Parse resource file [%s] exception, data name [%s], please check!\n", pszFileName, pstrList[0].c_str());
 		//	bRet = FALSE; break;
     	}        
         if(!bRet)
         {
-            //LG2("error", "msg解析资源文件[%s]失败,序号[%s], 请检查格式和版本!\n",
+            //LG2("error", "Parse resource file [%s] failed, row [%s]: format/version mismatch!\n",
 			LG2("error", "msg parse resource file [%s] failed ,No [%s], please chech format and version!\n",
                 pszFileName, pstrList[0].c_str());
 			bRet = FALSE; break;
@@ -669,7 +674,7 @@ const int LINE_SIZE = 2048;
 
 
 //----------------------------------------------------------------------------------------------------------
-//												打包相关处理
+//                              File utility helpers
 //----------------------------------------------------------------------------------------------------------
 inline LPBYTE Util_LoadFile(const char *pszFileName, DWORD* pdwFileSize)
 {
@@ -724,13 +729,13 @@ inline void CRawDataSet::Pack(const char *pszPackName, const char *pszBinName)
 	}
 	fclose(fp);
 	
-	_WriteRawDataInfo_Bin(pszBinName); // 打包之后重写RawDataSet Bin文件
+	_WriteRawDataInfo_Bin(pszBinName); // Write updated RawDataSet .bin index
 }
 
 
 //--------------------------------------------
-//  从目录中读取文件, 每个文件作为一个资源, 并
-//  生成资源描述信息文件 xxx.bin
+//  Pack files from directories into a bundle,
+//  then write the index as xxx.bin
 //--------------------------------------------
 inline void	CRawDataSet::PackFromDirectory(std::list<std::string> &DirList, const char *pszPackName, const char *pszBinName)
 {
@@ -771,7 +776,7 @@ inline void	CRawDataSet::PackFromDirectory(std::list<std::string> &DirList, cons
 	
 	fclose(fp);
 	
-	_WriteRawDataInfo_Bin(pszBinName); // 打包之后重写RawDataSet Bin文件
+	_WriteRawDataInfo_Bin(pszBinName); // Write updated RawDataSet .bin index
 }	
 
 inline void CRawDataSet::EnablePack(const char *pszPackName)
@@ -790,14 +795,14 @@ inline void CRawDataSet::EnablePack(const char *pszPackName)
 
 
 //-----------------------------------------------------------------------------
-// 读取RawData数据到内存(一般用在把整个文件读入, 或从包中取出完整文件内容的场合
-// 子类视自身需要来使用此函数, 也可以完全不用)
+// Load raw resource data from pack file or loose file
+// (if pack is enabled, reads a sub-range from the bundle; otherwise reads the named file directly)
 //-----------------------------------------------------------------------------
 inline LPBYTE CRawDataSet::LoadRawFileData(CRawDataInfo *pInfo)
 {
 	LPBYTE pbtBuf    = NULL;
 	DWORD  dwBufSize = 0;
-	if(_bEnablePack) // 从包中读取
+	if(_bEnablePack) // Load from pack bundle
 	{
 		pbtBuf    = Util_LoadFilePart(_szPackName, pInfo->dwPackOffset, pInfo->dwDataSize);
 		dwBufSize = pInfo->dwDataSize;

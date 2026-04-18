@@ -189,7 +189,7 @@ void Util_TrimString(std::string &str)
 }
 
 
-// ÐÞÕýÓ¢ÎÄ MAKEBIN ¿Õ¸ñ¶ªÊ§ÎÊÌâ  modify by Philip.Wu  2006-07-31
+// Fix MAKEBIN losing spaces in English text (strip tabs only)  modify by Philip.Wu  2006-07-31
 void Util_TrimTabString(std::string &str)
 {
 	char *psz = (char*)(str.c_str());
@@ -341,7 +341,7 @@ int  Util_ResolveTextLine(const char *pszText , std::string strList[] ,
 	{
 	if (pszText == NULL || strlen(pszText) == 0) return 0;
 
-	// Èç¹ûÃ»ÓÃ·Ö¸î·û£¬»òÔ´´®Ö»ÓÐ1¸ö×Ö·û
+	// No separator specified, or source string is a single character
 	if ((nSep == 0 && nSep2 == 0) || (strlen(pszText) == 1))
 		{
 		strList[0] = pszText;
@@ -351,12 +351,12 @@ int  Util_ResolveTextLine(const char *pszText , std::string strList[] ,
 	int nResult = 0;
 	if ((nSep != 0) && (nSep2 != 0) && (nSep != nSep2))
 		{
-		// Í¬Ê±Ö§³ÖÁ½¸ö£¬¿Õ¸ñºÍÖÆ±í·û
+		// Both separators active (e.g. space and tab)
 		std::string lstrList[1024];
 		int n1 = 0;
 		int n2 = 0;
 
-		// ¿´×Ö·û´®ÖÐÊÇ·ñÓÐÁ½ÖÖ¼ä¸ô·û
+		// Check whether the string contains each separator type
 		char* pszFound1 = NULL;
 		char* pszFound2 = NULL;
         pszFound1 =(char*) strchr(pszText, nSep);
@@ -364,33 +364,33 @@ int  Util_ResolveTextLine(const char *pszText , std::string strList[] ,
 
 		if ((pszFound1 == NULL) || (pszFound2 == NULL))
 			{
-			// Ö»ÓÐÒ»ÖÖ·Ö¸ô·û»ò¶¼Ã»ÓÐ
+			// Only one separator type present (or none)
 			if (pszFound1 != NULL)
 				nResult = Util_ResolveTextLine1(pszText, strList, nMax, nSep);
 			else if (pszFound2 != NULL)
 				nResult = Util_ResolveTextLine1(pszText, strList, nMax, nSep2);
 			else
 				{
-				// Á½ÖÖ·Ö¸ô·û¶¼Ã»ÓÐ
+				// Neither separator found
 				strList[0] = pszText;
 				return 1;
 				}
 			}
 		else
 			{
-			// Á½ÖÖ·Ö¸ô·û¶¼ÓÐ
+			// Both separators present
 			std::string newString;
 
-			// ÏÈÈ¥µôµÚÒ»¸ö
+			// Split on the first separator
 			n1 = Util_ResolveTextLine1(pszText, lstrList, nMax, nSep);
 
-			// ½«Ê£ÓàµÄÖØÐÂÁ¬½ÓÆðÀ´
+			// Re-join the fragments using the second separator
 			for (int i = 0; i < n1; ++ i)
 				{
 				newString += lstrList[i] + char(nSep2);
 				}
 
-			// ÔÙÈ¥³ýµÚ¶þ¸ö
+			// Then split on the second separator
 			char const* p = newString.c_str();
 			n2 = Util_ResolveTextLine1(newString.c_str(), strList, nMax, nSep2);
 			nResult = n2;
@@ -398,7 +398,7 @@ int  Util_ResolveTextLine(const char *pszText , std::string strList[] ,
 		}
 	else
 		{
-		// Ö»ÓÐÒ»¸ö£¬nSepºÍnSep2¿ÉÄÜÏàÍ¬
+		// Only one separator supplied (nSep and nSep2 may be equal)
 		int sep = 0;
 		if (nSep != 0) sep = nSep;
 		else sep = nSep2;
@@ -417,31 +417,31 @@ const struct tm* Util_GetCurTime()
     return g_tm;
 /*
 tm_sec
-Seconds after minute (0 ¨C 59)
+Seconds after minute (0 â€“ 59)
 
 tm_min
-Minutes after hour (0 ¨C 59)
+Minutes after hour (0 â€“ 59)
 
 tm_hour
-Hours after midnight (0 ¨C 23)
+Hours after midnight (0 â€“ 23)
 
 tm_mday
-Day of month (1 ¨C 31)
+Day of month (1 â€“ 31)
 
 tm_mon
-Month (0 ¨C 11; January = 0)
+Month (0 â€“ 11; January = 0)
 
 tm_year
 Year (current year minus 1900)
 
 tm_wday
-Day of week (0 ¨C 6; Sunday = 0)
+Day of week (0 â€“ 6; Sunday = 0)
 
 tm_yday
-Day of year (0 ¨C 365; January 1 = 0)
+Day of year (0 â€“ 365; January 1 = 0)
 
 tm_isdst
-Positive value if daylight saving time is in effect; 0 if daylight saving time is not in effect; negative value if status of daylight saving time is unknown. The C run-time library assumes the United States¡¯s rules for implementing the calculation of Daylight Saving Time (DST). 
+Positive value if daylight saving time is in effect; 0 if daylight saving time is not in effect; negative value if status of daylight saving time is unknown. The C run-time library assumes the United Statesâ€™s rules for implementing the calculation of Daylight Saving Time (DST). 
 */
 
 }
@@ -514,8 +514,6 @@ void ProcessDirectory(const char *pszDir, std::list<std::string>* pFileList, int
 {
 #ifdef WIN32    
     _finddata_t filestruct;
-    int p  = 0;
-    int fn = 0;
     char szSearch[255];
     if(strlen(pszDir)==0)
     {
@@ -527,7 +525,7 @@ void ProcessDirectory(const char *pszDir, std::list<std::string>* pFileList, int
         strcat(szSearch , "/*.*");
     }
 
-    int hnd = _findfirst(szSearch , &filestruct);
+    intptr_t hnd = _findfirst(szSearch , &filestruct);
     if(hnd==-1) 
     {
         return;
@@ -560,14 +558,15 @@ void ProcessDirectory(const char *pszDir, std::list<std::string>* pFileList, int
                 }
             }
 	    }
-	    else // Directory
+	    else
 	    {
 		    if(strcmp(filestruct.name , "..")!=0 && strcmp(filestruct.name , ".")!=0)
 		    {
 			    ProcessDirectory(szFullName, pFileList, nOperateFlag);
             }
 	    }
-    }while(!_findnext(hnd , &filestruct)); 
+    }while(!_findnext(hnd , &filestruct));
+    _findclose(hnd);
 #endif
 
 #ifdef LINUX

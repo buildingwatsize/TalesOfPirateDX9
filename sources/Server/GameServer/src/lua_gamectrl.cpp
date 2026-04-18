@@ -151,6 +151,11 @@ const char* FindHelpInfo(const char *pszKey)
 
 void AddHelpInfo(const char *pszKey, const char *pszInfo)
 {
+	// Add by lark.li 20090311
+	if (!pszKey || !pszInfo)
+		return;
+	// End
+
 	if(strlen(pszKey)==0)  return;
 	if(strlen(pszInfo)==0) return;
 

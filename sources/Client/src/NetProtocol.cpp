@@ -100,7 +100,7 @@ inline static CCharacter* GetCharacter( unsigned int nID, const char* error=NULL
 	}
     if( !pCha && error )
     {
-        LG( "protocol", g_oLangRec.GetString(247), nID, error );
+        LG( "protocol", RES_STRING(CMISS_000247), nID, error );
     }
 	return pCha;
 }
@@ -120,14 +120,14 @@ void NetLoginSuccess(char byPassword, uint8_t maxCharacters, std::span<const Net
     return;
 #endif
 
-	// ��¼�Ƿ��ж�������
+	{FILE*_f=fopen("log\\connect.log","a");if(_f){fprintf(_f,"[NLS] enter pwd=%d maxCha=%d numCha=%d\n",(int)byPassword,(int)maxCharacters,(int)characters.size());fflush(_f);fclose(_f);}}
 	g_Config.m_IsDoublePwd = byPassword ? true : false;
 
 	LG("select", "NetLoginSuccess - CharNum:%d\n", characters.size());
 
 	//for (const auto& cha : characters)
 	//{
-	//	LG("select", g_oLangRec.GetString(248), cha.sCharName, cha.sJob, cha.iDegree,
+	//	LG("select", RES_STRING(CL_LANGUAGE_MATCH_248), cha.sCharName, cha.sJob, cha.iDegree,
 	//		cha.sLook->sTypeID, cha.sLook->SLink[0].sID, cha.sLook->SLink[1].sID,
 	//		cha.sLook->SLink[2].sID, cha.sLook->SLink[3].sID, cha.sLook->SLink[4].sID);
 	//}
@@ -135,15 +135,20 @@ void NetLoginSuccess(char byPassword, uint8_t maxCharacters, std::span<const Net
 	CLoginScene* pScene = dynamic_cast<CLoginScene*>(CGameApp::GetCurScene());
 	if (!pScene)
 	{
-		LG("protocol", g_oLangRec.GetString(249));
+		{FILE*_f=fopen("log\\connect.log","a");if(_f){fprintf(_f,"[NLS] pScene is NULL!\n");fflush(_f);fclose(_f);}}
+		LG("protocol", RES_STRING(CMISS_000249));
 		return;
 	}
 	pScene->SetPasswordError(false);
 
+	{FILE*_f=fopen("log\\connect.log","a");if(_f){fprintf(_f,"[NLS] pre LoadScriptScene(selectCha)\n");fflush(_f);fclose(_f);}}
 	g_pGameApp->LoadScriptScene(enumSelectChaScene);
+	{FILE*_f=fopen("log\\connect.log","a");if(_f){fprintf(_f,"[NLS] post LoadScriptScene\n");fflush(_f);fclose(_f);}}
 	CSelectChaScene::GetCurrScene().m_MaxCharacters = maxCharacters;
 	CSelectChaScene::GetCurrScene().SelectCharacters(characters);
+	{FILE*_f=fopen("log\\connect.log","a");if(_f){fprintf(_f,"[NLS] post SelectCharacters\n");fflush(_f);fclose(_f);}}
 	CGameApp::Waiting(false);
+	{FILE*_f=fopen("log\\connect.log","a");if(_f){fprintf(_f,"[NLS] done\n");fflush(_f);fclose(_f);}}
 }
 
 void NetLoginFailure(unsigned short Errno)
@@ -156,11 +161,12 @@ void NetLoginFailure(unsigned short Errno)
 #endif
 
     LG( "select", "NetLoginFailure - Errno:%d, Info:%s\n", Errno, g_GetServerError(Errno) );
+    {FILE*_f=fopen("log\\connect.log","a");if(_f){fprintf(_f,"[NLF] errno=%d\n",(int)Errno);fflush(_f);fclose(_f);}}
 
     CLoginScene* pScene = dynamic_cast<CLoginScene*>(CGameApp::GetCurScene());
     if( !pScene ) 
     {
-        LG( "protocol", g_oLangRec.GetString(250) );
+        LG( "protocol", RES_STRING(CMISS_000250) );
         return;
     }
 
@@ -183,7 +189,7 @@ void NetLoginFailure(unsigned short Errno)
 				DWORD dwFirst = error_time[dwCount-3];
 				if( dwLast - dwFirst <= 60 * 1000 )
 				{
-					g_pGameApp->MsgBox( g_oLangRec.GetString(251) );
+					g_pGameApp->MsgBox( RES_STRING(CMISS_000251) );
 					g_pGameApp->SetIsRun( false );
 				}
 				return;
@@ -192,12 +198,12 @@ void NetLoginFailure(unsigned short Errno)
 		}
 	case ERR_AP_BANUSER:
 		{
-			g_pGameApp->MsgBox( g_oLangRec.GetString(252) );
+			g_pGameApp->MsgBox( RES_STRING(CMISS_000252) );
 			return;
 		}
 	case ERR_AP_INVALIDUSER:
 		{
-			g_pGameApp->MsgBox( g_oLangRec.GetString(253) );
+			g_pGameApp->MsgBox( RES_STRING(CL_LANGUAGE_MATCH_253) );
 			return;
 		}
 
@@ -239,7 +245,7 @@ void NetEndPlay(uint8_t maxCharacters, std::span<const NetChaBehave> characters)
 
 	//for (const auto& cha : characters)
 	//{
-	//	LG("select", g_oLangRec.GetString(248), cha.sCharName, cha.sJob, cha.iDegree, cha.sLook->sTypeID,
+	//	LG("select", RES_STRING(CL_LANGUAGE_MATCH_248), cha.sCharName, cha.sJob, cha.iDegree, cha.sLook->sTypeID,
 	//		cha.sLook->SLink[0].sID, cha.sLook->SLink[1].sID, cha.sLook->SLink[2].sID, cha.sLook->SLink[3].sID, cha.sLook->SLink[4].sID);
 	//}
 
@@ -315,7 +321,7 @@ void	NetDelCha(unsigned short Errno)		//��NetRetCode.h�ļ��в�ѯerrn
 	case ERR_PT_INVALID_PW2:
 	{
 		CGameApp::Waiting(false);
-		g_pGameApp->MsgBox(g_oLangRec.GetString(802));
+		g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_802));
 		return;
 	}
 	case ERR_PT_MULTICHA:
@@ -358,17 +364,17 @@ void NetCreatePassword2(unsigned short Errno)
 	else if( Errno == ERR_PT_SERVERBUSY )
 	{
 		// ϵͳæ
-		g_pGameApp->MsgBox(g_oLangRec.GetString(172), "");
+		g_pGameApp->MsgBox(RES_STRING(CMISS_000172), "");
 	}
 	else if( Errno == ERR_PT_INVALID_PW2 )
 	{
 		// �����������������һ�����Ѵ���
-		g_pGameApp->MsgBox(g_oLangRec.GetString(801));
+		g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_801));
 	}
 	else
 	{
 		// δ֪����
-		g_pGameApp->MsgBox(g_oLangRec.GetString(375));
+		g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_375));
 	}
 }
 
@@ -386,17 +392,17 @@ void NetUpdatePassword2(unsigned short Errno)
 	else if( Errno == ERR_PT_SERVERBUSY )
 	{
 		// ϵͳæ
-		g_pGameApp->MsgBox(g_oLangRec.GetString(172), "");
+		g_pGameApp->MsgBox(RES_STRING(CMISS_000172), "");
 	}
 	else if( Errno == ERR_PT_INVALID_PW2 )
 	{
 		// �����������������һ�����Ѵ���
-		g_pGameApp->MsgBox(g_oLangRec.GetString(801));
+		g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_801));
 	}
 	else
 	{
 		// δ֪����
-		g_pGameApp->MsgBox(g_oLangRec.GetString(375));
+		g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_375));
 	}
 }
 
@@ -414,7 +420,7 @@ void NetActorMove( unsigned int id, stNetNotiMove& list )
 		g_state = cha->GetActor()->GetCurState();
 		if( !g_state ) 
 		{
-			LG( "protocol", g_oLangRec.GetString(258) );
+			LG( "protocol", RES_STRING(CMISS_000258) );
 			return;
 		}
 	}
@@ -423,7 +429,7 @@ void NetActorMove( unsigned int id, stNetNotiMove& list )
 		cha = CGameApp::GetCurScene()->SearchByID( id );
 		if( !cha ) 
 		{
-			LG( "protocol", g_oLangRec.GetString(259), id, list.nPointNum, list.SPos[0].x, list.SPos[0].y );
+			LG( "protocol", RES_STRING(CMISS_000259), id, list.nPointNum, list.SPos[0].x, list.SPos[0].y );
 			return;
 		}
 
@@ -434,7 +440,7 @@ void NetActorMove( unsigned int id, stNetNotiMove& list )
 			g_state = new CWaitMoveState(cha->GetActor());
 			if( !cha->GetActor()->SwitchState(g_state) ) 
 			{
-				LG( "protocol", g_oLangRec.GetString(260), cha->GetActor()->GetState(), cha->getLogName(), list.nPointNum, list.sState, list.SPos[1].x, list.SPos[1].y, GetTickCount()  );
+				LG( "protocol", RES_STRING(CMISS_000260), cha->GetActor()->GetState(), cha->getLogName(), list.nPointNum, list.sState, list.SPos[1].x, list.SPos[1].y, GetTickCount()  );
 				return;
 			}
 		}
@@ -442,7 +448,7 @@ void NetActorMove( unsigned int id, stNetNotiMove& list )
 
 	if( !g_state ) 
 	{
-		LG( "protocol", g_oLangRec.GetString(261), cha->getLogName(), list.nPointNum, list.sState, list.SPos[1].x, list.SPos[1].y, GetTickCount()  );
+		LG( "protocol", RES_STRING(CMISS_000261), cha->getLogName(), list.nPointNum, list.sState, list.SPos[1].x, list.SPos[1].y, GetTickCount()  );
 		return;
     }
 
@@ -460,7 +466,7 @@ void NetActorMove( unsigned int id, stNetNotiMove& list )
         }
         else
         {
-            LG( "protocol", g_oLangRec.GetString(262), cha->getLogName(), list.nPointNum, list.sState, list.SPos[1].x, list.SPos[1].y, GetTickCount()  );
+            LG( "protocol", RES_STRING(CMISS_000262), cha->getLogName(), list.nPointNum, list.sState, list.SPos[1].x, list.SPos[1].y, GetTickCount()  );
         }
 	}
 }
@@ -517,7 +523,7 @@ CCharacter*	stNetActorCreate::CreateCha()
 		}
 		else
 		{
-	        LG( "NetActorCreate", g_oLangRec.GetString(263) );
+	        LG( "NetActorCreate", RES_STRING(CMISS_000263) );
 		}
 		return pCha;
 	}
@@ -525,7 +531,7 @@ CCharacter*	stNetActorCreate::CreateCha()
     CCharacter* p = GetCharacter( ulWorldID );
     if( p )
     {
-        LG( "NetActorCreate", g_oLangRec.GetString(264), szName, ulWorldID, p->getLogName() );
+        LG( "NetActorCreate", RES_STRING(CMISS_000264), szName, ulWorldID, p->getLogName() );
         p->SetValid( FALSE );
     }
 
@@ -683,7 +689,7 @@ void NetActorDestroy( unsigned int nID, char chSeeType )
 		}
 		else
 		{
-	        LG( "NetActorCreate", g_oLangRec.GetString(265) );
+	        LG( "NetActorCreate", RES_STRING(CMISS_000265) );
 		}
 		return;
 	}
@@ -736,7 +742,7 @@ void NetSynSkillState(DWORD dwCharID, stNetSkillState *pSSkillState)
     }
     else
     {
-        LG( "protocol", g_oLangRec.GetString(266), dwCharID );
+        LG( "protocol", RES_STRING(CL_LANGUAGE_MATCH_266), dwCharID );
     }
 }
 
@@ -748,7 +754,7 @@ void NetActorSkillRep( unsigned int nID, stNetNotiSkillRepresent &SSkillRep)
 	CCharacter*	pCha = CGameApp::GetCurScene()->SearchByID(nID);
 	if( !pCha ) 
 	{
-		LG( "protocol", g_oLangRec.GetString(267), SSkillRep.lSkillID, nID );
+		LG( "protocol", RES_STRING(CMISS_000267), SSkillRep.lSkillID, nID );
 		return;
 	}
 
@@ -760,7 +766,7 @@ void NetActorSkillRep( unsigned int nID, stNetNotiSkillRepresent &SSkillRep)
 		state = dynamic_cast<CAttackState*>( pCha->GetActor()->GetCurState() );
         if( !state )
         {
-			LG( "protocol", g_oLangRec.GetString(268) );
+			LG( "protocol", RES_STRING(CMISS_000268) );
 			return;
         }
 
@@ -860,7 +866,7 @@ void NetActorSkillEff(unsigned int nID, stNetNotiSkillEffect &SkillEff)
 	CSkillRecord *pSkill =  GetSkillRecordInfo( SkillEff.lSkillID );
 	if( !pSkill )
 	{
-		LG( "protocol", g_oLangRec.GetString(269), SkillEff.lSkillID );
+		LG( "protocol", RES_STRING(CL_LANGUAGE_MATCH_269), SkillEff.lSkillID );
 		return;
 	}
 
@@ -1154,7 +1160,7 @@ void NetActorLean(unsigned int nID, stNetLeanInfo &lean)
 			cha = CGameApp::GetCurScene()->SearchByID( nID );
 			if( !cha ) 
 			{
-				LG( "protocol", g_oLangRec.GetString(270), nID );
+				LG( "protocol", RES_STRING(CMISS_000270), nID );
 				return;	
 			}
 
@@ -1210,7 +1216,7 @@ void NetSwitchMap(stNetSwitchMap &switchmap)
 	{
 		if( switchmap.sEnterRet==ERR_MC_ENTER_ERROR )		// ��������ɫ���ڣ���15�����ܽ���
 		{
-			g_pGameApp->MsgBox( g_oLangRec.GetString(271) );
+			g_pGameApp->MsgBox( RES_STRING(CL_LANGUAGE_MATCH_271) );
 			CGameApp::Waiting( false );
 		}
 		else
@@ -1332,7 +1338,7 @@ void NetSay(stNetSay &netsay,DWORD dwColour)	//·��
 
 	if( !cha->IsPlayer() )
 	{
-		LG( "roadsay" , g_oLangRec.GetString(272), netsay.m_srcid, cha->getName(), cha->getLogName(), netsay.m_content );
+		LG( "roadsay" , RES_STRING(CMISS_000272), netsay.m_srcid, cha->getName(), cha->getLogName(), netsay.m_content );
 	}
 
 	//g_stUICoze.OnRoadSay( cha, netsay.m_content );
@@ -1351,14 +1357,14 @@ CSceneItem* NetCreateItem(stNetItemCreate &info)
     CSceneItem *pItem = pScene->SearchItemByID( info.lWorldID );
     if( pItem )
     {        
-        LG( "NetCreateItem", g_oLangRec.GetString(273), info.lID, pItem->GetItemInfo()->szName );
+        LG( "NetCreateItem", RES_STRING(CL_LANGUAGE_MATCH_273), info.lID, pItem->GetItemInfo()->szName );
         pItem->SetValid( FALSE );
     }
 
     pItem = pScene->AddSceneItem(info.lID, 0);
     if(pItem==NULL)
     {
-        LG( "protocol", g_oLangRec.GetString(274), info.lID );
+        LG( "protocol", RES_STRING(CL_LANGUAGE_MATCH_274), info.lID );
         return NULL;
     }
 
@@ -1491,7 +1497,7 @@ void NetChangeChaPart( unsigned int nID, stNetLookInfo &SLookInfo )
 void NetChangeChaLookEnergy( unsigned int nID, stLookEnergy &SLookEnergy )
 {
 	const char* pszLogName = g_LogName.GetLogName( nID );
-	LG(pszLogName, g_oLangRec.GetString(275) );
+	LG(pszLogName, RES_STRING(CMISS_000275) );
 	for( int i=0; i<enumEQUIP_NUM; i++ )
 	{
 		LG(pszLogName, "%d: %d\n", i, SLookEnergy.sEnergy[i] );
@@ -1511,7 +1517,7 @@ void NetChangeChaLookEnergy( unsigned int nID, stLookEnergy &SLookEnergy )
 
 void NetQueryRelive( unsigned int nID, stNetQueryRelive &SQueryRelive )
 {
-	LG(g_LogName.GetMainLogName(), g_oLangRec.GetString(276), nID, GetTickCount());
+	LG(g_LogName.GetMainLogName(), RES_STRING(CMISS_000276), nID, GetTickCount());
 	g_stUIStart.ShowQueryReliveForm( SQueryRelive.chType, SQueryRelive.szSrcChaName );
 }
 
@@ -1538,7 +1544,7 @@ void NetMapMask(unsigned int nID, BYTE *pMask, long lLen)
 	else
 	{
 		g_stUIMap.GetBigmapForm()->Hide();
-		g_pGameApp->SysInfo( g_oLangRec.GetString(277) );
+		g_pGameApp->SysInfo( RES_STRING(CMISS_000277) );
 	}
 
 	g_pGameApp->Waiting(false);
@@ -1558,7 +1564,7 @@ void NetActorChangeCha(unsigned int nID, stNetChangeCha &SChangeCha)
 	const char* szLogName = g_LogName.GetLogName( SChangeCha.ulMainChaID );
 
 	// log
-	LG(szLogName, g_oLangRec.GetString(278), GetTickCount());
+	LG(szLogName, RES_STRING(CMISS_000278), GetTickCount());
 	LG(szLogName, "New Character ID: %u\tOld Character ID: %u\n", SChangeCha.ulMainChaID, nID );
 	LG(szLogName, "\n");
 	//
@@ -1942,7 +1948,7 @@ void NetSynAttr( DWORD dwWorldID, char chType, short sNum, stEffect *pEffect )
     CCharacter* pCha = CGameApp::GetCurScene()->SearchByID( dwWorldID );
     if( !pCha )
     {
-		if( enumATTRSYN_INIT==chType ) LG( "protocol", g_oLangRec.GetString(279), dwWorldID );
+		if( enumATTRSYN_INIT==chType ) LG( "protocol", RES_STRING(CMISS_000279), dwWorldID );
         return;
     }
 
@@ -2219,7 +2225,7 @@ void NetChangeKitbag(DWORD dwChaID, stNetKitbag& SKitbag)
     if( count > grd->GetMaxNum() )
     {
         count = grd->GetMaxNum();
-        LG( "protocol", g_oLangRec.GetString(280), SKitbag.nGridNum, grd->GetMaxNum() );
+        LG( "protocol", RES_STRING(CMISS_000280), SKitbag.nGridNum, grd->GetMaxNum() );
     }
 
 	CItemRecord* item = NULL;
@@ -2248,7 +2254,7 @@ void NetChangeKitbag(DWORD dwChaID, stNetKitbag& SKitbag)
             item = GetItemRecordInfo( pGrid[i].SGridContent.sID );
             if( !item )
             {
-                LG( "protocol", g_oLangRec.GetString(281), pGrid[i].SGridContent.sID  );
+                LG( "protocol", RES_STRING(CMISS_000281), pGrid[i].SGridContent.sID  );
                 continue;
             }
 
@@ -2263,7 +2269,7 @@ void NetChangeKitbag(DWORD dwChaID, stNetKitbag& SKitbag)
                 pObj = new CItemCommand( item );
                 if( !grd->SetItem( pGrid[i].sGridID, pObj ) )
                 {
-                    LG( "protocol", g_oLangRec.GetString(282), item->szName, pGrid[i].sGridID  );
+                    LG( "protocol", RES_STRING(CMISS_000282), item->szName, pGrid[i].sGridID  );
                     continue;
                 }
 			}
@@ -2278,12 +2284,12 @@ void NetChangeKitbag(DWORD dwChaID, stNetKitbag& SKitbag)
 			{
 				switch( chType )
 				{
-				case enumSYN_KITBAG_PICK:	g_pGameApp->SysInfo(g_oLangRec.GetString(283), item->szName, nMarginNum );		break;
+				case enumSYN_KITBAG_PICK:	g_pGameApp->SysInfo(RES_STRING(CMISS_000283), item->szName, nMarginNum );		break;
 				//case enumSYN_KITBAG_FROM_NPC:	g_pGameApp->SysInfo("NPC��[%s �� %d]!", item->szName, nMarginNum );	break;
-				case enumSYN_KITBAG_SYSTEM:	g_pGameApp->SysInfo(g_oLangRec.GetString(284), item->szName, nMarginNum );	break;
-				case enumSYN_KITBAG_TRADE:	g_pGameApp->SysInfo(g_oLangRec.GetString(285), item->szName, nMarginNum );	break;
-				case enumSYN_KITBAG_FORGES:	g_pGameApp->SysInfo(g_oLangRec.GetString(286), item->szName, nMarginNum );	break;
-				case enumSYN_KITBAG_FORGEF:	g_pGameApp->SysInfo(g_oLangRec.GetString(287), item->szName, nMarginNum );	break;
+				case enumSYN_KITBAG_SYSTEM:	g_pGameApp->SysInfo(RES_STRING(CMISS_000284), item->szName, nMarginNum );	break;
+				case enumSYN_KITBAG_TRADE:	g_pGameApp->SysInfo(RES_STRING(CMISS_000285), item->szName, nMarginNum );	break;
+				case enumSYN_KITBAG_FORGES:	g_pGameApp->SysInfo(RES_STRING(CMISS_000286), item->szName, nMarginNum );	break;
+				case enumSYN_KITBAG_FORGEF:	g_pGameApp->SysInfo(RES_STRING(CMISS_000287), item->szName, nMarginNum );	break;
 				}
 			}
         }
@@ -2310,7 +2316,7 @@ void NetChangeKitbag(DWORD dwChaID, stNetKitbag& SKitbag)
 				case enumSYN_KITBAG_SWITCH:
 					break;
 				default:
-                    LG( "protocol", g_oLangRec.GetString(288), pGrid[i].sGridID );
+                    LG( "protocol", RES_STRING(CMISS_000288), pGrid[i].sGridID );
 				}
                 continue;
             }
@@ -2474,7 +2480,7 @@ void NetShortCut( DWORD dwChaID, stNetShortCut& stShortCut )
 void NetTriggerAction( stNetNpcMission& info )
 {
 	char szData[64] = {0};
-	strcpy(szData, g_oLangRec.GetString(2));
+	strcpy(szData, RES_STRING(CO_COMMFUNC_CPP_00030));
 
     switch( info.byType )
     {
@@ -2512,7 +2518,7 @@ void NetTriggerAction( stNetNpcMission& info )
 			{
 				strncpy( szData, pItem->szName, sizeof(szData) );
 			}
-			g_pGameApp->ShowMidText( g_oLangRec.GetString(289), szData, info.sCount, info.sNum );
+			g_pGameApp->ShowMidText( RES_STRING(CMISS_000289), szData, info.sCount, info.sNum );
 		}
     break;
 	case mission::TE_GAME_TIME:
@@ -2526,7 +2532,7 @@ void NetTriggerAction( stNetNpcMission& info )
 		break;
 	default:
 		{
-			g_pGameApp->ShowMidText( g_oLangRec.GetString(290), info.sID, info.sCount, info.sNum );
+			g_pGameApp->ShowMidText( RES_STRING(CL_LANGUAGE_MATCH_290), info.sID, info.sCount, info.sNum );
 		}
 		break;
     }
@@ -2689,7 +2695,7 @@ void NetFailedAction( char chState )
     }
     else
     {
-        LG( "protocol", g_oLangRec.GetString(291) );
+        LG( "protocol", RES_STRING(CMISS_000291) );
     }
 }
 
@@ -2751,7 +2757,7 @@ void stNetDefaultSkill::Exec(void)
 	const char* szLogName = g_LogName.GetMainLogName();
 
 	// log
-	LG(szLogName, g_oLangRec.GetString(292), GetTickCount());
+	LG(szLogName, RES_STRING(CMISS_000292), GetTickCount());
 	LG(szLogName, "Skill ID: %u\n", sSkillID);
 	LG(szLogName, "\n");
 	//
@@ -2759,7 +2765,7 @@ void stNetDefaultSkill::Exec(void)
 	CSkillRecord *pSkill =  GetSkillRecordInfo( sSkillID );
 	if( !pSkill )
 	{
-		LG( "protocol", g_oLangRec.GetString(293), sSkillID );
+		LG( "protocol", RES_STRING(CMISS_000293), sSkillID );
 		return;
 	}
 
@@ -2997,7 +3003,7 @@ void NetKitbagCheckAnswer(bool bLock)
 	if(g_stUIEquip.GetIsLock() && bLock)
 	{
 		// ����ʧ��
-		g_pGameApp->MsgBox(g_oLangRec.GetString(802));
+		g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_802));
 	}
 	else if(g_stUIEquip.GetIsLock() && ! bLock)
 	{

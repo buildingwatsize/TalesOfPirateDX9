@@ -8,6 +8,7 @@
 #include <assert.h>
 
 #include <windows.h>
+#include <intrin.h>
 #include <commdlg.h>
 #include <lmaccess.h>
 

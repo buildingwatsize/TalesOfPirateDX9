@@ -41,7 +41,6 @@ CAudioThread	g_AudioThread;
 #endif
 
 // �����Կ����ȳ�ʼ��
-CLanguageRecord g_oLangRec("./scripts/table/StringSet.bin", "./scripts/table/StringSet.txt");
 CResourceBundleManage g_ResourceBundleManage("Game.loc");			// These objects are just being called here to avoid linker errors,
 pi_LeakReporter pi_leakReporter("gameleak.log");		// since client uses StringSet instead of .res files.
 

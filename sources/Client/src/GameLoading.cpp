@@ -189,12 +189,14 @@ void GameLoading::Close()
     GetClientRect(m_hLoading, &rc);
 
 
-    int height = rc.bottom - rc.top - (rc.right - rc.left) * 9.0 / 16.0;
+    // int height = rc.bottom - rc.top - (rc.right - rc.left) * 9.0 / 16.0;
+    double height = rc.bottom - rc.top - (rc.right - rc.left) * 9.0 / 16.0;
 
     RECT rect;
     rect.left = rc.left;
     rect.right = rc.right;
-    rect.top = rc.bottom - height / 2.0 - 1;
+    // rect.top = rc.bottom - height / 2.0 - 1;
+    rect.top = rc.bottom - (LONG)(height / 2.0) - 1;
     rect.bottom = rc.bottom;
 
     ::InvalidateRect(m_hLoading, &rect, TRUE);

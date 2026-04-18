@@ -190,11 +190,11 @@ void CAttackEffect::ExecHarm( CSizeArray<stEffect>& Value, CCharacter* pTarget, 
 				{
 					if( pTarget->IsBoat() )
 					{
-						g_pGameApp->SysInfo( g_oLangRec.GetString(144), val );
+						g_pGameApp->SysInfo( RES_STRING(CMISS_000144), val );
 					}
 					else if(val > 0)
 					{
-						//g_pGameApp->SysInfo( g_oLangRec.GetString(145), val );
+						//g_pGameApp->SysInfo( RES_STRING(CMISS_000145), val );
 
 						// ������80��þ�����ʾ����BUG����
 						DWORD dwLastExp	 = g_stUIBoat.GetHuman()->getGameAttr()->get(ATTR_CEXP);
@@ -205,15 +205,15 @@ void CAttackEffect::ExecHarm( CSizeArray<stEffect>& Value, CCharacter* pTarget, 
 							dwObtainExp  = ((DWORD)p[i].lVal - dwLv80Exp) * LEVEL80_EXP;// 80 ���Ժ�ľ���
 							dwObtainExp += (dwLv80Exp - dwLastExp);						// 79 ���ľ���
 
-							g_pGameApp->SysInfo( g_oLangRec.GetString(145), dwObtainExp );
+							g_pGameApp->SysInfo( RES_STRING(CMISS_000145), dwObtainExp );
 						}
 						else if( pTarget->getGameAttr()->get( ATTR_LV )>=80 )
 						{
-							g_pGameApp->SysInfo( g_oLangRec.GetString(145), val * LEVEL80_EXP );
+							g_pGameApp->SysInfo( RES_STRING(CMISS_000145), val * LEVEL80_EXP );
 						}
 						else
 						{
-							g_pGameApp->SysInfo( g_oLangRec.GetString(145), val );
+							g_pGameApp->SysInfo( RES_STRING(CMISS_000145), val );
 						}
 					}
 				}
@@ -253,7 +253,7 @@ void CAttackEffect::ExecHarm( CSizeArray<stEffect>& Value, CCharacter* pTarget, 
 			if( isMain )
 			{
 				g_pGameApp->PlaySound(21);
-				g_pGameApp->ShowBigText( g_oLangRec.GetString(146), pTarget->getGameAttr()->get(ATTR_LV) );
+				g_pGameApp->ShowBigText( RES_STRING(CMISS_000146), pTarget->getGameAttr()->get(ATTR_LV) );
 				pTarget->SelfEffect( 132, -1 );
 			}
 			else
@@ -286,7 +286,7 @@ void CAttackEffect::CreateEffect( int eType, const char* str, D3DXVECTOR3& start
     CEffectObj	*pEffect = CGameApp::GetCurScene()->GetFirstInvalidEffObj();
 	if(pEffect==NULL)
     {
-        LG("error", g_oLangRec.GetString(147));
+        LG("error", RES_STRING(CMISS_000147));
         return;
     }
 
@@ -442,11 +442,11 @@ void CAttribSynchro::_Exec()
 
 				if( pCha->IsBoat() )
 				{
-					g_pGameApp->SysInfo( g_oLangRec.GetString(144), val );
+					g_pGameApp->SysInfo( RES_STRING(CMISS_000144), val );
 				}
 				else if(val > 0)
 				{
-					//g_pGameApp->SysInfo( g_oLangRec.GetString(145), val );
+					//g_pGameApp->SysInfo( RES_STRING(CMISS_000145), val );
 
 					// ������80��þ�����ʾ����BUG����
 					DWORD dwLastExp	 = g_stUIBoat.GetHuman()->getGameAttr()->get(ATTR_CEXP);
@@ -457,15 +457,15 @@ void CAttribSynchro::_Exec()
 						dwObtainExp  = ((DWORD)p[i].lVal - dwLv80Exp) * LEVEL80_EXP;// 80 ���Ժ�ľ���
 						dwObtainExp += (dwLv80Exp - dwLastExp);						// 79 ���ľ���
 
-						g_pGameApp->SysInfo( g_oLangRec.GetString(145), dwObtainExp );
+						g_pGameApp->SysInfo( RES_STRING(CMISS_000145), dwObtainExp );
 					}
 					else if( g_stUIBoat.GetHuman()->getGameAttr()->get( ATTR_LV )>=80 )
 					{
-						g_pGameApp->SysInfo( g_oLangRec.GetString(145), val * LEVEL80_EXP );
+						g_pGameApp->SysInfo( RES_STRING(CMISS_000145), val * LEVEL80_EXP );
 					}
 					else
 					{
-						g_pGameApp->SysInfo( g_oLangRec.GetString(145), val );
+						g_pGameApp->SysInfo( RES_STRING(CMISS_000145), val );
 					}
 				}
 			}
@@ -542,7 +542,7 @@ void CAttribSynchro::_Exec()
 				{
 					// ��ҽ�ɫ����
 					g_pGameApp->PlaySound(21);
-					g_pGameApp->ShowBigText( g_oLangRec.GetString(146), pCha->getGameAttr()->get(ATTR_LV) );
+					g_pGameApp->ShowBigText( RES_STRING(CMISS_000146), pCha->getGameAttr()->get(ATTR_LV) );
 
 					if(g_stUISystem.m_sysProp.m_gameOption.bHelpMode && pCha->getGameAttr()->get(ATTR_LV) <= 50)//	Modify by alfred.shi 20080905
 					{

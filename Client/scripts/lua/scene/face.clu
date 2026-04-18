@@ -1,26 +1,20 @@
--- 装载快键表情,参数依次为:第几张,最大帧数,显示出来的宽高,图片文件名称,图片中宽高,图片中起始位置
+
 function UI_LoadHeadSayFaceImage( num, maxframe, w, h, file, cw, ch, tx, ty )
 	CLU_Call( "UI_LoadHeadSayFaceImage", num, maxframe, w, h, file, cw, ch, tx, ty )
 end
 
--- 装载角色的血,参数：显示宽高，图片名称以及图片中宽高，位置，是否水平摆放
 function UI_LoadHeadSayLifeImage( uw, uh, file, w, h, tx, ty, isHorizontal )
 	CLU_Call( "UI_LoadHeadSayLifeImage", uw, uh, file, w, h, tx, ty, isHorizontal )
 end
 
-
--- 装载角色说话的帽子,参数：显示宽高，图片名称以及图片中宽高，位置，是否水平摆放
 function UI_LoadHeadSaySayImage( uw, uh, file, w, h, tx, ty, isHorizontal )
---CLU_Call( "UI_LoadHeadSaySayImage", uw, uh, file, w, h, tx, ty, isHorizontal )
+-- CLU_Call( "UI_LoadHeadSaySayImage", uw, uh, file, w, h, tx, ty, isHorizontal )
 end
 
---装载角色说话的嘴巴,参数：显示宽高，图片名称以及图片中宽高，位置，是否水平摆放
 function UI_LoadHeadSayMouseImage( uw, uh, file, w, h, tx, ty, isHorizontal )
---CLU_Call( "UI_LoadHeadSayMouseImage", uw, uh, file, w, h, tx, ty, isHorizontal )
+-- CLU_Call( "UI_LoadHeadSayMouseImage", uw, uh, file, w, h, tx, ty, isHorizontal )
 end
 
--- 装载摆摊的三张图片，0为左，1为中，2为右
--- 参数：num－序列号，w,h－要显示出来的宽高,file－图片,cw,ch图片中的宽高,tx,ty－图片中的位置
 function UI_LoadHeadSayShopImage( num, w, h, file, cw, ch, tx, ty )
 	CLU_Call( "UI_LoadHeadSayShopImage", num, w, h, file, cw, ch, tx, ty )
 end
@@ -29,7 +23,6 @@ function UI_LoadHeadSayShopImage2( num, w, h, file, cw, ch, tx, ty )
 	CLU_Call( "UI_LoadHeadSayShopImage2", num, w, h, file, cw, ch, tx, ty )
 end
 
--- 以下为装载表情
 UI_LoadHeadSayFaceImage( 0, 2, 50, 50, "texture/ui/brow/0.tga", 64, 64, 0, 0 )
 UI_LoadHeadSayFaceImage( 1, 2, 50, 50, "texture/ui/brow/1.tga", 64, 64, 0, 0 )
 UI_LoadHeadSayFaceImage( 2, 2, 50, 50, "texture/ui/brow/2.tga", 64, 64, 0, 0 )
@@ -40,7 +33,7 @@ UI_LoadHeadSayFaceImage( 6, 2, 50, 50, "texture/ui/brow/6.tga", 64, 64, 0, 0 )
 UI_LoadHeadSayFaceImage( 7, 2, 50, 50, "texture/ui/brow/7.tga", 64, 64, 0, 0 )
 UI_LoadHeadSayFaceImage( 8, 2, 50, 50, "texture/ui/brow/8.tga", 64, 64, 0, 0 )
 UI_LoadHeadSayFaceImage( 9, 2, 50, 50, "texture/ui/brow/9.tga", 64, 64, 0, 0 )
---Add by sunny.sun 20080902
+-- Add by sunny.sun 20080902
 UI_LoadHeadSayFaceImage( 10, 2, 50, 50, "texture/ui/brow/10.tga", 64, 64, 0, 0 )
 UI_LoadHeadSayFaceImage( 11, 2, 50, 50, "texture/ui/brow/11.tga", 64, 64, 0, 0 )
 UI_LoadHeadSayFaceImage( 12, 2, 50, 50, "texture/ui/brow/12.tga", 64, 64, 0, 0 )
@@ -95,26 +88,19 @@ UI_LoadHeadSayFaceImage( 59, 2, 50, 50, "texture/ui/brow/59.tga", 64, 64, 0, 0 )
 UI_LoadHeadSayFaceImage( 60, 2, 50, 50, "texture/ui/brow/60.tga", 64, 64, 0, 0 )
 UI_LoadHeadSayFaceImage( 61, 2, 50, 50, "texture/ui/brow/61.tga", 64, 64, 0, 0 )
 
---UI_LoadHeadSayFaceImage( 11, 2, 50, 50, "texture/ui/brow/brow11.tga", 64, 64, 0, 0)
---UI_LoadHeadSayFaceImage( 12, 2, 50, 50, "texture/ui/brow/brow12.tga", 64, 64, 0, 0 )
+-- UI_LoadHeadSayFaceImage( 11, 2, 50, 50, "texture/ui/brow/brow11.tga", 64, 64, 0, 0)
+-- UI_LoadHeadSayFaceImage( 12, 2, 50, 50, "texture/ui/brow/brow12.tga", 64, 64, 0, 0 )
 
-
---　血条
 UI_LoadHeadSayLifeImage( 60, 5, "texture/ui/system/life.tga", 60, 5, 0, 0, TRUE )
---  对话框
 
-
---UI_LoadHeadSaySayImage( 208, 76, "texture/ui/system/dialog.tga", 208, 76, 7, 3, TRUE )
--- UI_LoadHeadSayMouseImage( 8, 99, "texture/ui/system/dialog.tga", 8, 99, 216, 3, TRUE )
+-- UI_LoadHeadSaySayImage( 208, 76, "texture/ui/system/dialog.tga", 208, 76, 7, 3, TRUE )
 
 UI_LoadHeadSaySayImage( 206, 75, "texture/ui/system/dialog.tga", 206, 75, 7, 3, TRUE )
 UI_LoadHeadSayMouseImage( 9, 9 , "texture/ui/system/dialog.tga", 9, 9, 215,79, TRUE )
 
---  装载摆摊的三张图片
 UI_LoadHeadSayShopImage( 0,  15, 34, "texture/ui/BoothName.tga", 15, 34, 0, 0 )
 UI_LoadHeadSayShopImage( 1,  1, 34, "texture/ui/BoothName.tga", 1, 34, 18, 0 )
 UI_LoadHeadSayShopImage( 2,  15, 34, "texture/ui/BoothName.tga", 15, 34, 22, 0 )
-
 
 UI_LoadHeadSayShopImage2( 0,  15, 34, "texture/ui/BoothName2.tga", 15, 34, 0, 0 )
 UI_LoadHeadSayShopImage2( 1,  1, 34, "texture/ui/BoothName2.tga", 1, 34, 18, 0 )

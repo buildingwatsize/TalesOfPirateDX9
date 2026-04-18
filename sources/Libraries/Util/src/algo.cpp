@@ -361,78 +361,24 @@ EXIT:
         ret}}
 #endif
 
-bool INL NKD rol_byte_off(unsigned char* pb, unsigned int offset, unsigned char bits)
+bool rol_byte_off(unsigned char* pb, unsigned int offset, unsigned char bits)
     {
-    __asm {
-        push ebx
-        push ecx
-        push esi
-        mov ecx, [esp + 24] ;bits
-        cmp cl, 8
-        jl L1
-        xor eax, eax
-        jmp EXIT
+    if (bits >= 8) return false;
+    unsigned char b = pb[offset];
+    pb[offset] = (b << bits) | (b >> (8 - bits));
+    return true;}
 
-L1:
-        mov ebx, [esp + 16] ;pb
-        mov esi, [esp + 20] ;offset
-        mov al, byte ptr [ebx + esi] ;*(pb + offset)
-        rol al, cl
-        mov byte ptr [ebx + esi], al
-        mov eax, 1
-
-EXIT:
-        pop esi
-        pop ecx
-        pop ebx
-        ret
-        }}
-
-bool INL NKD ror_byte_off(unsigned char* pb, unsigned int offset, unsigned char bits)
+bool ror_byte_off(unsigned char* pb, unsigned int offset, unsigned char bits)
     {
-    __asm {
-        push ebx
-        push ecx
-        push esi
-        mov ecx, [esp + 24] ;bits
-        cmp cl, 8
-        jl L1
-        xor eax, eax
-        jmp EXIT
+    if (bits >= 8) return false;
+    unsigned char b = pb[offset];
+    pb[offset] = (b >> bits) | (b << (8 - bits));
+    return true;}
 
-L1:
-        mov ebx, [esp + 16] ;pb
-        mov esi, [esp + 20] ;offset
-        mov al, byte ptr [ebx + esi] ;*(pb + offset)
-        ror al, cl
-        mov byte ptr [ebx + esi], al
-        mov eax, 1
-
-EXIT:
-        pop esi
-        pop ecx
-        pop ebx
-        ret
-        }}
-
-bool INL NKD xor_byte_off(unsigned char* pb, unsigned int offset, unsigned char mask)
+bool xor_byte_off(unsigned char* pb, unsigned int offset, unsigned char mask)
     { // xor a byte from a pb and a offset
-    __asm {
-        push ebx
-        push ecx
-        push esi
-        mov ebx, [esp + 16] ;pb
-        mov esi, [esp + 20] ;offset
-        mov al, byte ptr [ebx + esi] ;*(pb + offset)
-        mov ecx, [esp + 24] ;mask
-        xor al, cl
-        mov byte ptr [ebx + esi], al
-        pop esi
-        pop ecx
-        pop ebx
-        mov eax, 1
-        ret
-        }}
+    pb[offset] ^= mask;
+    return true;}
 
 
 #if 1

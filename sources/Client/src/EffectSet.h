@@ -9,7 +9,7 @@
 //
 //	CEffectInfo()
 //	{
-//	   strcpy(szName, "ÎÞÃûÌØÐ§");
+//	   strcpy(szName, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§");
 //	   nPhotoTexID = 0;
 //	   nHeightOff  = 0;
 //	   nEffType	= 0;
@@ -44,7 +44,7 @@
 //
 //protected:
 //
-//	static CEffectSet* _Instance; // Ïàµ±ÓÚµ¥¼ü, °Ñ×Ô¼º¼Ç×¡
+//	static CEffectSet* _Instance; // ï¿½àµ±ï¿½Úµï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½×¡
 //   
 //	virtual CRawDataInfo* _CreateRawDataArray(int nCnt)
 //	{
@@ -112,8 +112,8 @@ public:
 
 	CMagicInfo()
 	{
-		strcpy(szName, g_oLangRec.GetString(59));
-		strcpy(szPhotoName, g_oLangRec.GetString(59));
+		strcpy(szName, RES_STRING(CMISS_000059));
+		strcpy(szPhotoName, RES_STRING(CMISS_000059));
 
 		nPhotoTexID = 0;
 		nEffType	= 0;
@@ -165,7 +165,7 @@ public:
 
 protected:
 
-	static CMagicSet* _Instance; // Ïàµ±ÓÚµ¥¼ü, °Ñ×Ô¼º¼Ç×¡
+	static CMagicSet* _Instance; // ï¿½àµ±ï¿½Úµï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½×¡
 
 	virtual CRawDataInfo* _CreateRawDataArray(int nCnt)
 	{
@@ -250,17 +250,17 @@ public:
 
 	CShadeInfo()
 	{
-		strcpy(szName, g_oLangRec.GetString(60));
+		strcpy(szName, RES_STRING(CMISS_000060));
 		nPhotoTexID = 0;
 
 		fsize = 0;
 		nAni = 0;
 		nRow = 0;
 		nCol  = 0;
-		nUseAlphaTest = 0;//ÊÇ·ñÊ¹ÓÃÍ¸Ã÷É«
-		nAlphaType = 0;//alpha  ÀàÐÍ
+		nUseAlphaTest = 0;//ï¿½Ç·ï¿½Ê¹ï¿½ï¿½Í¸ï¿½ï¿½É«
+		nAlphaType = 0;//alpha  ï¿½ï¿½ï¿½ï¿½
 
-		nColorR = 0;//ÑÕÉ«
+		nColorR = 0;//ï¿½ï¿½É«
 		nColorG = 0;
 		nColorB = 0;
 		nColorA = 0;
@@ -275,15 +275,15 @@ public:
 	int		nRow;
 	int		nCol;
 
-	int		nUseAlphaTest;//ÊÇ·ñÊ¹ÓÃÍ¸Ã÷É«
-	int		nAlphaType;//alpha  ÀàÐÍ
+	int		nUseAlphaTest;//ï¿½Ç·ï¿½Ê¹ï¿½ï¿½Í¸ï¿½ï¿½É«
+	int		nAlphaType;//alpha  ï¿½ï¿½ï¿½ï¿½
 
-	int		nColorR;//ÑÕÉ«
+	int		nColorR;//ï¿½ï¿½É«
 	int		nColorG;
 	int		nColorB;
 	int		nColorA;
 
-	int		nType;//0ÊÇ¸úËæ½ÇÉ«µÄ£¬1ÊÇ¸úËæÌØÐ§µÄ£¬
+	int		nType;//0ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½É«ï¿½Ä£ï¿½1ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½Ä£ï¿½
 };
 
 
@@ -303,7 +303,7 @@ public:
 
 protected:
 
-	static CShadeSet* _Instance; // Ïàµ±ÓÚµ¥¼ü, °Ñ×Ô¼º¼Ç×¡
+	static CShadeSet* _Instance; // ï¿½àµ±ï¿½Úµï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½×¡
 
 	virtual CRawDataInfo* _CreateRawDataArray(int nCnt)
 	{
@@ -347,10 +347,10 @@ protected:
 		pInfo->nRow   	= Str2Int(ParamList[3].c_str());
 		pInfo->nCol     = Str2Int(ParamList[4].c_str());
 
-		pInfo->nUseAlphaTest = Str2Int(ParamList[5].c_str());//ÊÇ·ñÊ¹ÓÃÍ¸Ã÷É«
-		pInfo->nAlphaType = Str2Int(ParamList[6].c_str());//alpha  ÀàÐÍ
+		pInfo->nUseAlphaTest = Str2Int(ParamList[5].c_str());//ï¿½Ç·ï¿½Ê¹ï¿½ï¿½Í¸ï¿½ï¿½É«
+		pInfo->nAlphaType = Str2Int(ParamList[6].c_str());//alpha  ï¿½ï¿½ï¿½ï¿½
 
-		pInfo->nColorR = Str2Int(ParamList[7].c_str());//ÑÕÉ«
+		pInfo->nColorR = Str2Int(ParamList[7].c_str());//ï¿½ï¿½É«
 		pInfo->nColorG = Str2Int(ParamList[8].c_str());
 		pInfo->nColorB = Str2Int(ParamList[9].c_str());
 		pInfo->nColorA = Str2Int(ParamList[10].c_str());

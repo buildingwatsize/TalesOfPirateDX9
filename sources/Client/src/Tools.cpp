@@ -6,7 +6,7 @@ using namespace std;
 
 string ConvertNumToChinese( int num )
 {
-	if( num==0 ) return g_oLangRec.GetString(421);
+	if( num==0 ) return RES_STRING(CMISS_000421);
 
 	char szNum[255] = { 0 };
 	itoa( num, szNum, 10 );
@@ -17,35 +17,35 @@ string ConvertNumToChinese( int num )
 	const char* pszPos = szNum;
 	if( *pszPos=='-' )
 	{
-		str << g_oLangRec.GetString(422);
+		str << RES_STRING(CMISS_000422);
 		pszPos++;
 	}
 
-	static char szChinese[10][16];// = { g_oLangRec.GetString(421), g_oLangRec.GetString(423), g_oLangRec.GetString(424), g_oLangRec.GetString(425), g_oLangRec.GetString(426), g_oLangRec.GetString(427), g_oLangRec.GetString(428), g_oLangRec.GetString(429), g_oLangRec.GetString(430), g_oLangRec.GetString(431) };
-	strcpy(szChinese[0], g_oLangRec.GetString(421));
-	strcpy(szChinese[1], g_oLangRec.GetString(423));
-	strcpy(szChinese[2], g_oLangRec.GetString(424));
-	strcpy(szChinese[3], g_oLangRec.GetString(425));
-	strcpy(szChinese[4], g_oLangRec.GetString(426));
-	strcpy(szChinese[5], g_oLangRec.GetString(427));
-	strcpy(szChinese[6], g_oLangRec.GetString(428));
-	strcpy(szChinese[7], g_oLangRec.GetString(429));
-	strcpy(szChinese[8], g_oLangRec.GetString(430));
-	strcpy(szChinese[9], g_oLangRec.GetString(431));
+	static char szChinese[10][16];// = { RES_STRING(CMISS_000421), RES_STRING(CL_LANGUAGE_MATCH_423), RES_STRING(CL_LANGUAGE_MATCH_424), RES_STRING(CL_LANGUAGE_MATCH_425), RES_STRING(CL_LANGUAGE_MATCH_426), RES_STRING(CL_LANGUAGE_MATCH_427), RES_STRING(CL_LANGUAGE_MATCH_428), RES_STRING(CL_LANGUAGE_MATCH_429), RES_STRING(CL_LANGUAGE_MATCH_430), RES_STRING(CL_LANGUAGE_MATCH_431) };
+	strcpy(szChinese[0], RES_STRING(CMISS_000421));
+	strcpy(szChinese[1], RES_STRING(CL_LANGUAGE_MATCH_423));
+	strcpy(szChinese[2], RES_STRING(CL_LANGUAGE_MATCH_424));
+	strcpy(szChinese[3], RES_STRING(CL_LANGUAGE_MATCH_425));
+	strcpy(szChinese[4], RES_STRING(CL_LANGUAGE_MATCH_426));
+	strcpy(szChinese[5], RES_STRING(CL_LANGUAGE_MATCH_427));
+	strcpy(szChinese[6], RES_STRING(CL_LANGUAGE_MATCH_428));
+	strcpy(szChinese[7], RES_STRING(CL_LANGUAGE_MATCH_429));
+	strcpy(szChinese[8], RES_STRING(CL_LANGUAGE_MATCH_430));
+	strcpy(szChinese[9], RES_STRING(CL_LANGUAGE_MATCH_431));
 
-	static char szHigh[8][16];// = { g_oLangRec.GetString(432), g_oLangRec.GetString(433), g_oLangRec.GetString(434), g_oLangRec.GetString(435), g_oLangRec.GetString(432), g_oLangRec.GetString(433), g_oLangRec.GetString(434), g_oLangRec.GetString(436) };
-	strcpy(szHigh[0], g_oLangRec.GetString(432));
-	strcpy(szHigh[1], g_oLangRec.GetString(433));
-	strcpy(szHigh[2], g_oLangRec.GetString(434));
-	strcpy(szHigh[3], g_oLangRec.GetString(435));
-	strcpy(szHigh[4], g_oLangRec.GetString(432));
-	strcpy(szHigh[5], g_oLangRec.GetString(433));
-	strcpy(szHigh[6], g_oLangRec.GetString(434));
-	strcpy(szHigh[7], g_oLangRec.GetString(436));
+	static char szHigh[8][16];// = { RES_STRING(CL_LANGUAGE_MATCH_432), RES_STRING(CL_LANGUAGE_MATCH_433), RES_STRING(CL_LANGUAGE_MATCH_434), RES_STRING(CMISS_000435), RES_STRING(CL_LANGUAGE_MATCH_432), RES_STRING(CL_LANGUAGE_MATCH_433), RES_STRING(CL_LANGUAGE_MATCH_434), RES_STRING(CMISS_000436) };
+	strcpy(szHigh[0], RES_STRING(CL_LANGUAGE_MATCH_432));
+	strcpy(szHigh[1], RES_STRING(CL_LANGUAGE_MATCH_433));
+	strcpy(szHigh[2], RES_STRING(CL_LANGUAGE_MATCH_434));
+	strcpy(szHigh[3], RES_STRING(CMISS_000435));
+	strcpy(szHigh[4], RES_STRING(CL_LANGUAGE_MATCH_432));
+	strcpy(szHigh[5], RES_STRING(CL_LANGUAGE_MATCH_433));
+	strcpy(szHigh[6], RES_STRING(CL_LANGUAGE_MATCH_434));
+	strcpy(szHigh[7], RES_STRING(CMISS_000436));
 	
 	char nChar = 0;
 	int nZeroNum = 0;				
-	bool IsBigMark = false;		// ÓÃÓÚÍò£¬ÒÚµÄÌØÊâ´¦Àí£¬ÔÚÈ«ÊÇÁãÊ±
+	bool IsBigMark = false;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½â´¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê±
 	int nHigh = 0;
 	int nLen = 0;
 	while( *pszPos )
@@ -53,7 +53,7 @@ string ConvertNumToChinese( int num )
 		nChar = *pszPos++;
 		nLen = (int)strlen(pszPos);
 
-		// ÖÐ²¿µÄ¶à¸öÁãºÏ²¢ÎªÒ»¸öÁã,ÇÒÎ²²¿µÄÁãÒ²²»ÏÔÊ¾
+		// ï¿½Ð²ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½Ï²ï¿½ÎªÒ»ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Î²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½Ê¾
 		if( nChar=='0' )
 		{
 			nZeroNum++;
@@ -67,10 +67,10 @@ string ConvertNumToChinese( int num )
 		else
 		{
 			IsBigMark = true;
-			if( nZeroNum>0 )    // ´ÓÁã¿ªÊ¼ºó,Åöµ½µÄµÚÒ»¸ö·ÇÁã
+			if( nZeroNum>0 )    // ï¿½ï¿½ï¿½ã¿ªÊ¼ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			{
 				nZeroNum = 0;
-				str << g_oLangRec.GetString(421);
+				str << RES_STRING(CMISS_000421);
 			}
 			str << szChinese[ nChar - '0' ];
 			if( nLen > 0 )
@@ -86,7 +86,7 @@ string ConvertNumToChinese( int num )
 				}
 				str << szHigh[nHigh];
 
-				// Íò£¬ÒÚµÄÌØÊâ´¦Àí
+				// ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½â´¦ï¿½ï¿½
 				if( nHigh==3 || nHigh==7 )
 				{
 					IsBigMark = false;
@@ -96,9 +96,9 @@ string ConvertNumToChinese( int num )
 	}
     str << ends;
 
-	// Í·ÎªÒ»Ê®,Ê¡ÂÔÒ»
+	// Í·ÎªÒ»Ê®,Ê¡ï¿½ï¿½Ò»
 	string rv = str.str();
-	if( rv.length()>=4 && rv.substr( 0, 4 ) == g_oLangRec.GetString(437) )
+	if( rv.length()>=4 && rv.substr( 0, 4 ) == RES_STRING(CMISS_000437) )
 		return rv.substr( 2, rv.length() );
 
 	return rv;

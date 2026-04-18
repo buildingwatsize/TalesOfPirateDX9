@@ -423,6 +423,8 @@ LW_RESULT lwModel::RenderPrimitive(DWORD id)
         goto __ret;
     {
         lwIPrimitive* p = _obj_seq[id];
+        if(p == NULL)
+            goto __ret;
 
         if (_scene_mgr && p->GetState(STATE_TRANSPARENT))
         {

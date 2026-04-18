@@ -35,8 +35,11 @@ lua_State* PopVM(void)
 	if(vmStackPos > 0)
 	{
 		vmStackPos--;
-		virtualMachine = vmStack[vmStackPos];
-		vmStack[vmStackPos] = NULL;
+		if(vmStackPos < CLU_VM_STACK_SIZE)
+		{
+			virtualMachine = vmStack[vmStackPos];
+			vmStack[vmStackPos] = NULL;
+		}
 	}
 return(ret);
 }

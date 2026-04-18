@@ -474,13 +474,11 @@ LW_RESULT lwSystemInfo::CheckDirectXVersion()
     char ver_letter = ' ';
 
 #if(defined LW_USE_DX9)
-    //this will only work on DX9 or later.
-    if(SUCCEEDED(GetDirectXVersionViaDxDiag(&ver_major, &ver_minor, &ver_letter)))
+    // DxDiag COM check hangs with DXVK -- use file-version approach only
+    if(SUCCEEDED(GetDirectXVerionViaFileVersions(&ver_major, &ver_minor, &ver_letter)))
         goto __check_ver;
 #endif
 
-    // Getting the DirectX version info from DxDiag failed, 
-    // so most likely we are on DX8.x or earlier
     if(SUCCEEDED(GetDirectXVerionViaFileVersions(&ver_major, &ver_minor, &ver_letter)))
         goto __check_ver;
 

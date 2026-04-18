@@ -37,7 +37,7 @@ void SetCommAppDebug( bool bDebug )
 {
 	g_bCommAppDebug = bDebug;
 }
-//…œ≤„”¶”√÷ÿ∂®“Â:
+//‰∏äÂ±ÇÂ∫îÁî®ÈáçÂÆö‰πâ:
 //static uLong	NetBuffer[]	={400,300,200,100,50,40,30,0};
 
 //=====DispatchThread==============================================================================
@@ -199,9 +199,10 @@ WPacket TcpCommApp::GetWPacket()const
 }
 void TcpCommApp::BeginWork(uLong keepalive_seconds,uLong delay)
 {
-	keepalive_seconds = std::max<>(keepalive_seconds, 10UL);
-
-	m_keepalive = keepalive_seconds * 1000; // milliseconds
+	if (keepalive_seconds == 0)
+		m_keepalive = 0;
+	else
+		m_keepalive = std::max<>(keepalive_seconds, 10UL) * 1000;
 
 	*const_cast<uLong*>(&__delay)		=delay;
 	m_TickCount	=GetTickCount();

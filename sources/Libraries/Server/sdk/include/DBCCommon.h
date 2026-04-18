@@ -16,8 +16,8 @@
 #define _WIN32_WINDOWS _WIN32_WINNT_WIN7 
 #endif
 
-#ifndef USING_TAO							//使用Win32基本Platform SDK
-#include <winsock2.h>						//确保调用新的WinSock2.2版本
+#ifndef USING_TAO							// Use Win32 base Platform SDK
+#include <winsock2.h>						// Ensure WinSock 2.2 header is used
 #include <windows.h>
 #else
 #include "TAOSpecial.h"
@@ -38,26 +38,26 @@ _DBC_BEGIN
 //=================================================================
 #define	nil 0
 //typedef type define
-typedef char Char;							//带符号8个二进制位(=1个字节)整型/字符数据
+typedef char Char;							// Signed 8-bit (1-byte) integer / character
 typedef wchar_t wChar;
-typedef short Short;						//带符号2字节整型数据
-typedef long Long;							//带符号4字节整型数据
-typedef int Int;							//带符号系统依赖整数数据(32位机实现为uLong)
+typedef short Short;						// Signed 2-byte integer
+typedef long Long;							// Signed 4-byte integer
+typedef int Int;							// Signed platform-dependent integer (32-bit: same as Long)
 typedef const char cChar;
 typedef const wchar_t cwChar;
 typedef const short cShort;
 typedef const long cLong;
 typedef const int cInt;
-typedef unsigned char uChar;				//无符号8个二进制位(=1个字节)整型/字符数据
-typedef unsigned short uShort;				//无符号2字节整型数据
-typedef unsigned long uLong;				//无符号4字节整型数据
-typedef unsigned int uInt;					//无符号系统依赖整数数据(32位机实现为uLong)
+typedef unsigned char uChar;				// Unsigned 8-bit (1-byte) integer / character
+typedef unsigned short uShort;				// Unsigned 2-byte integer
+typedef unsigned long uLong;				// Unsigned 4-byte integer
+typedef unsigned int uInt;					// Unsigned platform-dependent integer (32-bit: same as uLong)
 typedef const unsigned char cuChar;
 typedef const unsigned short cuShort;
 typedef const unsigned long cuLong;
 typedef const unsigned int cuInt;
-typedef wchar_t	WChar;						//2字节字符数据
-typedef __int64	LLong;						//带符号8字节整型数据
+typedef wchar_t	WChar;						// 2-byte wide character
+typedef __int64	LLong;						// Signed 8-byte integer
 #define SIGN32	uLong(0x80000000)
 #define SIGN16	uShort(0x8000)
 #define SIGN8	uChar(0x80)
@@ -80,15 +80,78 @@ public:
 	LONG operator-=(LONG val)			{LONG lret =Add(-val);return lret -val;}
 	LONG operator+=(InterLockedLong	&val){LONG lret =Add(LONG(val));return lret +val;}
 	LONG operator-=(InterLockedLong	&val){LONG lret =Add(-LONG(val));return lret -val;}
-	LONG SetZero()						{return Assign(0);}//返回原始值
+	LONG SetZero()						{return Assign(0);}// Returns previous value
 	LONG Increment();								//The return value is the resulting incremented value
 	LONG Decrement();								//The return value is the resulting decremented value
 	LONG Add(LONG Value);							//The return value is the initial value
 	LONG Assign(LONG newval);						//The return value is the initial value
-	LONG CompareAssign(LONG Comperand,LONG newval);	//相等时候才赋值,The return value is the initial value
+	LONG CompareAssign(LONG Comperand,LONG newval);	// Assign only if equal to Comperand; returns initial value
 private:
 	LONG volatile	m_plVal;
 };
+
+#pragma pack(pop)
+
+#pragma pack(push)
+#pragma pack(4)
+class InterLockedLongLong
+{
+public:
+	InterLockedLongLong(LLong lInitVal = 0);
+	InterLockedLongLong(const InterLockedLongLong& val);
+	operator LLong() const { return m_plVal /*Add(0)*/; }
+	LLong operator=(LLong val)
+	{
+		Assign(val);
+		return val;
+	}
+	LLong operator=(InterLockedLongLong& val)
+	{
+		Assign(val);
+		return val;
+	}
+	LLong operator++() { return Increment(); }
+	LLong operator++(int)
+	{
+		LLong lret = Increment();
+		return lret - 1;
+	}
+	LLong operator--() { return Decrement(); }
+	LLong operator--(int)
+	{
+		LLong lret = Decrement();
+		return lret + 1;
+	}
+	LLong operator+=(LLong val)
+	{
+		LLong lret = Add(val);
+		return lret + val;
+	}
+	LLong operator-=(LLong val)
+	{
+		LLong lret = Add(-val);
+		return lret - val;
+	}
+	LLong operator+=(InterLockedLongLong& val)
+	{
+		LLong lret = Add(LLong(val));
+		return lret + val;
+	}
+	LLong operator-=(InterLockedLongLong& val)
+	{
+		LLong lret = Add(-LLong(val));
+		return lret - val;
+	}
+	LLong SetZero() { return Assign(0); }				// Returns previous value
+	LLong Increment();								//The return value is the resulting incremented value
+	LLong Decrement();								//The return value is the resulting decremented value
+	LLong Add(LLong Value);							//The return value is the initial value
+	LLong Assign(LLong newval);						//The return value is the initial value
+	LLong CompareAssign(LLong Comperand, LLong newval); // Assign only if equal to Comperand; returns initial value
+private:
+	LLong volatile m_plVal;
+};
+
 #pragma pack(pop)
 struct RefArmor
 {
@@ -113,6 +176,16 @@ public:
 private:
 	uLong m_BitMask;
 };
+
+//=================================================================
+inline void* MakePointer(unsigned long long ul_num)
+{
+	return reinterpret_cast<void*>(reinterpret_cast<char*>(0) + ul_num);
+}
+inline unsigned long long MakeULong(void* ponter)
+{
+	return unsigned long long(reinterpret_cast<char*>(ponter) - reinterpret_cast<char*>(0));
+}
 
 //=================================================================
 template <typename T>
@@ -172,7 +245,7 @@ public:
 private:
 	HANDLE				m_handle;			//LockSemaphore
 	InterLockedLong		m_ilCount;
-	LONG				m_lMaximumCount;	//只是一个标志，没有控制最大计数的功能
+	LONG				m_lMaximumCount;	// Informational only; does not enforce a max-count limit
 };
 
 class ScopedSema

@@ -1551,7 +1551,7 @@ bool CGameScene::_HandleSuperKey()
 	if(g_pGameApp->IsKeyDown(DIK_V))
     {
         EnableSceneObjCulling(1 - IsSceneObjCulling());
-        TipI(IsSceneObjCulling(), g_oLangRec.GetString(329), g_oLangRec.GetString(330));
+        TipI(IsSceneObjCulling(), RES_STRING(CMISS_000329), RES_STRING(CMISS_000330));
     }
 	else if(g_pGameApp->IsKeyDown(DIK_F5))
 	{
@@ -1559,22 +1559,22 @@ bool CGameScene::_HandleSuperKey()
 		g_bEnablePrint = 1 - g_bEnablePrint;
 		g_Render.EnablePrint(INFO_FPS,   g_bEnablePrint);
 		g_Render.EnablePrint(INFO_DEBUG, g_bEnablePrint);
-		TipI(g_bEnablePrint, g_oLangRec.GetString(331), g_oLangRec.GetString(332));
+		TipI(g_bEnablePrint, RES_STRING(CMISS_000331), RES_STRING(CMISS_000332));
 	}
 	else if(g_pGameApp->IsKeyDown(DIK_F6))
 	{
 		//g_pGameApp->ResetGameCamera();
-		Tip(g_oLangRec.GetString(333));
+		Tip(RES_STRING(CMISS_000333));
 	}
 	else if(g_pGameApp->IsKeyDown(DIK_F7))
 	{
 		this->ShowSceneObjTerrain(1 - this->IsSceneObjTerrainVisible());
-		TipI(this->IsSceneObjTerrainVisible(), g_oLangRec.GetString(334), g_oLangRec.GetString(335));
+		TipI(this->IsSceneObjTerrainVisible(), RES_STRING(CMISS_000334), RES_STRING(CMISS_000335));
 	}
 	else if(g_pGameApp->IsKeyDown(DIK_F8))
 	{
 		this->ShowSceneObj(1 - this->IsSceneObjVisible());
-		TipI(this->IsSceneObjVisible(), g_oLangRec.GetString(336), g_oLangRec.GetString(337));
+		TipI(this->IsSceneObjVisible(), RES_STRING(CMISS_000336), RES_STRING(CMISS_000337));
 	}
 	else if (g_pGameApp->IsKeyDown(DIK_F9)) //���е�ǰactive��section���߶Ⱥ��赲���㲢����
 	{
@@ -1679,12 +1679,12 @@ bool CGameScene::_HandleSuperKey()
 	else if(g_pGameApp->IsKeyContinue(DIK_F11))
 	{
 		this->ShowChairObj(1 - this->IsShowChairObj());
-		TipI(this->IsShowChairObj(), g_oLangRec.GetString(215), g_oLangRec.GetString(216));
+		TipI(this->IsShowChairObj(), RES_STRING(CMISS_000215), RES_STRING(CMISS_000216));
 	}
 	else if(g_pGameApp->IsKeyDown(DIK_X))
 	{
 		_IsShowPath = !_IsShowPath;
-		g_pGameApp->AddTipText( g_oLangRec.GetString(338) );
+		g_pGameApp->AddTipText( RES_STRING(CMISS_000338) );
 	}else if(g_pGameApp->IsKeyDown(DIK_M))
 	{
 		if(!_pBigMap->IsLoad())
@@ -2019,7 +2019,7 @@ int CGameScene::UpdateSceneAnimLight()
         // update lighting animation 
         if(s->type != SceneLight::SL_LIGHT)
         {
-            __asm int 3;
+            __debugbreak();
         }
 
         if(s->UpdateAnimLight())

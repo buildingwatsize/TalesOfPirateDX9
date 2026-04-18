@@ -34,17 +34,17 @@ UI_SetButtonModalResult( btnClose, BUTTON_CLOSE )
 --cmdItem3 = UI_CreateCompent( frmSeaTrade, COMMAND_ONE_TYPE, "cmdItem3", 32, 32, 281, 47 )
 
 labItem1 = UI_CreateCompent( frmSeaTrade, LABELEX_TYPE, "labItem1", 96, 11, 35, 86 )
---UI_SetCaption( labItem1, "就就就就就就就就" )
+--UI_SetCaption( labItem1, "" )
 UI_SetTextColor( labItem1, COLOR_BLACK )
 UI_SetLabelExFont( labItem1, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
 labItem2 = UI_CreateCompent( frmSeaTrade, LABELEX_TYPE, "labItem2", 96, 11, 142, 86 )
---UI_SetCaption( labItem2, "就就就就就就就就" )
+--UI_SetCaption( labItem2, "" )
 UI_SetTextColor( labItem2, COLOR_BLACK )
 UI_SetLabelExFont( labItem2, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
 labItem3 = UI_CreateCompent( frmSeaTrade, LABELEX_TYPE, "labItem3", 96, 11, 249, 86 )
---UI_SetCaption( labItem3, "就就就就就就就就" )
+--UI_SetCaption( labItem3, "" )
 UI_SetTextColor( labItem3, COLOR_BLACK )
 UI_SetLabelExFont( labItem3, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
@@ -171,17 +171,17 @@ UI_SetButtonModalResult( btnClose, BUTTON_CLOSE )
 --cmdItem3 = UI_CreateCompent( frmBlackTrade, COMMAND_ONE_TYPE, "cmdItem3", 32, 32, 281, 47 )
 
 labItem1 = UI_CreateCompent( frmBlackTrade, LABELEX_TYPE, "labItem1", 96, 11, 35, 86 )
---UI_SetCaption( labItem1, "就就就就就就就就" )
+--UI_SetCaption( labItem1, "" )
 UI_SetTextColor( labItem1, COLOR_BLACK )
 UI_SetLabelExFont( labItem1, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
 labItem2 = UI_CreateCompent( frmBlackTrade, LABELEX_TYPE, "labItem2", 96, 11, 142, 86 )
---UI_SetCaption( labItem2, "就就就就就就就就" )
+--UI_SetCaption( labItem2, "" )
 UI_SetTextColor( labItem2, COLOR_BLACK )
 UI_SetLabelExFont( labItem2, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
 labItem3 = UI_CreateCompent( frmBlackTrade, LABELEX_TYPE, "labItem3", 96, 11, 249, 86 )
---UI_SetCaption( labItem3, "就就就就就就就就" )
+--UI_SetCaption( labItem3, "" )
 UI_SetTextColor( labItem3, COLOR_BLACK )
 UI_SetLabelExFont( labItem3, DEFAULT_FONT, TRUE, COLOR_WHITE )
 

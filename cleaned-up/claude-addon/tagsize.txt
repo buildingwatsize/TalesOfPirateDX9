@@ -1,0 +1,1 @@
+120: 	BOOL		_LoadRawDataInfo_Bin(const char *pszFileName);

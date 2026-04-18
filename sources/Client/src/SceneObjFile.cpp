@@ -135,8 +135,8 @@ long CSceneObjFile::Init(const char *ptcsFileName, bool bSilence)
 		{
 			if (!bSilence)
 			{
-				_stprintf(tcsPrint, "%s %s %s", g_oLangRec.GetString(355), ptcsFileName, g_oLangRec.GetString(356));
-				MessageBox(nullptr, tcsPrint, g_oLangRec.GetString(25), 0);
+				_stprintf(tcsPrint, "%s %s %s", RES_STRING(CMISS_000355), ptcsFileName, RES_STRING(CL_LANGUAGE_MATCH_1001));
+				MessageBox(nullptr, tcsPrint, RES_STRING(CL_LANGUAGE_MATCH_25), 0);
 			}
 			lRet = 0;
 			goto end;
@@ -152,16 +152,16 @@ long CSceneObjFile::Init(const char *ptcsFileName, bool bSilence)
 	{
 		if (!bSilence)
 		{
-			_stprintf(tcsPrint, "%s %s", ptcsFileName, g_oLangRec.GetString(357));
-			MessageBox(nullptr, tcsPrint, g_oLangRec.GetString(25), 0);
+			_stprintf(tcsPrint, "%s %s", ptcsFileName, RES_STRING(CMISS_000357));
+			MessageBox(nullptr, tcsPrint, RES_STRING(CL_LANGUAGE_MATCH_25), 0);
 		}
 		lRet = 0;
 		goto end;
 	}
-	if (m_SFileHead.lVersion == OBJ_FILE_VER500) //ÐèÒª°æ±¾×ª»»
+	if (m_SFileHead.lVersion == OBJ_FILE_VER500) //ï¿½ï¿½Òªï¿½æ±¾×ªï¿½ï¿½
 	{
 		fclose(fFile);
-		if (ConvertObjFileVer(ptcsFileName) <= 0) //°æ±¾×ª»»Ê§°Ü
+		if (ConvertObjFileVer(ptcsFileName) <= 0) //ï¿½æ±¾×ªï¿½ï¿½Ê§ï¿½ï¿½
 		{
 			lRet = 0;
 			goto end;
@@ -172,8 +172,8 @@ long CSceneObjFile::Init(const char *ptcsFileName, bool bSilence)
 		{
 			if (!bSilence)
 			{
-				_stprintf(tcsPrint, "%s %s", ptcsFileName, g_oLangRec.GetString(358));
-				MessageBox(nullptr, tcsPrint, g_oLangRec.GetString(25), 0);
+				_stprintf(tcsPrint, "%s %s", ptcsFileName, RES_STRING(CL_LANGUAGE_MATCH_358));
+				MessageBox(nullptr, tcsPrint, RES_STRING(CL_LANGUAGE_MATCH_25), 0);
 			}
 			lRet = 0;
 			goto end;
@@ -188,8 +188,8 @@ long CSceneObjFile::Init(const char *ptcsFileName, bool bSilence)
 	{
 		if (!bSilence)
 		{
-			_stprintf(tcsPrint, "%s %s", ptcsFileName, g_oLangRec.GetString(340));
-			MessageBox(nullptr, tcsPrint, g_oLangRec.GetString(25), 0);
+			_stprintf(tcsPrint, "%s %s", ptcsFileName, RES_STRING(CMISS_000340));
+			MessageBox(nullptr, tcsPrint, RES_STRING(CL_LANGUAGE_MATCH_25), 0);
 		}
 		lRet = 0;
 		goto end;
@@ -212,8 +212,8 @@ long CSceneObjFile::Init(const char *ptcsFileName, bool bSilence)
 	{
 		if (!bSilence)
 		{
-			_stprintf(tcsPrint, "%s %s", ptcsFileName, g_oLangRec.GetString(339));
-			MessageBox(nullptr, tcsPrint, g_oLangRec.GetString(25), 0);
+			_stprintf(tcsPrint, "%s %s", ptcsFileName, RES_STRING(CMISS_000339));
+			MessageBox(nullptr, tcsPrint, RES_STRING(CL_LANGUAGE_MATCH_25), 0);
 		}
 		lRet = 0;
 		goto end;
@@ -228,8 +228,8 @@ long CSceneObjFile::Init(const char *ptcsFileName, bool bSilence)
 	{
 		if (!bSilence)
 		{
-			_stprintf(tcsPrint, "%s %s", ptcsFileName, g_oLangRec.GetString(359));
-			MessageBox(NULL, tcsPrint, g_oLangRec.GetString(25), 0);
+			_stprintf(tcsPrint, "%s %s", ptcsFileName, RES_STRING(CMISS_000359));
+			MessageBox(NULL, tcsPrint, RES_STRING(CL_LANGUAGE_MATCH_25), 0);
 		}
 		lRet = 0;
 		goto end;
@@ -323,7 +323,7 @@ long CSceneObjFile::CreateFile(const char* ptcsFileName,
 	return 1;
 }
 
-long CSceneObjFile::ConvertObjFileVer(const char* ptcsFileName, bool bBackUp) // ´Ó°æ±¾500×ª»»µ½600(Îï¼þµÄ¾ø¶Ô×ø±ê×ª»»³ÉÏà¶ÔsectionµÄÏà¶Ô×ø±ê)
+long CSceneObjFile::ConvertObjFileVer(const char* ptcsFileName, bool bBackUp) // ï¿½Ó°æ±¾500×ªï¿½ï¿½ï¿½ï¿½600(ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sectionï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 {
 	long			lRet = 2;
 	char			tcsBackUpName[_MAX_FNAME] = "";
@@ -351,19 +351,19 @@ long CSceneObjFile::ConvertObjFileVer(const char* ptcsFileName, bool bBackUp) //
 	}
 	if (i >= _MAX_FNAME - (long)_tcslen(ptcsFileName))
 	{
-		lRet = -1; // ½¨Á¢ÁÙÊ±ÎÄ¼þÊ§°Ü
+		lRet = -1; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ä¼ï¿½Ê§ï¿½ï¿½
 		goto end;
 	}
 	if (_trename(ptcsFileName, tcsBackUpName) != 0) // 
 	{
-		lRet = -2; // ÎÄ¼þÖØÃüÃûÊ§°Ü
+		lRet = -2; // ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
 		goto end;
 	}
 
 	fFileOld = _tfopen(tcsBackUpName, "rb");
 	if (fFileOld == NULL)
 	{
-		lRet = -3; // ´ò¿ªÔ´ÎÄ¼þÊ§°Ü
+		lRet = -3; // ï¿½ï¿½Ô´ï¿½Ä¼ï¿½Ê§ï¿½ï¿½
 		goto end;
 	}
 
@@ -373,7 +373,7 @@ long CSceneObjFile::ConvertObjFileVer(const char* ptcsFileName, bool bBackUp) //
 		fFileNew = _tfopen(ptcsFileName, "rb");
 	if (fFileNew == NULL)
 	{
-		lRet = -1; // ½¨Á¢ÐÂÎÄ¼þÊ§°Ü
+		lRet = -1; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Ê§ï¿½ï¿½
 		goto end;
 	}
 
@@ -381,20 +381,20 @@ long CSceneObjFile::ConvertObjFileVer(const char* ptcsFileName, bool bBackUp) //
 	ulFileSize = ftell(fFileOld);
 	fseek(fFileOld, 0, SEEK_SET);
 	fread(&SHead, sizeof(SFileHead), 1, fFileOld);
-	if (SHead.lVersion != OBJ_FILE_VER500) // ²»ÐèÒª×ª»»
+	if (SHead.lVersion != OBJ_FILE_VER500) // ï¿½ï¿½ï¿½ï¿½Òª×ªï¿½ï¿½
 	{
 		lRet = 1;
 		goto end;
 	}
 
-	_stprintf(tcsPrint, g_oLangRec.GetString(360), ptcsFileName);
-	MessageBox(NULL, tcsPrint, g_oLangRec.GetString(361), 0);
+	_stprintf(tcsPrint, RES_STRING(CL_LANGUAGE_MATCH_360), ptcsFileName);
+	MessageBox(NULL, tcsPrint, RES_STRING(CL_LANGUAGE_MATCH_499), 0);
 
 	lMaxSectionNum = SHead.iSectionCntX * SHead.iSectionCntY;
 	pSSectionIndex = new (SSectionIndex[lMaxSectionNum]);
 	if (pSSectionIndex == NULL)
 	{
-		lRet = -4; // ÄÚ´æ·ÖÅä´íÎó
+		lRet = -4; // ï¿½Ú´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		goto end;
 	}
 
@@ -411,7 +411,7 @@ long CSceneObjFile::ConvertObjFileVer(const char* ptcsFileName, bool bBackUp) //
 	int nSectionX, nSectionY;
 	for (i = 0; i < lMaxSectionNum && ulFileSize >= (unsigned long)ftell(fFileOld); i ++)
 	{
-	    if (pSSectionIndex[i].iObjNum > 0) //´æÔÚÓÐÐ§Êý¾Ý
+	    if (pSSectionIndex[i].iObjNum > 0) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½
 		{
 			fseek(fFileOld, pSSectionIndex[i].lObjInfoPos, SEEK_SET);
 			fread(pSObjInfo, sizeof(SSceneObjInfo) * SHead.iSectionObjNum, 1, fFileOld);
@@ -452,8 +452,8 @@ long CSceneObjFile::ConvertObjFileVer(const char* ptcsFileName, bool bBackUp) //
 end:
 	if (lRet == 2)
 	{
-		_stprintf(tcsPrint, g_oLangRec.GetString(362), ptcsFileName, tcsBackUpName);
-		MessageBox(NULL, tcsPrint, g_oLangRec.GetString(363), 0);
+		_stprintf(tcsPrint, RES_STRING(CL_LANGUAGE_MATCH_362), ptcsFileName, tcsBackUpName);
+		MessageBox(NULL, tcsPrint, RES_STRING(CL_LANGUAGE_MATCH_363), 0);
 	}
 	if (fFileOld)
 		fclose(fFileOld);
@@ -479,7 +479,7 @@ long CSceneObjFile::ReadSectionObjInfo(int nSectionNO, SSceneObjInfo *SSceneObj,
 		fseek(m_fRdWr, m_SSectionIndex[nSectionNO].lObjInfoPos, SEEK_SET);
         LG("readmap", "Seek Offset [%d %d] = %d\n", nSectionNO % m_SFileHead.iSectionCntX, nSectionNO / m_SFileHead.iSectionCntX, m_SSectionIndex[nSectionNO].lObjInfoPos);
         fread(SSceneObj, sizeof(SSceneObjInfo), m_SSectionIndex[nSectionNO].iObjNum, m_fRdWr);
-		// ×ª»»³É¾ø¶Ô×ø±ê
+		// ×ªï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		int nSectionX, nSectionY;
 		for (int i = 0; i < m_SSectionIndex[nSectionNO].iObjNum; i++)
 		{
@@ -494,7 +494,7 @@ long CSceneObjFile::ReadSectionObjInfo(int nSectionNO, SSceneObjInfo *SSceneObj,
 			SSceneObjInfo *pObj = (SSceneObj + i);
 			if(pObj->GetID()==0)
 			{
-				LG("error", g_oLangRec.GetString(364));
+				LG("error", RES_STRING(CMISS_000364));
 			}
 			
 		}
@@ -532,7 +532,7 @@ long CSceneObjFile::WriteSectionObjInfo(int nSectionNO, SSceneObjInfo *SSceneObj
 
 			fFile = m_fAppend;
 		}
-		// ×ª»»³ÉÏà¶Ô×ø±ê
+		// ×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		int nSectionX, nSectionY;
 		for (int j = 0; j < m_SSectionIndex[nSectionNO].iObjNum; j++)
 		{
@@ -542,7 +542,7 @@ long CSceneObjFile::WriteSectionObjInfo(int nSectionNO, SSceneObjInfo *SSceneObj
 			SSceneObj[j].nY -= nSectionY;
 		}
 		//
-		// Ð´ÈëobjÐÅÏ¢
+		// Ð´ï¿½ï¿½objï¿½ï¿½Ï¢
 		fwrite((const void *)SSceneObj, sizeof(SSceneObjInfo), m_SFileHead.iSectionObjNum, fFile);
 		fflush(fFile);
 	}
@@ -555,14 +555,14 @@ long CSceneObjFile::WriteSectionObjInfo(int nSectionNO, SSceneObjInfo *SSceneObj
 	fwrite((const void *)(m_SSectionIndex + nSectionNO), sizeof(SSectionIndex), 1, m_fRdWr);
 	fflush(m_fRdWr);
 
-	// ÁÙÊ±´úÂë¡£¡£¡£
+	// ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ë¡£ï¿½ï¿½ï¿½ï¿½
 	// 
 	long	lFileSize;
 	fseek(m_fRdWr, 0, SEEK_END);
 	lFileSize = ftell(m_fRdWr);
 	if (lFileSize != m_SFileHead.lFileSize)
 	{
-		MessageBox(nullptr, g_oLangRec.GetString(365), g_oLangRec.GetString(25), 0);
+		MessageBox(nullptr, RES_STRING(CMISS_000365), RES_STRING(CL_LANGUAGE_MATCH_25), 0);
 	}
 	//
 
@@ -597,19 +597,19 @@ long CSceneObjFile::TrimFile(const char* ptcsFileName, bool bBackUp)
 	}
 	if (i >= _MAX_FNAME - (long)_tcslen(ptcsFileName))
 	{
-		lRet = -1; // ½¨Á¢ÁÙÊ±ÎÄ¼þÊ§°Ü
+		lRet = -1; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ä¼ï¿½Ê§ï¿½ï¿½
 		goto end;
 	}
 	if (_trename(ptcsFileName, tcsBackUpName) != 0) // 
 	{
-		lRet = -2; // ÎÄ¼þÖØÃüÃûÊ§°Ü
+		lRet = -2; // ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
 		goto end;
 	}
 
 	fFileOld = _tfopen(tcsBackUpName, _TEXT("rb"));
 	if (fFileOld == NULL)
 	{
-		lRet = -3; // ´ò¿ªÎÄ¼þÊ§°Ü
+		lRet = -3; // ï¿½ï¿½ï¿½Ä¼ï¿½Ê§ï¿½ï¿½
 		goto end;
 	}
 
@@ -619,7 +619,7 @@ long CSceneObjFile::TrimFile(const char* ptcsFileName, bool bBackUp)
 		fFileNew = _tfopen(ptcsFileName, _TEXT("rb"));
 	if (fFileNew == NULL)
 	{
-		lRet = -3; // ´ò¿ªÎÄ¼þÊ§°Ü
+		lRet = -3; // ï¿½ï¿½ï¿½Ä¼ï¿½Ê§ï¿½ï¿½
 		goto end;
 	}
 
@@ -630,7 +630,7 @@ long CSceneObjFile::TrimFile(const char* ptcsFileName, bool bBackUp)
 	if (_tcscmp(SHead.tcsTitle, _TEXT("HF Object File!")) != 0
 		|| SHead.lVersion != OBJ_FILE_VER600)// || SHead.lFileSize != i)
 	{
-		lRet = -4; // Ô´ÎÄ¼þÒÑ±»ÆÆ»µ»ò°æ±¾´íÎó
+		lRet = -4; // Ô´ï¿½Ä¼ï¿½ï¿½Ñ±ï¿½ï¿½Æ»ï¿½ï¿½ï¿½æ±¾ï¿½ï¿½ï¿½ï¿½
 		goto end;
 	}
 
@@ -638,7 +638,7 @@ long CSceneObjFile::TrimFile(const char* ptcsFileName, bool bBackUp)
 	pSSectionIndex = new (SSectionIndex[lMaxSectionNum]);
 	if (pSSectionIndex == NULL)
 	{
-		lRet = -5; // ÄÚ´æ·ÖÅä´íÎó
+		lRet = -5; // ï¿½Ú´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		goto end;
 	}
 	fread((void *)pSSectionIndex, sizeof(SSectionIndex), lMaxSectionNum, fFileOld);
@@ -653,7 +653,7 @@ long CSceneObjFile::TrimFile(const char* ptcsFileName, bool bBackUp)
 
 	for (i = 0; i < lMaxSectionNum && ulFileSize >= (unsigned long)ftell(fFileOld); i ++)
 	{
-	    if (pSSectionIndex[i].iObjNum > 0) //´æÔÚÓÐÐ§Êý¾Ý
+	    if (pSSectionIndex[i].iObjNum > 0) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½
 		{
 			fseek(fFileOld, pSSectionIndex[i].lObjInfoPos, SEEK_SET);
 			fread(pszSectionInfo, sizeof(SSceneObjInfo) * SHead.iSectionObjNum, 1, fFileOld);
@@ -695,17 +695,17 @@ long CSceneObjFile::TrimDirectory(const char *ptcsDirectory, bool bBackUp)
 	char tcsFileName[_MAX_FNAME], tcsPath[_MAX_PATH];
 	size_t		lLen;
 	_finddata_t	c_file;
-	long		hFile;
+	intptr_t	hFile;
 	const char* ptcsRecordFile = "TrimRecord.txt";
 	FILE		*fRecord = NULL;
 	_timeb		tTimeBuffer;
 	_TCHAR			tcsPrint[256];
 
 	if (bBackUp)
-		_stprintf(tcsPrint, g_oLangRec.GetString(366), ptcsDirectory);
+		_stprintf(tcsPrint, RES_STRING(CL_LANGUAGE_MATCH_366), ptcsDirectory);
 	else
-		_stprintf(tcsPrint, g_oLangRec.GetString(367), ptcsDirectory);
-	if (IDYES != MessageBox(NULL, tcsPrint, g_oLangRec.GetString(361), MB_YESNO))
+		_stprintf(tcsPrint, RES_STRING(CL_LANGUAGE_MATCH_367), ptcsDirectory);
+	if (IDYES != MessageBox(NULL, tcsPrint, RES_STRING(CL_LANGUAGE_MATCH_499), MB_YESNO))
 		return 1;
 
 	lLen = _tcslen(ptcsDirectory);
@@ -724,10 +724,10 @@ long CSceneObjFile::TrimDirectory(const char *ptcsDirectory, bool bBackUp)
 	if (fRecord == NULL)
 		return 0;
 	_ftime(&tTimeBuffer);
-	_ftprintf(fRecord, g_oLangRec.GetString(368), _tctime(&tTimeBuffer.time));
+	_ftprintf(fRecord, RES_STRING(CL_LANGUAGE_MATCH_368), _tctime(&tTimeBuffer.time));
 
 	_stprintf(tcsFileName,"%s%s", tcsPath, "*.obj");
-	if( (hFile = (long)_tfindfirst(tcsFileName, &c_file)) == -1L )
+	if( (hFile = _tfindfirst(tcsFileName, &c_file)) == -1 )
 	{
 		fclose(fRecord);
 		return 1;
@@ -743,25 +743,25 @@ long CSceneObjFile::TrimDirectory(const char *ptcsDirectory, bool bBackUp)
 			switch (TrimFile(tcsFileName, bBackUp))
 			{
 			case	1:
-				_ftprintf(fRecord, g_oLangRec.GetString(369));
+				_ftprintf(fRecord, RES_STRING(CMISS_000369));
 				break;
 			case	-1:
-				_ftprintf(fRecord,g_oLangRec.GetString(370));
+				_ftprintf(fRecord,RES_STRING(CMISS_000370));
 				break;
 			case	-2:
-				_ftprintf(fRecord, g_oLangRec.GetString(371));
+				_ftprintf(fRecord, RES_STRING(CMISS_000371));
 				break;
 			case	-3:
-				_ftprintf(fRecord, g_oLangRec.GetString(372));
+				_ftprintf(fRecord, RES_STRING(CMISS_000372));
 				break;
 			case	-4:
-				_ftprintf(fRecord, g_oLangRec.GetString(373));
+				_ftprintf(fRecord, RES_STRING(CMISS_000373));
 				break;
 			case	-5:
-				_ftprintf(fRecord, g_oLangRec.GetString(374));
+				_ftprintf(fRecord, RES_STRING(CMISS_000374));
 				break;
 			default:
-				_ftprintf(fRecord, g_oLangRec.GetString(375));
+				_ftprintf(fRecord, RES_STRING(CL_LANGUAGE_MATCH_375));
 			}
 		}
 		while( _findnext( hFile, &c_file ) == 0 )
@@ -775,25 +775,25 @@ long CSceneObjFile::TrimDirectory(const char *ptcsDirectory, bool bBackUp)
 				switch (TrimFile(tcsFileName, bBackUp))
 				{
 				case	1:
-					_ftprintf(fRecord, g_oLangRec.GetString(369));
+					_ftprintf(fRecord, RES_STRING(CMISS_000369));
 					break;
 				case	-1:
-					_ftprintf(fRecord, g_oLangRec.GetString(370));
+					_ftprintf(fRecord, RES_STRING(CMISS_000370));
 					break;
 				case	-2:
-					_ftprintf(fRecord,g_oLangRec.GetString(371));
+					_ftprintf(fRecord,RES_STRING(CMISS_000371));
 					break;
 				case	-3:
-					_ftprintf(fRecord, g_oLangRec.GetString(372));
+					_ftprintf(fRecord, RES_STRING(CMISS_000372));
 					break;
 				case	-4:
-					_ftprintf(fRecord, g_oLangRec.GetString(373));
+					_ftprintf(fRecord, RES_STRING(CMISS_000373));
 					break;
 				case	-5:
-					_ftprintf(fRecord, g_oLangRec.GetString(374));
+					_ftprintf(fRecord, RES_STRING(CMISS_000374));
 					break;
 				default:
-					_ftprintf(fRecord, g_oLangRec.GetString(375));
+					_ftprintf(fRecord, RES_STRING(CL_LANGUAGE_MATCH_375));
 				}
 			}
 		}

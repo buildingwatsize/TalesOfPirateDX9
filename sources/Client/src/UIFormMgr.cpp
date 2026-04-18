@@ -142,7 +142,7 @@ bool CFormMgr::_AddMemory( CForm* form )
 	{
 		if( stricmp( form->GetName(), (*it)->GetName() )==0 )
 		{
-			LG("gui", g_oLangRec.GetString(574), form->GetName() );
+			LG("gui", RES_STRING(CMISS_000574), form->GetName() );
 			return false;
 		}
 	}
@@ -513,7 +513,7 @@ bool CFormMgr::OnHotKey( char key, int control )
 	return false;
 }
 
-bool CFormMgr::HandleWindowMsg(DWORD dwMsg, DWORD dwParam1, DWORD dwParam2)
+bool CFormMgr::HandleWindowMsg(UINT dwMsg, WPARAM dwParam1, LPARAM dwParam2)
 {
 	if( !_bEnabled ) return false;
 
@@ -890,7 +890,7 @@ void CFormMgr::ShowDebugInfo()
 
 	GetRender().FillFrame(0,16,600,27);
 	//CGuiFont::s_Font.Render("����ID       ��������      ��ʾ  ��ֹ          ����            ������        �ؼ���    ��",0,16,COLOR_WHITE);
-	CGuiFont::s_Font.Render(g_oLangRec.GetString(575),0,16,COLOR_WHITE);
+	CGuiFont::s_Font.Render(RES_STRING(CL_LANGUAGE_MATCH_575),0,16,COLOR_WHITE);
 	for( i=0;i<(int)_forms->size();i++ )
 	{
 		//pForm = *it;
@@ -945,7 +945,7 @@ void CFormMgr::ShowDebugInfo()
 	data5=(int)_show.size()+(int)_modal.size();	//��ǰģ����ʾ����
 	data6=(int)_modal.size();					//��ǰģ��ģ̬������
 	data7=(int)CGuiTime::_times.size();
-	sprintf(buf,g_oLangRec.GetString(576),data0,data1,data2,data3,data4,data5,data6,data7,totalTick);
+	sprintf(buf,RES_STRING(CMISS_000576),data0,data1,data2,data3,data4,data5,data6,data7,totalTick);
 	GetRender().FillFrame(0,0,CGuiFont::s_Font.GetWidth(buf),11);
 	CGuiFont::s_Font.Render(buf,0,0,COLOR_WHITE);
 	int help_sx=620;

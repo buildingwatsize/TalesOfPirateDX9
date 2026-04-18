@@ -26,6 +26,11 @@
 #define     INFO_STORE_BUY              2011    //  购买道具
 #define     INFO_EXCHANGE_MONEY         2012    //  兑换代币
 #define     INFO_REGISTER_VIP           2013    //  购买VIP
+
+// Add by lark.li 20090218 begin
+#define     INFO_STORE_BUY_RETURN       2014    //  购买道具失败退款
+// End
+
 #define     INFO_REQUEST_HISTORY        2021    //  获取交易记录
 #define     INFO_SND_GM_MAIL            4500    //  发送GM邮件
 #define     INFO_RCV_GM_MAIL            4501    //  收取GM回复

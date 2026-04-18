@@ -50,7 +50,7 @@ bool CMiniMapMgr::Init()
 	frmMinimap->evtEntrustMouseEvent = _MiniFormMouseEvent;
 
 	MinimatRect = dynamic_cast<CCompent*>(frmMinimap->Find( "imgMinimapRect" ));
-	if( !MinimatRect ) return Error(g_oLangRec.GetString(45), frmMinimap->GetName(), "imgMinimapRect");
+	if( !MinimatRect ) return Error(RES_STRING(CMISS_000045), frmMinimap->GetName(), "imgMinimapRect");
 
 	char szName[32] = { 0 };
 	for( int i=0; i<MAP_POS_MAX; i++ )
@@ -58,18 +58,18 @@ bool CMiniMapMgr::Init()
 		sprintf( szName, "labMapPos%d", i );
 
 		labMapPosRand[i] = dynamic_cast<CLabelEx*>(frmMinimap->Find( szName )); //��ͼ���� 
-		if( !labMapPosRand[i] ) return Error(g_oLangRec.GetString(45), frmMinimap->GetName(), szName);
+		if( !labMapPosRand[i] ) return Error(RES_STRING(CMISS_000045), frmMinimap->GetName(), szName);
 	}
 	//labMapPos = dynamic_cast<CLabelEx*>(frmMinimap->Find( "labMapPos" )); //��ͼ���� 
 	//if( !labMapPos ) return Error("msgui.clu����<%s>���Ҳ����ؼ�<%s>", frmMinimap->GetName(), "labMapPos");
 	labMapPos = labMapPosRand[0];
 	
 	labMapName = dynamic_cast<CLabelEx*>(frmMinimap->Find( "labMapName" ));   //��ͼ����
-	if( !labMapName ) return Error(g_oLangRec.GetString(45), frmMinimap->GetName(), "labMapName");
+	if( !labMapName ) return Error(RES_STRING(CMISS_000045), frmMinimap->GetName(), "labMapName");
 
 	//server timer
 	labClock = dynamic_cast<CLabelEx*>(frmMinimap->Find("labClock"));
-	if (!labClock) return Error(g_oLangRec.GetString(45), frmMinimap->GetName(), "labClock");
+	if (!labClock) return Error(RES_STRING(CMISS_000045), frmMinimap->GetName(), "labClock");
 		
 	// ���ͼ
 	frmBigmap =  _FindForm("frmBigmap");
@@ -79,7 +79,7 @@ bool CMiniMapMgr::Init()
 	frmBigmap->evtHide = _evtHidebigmap;
 
 	d3dBigmap = dynamic_cast<C3DCompent*>(frmBigmap->Find( "d3dCompent" ));
-	if( !d3dBigmap )  return Error(g_oLangRec.GetString(45), frmBigmap->GetName(), "d3dCompent");
+	if( !d3dBigmap )  return Error(RES_STRING(CMISS_000045), frmBigmap->GetName(), "d3dCompent");
 	d3dBigmap->SetRenderEvent( _RenderBigmapEvent );
 
 
@@ -132,17 +132,17 @@ bool CMiniMapMgr::Init()
 	frmRadar->evtBeforeShow = _RadarFormBeforeShowEvent;
 
 	edtX = dynamic_cast<CEdit *>(frmRadar->Find("edtLeft"));
-	if( !edtX ) return Error(g_oLangRec.GetString(719), frmRadar->GetName(), "edtLeft");
+	if( !edtX ) return Error(RES_STRING(CMISS_000719), frmRadar->GetName(), "edtLeft");
 	edtX->SetIsDigit(true);
 	edtX->evtEnter = _evtRadarEnter;
 
 	edtY = dynamic_cast<CEdit *>(frmRadar->Find("edtRight"));
-	if( !edtY ) return Error(g_oLangRec.GetString(719), frmRadar->GetName(), "edtRight");
+	if( !edtY ) return Error(RES_STRING(CMISS_000719), frmRadar->GetName(), "edtRight");
 	edtY->SetIsDigit(true);
 	edtY->evtEnter = _evtRadarEnter;
 
 	cboAddr = dynamic_cast<CCombo *>(frmRadar->Find("cboMap"));
-	if (!cboAddr) return Error(g_oLangRec.GetString(719), frmRadar->GetName(), "cboMap");
+	if (!cboAddr) return Error(RES_STRING(CMISS_000719), frmRadar->GetName(), "cboMap");
 
 	btnPosSearch  = dynamic_cast<CTextButton*>(frmMinimap->Find("btnPosSearch"));
 	if(!btnPosSearch) return false;
@@ -153,10 +153,10 @@ bool CMiniMapMgr::Init()
 	//----------------------------Daily buff Start------------------------------------//
 	//daily buff form 
 	if (DailyBuffFrm = _FindForm("DailyBuffFrm"); !DailyBuffFrm)
-		return Error(g_oLangRec.GetString(45), "DailyBuffFrm", "DailyBuffFrm");
-	if (DailyBufInfo = dynamic_cast<CLabelEx*>(DailyBuffFrm->Find("DailyBufInfo")); !DailyBufInfo) return Error(g_oLangRec.GetString(45), DailyBuffFrm->GetName(), "DailyBufInfo");
+		return Error(RES_STRING(CMISS_000045), "DailyBuffFrm", "DailyBuffFrm");
+	if (DailyBufInfo = dynamic_cast<CLabelEx*>(DailyBuffFrm->Find("DailyBufInfo")); !DailyBufInfo) return Error(RES_STRING(CMISS_000045), DailyBuffFrm->GetName(), "DailyBufInfo");
 
-	if (DBufImageType = dynamic_cast<CImage*>(DailyBuffFrm->Find("DBufImageType")); !DBufImageType)return Error(g_oLangRec.GetString(45), DailyBuffFrm->GetName(), "DBufImageType");
+	if (DBufImageType = dynamic_cast<CImage*>(DailyBuffFrm->Find("DBufImageType")); !DBufImageType)return Error(RES_STRING(CMISS_000045), DailyBuffFrm->GetName(), "DBufImageType");
 
 	//------------------------Daily buff end ----------------------------------------//
 	return true;	
@@ -266,8 +266,7 @@ void CMiniMapMgr::SetClockStringClientSide()
 	struct std::tm* ptm;
 	ptm = gmtime(&rawtime);
 	static char buf[26];
-	const int UTC = (+8);
-	ptm->tm_hour = (ptm->tm_hour + UTC) % 24;
+	ptm->tm_hour = (ptm->tm_hour + 7) % 24; // GMT+7 (BKK)
 	std::strftime(buf, sizeof(buf), "%T", ptm);
 	labClock->SetCaption(buf);
 	tServerTime = mktime(ptm);
@@ -462,14 +461,14 @@ void CMiniMapMgr::ShowRadar(const char * szX, const char * szY)
 {
 	if (CHECK_FAILED(CheckCoordinateEdit(szX)))
 	{
-		g_pGameApp->MsgBox(g_oLangRec.GetString(720));
+		g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_720));
 		edtX->SetCaption("");
 		edtX->SetActive(edtX);
 		return;
 	}
 	if (CHECK_FAILED(CheckCoordinateEdit(szY)))
 	{
-		g_pGameApp->MsgBox(g_oLangRec.GetString(720));
+		g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_720));
 		edtY->SetCaption("");
 		edtY->SetActive(edtY);
 		return;
@@ -480,11 +479,11 @@ void CMiniMapMgr::ShowRadar(const char * szX, const char * szY)
 
 	const char* _strName = g_pGameApp->GetCurScene()->GetTerrainName();
 	if(strcmp(_strName,"garner") == 0)
-		_strName = g_oLangRec.GetString(56);
+		_strName = RES_STRING(CL_LANGUAGE_MATCH_56);
 	else if(strcmp(_strName,"magicsea") == 0)
-		_strName = g_oLangRec.GetString(58);
+		_strName = RES_STRING(CL_LANGUAGE_MATCH_58);
 	else if(strcmp(_strName,"darkblue") == 0)
-		_strName = g_oLangRec.GetString(59);
+		_strName = RES_STRING(CMISS_000059);
 	else if( strcmp( _strName, "winterland" ) == 0 )
 		_strName = "Winter Isle Archipelago";
 	else if( strcmp( _strName, "jialebi" ) == 0 )
@@ -525,14 +524,14 @@ void CMiniMapMgr::ShowRadar()
 	const char * szY = edtY->GetCaption();
 	if (CHECK_FAILED(CheckCoordinateEdit(szX)))
 	{
-		g_pGameApp->MsgBox(g_oLangRec.GetString(720));
+		g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_720));
 		edtX->SetCaption("");
 		edtX->SetActive(edtX);
 		return;
 	}
 	if (CHECK_FAILED(CheckCoordinateEdit(szY)))
 	{
-		g_pGameApp->MsgBox(g_oLangRec.GetString(720));
+		g_pGameApp->MsgBox(RES_STRING(CL_LANGUAGE_MATCH_720));
 		edtY->SetCaption("");
 		edtY->SetActive(edtY);
 		return;
@@ -604,7 +603,7 @@ void CMiniMapMgr::CloseRadar()
 bool CMiniMapMgr::IsPKSilver()
 {
 	return false; // Disables blind CA.
-	if(0 == strcmp(GetMapName(), g_oLangRec.GetString(900))) // �Ҷ������� //"������"))
+	if(0 == strcmp(GetMapName(), RES_STRING(CMISS_000900))) // �Ҷ������� //"������"))
 		return true;
 
 	return false;
@@ -612,7 +611,7 @@ bool CMiniMapMgr::IsPKSilver()
 
 bool CMiniMapMgr::IsGuildWar()
 {
-	if(0 == strcmp(GetMapName(), g_oLangRec.GetString(934)) || 0 == strcmp(GetMapName(), g_oLangRec.GetString(934)))	// "ʥս" "Сʥս"
+	if(0 == strcmp(GetMapName(), RES_STRING(CL_LANGUAGE_MATCH_934)) || 0 == strcmp(GetMapName(), RES_STRING(CL_LANGUAGE_MATCH_934)))	// "ʥս" "Сʥս"
 		return true;
 
 	return false;

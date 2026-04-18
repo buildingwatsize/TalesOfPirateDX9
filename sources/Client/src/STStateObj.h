@@ -9,18 +9,18 @@ class CMoveList;
 class CActor;
 class CCharacter;
 
-// ¶¯×÷»ùÀà
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 class CActionState
 {
 	friend class CActor;
 public:
     CActionState(CActor* p);
 
-    void Start();								// ¿ªÊ¼Ö´ÐÐ
+    void Start();								// ï¿½ï¿½Ê¼Ö´ï¿½ï¿½
 
-	virtual void PushPoint( int x, int y ){}					// ÓÃÓÚ¿ÉÄÜÓÐÒÆ¶¯µãµÄÅÉÉúÀà
-	virtual void ServerEnd(int nState)      { _IsOver = true;	}	// ÉèÖÃ·þÎñÆ÷Í¨¸æÖ´ÐÐÍê±Ï
-	virtual void MoveEnd(int x, int y, int nState)	{ _IsOver = true;	}	// ¶ÔÓÚÓÐÒÆ¶¯µÄAction£¬½ö½áÊøÒÆ¶¯
+	virtual void PushPoint( int x, int y ){}					// ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	virtual void ServerEnd(int nState)      { _IsOver = true;	}	// ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½
+	virtual void MoveEnd(int x, int y, int nState)	{ _IsOver = true;	}	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½Actionï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
     virtual void SetServerID( int n );
     virtual void Cancel();
 	virtual void MouseRightDown(){}
@@ -33,12 +33,12 @@ public:
 
 	CActor* GetActor() 			{ return _pActor;	}
 
-	bool	GetIsOver()			{ return _IsOver;	}			// Ö´ÐÐÍêÊ£Óà¶¯×÷,¶¯×÷¾ÍÍê±ÏÁË
-	bool	GetIsExecEnd()		{ return _isExecEnd;}			// ¶¯×÷ÒÑ¾­È«²¿Ö´ÐÐÍê±Ï,(·þÎñÆ÷ÒÑÍ¨¸æÖ´ÐÐÍê±Ï)
-	bool	GetIsCancel()		{ return _IsCancel;	}			// Õâ¸ö¶¯×÷ÒÑ¾­±»Íæ¼ÒÈ¡Ïûµô		
+	bool	GetIsOver()			{ return _IsOver;	}			// Ö´ï¿½ï¿½ï¿½ï¿½Ê£ï¿½à¶¯ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	bool	GetIsExecEnd()		{ return _isExecEnd;}			// ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½È«ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½,(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½)
+	bool	GetIsCancel()		{ return _IsCancel;	}			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½		
 	bool	GetIsWait()			{ return _isWait;	}
 
-	// Õâ¸ö¶¯×÷ÎªÆäËü¶¯×÷µÄ×ÓÀà,×¢:ÔÚCActorÖÐ²»ÖªµÀÕâ¸ö¶¯×÷
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,×¢:ï¿½ï¿½CActorï¿½Ð²ï¿½Öªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     void			SetParent( CActionState* p ){ _pParent=p;		}	
 	CActionState*	GetParent()				{ return _pParent;		}
 
@@ -57,19 +57,19 @@ protected:
     virtual void ActionFrame( DWORD pose_id, int key_frame ) {}	
     virtual void ActionEnd( DWORD pose_id )	{}
     virtual void BeforeNewState(){}
-    virtual bool IsKeepPose()       { return false;     }       // ¶¯×÷Ö´ÐÐÍê³Éºó,ÊÇ·ñ»Ø¸´µ½¿ÕÏÐ×´Ì¬
+    virtual bool IsKeepPose()       { return false;     }       // ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½Éºï¿½,ï¿½Ç·ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
     virtual bool IsAllowUse()       { return true;      }
 	virtual void StartFailed()		{}
 
 	virtual bool	_Start()		{ return true;		}
-	virtual void	_End()			{}          // Ö´ÐÐ½áÊø
-    virtual bool    _IsAllowCancel();			// ÊÇ·ñ¿ÉÒÔ±»Cancelµô±¾×´Ì¬
+	virtual void	_End()			{}          // Ö´ï¿½Ð½ï¿½ï¿½ï¿½
+    virtual bool    _IsAllowCancel();			// ï¿½Ç·ï¿½ï¿½ï¿½Ô±ï¿½Cancelï¿½ï¿½ï¿½ï¿½×´Ì¬
 
 	bool			_AllowCancel()		{ return !_isWait && !_IsCancel && !_IsOver;	}
 
 private:
 	void			SetIsWait( bool v )		    { _isWait=v;		}
-    void			_StartFailed();		// ¿ªÊ¼Ê±Ê§°ÜÊ±µ÷ÓÃ
+    void			_StartFailed();		// ï¿½ï¿½Ê¼Ê±Ê§ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 
 protected:
 	bool	_IsCancel;		
@@ -81,13 +81,13 @@ private:
 	CActor			*_pActor;
 	CActionState	*_pParent;
 
-	bool	_isWait;			// Îªtrue,·ÅÔÚActorµÄ¶ÓÁÐÖÐ,²»Á¢¼´Ö´ÐÐ,¼´IsAllowStart()·µ»Øfalse
+	bool	_isWait;			// Îªtrue,ï¿½ï¿½ï¿½ï¿½Actorï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½,ï¿½ï¿½IsAllowStart()ï¿½ï¿½ï¿½ï¿½false
 	bool	_isExecEnd;
 	bool	_IsInit;
 
 };
 
-// ActorÒªÒÆ¶¯µÄÁÐ±í
+// ActorÒªï¿½Æ¶ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
 class CMoveList
 {
 public:
@@ -110,7 +110,7 @@ private:
 
 };
 
-// ÄÚÁªº¯Êý
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 inline void CActionState::SetServerID( int n )
 {
     if( _nServerID==INT_MAX )
@@ -119,7 +119,7 @@ inline void CActionState::SetServerID( int n )
     }
     else
     {
-        LG( "state", g_oLangRec.GetString(409), GetExplain(), n );
+        LG( "state", RES_STRING(CMISS_000409), GetExplain(), n );
     }
 }
 

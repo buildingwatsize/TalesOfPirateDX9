@@ -50,7 +50,7 @@ BOOL CSceneItem::_Create(int nObjTypeID,int nType)
     _pItemInfo = GetItemRecordInfo( nObjTypeID );
 	if( _pItemInfo==NULL ) 
     {
-        LG("error", g_oLangRec.GetString(349), nObjTypeID);
+        LG("error", RES_STRING(CL_LANGUAGE_MATCH_349), nObjTypeID);
         return FALSE;
     }
 
@@ -59,7 +59,7 @@ BOOL CSceneItem::_Create(int nObjTypeID,int nType)
 	
     if(Load( str ) == 0)
     {
-		LG("error",g_oLangRec.GetString(350), nObjTypeID, _pItemInfo->szName, str);
+		LG("error",RES_STRING(CL_LANGUAGE_MATCH_350), nObjTypeID, _pItemInfo->szName, str);
 		return FALSE;
     }
 
@@ -300,7 +300,7 @@ void CSceneItem::FrameMove(DWORD dwTimeParam)
 	{
 		if( _nCharacterID == -1 )
 		{			
-			// ¸üÐÂ¸ß¶È
+			// ï¿½ï¿½ï¿½Â¸ß¶ï¿½
 			if( _pSceneHeight->FrameMove(dwTimeParam) )
 			{
                 _UpdatePos();			
@@ -330,7 +330,7 @@ void CSceneItem::FrameMove(DWORD dwTimeParam)
 	//	_pCurScene->HandleSceneMsg(SCENEMSG_SCENEOBJ_DESTROY,_nEffID,getID());
 
     // by lsh
-    // ×¢Òâ£¬ÕâÀïµÄFrameMove±ØÐè·ÅÔÚ×îºóµ÷ÓÃ£¬·ñÔò»áÓÐÎ»ÖÃÎó²î
+    // ×¢ï¿½â£¬ï¿½ï¿½ï¿½ï¿½ï¿½FrameMoveï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½
 	MPSceneItem::FrameMove();	
 }
 
@@ -432,7 +432,7 @@ void CSceneItem::SetForgeEffect( DWORD value, int nCharID )
 	{
 		LitUnresetTexture();
 
-		// Ð¶ÏÂ				
+		// Ð¶ï¿½ï¿½				
 		int nCount = GetEffectNum();
 		CEffectObj* pEffect = NULL;
 		for( int i=0; i<nCount; i++ )
@@ -453,11 +453,11 @@ void CSceneItem::SetForgeEffect( DWORD value, int nCharID )
 
 	CSceneItem* pItem = this;
 	if( pInfo->nLightID!=0 )
-		pItem->LitResetTexture( pInfo->nLightID, Level );		// ¼ÓÔØÁ÷¹â
+		pItem->LitResetTexture( pInfo->nLightID, Level );		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	else
 		pItem->LitUnresetTexture();
 
-	// ÏÈÈ¡ÏûÖ®Ç°µÄÌØÐ§
+	// ï¿½ï¿½È¡ï¿½ï¿½Ö®Ç°ï¿½ï¿½ï¿½ï¿½Ð§
 	int nCount = pItem->GetEffectNum();
 	CEffectObj	*pEffect = NULL;
 	for( int i=0; i<nCount; i++ )
@@ -481,7 +481,7 @@ void CSceneItem::SetForgeEffect( DWORD value, int nCharID )
 			continue;
 		}
 
-		// Ê¹ÓÃµÀ¾ß±íÀïµÄdummy
+		// Ê¹ï¿½Ãµï¿½ï¿½ß±ï¿½ï¿½ï¿½ï¿½dummy
 		if( !pEffect->Create( nEffectID ) )
 		{
 			LG("ERROR","msgSceneItem SetForgeEffect effect fail,ID %d", nEffectID );

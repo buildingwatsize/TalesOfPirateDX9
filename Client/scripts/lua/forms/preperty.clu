@@ -46,18 +46,18 @@ UI_LoadImage( imgBakName, "texture/ui/SystemBotton3.tga", NORMAL, 129, 13, 0, 22
 
 labStateName = UI_CreateCompent( frmState, LABELEX_TYPE, "labStateName", 96, 11, 49, 23 )
 UI_SetCaption( labStateName, "Child of Demon what is that" )
-UI_SetTextColor( labStateName, COLOR_BLACK )
-UI_SetLabelExFont( labStateName, DEFAULT_FONT, TRUE, COLOR_WHITE )
+UI_SetTextColor( labStateName, COLOR_WHITE )
+UI_SetLabelExFont( labStateName, DEFAULT_FONT, TRUE, COLOR_BLACK )
 
 labStateJob = UI_CreateCompent( frmState, LABELEX_TYPE, "labStateJob", 47, 11, 90, 46 )
 --UI_SetCaption( labStateJob, "Warrior" )
-UI_SetTextColor( labStateJob, COLOR_BLACK )
-UI_SetLabelExFont( labStateJob, DEFAULT_FONT, TRUE, COLOR_WHITE )
+UI_SetTextColor( labStateJob, COLOR_WHITE )
+UI_SetLabelExFont( labStateJob, DEFAULT_FONT, TRUE, COLOR_BLACK )
 
 labStateGuid = UI_CreateCompent( frmState, LABELEX_TYPE, "labStateGuid", 128, 11, 69, 60 )
 --UI_SetCaption( labStateGuid, "game developer" )
-UI_SetTextColor( labStateGuid, COLOR_BLACK )
-UI_SetLabelExFont( labStateGuid, DEFAULT_FONT, TRUE, COLOR_WHITE )
+UI_SetTextColor( labStateGuid, COLOR_WHITE )
+UI_SetLabelExFont( labStateGuid, DEFAULT_FONT, TRUE, COLOR_BLACK )
 
 labStateLevel  = UI_CreateCompent( frmState, LABELEX_TYPE, "labStateLevel", 22, 10, 40, 77 )
 UI_SetCaption( labStateLevel, "22" )
@@ -137,7 +137,7 @@ UI_SetCaption( labStashow, "9527" )
 UI_SetTextColor( labStashow, COLOR_PURPLE )
 UI_SetLabelExFont( labStashow, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
---创建专注栏
+--
 btnDex = UI_CreateCompent( frmState, BUTTON_TYPE, "btnDex", 10, 11, 87, 211 )
 UI_LoadButtonImage( btnDex, "texture/ui/PublicC.tga", 10, 11, 195, 238, TRUE )
 UI_SetHint( btnDex, "Accuracy increases Range attack power and Hit Rate" )
@@ -147,13 +147,13 @@ UI_SetCaption( labDexshow, "9527" )
 UI_SetTextColor( labDexshow, COLOR_PURPLE )
 UI_SetLabelExFont( labDexshow, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
---创建最小攻击
+--
 labMinAtackShow  = UI_CreateCompent( frmState, LABELEX_TYPE, "labMinAtackShow", 22, 8, 75, 248 )
 UI_SetCaption( labMinAtackShow, "95278" )
 UI_SetTextColor( labMinAtackShow, COLOR_PURPLE )
 UI_SetLabelExFont( labMinAtackShow, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
---创建最大攻击
+--
 labMaxAtackShow  = UI_CreateCompent( frmState, LABELEX_TYPE, "labMaxAtackShow", 22, 8, 159, 248 )
 UI_SetCaption( labMaxAtackShow, "95278" )
 UI_SetTextColor( labMaxAtackShow, COLOR_PURPLE )

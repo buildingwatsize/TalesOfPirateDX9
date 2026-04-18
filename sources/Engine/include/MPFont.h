@@ -302,6 +302,7 @@ public:
 #endif
 	void BindingRes(CMPResManger* pResMagr);
 
+	void ApplyFontRenderStates();
 	void Begin();
 	void Draw(char* szText, int x, int y, D3DXCOLOR color);
 	void End();
@@ -337,6 +338,7 @@ public:
 
 private:
 	bool  TextToTexture( char c1, char c2, float & tX, float & tY );
+	bool  TextClusterToTexture( const char* cluster, int len, float & tX, float & tY );
 
 	void FillTextToTex( char* szText );
 

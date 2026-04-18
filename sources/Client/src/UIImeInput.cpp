@@ -53,7 +53,7 @@ bool CImeInput::HandleWindowMsg(DWORD dwMsg, WPARAM wParam, LPARAM lParam)
 
 	switch (dwMsg)
 	{
-	case WM_INPUTLANGCHANGEREQUEST:		// ÇÐ»»ÊäÈë·¨
+	case WM_INPUTLANGCHANGEREQUEST:		// ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ë·¨
     case WM_INPUTLANGCHANGE:
 		{
 			int len = ImmGetDescription((HKL)lParam, 0, 0);
@@ -71,7 +71,7 @@ bool CImeInput::HandleWindowMsg(DWORD dwMsg, WPARAM wParam, LPARAM lParam)
 			else
 			{
 				_bIsShow = false;
-				strcpy( _strImmName, g_oLangRec.GetString(622));
+				strcpy( _strImmName, RES_STRING(CL_LANGUAGE_MATCH_622));
 			}
             return true;
 		}
@@ -81,7 +81,7 @@ bool CImeInput::HandleWindowMsg(DWORD dwMsg, WPARAM wParam, LPARAM lParam)
             return true;
         }
         break;
-	case WM_IME_COMPOSITION:                // ×é×Ö×´Ì¬±ä»¯
+	case WM_IME_COMPOSITION:                // ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ä»¯
 		{
 			_GetCompositionString( _strComposition, GCS_COMPSTR);
             return true;
@@ -159,7 +159,7 @@ bool CImeInput::_GetCandidateList()
 			{
 				ImmGetCandidateList(_hImc,0x0,_pList,dwSize);
 
-				// Éú³ÉºîÑ¡×Ö·û´®
+				// ï¿½ï¿½ï¿½Éºï¿½Ñ¡ï¿½Ö·ï¿½ï¿½ï¿½
 				static char temp[256] = { 0 };
 				_strCandidate[0]=0;
 				if( !_pList->dwPageStart )
@@ -193,7 +193,7 @@ bool CImeInput::_GetConversion()
     if(_lConversion & 0x01)
     {
         _strInput[0] = '[';
-        strncpy(&_strInput[1], "ÖÐ", 2);
+        strncpy(&_strInput[1], "ï¿½ï¿½", 2);
         _strInput[3] = ']';
         _strInput[4] = 0;
     }
@@ -214,14 +214,14 @@ bool CImeInput::_GetConversion()
     else
     {
         _strSBC[0] = '[';
-        strncpy(&_strSBC[1], "°ë", 2);
+        strncpy(&_strSBC[1], "ï¿½ï¿½", 2);
         _strSBC[3] = ']';
         _strSBC[4] = 0;
     }
     if(_lConversion & 0x400)
     {
         _strInterpunction[0] = '[';
-        strncpy(&_strInterpunction[1], "¡££¬", 4);
+        strncpy(&_strInterpunction[1], "ï¿½ï¿½ï¿½ï¿½", 4);
         _strInterpunction[5] = ']';
         _strInterpunction[6] = 0;
     }

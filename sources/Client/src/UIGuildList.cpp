@@ -21,12 +21,12 @@ CTextButton* CUIGuildList::m_pGuildApplyBtn=NULL;
 CLabelEx* CUIGuildList::m_pGuildNavyLab=NULL;
 CImage*	CUIGuildList::m_pGuildNavyImg=NULL;
 //CImage*	CUIGuildList::m_pGuildNavyImg1=NULL;
-//CImage*	CUIGuildList::m_pGuildNavyImg2=NULL;	// ÐÞ¸Ä³É Label ÁË
+//CImage*	CUIGuildList::m_pGuildNavyImg2=NULL;	// ï¿½Þ¸Ä³ï¿½ Label ï¿½ï¿½
 CImage*	CUIGuildList::m_pGuildNavyImg3=NULL;
 CImage*	CUIGuildList::m_pGuildNavyImg4=NULL;
 CImage*	CUIGuildList::m_pGuildPirateImg=NULL;
 //CImage*	CUIGuildList::m_pGuildPirateImg1=NULL;
-//CImage*	CUIGuildList::m_pGuildPirateImg2=NULL;	// ÐÞ¸Ä³É Label ÁË
+//CImage*	CUIGuildList::m_pGuildPirateImg2=NULL;	// ï¿½Þ¸Ä³ï¿½ Label ï¿½ï¿½
 CImage*	CUIGuildList::m_pGuildPirateImg3=NULL;
 CImage*	CUIGuildList::m_pGuildPirateImg4=NULL;
 
@@ -64,12 +64,12 @@ bool CUIGuildList::Init()
 	FORM_CONTROL_LOADING_CHECK(m_pGuildNavyLab,m_pGuildListForm,CLabelEx,"npc.clu","labInfoJ");
 	FORM_CONTROL_LOADING_CHECK(m_pGuildNavyImg,m_pGuildListForm,CImage,"npc.clu","imgName1");
 	//FORM_CONTROL_LOADING_CHECK(m_pGuildNavyImg1,m_pGuildListForm,CImage,"npc.clu","imgbackJ");
-	//FORM_CONTROL_LOADING_CHECK(m_pGuildNavyImg2,m_pGuildListForm,CImage,"npc.clu","imgTitleJ");	// ÐÞ¸Ä³É Label ÁË
+	//FORM_CONTROL_LOADING_CHECK(m_pGuildNavyImg2,m_pGuildListForm,CImage,"npc.clu","imgTitleJ");	// ï¿½Þ¸Ä³ï¿½ Label ï¿½ï¿½
 	FORM_CONTROL_LOADING_CHECK(m_pGuildNavyImg3,m_pGuildListForm,CImage,"npc.clu","imgBakAskH");
 	FORM_CONTROL_LOADING_CHECK(m_pGuildNavyImg4,m_pGuildListForm,CImage,"npc.clu","imgBakAskH1");
 	FORM_CONTROL_LOADING_CHECK(m_pGuildPirateImg,m_pGuildListForm,CImage,"npc.clu","imgName2");
 	//FORM_CONTROL_LOADING_CHECK(m_pGuildPirateImg1,m_pGuildListForm,CImage,"npc.clu","imgbackD");
-	//FORM_CONTROL_LOADING_CHECK(m_pGuildPirateImg2,m_pGuildListForm,CImage,"npc.clu","imgTitleD");	// ÐÞ¸Ä³É Label ÁË
+	//FORM_CONTROL_LOADING_CHECK(m_pGuildPirateImg2,m_pGuildListForm,CImage,"npc.clu","imgTitleD");	// ï¿½Þ¸Ä³ï¿½ Label ï¿½ï¿½
 	FORM_CONTROL_LOADING_CHECK(m_pGuildPirateImg3,m_pGuildListForm,CImage,"npc.clu","imgBakAsk");
 	FORM_CONTROL_LOADING_CHECK(m_pGuildPirateImg4,m_pGuildListForm,CImage,"npc.clu","imgBakAsk1");
 
@@ -106,13 +106,13 @@ void CUIGuildList::ShowGuildList()
 
 	m_pGuildPirateImg->SetIsShow(true);
 	//m_pGuildPirateImg1->SetIsShow(true);
-	//m_pGuildPirateImg2->SetIsShow(true);	// ÐÞ¸Ä³É Label ÁË
+	//m_pGuildPirateImg2->SetIsShow(true);	// ï¿½Þ¸Ä³ï¿½ Label ï¿½ï¿½
 	m_pGuildPirateImg3->SetIsShow(true);
 	m_pGuildPirateImg4->SetIsShow(true);
 	m_pGuildNavyLab->SetIsShow(false);
 	m_pGuildNavyImg->SetIsShow(false);
 	//m_pGuildNavyImg1->SetIsShow(false);
-	//m_pGuildNavyImg2->SetIsShow(false);	// ÐÞ¸Ä³É Label ÁË
+	//m_pGuildNavyImg2->SetIsShow(false);	// ï¿½Þ¸Ä³ï¿½ Label ï¿½ï¿½
 	m_pGuildNavyImg3->SetIsShow(false);
 	m_pGuildNavyImg4->SetIsShow(false);
 
@@ -178,7 +178,7 @@ void CUIGuildList::OnClickApply(CGuiData *pSender, int x, int y, DWORD key)
 
 void CUIGuildList::OnMsgReplaceApply(string strOldGuildName)
 {
-	string str=g_oLangRec.GetString(593)+strOldGuildName;
+	string str=RES_STRING(CL_LANGUAGE_MATCH_593)+strOldGuildName;
 	CBoxMgr::ShowSelectBox( OnMsgReplaceApplySelectClick, str.c_str(), true );
 }
 

@@ -21,53 +21,54 @@
 
 _DBC_USING
 
-const short g_sLiveSkillNeedItemNum[4] = {6,4,6,6};
+const short g_sLiveSkillNeedItemNum[4] = { 6,4,6,6 };
 extern std::string g_strLogName;
 //----------------------------------------------------------
 //                    所有网络消息的处理
 //----------------------------------------------------------
 void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
-{T_B
-	switch (usCmd)
-	{
-	case CMD_CM_RANK:{
-		DWORD COOLDOWN = GetTickCount();
-		if (ShowRankColD > COOLDOWN)
+{
+	T_B
+		switch (usCmd)
 		{
-			BickerNotice("Please Calm Down Don't Spam! ");
-			return;
-		}		
-		game_db.ShowExpRank(GetPlyMainCha(), 50);
-		break;
-	}
-	case CMD_CM_STALLSEARCH:{
-		Long	itemID = READ_LONG(pk);
-		g_StallSystem.SearchItem(*this, itemID);
-		break;
-	}
-	case CMD_PM_GUILDBANK:{
-		Char bankType = READ_CHAR(pk);
+		case CMD_CM_RANK: {
+			DWORD COOLDOWN = GetTickCount();
+			if (ShowRankColD > COOLDOWN)
+			{
+				BickerNotice("Please Calm Down Don't Spam! ");
+				return;
+			}
+			game_db.ShowExpRank(GetPlyMainCha(), 50);
+			break;
+		}
+		case CMD_CM_STALLSEARCH: {
+			Long	itemID = READ_LONG(pk);
+			g_StallSystem.SearchItem(*this, itemID);
+			break;
+		}
+		case CMD_PM_GUILDBANK: {
+			Char bankType = READ_CHAR(pk);
 
-		//add cooldown for guild banks push to avoid otherpeople push conflict 
-		if (const DWORD COOLDOWN = GetTickCount(); GetPlyMainCha()->GuildBankCD > COOLDOWN) {
-			BickerNotice("Please calm down Don't spam! %ds left!", (GetPlyMainCha()->GuildBankCD - COOLDOWN) / 1000);
-		}
-		else if (!IsLiveing()) {
-			SystemNotice("Dead pirates are unable to trade.");
-		}
-		else if (GetPlyCtrlCha()->IsBoat()) // check if player at sea
-		{
-			SystemNotice("Must be on land to use the guild bank.");
-		}
-		else if (!IsInArea(2)) {
-			SystemNotice("Must be in safe zone to use the guild bank.");
-		}
-		else{
-			const int cdtime = 3000;
-			GetPlyMainCha()->GuildBankCD = COOLDOWN + cdtime; // guildbank cd
-			switch (bankType){
+			//add cooldown for guild banks push to avoid otherpeople push conflict 
+			if (const DWORD COOLDOWN = GetTickCount(); GetPlyMainCha()->GuildBankCD > COOLDOWN) {
+				BickerNotice("Please calm down Don't spam! %ds left!", (GetPlyMainCha()->GuildBankCD - COOLDOWN) / 1000);
+			}
+			else if (!IsLiveing()) {
+				SystemNotice("Dead pirates are unable to trade.");
+			}
+			else if (GetPlyCtrlCha()->IsBoat()) // check if player at sea
+			{
+				SystemNotice("Must be on land to use the guild bank.");
+			}
+			else if (!IsInArea(2)) {
+				SystemNotice("Must be in safe zone to use the guild bank.");
+			}
+			else {
+				const int cdtime = 3000;
+				GetPlyMainCha()->GuildBankCD = COOLDOWN + cdtime; // guildbank cd
+				switch (bankType) {
 
-				case 0:{ //bankoper
+				case 0: { //bankoper
 					Char	chSrcType = READ_CHAR(pk);
 					Short	sSrcGrid = READ_SHORT(pk);
 					Short	sSrcNum = READ_SHORT(pk);
@@ -78,7 +79,7 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 					std::vector<CTableGuild::BankLog> logs = game_db.GetGuildLog(guildID);
 
 					if (chTarType != chSrcType) {
-						
+
 						CTableGuild::BankLog l;
 						CKitbag bag;
 
@@ -100,75 +101,76 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 						logs.push_back(l);
 					}
 					sRet = Cmd_GuildBankOper(chSrcType, sSrcGrid, sSrcNum, chTarType, sTarGrid);
-					if (sRet != enumITEMOPT_SUCCESS || !game_db.SetGuildLog(logs, guildID)){
+					if (sRet != enumITEMOPT_SUCCESS || !game_db.SetGuildLog(logs, guildID)) {
 						ItemOprateFailed(sRet);
 					}
-	
+
 					break;
 				}
 
-				case 1:{ //withdraw/deposit gold
+				case 1: { //withdraw/deposit gold
 					Char action = READ_CHAR(pk);
 
 					int guildID = GetGuildID();
 					int gold = READ_LONG(pk);
 					int currentgold = getAttr(ATTR_GD);
 					unsigned long long guildGold = game_db.GetGuildBankGold(guildID);
-					
+
 					unsigned long long maxGuildGold = 9223372036854775807LL;
 					int maxCharGold = 2000000000;
 					std::vector<CTableGuild::BankLog> logs = game_db.GetGuildLog(guildID);
-				
-					
-					int canTake = (emGldPermTakeBank&guildPermission);
-					int canGive = (emGldPermDepoBank&guildPermission);
+
+
+					int canTake = (emGldPermTakeBank & guildPermission);
+					int canGive = (emGldPermDepoBank & guildPermission);
 
 					CTableGuild::BankLog l;
-					
-					if (action == 0 && canTake == emGldPermTakeBank){ //withdraw
+
+					if (action == 0 && canTake == emGldPermTakeBank) { //withdraw
 						l.type = 0;			// Withdraw
 
 						//make sure we dont cause gold overflow.
-						if (gold + currentgold >maxCharGold){
+						if (gold + currentgold > maxCharGold) {
 							gold = maxCharGold - currentgold;
 						}
 						//make sure we cant withdraw more than is in bank.
-						if (gold > guildGold){
+						if (gold > guildGold) {
 							gold = guildGold;
 						}
 						//we dont want to do redundant transactions.
-						if (gold < 1){
+						if (gold < 1) {
 							break;
 						}
-					}else if (action == 1 && canGive == emGldPermDepoBank){ //deposit
+					}
+					else if (action == 1 && canGive == emGldPermDepoBank) { //deposit
 						l.type = 1; // deposit
 						//check player has that much gold
 						//if not, then set gold to whatever they have.
-						if (gold > currentgold){
+						if (gold > currentgold) {
 							gold = currentgold;
 						}
 						//check to see if guild is at max gold already.
 						//make sure we dont cause gold overflow.
-						if (gold + guildGold > maxGuildGold){	
+						if (gold + guildGold > maxGuildGold) {
 							gold = maxGuildGold - guildGold;
 						}
 
 						//we dont want to do redundant transactions.
-						if (gold < 1){
+						if (gold < 1) {
 							break;
 						}
 						gold = 0 - gold;
 					}
-					else{
+					else {
 						break;
 					}
 
-					if (game_db.UpdateGuildBankGold(guildID, -gold)){
+					if (game_db.UpdateGuildBankGold(guildID, -gold)) {
 						l.time = time(0);
 						l.parameter = gold > 0 ? gold : -gold;
 						l.quantity = 0;
 						l.userID = GetPlyMainCha()->m_ID;
-						
+
 						logs.push_back(l);
 						if (game_db.SetGuildLog(logs, guildID)) {
 							setAttr(ATTR_GD, currentgold + gold);
@@ -186,47 +188,48 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 					}
 					break;
 				}
+				}
 			}
+
+			//let group know we have finished, so the next guild bank packet can be processed.
+			WPACKET WtPk = GETWPACKET();
+			WRITE_CMD(WtPk, CMD_MP_GUILDBANK);
+			WRITE_LONG(WtPk, GetGuildID());
+			ReflectINFof(this, WtPk);
+			break;
 		}
 
-		//let group know we have finished, so the next guild bank packet can be processed.
-		WPACKET WtPk = GETWPACKET();
-		WRITE_CMD(WtPk, CMD_MP_GUILDBANK);
-		WRITE_LONG(WtPk, GetGuildID());
-		ReflectINFof(this, WtPk);
-		break;
-	}
+		case CMD_PM_PUSHTOGUILDBANK: {
+			int guildID = GetGuildID();
+			if (guildID == 0) {
+				return;
+			}
+			CKitbag	pCSrcBag;
+			game_db.GetGuildBank(guildID, &pCSrcBag);
+			pCSrcBag.SetChangeFlag(false);
 
-	case CMD_PM_PUSHTOGUILDBANK:{
-		int guildID = GetGuildID();
-		if (guildID == 0){
-			return;
+			SItemGrid SPopItem;
+			const char* strItem = READ_STRING(pk);
+			String2Item(strItem, &SPopItem);
+
+			short sSrcGridID = defKITBAG_DEFPUSH_POS;
+			if (pCSrcBag.Push(&SPopItem, sSrcGridID) == enumKBACT_ERROR_FULL) {
+				//drop item next to player?
+			}
+			else {
+				GetPlayer()->SynGuildBank(&pCSrcBag, enumSYN_KITBAG_BANK);
+				GetPlayer()->SetBankSaveFlag(0);
+				game_db.UpdateGuildBank(guildID, &pCSrcBag);
+			}
+			//let group know we have finished, so the next guild bank packet can be processed.
+			WPACKET WtPk = GETWPACKET();
+			WRITE_CMD(WtPk, CMD_MP_GUILDBANK);
+			WRITE_LONG(WtPk, guildID);
+			ReflectINFof(this, WtPk);
+			break;
 		}
-		CKitbag	pCSrcBag;
-		game_db.GetGuildBank(guildID, &pCSrcBag);
-		pCSrcBag.SetChangeFlag(false);
 
-		SItemGrid SPopItem;
-		const char* strItem = READ_STRING(pk);
-		String2Item(strItem, &SPopItem);
-
-		short sSrcGridID = defKITBAG_DEFPUSH_POS;
-		if (pCSrcBag.Push(&SPopItem, sSrcGridID) == enumKBACT_ERROR_FULL){
-			//drop item next to player?
-		}else{
-			GetPlayer()->SynGuildBank(&pCSrcBag, enumSYN_KITBAG_BANK);
-			GetPlayer()->SetBankSaveFlag(0);
-			game_db.UpdateGuildBank(guildID, &pCSrcBag);
-		}
-		//let group know we have finished, so the next guild bank packet can be processed.
-		WPACKET WtPk = GETWPACKET();
-		WRITE_CMD(WtPk, CMD_MP_GUILDBANK);
-		WRITE_LONG(WtPk, guildID);
-		ReflectINFof(this, WtPk);
-		break;
-	}
-
-	case CMD_CM_PING:
+		case CMD_CM_PING:
 		{
 			uLong	ulPing = GetTickCount() - READ_LONG(pk);
 			Long	lGateSvr = READ_LONG(pk);
@@ -236,8 +239,8 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 
 			// 校验从客户端过来的指针
 			BEGINGETGATE();
-			GateServer	*pNoGate;
-			GateServer	*pGate = 0;
+			GateServer* pNoGate;
+			GateServer* pGate = 0;
 			while (pNoGate = GETNEXTGATE())
 			{
 				if (ToAddress(pNoGate) == lGateSvr)
@@ -250,7 +253,7 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 				break;
 			//
 
-			WPACKET WtPk	=GETWPACKET();
+			WPACKET WtPk = GETWPACKET();
 			WRITE_CMD(WtPk, CMD_MC_QUERY_CHAPING);
 			WRITE_LONG(WtPk, lSrcID);
 			WRITE_STRING(WtPk, GetName());
@@ -263,7 +266,7 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 
 			break;
 		}
-	case CMD_CM_CHECK_PING:
+		case CMD_CM_CHECK_PING:
 		{
 			DWORD	dwPing = GetTickCount() - m_dwPingSendTick;
 			/*if (m_dwPingRec[0] == 0)
@@ -289,18 +292,18 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			SendPreMoveTime();
 			break;
 		}
-	case CMD_CM_CANCELEXIT:
+		case CMD_CM_CANCELEXIT:
 		{
 			CancelExit();
 		}
 		break;
-	case CMD_CM_BEGINACTION:
+		case CMD_CM_BEGINACTION:
 		{
 			uLong	ulWorldID = READ_LONG(pk);
-			
-			if(GetPlayer())
+
+			if (GetPlayer())
 			{
-				
+
 				if (GetPlayer()->GetCtrlCha() && ulWorldID == GetPlayer()->GetCtrlCha()->GetID())
 					GetPlayer()->GetCtrlCha()->BeginAction(pk);
 				else if (GetPlayer()->GetMainCha() && ulWorldID == GetPlayer()->GetMainCha()->GetID())
@@ -308,29 +311,99 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			}
 			break;
 		}
-	case CMD_CM_ENDACTION:
+		case CMD_CM_ENDACTION:
 		{
 			EndAction(pk);
 
 			break;
 		}
-	case CMD_CM_DIE_RETURN:
+		case CMD_CM_DIE_RETURN:
 		{
-			m_chSelRelive = READ_CHAR(pk);
-			GetPlyMainCha()->ResetChaRelive();	// 复活状态恢复
-			if (m_chSelRelive == enumEPLAYER_RELIVE_NORIGIN)
+			Char chReliveType = READ_CHAR(pk);
+
+			if (chReliveType == enumEPLAYER_RELIVE_CITY)
+			{
+				GetPlyMainCha()->ResetChaRelive();
+				m_chSelRelive = enumEPLAYER_RELIVE_CITY;
+				m_bReliveByItem = false;
+			}
+			else if (chReliveType == enumEPLAYER_RELIVE_ORIGIN)
+			{
+				GetPlyMainCha()->ResetChaRelive();
+				m_chSelRelive = enumEPLAYER_RELIVE_ORIGIN;
+				m_bReliveByItem = false;
+			}
+			else if (chReliveType == enumEPLAYER_RELIVE_ITEM_ORIGIN)
+			{
+				bool bSuccess = false;
+				short sItemID = 0;
+				short sHPPercent = 0;
+
+				g_CParser.DoString("CheckAndUseResurrectItem", enumSCRIPT_RETURN_NUMBER, 3,
+					enumSCRIPT_PARAM_LIGHTUSERDATA, 1, this, DOSTRING_PARAM_END);
+				sItemID = (short)g_CParser.GetReturnNumber(1);
+				sHPPercent = (short)g_CParser.GetReturnNumber(2);
+				bSuccess = ((g_CParser.GetReturnNumber(0) == 1) || (sItemID > 0 && sHPPercent > 0));
+
+				if (bSuccess && sHPPercent > 0)
+				{
+					m_chSelRelive = enumEPLAYER_RELIVE_ORIGIN;
+					m_chReliveLv = (Char)sHPPercent;
+					m_bReliveByItem = true;
+				}
+				else
+				{
+					GetPlyMainCha()->ResetChaRelive();
+					m_chSelRelive = enumEPLAYER_RELIVE_NONE;
+					m_bReliveByItem = false;
+				}
+			}
+			else if (chReliveType == enumEPLAYER_RELIVE_NORIGIN)
+			{
+				GetPlyMainCha()->ResetChaRelive();
 				SetRelive(enumEPLAYER_RELIVE_ORIGIN, 0);
+				m_bReliveByItem = false;
+			}
 			break;
 		}
-	case CMD_CM_SAY:
+		case CMD_CM_SAY:
 		{
 			DWORD	dwNowTick = GetTickCount();
-			if (dwNowTick - _dwLastSayTick < (DWORD)g_Config.m_lSayInterval)
+			// add by ning.yan 2008-11-17 resolve the problem of  press Ctrl+123...(face shortcut key)  begin
+			uShort	l_retlen;
+			cChar* l_content = READ_SEQ(pk, l_retlen);
+
+			// Add by lark.li 20090311 begin
+			if (!l_content)
+				break;
+
+			// Char	szComHead[256], szComParam[2048]; 特殊命令
+			if (l_retlen <= 0 || l_retlen > (2048 + 256 + 2))
+				break;
+			// End
+
+			char buf[10];
+			bool isShortcutKey = false;
+			for (int i = 0; i <= 50; i++)
+			{
+				//sprintf(buf, "***%d", i);
+				_snprintf_s(buf, sizeof(buf), _TRUNCATE, "***%d", i);
+
+				if (!strcmp(l_content, buf))
+				{
+					isShortcutKey = true;
+					break;
+				}
+			}
+			if (!isShortcutKey && dwNowTick - _dwLastSayTick < (DWORD)g_Config.m_lSayInterval)
 			{
 				//SystemNotice("请勿频繁发言！");
 				SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00001));
+				isShortcutKey = true;
 				break;
 			}
+			// ning.yan  end
+
 			_dwLastSayTick = dwNowTick;
 
 			if (!GetSubMap())
@@ -339,8 +412,12 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 				LG("dialog error", "when character%s is dialog，the map is null！\n", m_CLog.GetLogName());
 				break;
 			}
-			uShort	l_retlen;
-			cChar	*l_content = READ_SEQ(pk, l_retlen);
+
+			// delete by ning.yan 2008-11-17 begin
+			// uShort	l_retlen;
+			// cChar	*l_content = READ_SEQ(pk, l_retlen);
+			// end
+
 			if (!l_content)
 				break;
 			else if (*l_content == '&') // 特殊命令
@@ -363,10 +440,10 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			}*/
 			else
 			{
-				
+
 				// kong@pkodev.net 09.22.2017
 				g_CParser.DoString("HandleChat", enumSCRIPT_RETURN_NUMBER, 1, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, this, enumSCRIPT_PARAM_STRING, 1, l_content, DOSTRING_PARAM_END);
-				if(!g_CParser.GetReturnNumber(0))
+				if (!g_CParser.GetReturnNumber(0))
 					break;
 				if (g_Config.m_bBlindChaos && IsPlayerCha() && IsPKSilver())
 				{
@@ -374,278 +451,282 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 					break;
 				}
 
-				WPACKET wpk	= GETWPACKET();
+				WPACKET wpk = GETWPACKET();
 				WRITE_CMD(wpk, CMD_MC_SAY);
 				WRITE_LONG(wpk, m_ID);
-				WRITE_SEQ(wpk, l_content,l_retlen);
+				WRITE_SEQ(wpk, l_content, l_retlen);
 				WRITE_LONG(wpk, chatColour);
 				NotiChgToEyeshot(wpk);
 			}
 			break;
 		}
-	case CMD_CM_REQUESTTALK:
-	case CMD_CM_REQUESTTRADE:{
+		case CMD_CM_REQUESTTALK:
+		case CMD_CM_REQUESTTRADE: {
 
-			if (GetTradeData() || GetBoat() || GetStallData() || !GetActControl(enumACTCONTROL_TALKTO_NPC) || m_CKitbag.IsLock() || !GetActControl(enumACTCONTROL_ITEM_OPT)){
+			if (GetTradeData() || GetBoat() || GetStallData() || !GetActControl(enumACTCONTROL_TALKTO_NPC) || m_CKitbag.IsLock() || !GetActControl(enumACTCONTROL_ITEM_OPT)) {
 				return;
 			}
 
 			uLong ulID = READ_LONG(pk);
-			if( ulID == mission::g_WorldEudemon.GetID() )
+			if (ulID == mission::g_WorldEudemon.GetID())
 			{
-				mission::g_WorldEudemon.MsgProc( *this, pk );
+				mission::g_WorldEudemon.MsgProc(*this, pk);
 				break;
 			}
-			CCharacter* pCha = m_submap->FindCharacter( ulID, GetShape().centre );
-			if( pCha == NULL ) break;
+			CCharacter* pCha = m_submap->FindCharacter(ulID, GetShape().centre);
+			if (pCha == NULL) break;
 			mission::CNpc* pNpc = pCha->IsNpc();
-			if( pNpc ){
-				pNpc->MsgProc( *this, pk );
+			if (pNpc) {
+				pNpc->MsgProc(*this, pk);
 				break;
-			}else{
+			}
+			else {
 				//g_CParser.DoString("extNpcNpcProc", enumSCRIPT_RETURN_NONE, 0, enumSCRIPT_PARAM_LIGHTUSERDATA, 3, this,pCha,pk, DOSTRING_PARAM_END);
-			
+
 				lua_getglobal(g_pLuaState, "extNpcNpcProc");
 				if (!lua_isfunction(g_pLuaState, -1))
 				{
 					lua_pop(g_pLuaState, 1);
 					break;
 				}
-			
+
 				lua_pushlightuserdata(g_pLuaState, (void*)this);
 				lua_pushlightuserdata(g_pLuaState, (void*)pCha);
 				lua_pushlightuserdata(g_pLuaState, (void*)&pk);
-				
+
 				int nStatus = lua_pcall(g_pLuaState, 3, 0, 0);
 				lua_settop(g_pLuaState, 0);
 			}
 		}
-		break;
-		//daily buff request to open ui
-	case CMD_CM_DailyBuffRequest: {
-		CCharacter* pCMainCha = GetPlyMainCha();
-		CPlayer* pCPly = GetPlayer();
-		if (pCMainCha->m_CKitbag.IsLock() || pCMainCha->m_CKitbag.IsPwdLocked() || pCPly->GetStallData() || pCPly->GetMainCha()->GetTradeData()) {
-			SystemNotice("Bag is currently locked.");
-			return;
-		}
-		if (!IsLiveing()) {
-			SystemNotice("Ahoy there, matey! Looks like you took a tumble. Up and at 'em!");
-			return;
-		}
-		if (pCPly->GetCtrlCha()->IsBoat()) {
-			SystemNotice("Can't Use While Sailing .");
-			return;
-		}
+								break;
+								//daily buff request to open ui
+		case CMD_CM_DailyBuffRequest: {
+			CCharacter* pCMainCha = GetPlyMainCha();
+			CPlayer* pCPly = GetPlayer();
+			if (pCMainCha->m_CKitbag.IsLock() || pCMainCha->m_CKitbag.IsPwdLocked() || pCPly->GetStallData() || pCPly->GetMainCha()->GetTradeData()) {
+				SystemNotice("Bag is currently locked.");
+				return;
+			}
+			if (!IsLiveing()) {
+				SystemNotice("Ahoy there, matey! Looks like you took a tumble. Up and at 'em!");
+				return;
+			}
+			if (pCPly->GetCtrlCha()->IsBoat()) {
+				SystemNotice("Can't Use While Sailing .");
+				return;
+			}
 
-		g_CParser.DoString("DailyBuffRequest", enumSCRIPT_RETURN_NONE, 0, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, this, DOSTRING_PARAM_END);
-		break;
-	}
-	case CMD_CM_MISLOG:
+			g_CParser.DoString("DailyBuffRequest", enumSCRIPT_RETURN_NONE, 0, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, this, DOSTRING_PARAM_END);
+			break;
+		}
+		case CMD_CM_MISLOG:
 		{
 			MisLog();
 		}
 		break;
-	case CMD_CM_MISLOGINFO:
+		case CMD_CM_MISLOGINFO:
 		{
-			WORD wMisID  = READ_SHORT(pk);
-			MisLogInfo( wMisID );
+			WORD wMisID = READ_SHORT(pk);
+			MisLogInfo(wMisID);
 		}
 		break;
-	case CMD_CM_MISLOG_CLEAR:
+		case CMD_CM_MISLOG_CLEAR:
 		{
-			WORD wMisID  = READ_SHORT(pk);
-			MisLogClear( wMisID );
+			WORD wMisID = READ_SHORT(pk);
+			MisLogClear(wMisID);
 		}
 		break;
-	case CMD_CM_FORGE:
+		case CMD_CM_FORGE:
 		{
 			BYTE byIndex = READ_CHAR(pk);
-			g_ForgeSystem.ForgeItem( *this, byIndex );
+			g_ForgeSystem.ForgeItem(*this, byIndex);
 		}
 		break;
-	case CMD_CM_CHARTRADE_REQUEST:
+		case CMD_CM_CHARTRADE_REQUEST:
 		{
 			BYTE byType = READ_CHAR(pk);
 			DWORD dwCharID = READ_LONG(pk);
-			g_TradeSystem.Request( byType, *this, dwCharID );
+			g_TradeSystem.Request(byType, *this, dwCharID);
 		}
 		break;
-	case CMD_CM_CHARTRADE_ACCEPT:
+		case CMD_CM_CHARTRADE_ACCEPT:
 		{
 			BYTE byType = READ_CHAR(pk);
 			DWORD dwCharID = READ_LONG(pk);
-			g_TradeSystem.Accept( byType, *this, dwCharID );
+			g_TradeSystem.Accept(byType, *this, dwCharID);
 		}
 		break;
-	case CMD_CM_CHARTRADE_REJECT:
+		case CMD_CM_CHARTRADE_REJECT:
 		{
 		}
 		break;
-	case CMD_CM_CHARTRADE_CANCEL:
+		case CMD_CM_CHARTRADE_CANCEL:
 		{
 			BYTE byType = READ_CHAR(pk);
 			DWORD dwCharID = READ_LONG(pk);
-			g_TradeSystem.Cancel( byType, *this, dwCharID );
+			g_TradeSystem.Cancel(byType, *this, dwCharID);
 		}
 		break;
-	case CMD_CM_CHARTRADE_ITEM:
+		case CMD_CM_CHARTRADE_ITEM:
 		{
 			BYTE byType = READ_CHAR(pk);
 			DWORD dwCharID = READ_LONG(pk);
 			BYTE  byOpType = READ_CHAR(pk);
-			BYTE  byIndex  = READ_CHAR(pk);
+			BYTE  byIndex = READ_CHAR(pk);
 			BYTE  byItemIndex = READ_CHAR(pk);
-			BYTE  byCount  = READ_CHAR(pk);
-			g_TradeSystem.AddItem( byType, *this, dwCharID, byOpType, byIndex, byItemIndex, byCount );
+			BYTE  byCount = READ_CHAR(pk);
+			g_TradeSystem.AddItem(byType, *this, dwCharID, byOpType, byIndex, byItemIndex, byCount);
 		}
 		break;
-	case CMD_CM_CHARTRADE_MONEY:
+		case CMD_CM_CHARTRADE_MONEY:
 		{
 			BYTE byType = READ_CHAR(pk);
 			DWORD dwCharID = READ_LONG(pk);
 			BYTE  byOpType = READ_CHAR(pk);
 			BYTE currency = READ_CHAR(pk);
-			DWORD dwMondy  = READ_LONG(pk);
-			
-			if (currency == 0){
+			DWORD dwMondy = READ_LONG(pk);
+
+			if (currency == 0) {
 				//gold
 				g_TradeSystem.AddMoney(byType, *this, dwCharID, byOpType, dwMondy);
-			}else if (currency == 1){
+			}
+			else if (currency == 1) {
 				//IMPS
 				g_TradeSystem.AddIMP(byType, *this, dwCharID, byOpType, dwMondy);
 			}
-			
+
 		}
 		break;
-	case CMD_CM_CHARTRADE_VALIDATEDATA:
+		case CMD_CM_CHARTRADE_VALIDATEDATA:
 		{
 			BYTE byType = READ_CHAR(pk);
 			DWORD dwCharID = READ_LONG(pk);
-			g_TradeSystem.ValidateItemData( byType, *this, dwCharID );
+			g_TradeSystem.ValidateItemData(byType, *this, dwCharID);
 		}
 		break;
-	case CMD_CM_CHARTRADE_VALIDATE:
+		case CMD_CM_CHARTRADE_VALIDATE:
 		{
 			BYTE byType = READ_CHAR(pk);
 			DWORD dwCharID = READ_LONG(pk);
-			g_TradeSystem.ValidateTrade( byType, *this, dwCharID );
+			g_TradeSystem.ValidateTrade(byType, *this, dwCharID);
 		}
 		break;
-	case CMD_CM_CREATE_BOAT:
+		case CMD_CM_CREATE_BOAT:
 		{
-			g_CharBoat.MakeBoat( *this, pk );
+			g_CharBoat.MakeBoat(*this, pk);
 		}
 		break;
-	case CMD_CM_UPDATEBOAT_PART:
+		case CMD_CM_UPDATEBOAT_PART:
 		{
-			g_CharBoat.Update( *this, pk );
+			g_CharBoat.Update(*this, pk);
 		}
 		break;
-	case CMD_CM_BOAT_GETINFO:
+		case CMD_CM_BOAT_GETINFO:
 		{
-			if( GetPlayer()->IsLuanchOut() )
+			if (GetPlayer()->IsLuanchOut())
 			{
-				g_CharBoat.GetBoatInfo( *this, GetPlayer()->GetLuanchID() );
+				g_CharBoat.GetBoatInfo(*this, GetPlayer()->GetLuanchID());
 			}
 			else
 			{
 				//SystemNotice( "你的船只没有出海！" );
-				SystemNotice( RES_STRING(GM_CHARACTERPRL_CPP_00003) );
+				SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00003));
 			}
 		}
 		break;
-	case CMD_CM_BOAT_CANCEL:
+		case CMD_CM_BOAT_CANCEL:
 		{
-			g_CharBoat.Cancel( *this );
+			g_CharBoat.Cancel(*this);
 		}
 		break;
-	case CMD_CM_BOAT_LUANCH:
+		case CMD_CM_BOAT_LUANCH:
 		{
 			DWORD dwNpcID = READ_LONG(pk);
 			CCharacter* pCha = m_submap->FindCharacter(dwNpcID, GetShape().centre);
-			if (pCha == NULL){
+			if (pCha == NULL) {
 				break;
-			}else if (GetPlayer()->GetBankNpc()){
+			}
+			else if (GetPlayer()->GetBankNpc()) {
 				break;
-			}else if (g_CParser.DoString("IsSailNpc", enumSCRIPT_RETURN_NUMBER, 1, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, this, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, pCha, DOSTRING_PARAM_END)) {
-				if (!g_CParser.GetReturnNumber(0)){
+			}
+			else if (g_CParser.DoString("IsSailNpc", enumSCRIPT_RETURN_NUMBER, 1, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, this, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, pCha, DOSTRING_PARAM_END)) {
+				if (!g_CParser.GetReturnNumber(0)) {
 					break;
 				}
 			}
 
-			BYTE byIndex = READ_CHAR( pk );
-			BoatSelLuanch( byIndex );
+			BYTE byIndex = READ_CHAR(pk);
+			BoatSelLuanch(byIndex);
 		}
 		break;
-	case CMD_CM_BOAT_SELECT:
+		case CMD_CM_BOAT_SELECT:
 		{
-			DWORD dwNpcID = READ_LONG( pk );
-			CCharacter* pCha = m_submap->FindCharacter( dwNpcID, GetShape().centre );
-			if (pCha == NULL){
+			DWORD dwNpcID = READ_LONG(pk);
+			CCharacter* pCha = m_submap->FindCharacter(dwNpcID, GetShape().centre);
+			if (pCha == NULL) {
 				break;
 			}
 			if (g_CParser.DoString("IsSailBoatNpc", enumSCRIPT_RETURN_NUMBER, 1, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, this, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, pCha, DOSTRING_PARAM_END)) {
-				if (!g_CParser.GetReturnNumber(0)){
+				if (!g_CParser.GetReturnNumber(0)) {
 					break;
 				}
 			}
-			BYTE byType = READ_CHAR( pk );
-			BYTE byIndex = READ_CHAR( pk );
-			BoatSelected( byType, byIndex );
+			BYTE byType = READ_CHAR(pk);
+			BYTE byIndex = READ_CHAR(pk);
+			BoatSelected(byType, byIndex);
 		}
 		break;
-	case CMD_CM_BOAT_BAGSEL:
+		case CMD_CM_BOAT_BAGSEL:
 		{
-			DWORD dwNpcID = READ_LONG( pk );
-			if(dwNpcID)
+			DWORD dwNpcID = READ_LONG(pk);
+			if (dwNpcID)
 			{
-				CCharacter* pCha = m_submap->FindCharacter( dwNpcID, GetShape().centre );
-				if( pCha == NULL )
+				CCharacter* pCha = m_submap->FindCharacter(dwNpcID, GetShape().centre);
+				if (pCha == NULL)
 					break;
 			}
 
-			BYTE byIndex = READ_CHAR( pk );
-			BoatPackBag( byIndex );
+			BYTE byIndex = READ_CHAR(pk);
+			BoatPackBag(byIndex);
 		}
 		break;
-	case CMD_CM_ENTITY_EVENT:
+		case CMD_CM_ENTITY_EVENT:
 		{
-			DWORD dwEntityID = READ_LONG( pk );
-			CCharacter* pCha = m_submap->FindCharacter( dwEntityID, GetShape().centre );
-			if( pCha == NULL ) break;
+			DWORD dwEntityID = READ_LONG(pk);
+			CCharacter* pCha = m_submap->FindCharacter(dwEntityID, GetShape().centre);
+			if (pCha == NULL) break;
 			mission::CEventEntity* pEntity = pCha->IsEvent();
-			if( pEntity )
+			if (pEntity)
 			{
-				pEntity->MsgProc( *this, pk );
+				pEntity->MsgProc(*this, pk);
 				break;
 			}
 		}
 		break;
-	case CMD_CM_STALL_ALLDATA:
+		case CMD_CM_STALL_ALLDATA:
 		{
-			g_StallSystem.StartStall( *this, pk );
+			g_StallSystem.StartStall(*this, pk);
 		}
 		break;
-	case CMD_CM_STALL_OPEN:
+		case CMD_CM_STALL_OPEN:
 		{
-			g_StallSystem.OpenStall( *this, pk );
+			g_StallSystem.OpenStall(*this, pk);
 		}
 		break;
-	case CMD_CM_STALL_BUY:
+		case CMD_CM_STALL_BUY:
 		{
-			g_StallSystem.BuyGoods( *this, pk );
+			g_StallSystem.BuyGoods(*this, pk);
 		}
 		break;
-	case CMD_CM_STALL_CLOSE:
+		case CMD_CM_STALL_CLOSE:
 		{
-			g_StallSystem.CloseStall( *this );
+			g_StallSystem.CloseStall(*this);
 		}
 		break;
-	case CMD_CM_READBOOK_START:
+		case CMD_CM_READBOOK_START:
 		{
-			CCharacter *pMainCha = GetPlyMainCha();
-			if(!IsBoat())
+			CCharacter* pMainCha = GetPlyMainCha();
+			if (!IsBoat())
 			{
 				pMainCha->SetReadBookState(true);
 				pMainCha->ForgeAction(true);
@@ -654,13 +735,13 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			else
 				//pMainCha->SystemNotice("船上不能读书！");
 				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00004));
-			
+
 		}
 		break;
-	case CMD_CM_READBOOK_CLOSE:
+		case CMD_CM_READBOOK_CLOSE:
 		{
-			CCharacter *pMainCha = GetPlyMainCha();
-			if(!IsBoat())
+			CCharacter* pMainCha = GetPlyMainCha();
+			if (!IsBoat())
 			{
 				pMainCha->SetReadBookState(false);
 				pMainCha->ForgeAction(false);
@@ -671,12 +752,12 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00005));
 		}
 		break;
-	case CMD_CM_SYNATTR: // 同步六个基础属性（把终端请求的六个基础属性相对值，转换为基本基础属性，再算出各项属性，返还给终端）
-		{	
+		case CMD_CM_SYNATTR: // 同步六个基础属性（把终端请求的六个基础属性相对值，转换为基本基础属性，再算出各项属性，返还给终端）
+		{
 			GetPlayer()->GetMainCha()->Cmd_ReassignAttr(pk);
 		}
 		break;
-	case CMD_CM_SKILLUPGRADE:
+		case CMD_CM_SKILLUPGRADE:
 		{
 			Short	sSkillID = READ_SHORT(pk);
 			Char	chAddGrade = READ_CHAR(pk);
@@ -698,14 +779,14 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			GetPlayer()->GetMainCha()->LearnSkill(sSkillID, chAddGrade, false);
 		}
 		break;
-	case CMD_CM_REFRESH_DATA:
+		case CMD_CM_REFRESH_DATA:
 		{
 			Long	lWorldID = READ_LONG(pk);
 			Long	lHandle = READ_LONG(pk);
-			Entity	*pCEnt = g_pGameApp->IsLiveingEntity(lWorldID, lHandle);
+			Entity* pCEnt = g_pGameApp->IsLiveingEntity(lWorldID, lHandle);
 			if (pCEnt)
 			{
-				CCharacter	*pCCha = pCEnt->IsCharacter();
+				CCharacter* pCCha = pCEnt->IsCharacter();
 				if (pCCha && pCCha->GetPlayer() == GetPlayer()) // 玩家自己的角色
 				{
 					pCCha->SynAttr(enumATTRSYN_ITEM_EQUIP);
@@ -713,49 +794,61 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			}
 		}
 		break;
-	case CMD_TM_CHANGE_PERSONINFO:
+		case CMD_TM_CHANGE_PERSONINFO:
 		{
 			SetMotto(READ_STRING(pk));
 			SetIcon(READ_SHORT(pk));
 		}
 		break;
-	case CMD_CM_GUILD_PERM:{
-		int	targetID = READ_LONG(pk);
-		unsigned long	permission = READ_LONG(pk);
-		int guild_id = GetPlyMainCha()->GetGuildID();
-		if (guild_id == 0 || !emGldPermMgr&GetPlyMainCha()->guildPermission || game_db.GetGuildLeaderID(guild_id)==targetID){
-			GetPlyMainCha()->SystemNotice("You do not have permission to do this.");
-			return;
+		case CMD_CM_GUILD_PERM: {
+			int	targetID = READ_LONG(pk);
+			unsigned long	permission = READ_LONG(pk);
+			int guild_id = GetPlyMainCha()->GetGuildID();
+			if (guild_id == 0 || !emGldPermMgr & GetPlyMainCha()->guildPermission || game_db.GetGuildLeaderID(guild_id) == targetID) {
+				GetPlyMainCha()->SystemNotice("You do not have permission to do this.");
+				return;
+			}
+
+			//update in DB
+			if (!game_db.SetGuildPermission(targetID, permission, guild_id)) {
+				GetPlyMainCha()->SystemNotice("Player not found");
+				return;
+			}
+
+			//update in game
+			CPlayer* targetPly = g_pGameApp->GetPlayerByDBID(targetID);
+			if (targetPly) {
+				targetPly->GetMainCha()->guildPermission = permission;
+			}
+
+			//update for group (sends to players)
+			WPACKET wpk = GETWPACKET();
+			WRITE_CMD(wpk, CMD_MP_GUILD_PERM);
+			WRITE_LONG(wpk, targetID);
+			WRITE_LONG(wpk, permission);
+			ReflectINFof(this, wpk);
+
 		}
-
-		//update in DB
-		if (!game_db.SetGuildPermission(targetID, permission, guild_id)){
-			GetPlyMainCha()->SystemNotice("Player not found");
-			return;
-		}
-
-		//update in game
-		CPlayer *targetPly = g_pGameApp->GetPlayerByDBID(targetID);
-		if (targetPly){
-			targetPly->GetMainCha()->guildPermission = permission;
-		}
-
-		//update for group (sends to players)
-		WPACKET wpk = GETWPACKET();
-		WRITE_CMD(wpk, CMD_MP_GUILD_PERM);
-		WRITE_LONG(wpk, targetID);
-		WRITE_LONG(wpk, permission);
-		ReflectINFof(this, wpk);
-
-	}
-	case CMD_CM_GUILD_PUTNAME:
+		case CMD_CM_GUILD_PUTNAME:
 		{
-			bool	l_confirm	=READ_CHAR(pk)?true:false;
-			cChar * l_guildname =READ_STRING(pk);
-			cChar *	l_passwd	=READ_STRING(pk);
-			if(l_guildname && Guild::IsValidGuildName(l_guildname,uShort(strlen(l_guildname))) && l_passwd &&!strchr(l_passwd,'\''))
+			bool	l_confirm = READ_CHAR(pk) ? true : false;
+			cChar* l_guildname = READ_STRING(pk);
+
+			// Add by lark.li 20090311 begin
+			if (!l_guildname)
+				break;
+			// End
+
+			cChar* l_passwd = READ_STRING(pk);
+
+			// Add by lark.li 20090311 begin
+			if (!l_passwd)
+				break;
+			// End
+
+			if (Guild::IsValidGuildName(l_guildname, uShort(strlen(l_guildname))) && !strchr(l_passwd, '\''))
 			{
-				Guild::cmd_CreateGuild(GetPlyMainCha(),l_confirm,l_guildname,l_passwd);
+				Guild::cmd_CreateGuild(GetPlyMainCha(), l_confirm, l_guildname, l_passwd);
 			}
 			else
 			{
@@ -764,39 +857,39 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			}
 		}
 		break;
-	case CMD_CM_GUILD_TRYFOR:
+		case CMD_CM_GUILD_TRYFOR:
 		{
-			Guild::cmd_GuildTryFor(GetPlyMainCha(),READ_LONG(pk));
+			Guild::cmd_GuildTryFor(GetPlyMainCha(), READ_LONG(pk));
 		}
 		break;
-	case CMD_CM_GUILD_TRYFORCFM:
+		case CMD_CM_GUILD_TRYFORCFM:
 		{
-			Guild::cmd_GuildTryForComfirm(GetPlyMainCha(),READ_CHAR(pk));
+			Guild::cmd_GuildTryForComfirm(GetPlyMainCha(), READ_CHAR(pk));
 		}
 		break;
-	case CMD_CM_GUILD_LISTTRYPLAYER:
+		case CMD_CM_GUILD_LISTTRYPLAYER:
 		{
 			Guild::cmd_GuildListTryPlayer(GetPlyMainCha());
 		}
 		break;
-	case CMD_CM_GUILD_APPROVE:
+		case CMD_CM_GUILD_APPROVE:
 		{
-			Guild::cmd_GuildApprove(GetPlyMainCha(),READ_LONG(pk));
+			Guild::cmd_GuildApprove(GetPlyMainCha(), READ_LONG(pk));
 		}
 		break;
-	case CMD_CM_GUILD_REJECT:
+		case CMD_CM_GUILD_REJECT:
 		{
-			Guild::cmd_GuildReject(GetPlyMainCha(),READ_LONG(pk));
+			Guild::cmd_GuildReject(GetPlyMainCha(), READ_LONG(pk));
 		}
 		break;
-	case CMD_CM_GUILD_KICK:
+		case CMD_CM_GUILD_KICK:
 		{
-			Guild::cmd_GuildKick(GetPlyMainCha(),READ_LONG(pk));
+			Guild::cmd_GuildKick(GetPlyMainCha(), READ_LONG(pk));
 		}
 		break;
-	case CMD_CM_GUILD_LEAVE:
+		case CMD_CM_GUILD_LEAVE:
 		{
-			if(!(GetPlyCtrlCha()->GetSubMap()->GetMapRes()->CanGuild()))
+			if (!(GetPlyCtrlCha()->GetSubMap()->GetMapRes()->CanGuild()))
 			{
 				//GetPlyMainCha()->SystemNotice("此地图不能退会!");
 				GetPlyMainCha()->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00007));
@@ -806,56 +899,56 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			Guild::cmd_GuildLeave(GetPlyMainCha());
 		}
 		break;
-	case CMD_CM_GUILD_DISBAND:{
-		cChar	*l_passwd	=READ_STRING(pk);
-		int canDisband = (GetPlyMainCha()->guildPermission&emGldPermDisband);
-		if (canDisband == emGldPermDisband){
-			if(l_passwd && !strchr(l_passwd,'\'')){
-				Guild::cmd_GuildDisband(GetPlyMainCha(),l_passwd);
+		case CMD_CM_GUILD_DISBAND: {
+			cChar* l_passwd = READ_STRING(pk);
+			int canDisband = (GetPlyMainCha()->guildPermission & emGldPermDisband);
+			if (canDisband == emGldPermDisband) {
+				if (l_passwd && !strchr(l_passwd, '\'')) {
+					Guild::cmd_GuildDisband(GetPlyMainCha(), l_passwd);
+				}
 			}
+			break;
 		}
-		break;
-	}
-	case CMD_CM_GUILD_MOTTO:
+		case CMD_CM_GUILD_MOTTO:
 		{
-			cChar *l_motto		=READ_STRING(pk);
-			if(l_motto && strlen(l_motto)<50 && IsValidName(l_motto,uShort(strlen(l_motto)))){
-				int canMotto = (GetPlyMainCha()->guildPermission&emGldPermMotto);
-				if (canMotto == emGldPermMotto && !strchr(l_motto, '\'')){ // Probably not enough
-					Guild::cmd_GuildMotto(GetPlyMainCha(),l_motto);
+			cChar* l_motto = READ_STRING(pk);
+			if (l_motto && strlen(l_motto) < 50 && IsValidName(l_motto, uShort(strlen(l_motto)))) {
+				int canMotto = (GetPlyMainCha()->guildPermission & emGldPermMotto);
+				if (canMotto == emGldPermMotto && !strchr(l_motto, '\'')) { // Probably not enough
+					Guild::cmd_GuildMotto(GetPlyMainCha(), l_motto);
 				}
 			}
 		}
 		break;
-	case CMD_PM_GUILD_DISBAND:
+		case CMD_PM_GUILD_DISBAND:
 		{
 			Guild::cmd_PMDisband(GetPlyMainCha());
 		}
 		break;
-	case CMD_CM_GUILD_CHALLENGE:
+		case CMD_CM_GUILD_CHALLENGE:
 		{
 			BYTE byLevel = READ_CHAR(pk);
 			DWORD dwMoney = READ_LONG(pk);
-			Guild::cmd_GuildChallenge( GetPlyMainCha(), byLevel, dwMoney );
+			Guild::cmd_GuildChallenge(GetPlyMainCha(), byLevel, dwMoney);
 		}
 		break;
-	case CMD_CM_GUILD_LEIZHU:
+		case CMD_CM_GUILD_LEIZHU:
 		{
 			BYTE byLevel = READ_CHAR(pk);
 			DWORD dwMoney = READ_LONG(pk);
-			Guild::cmd_GuildLeizhu( GetPlyMainCha(), byLevel, dwMoney );
+			Guild::cmd_GuildLeizhu(GetPlyMainCha(), byLevel, dwMoney);
 		}
 		break;
-	case CMD_CM_MAP_MASK:
+		case CMD_CM_MAP_MASK:
 		{
 			if (!GetSubMap())
 				break;
 			//const char	*szMapName = READ_STRING(pk);
-			const char	*szMapName = GetSubMap()->GetName();
+			const char* szMapName = GetSubMap()->GetName();
 
 			long	lDataLen;
-			BYTE	*pData = GetPlayer()->GetMapMask(lDataLen);
-			WPACKET wpk	= GETWPACKET();
+			BYTE* pData = GetPlayer()->GetMapMask(lDataLen);
+			WPACKET wpk = GETWPACKET();
 			WRITE_CMD(wpk, CMD_MC_MAP_MASK);
 			WRITE_LONG(wpk, m_ID);
 			if (!pData)
@@ -865,19 +958,19 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			else
 			{
 				WRITE_CHAR(wpk, 1);
-				WRITE_SEQ(wpk, (cChar *)pData, (uShort)lDataLen);
+				WRITE_SEQ(wpk, (cChar*)pData, (uShort)lDataLen);
 			}
 			ReflectINFof(this, wpk);
 		}
 		break;
 
-	case CMD_CM_UPDATEHAIR: // 更换发型
+		case CMD_CM_UPDATEHAIR: // 更换发型
 		{
 			if (!GetSubMap()) break;
 			Cmd_ChangeHair(pk);
 		}
 		break;
-	case CMD_CM_TEAM_FIGHT_ASK: // 队伍挑战请求
+		case CMD_CM_TEAM_FIGHT_ASK: // 队伍挑战请求
 		{
 			Char	chType = READ_CHAR(pk);
 			Long	lID = READ_LONG(pk);
@@ -885,13 +978,13 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			Cmd_FightAsk(chType, lID, lHandle);
 		}
 		break;
-	case CMD_CM_TEAM_FIGHT_ASR: // 队伍挑战应答
+		case CMD_CM_TEAM_FIGHT_ASR: // 队伍挑战应答
 		{
 			Char	chAnswer = READ_CHAR(pk);
 			Cmd_FightAnswer(chAnswer != 0 ? true : false);
 		}
 		break;
-	case CMD_CM_ITEM_REPAIR_ASK:
+		case CMD_CM_ITEM_REPAIR_ASK:
 		{
 			Long	lTarID = READ_LONG(pk);
 			Long	lTarHandle = READ_LONG(pk);
@@ -901,19 +994,19 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			Cmd_ItemRepairAsk(chPosType, chPosID);
 		}
 		break;
-	case CMD_CM_ITEM_REPAIR_ASR:
+		case CMD_CM_ITEM_REPAIR_ASR:
 		{
 			Cmd_ItemRepairAnswer(READ_CHAR(pk) != 0 ? true : false);
 		}
 		break;
-	case CMD_CM_ITEM_FORGE_CANACTION:
+		case CMD_CM_ITEM_FORGE_CANACTION:
 		{
 			short canaction = READ_CHAR(pk);
 			bool bCan = (canaction == 0) ? false : true;
 			ForgeAction(bCan);
 			break;
 		}
-	case CMD_CM_ITEM_FORGE_ASK:
+		case CMD_CM_ITEM_FORGE_ASK:
 		{
 			if (READ_CHAR(pk) == 0)
 			{
@@ -940,7 +1033,7 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 		}
 		break;
 		// Add by lark.li 20080515 begin
-	case CMD_CM_ITEM_LOTTERY_ASK:
+		case CMD_CM_ITEM_LOTTERY_ASK:
 		{
 			if (READ_CHAR(pk) == 0)
 			{
@@ -966,114 +1059,114 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 		}
 		break;
 		// End
-	case CMD_CM_ITEM_FORGE_ASR:
+		case CMD_CM_ITEM_FORGE_ASR:
 		{
 			Cmd_ItemForgeAnswer(READ_CHAR(pk) != 0 ? true : false);
 		}
 		break;
-	case CMD_CM_KITBAG_LOCK:
+		case CMD_CM_KITBAG_LOCK:
 		{
 			GetPlyMainCha()->Cmd_LockKitbag();
 		}
 		break;
-	case CMD_CM_LIFESKILL_ASK:
+		case CMD_CM_LIFESKILL_ASK:
 		{
 			// Modify by lark.li 20080801 begin
 			long type = READ_LONG(pk);
-			if(type >=0 && type < 4)
+			if (type >= 0 && type < 4)
 			{
-				long dwNpcID = READ_LONG( pk );
+				long dwNpcID = READ_LONG(pk);
 
 				SLifeSkillItem LifeSkillItem;
 				LifeSkillItem.sbagCount = g_sLiveSkillNeedItemNum[type];
-				for(int i = 0; i < LifeSkillItem.sbagCount; i++)
+				for (int i = 0; i < LifeSkillItem.sbagCount; i++)
 				{
 					LifeSkillItem.sGridID[i] = READ_SHORT(pk);
 				}
-				switch(type)
+				switch (type)
 				{
 				case 0:
-					{
-						LifeSkillItem.sReturn  = atoi(GetPlayer()->GetLifeSkillinfo().c_str());
-						break;
-					}
-				case 1:
-					{
-						string	strVer[2];
-						Util_ResolveTextLine(GetPlayer()->GetLifeSkillinfo().c_str(),strVer,2,',');
-						if(atoi(strVer[0].c_str()) > atoi(strVer[1].c_str()))
-							LifeSkillItem.sReturn = 1;
-						else
-							LifeSkillItem.sReturn = 0;
-						break;
-					}
-				case 2:
-					{
-						short sret = READ_SHORT(pk);
-						string	strVer[3];
-						Util_ResolveTextLine(GetPlayer()->GetLifeSkillinfo().c_str(),strVer,3,',');
-						int count = atoi(strVer[0].c_str())+atoi(strVer[1].c_str())+atoi(strVer[2].c_str());
-						count -= 9;
-						if(count >0) 
-							count = 1;
-						else
-							count = 0;
-						if(count == sret)
-							LifeSkillItem.sReturn = 1;
-						else
-							LifeSkillItem.sReturn = 0;
-						break;
-					}
-				case 3:
-					{
-						LifeSkillItem.sReturn = READ_SHORT(pk);
-						break;
-					}
+				{
+					LifeSkillItem.sReturn = atoi(GetPlayer()->GetLifeSkillinfo().c_str());
+					break;
 				}
-				Cmd_LifeSkillItemAsk(type,&LifeSkillItem);
+				case 1:
+				{
+					string	strVer[2];
+					Util_ResolveTextLine(GetPlayer()->GetLifeSkillinfo().c_str(), strVer, 2, ',');
+					if (atoi(strVer[0].c_str()) > atoi(strVer[1].c_str()))
+						LifeSkillItem.sReturn = 1;
+					else
+						LifeSkillItem.sReturn = 0;
+					break;
+				}
+				case 2:
+				{
+					short sret = READ_SHORT(pk);
+					string	strVer[3];
+					Util_ResolveTextLine(GetPlayer()->GetLifeSkillinfo().c_str(), strVer, 3, ',');
+					int count = atoi(strVer[0].c_str()) + atoi(strVer[1].c_str()) + atoi(strVer[2].c_str());
+					count -= 9;
+					if (count > 0)
+						count = 1;
+					else
+						count = 0;
+					if (count == sret)
+						LifeSkillItem.sReturn = 1;
+					else
+						LifeSkillItem.sReturn = 0;
+					break;
+				}
+				case 3:
+				{
+					LifeSkillItem.sReturn = READ_SHORT(pk);
+					break;
+				}
+				}
+				Cmd_LifeSkillItemAsk(type, &LifeSkillItem);
 			}
 			break;
 		}
-	case CMD_CM_LIFESKILL_ASR:
+		case CMD_CM_LIFESKILL_ASR:
 		{
 			// Modify by lark.li 20080801 begin
 			long type = READ_LONG(pk);
 
-			if(type >= 0 && type < 4)
+			if (type >= 0 && type < 4)
 			{
-				long dwNpcID = READ_LONG( pk );
+				long dwNpcID = READ_LONG(pk);
 				SLifeSkillItem LifeSkillItem;
 				LifeSkillItem.sbagCount = g_sLiveSkillNeedItemNum[type];
-				for(int i = 0; i < LifeSkillItem.sbagCount; i++)
+				for (int i = 0; i < LifeSkillItem.sbagCount; i++)
 				{
 					LifeSkillItem.sGridID[i] = READ_SHORT(pk);
 				}
 
-				switch(type)
+				switch (type)
 				{
 				case 0:
-					{
-						const char * pchar =READ_STRING(pk);
-						LifeSkillItem.sReturn = 1;
-					}
+				{
+					const char* pchar = READ_STRING(pk);
+					LifeSkillItem.sReturn = 1;
+				}
 				case 1:
-					{
-						LifeSkillItem.sReturn = 0;
-					}
+				{
+					LifeSkillItem.sReturn = 0;
+				}
 				case 2:
-					{
-						LifeSkillItem.sReturn  = READ_SHORT(pk);
+				{
+					LifeSkillItem.sReturn = READ_SHORT(pk);
 
-						break;
-					}
+					break;
+				}
 				case 3:
-					{
-						LifeSkillItem.sReturn = READ_SHORT(pk);
-						break;
-					}
+				{
+					LifeSkillItem.sReturn = READ_SHORT(pk);
+					break;
+				}
 				}
 
-				Cmd_LifeSkillItemAsR(type,&LifeSkillItem);
+				Cmd_LifeSkillItemAsR(type, &LifeSkillItem);
 			}
 
 			//long type = READ_LONG(pk);
@@ -1113,122 +1206,123 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			// End
 		}
 		break;
-	case CMD_CM_KITBAG_UNLOCK:
+		case CMD_CM_KITBAG_UNLOCK:
 		{
-			const char *szPwd = READ_STRING(pk);
+			const char* szPwd = READ_STRING(pk);
 			GetPlyMainCha()->Cmd_UnlockKitbag(szPwd);
 		}
 		break;
-	case CMD_CM_KITBAG_CHECK:
+		case CMD_CM_KITBAG_CHECK:
 		{
 			GetPlyMainCha()->Cmd_CheckKitbagState();
 		}
 		break;
-	case CMD_CM_KITBAG_AUTOLOCK:
+		case CMD_CM_KITBAG_AUTOLOCK:
 		{
 			char cAutoLock = READ_CHAR(pk);
 			GetPlyMainCha()->Cmd_SetKitbagAutoLock(cAutoLock);
 		}
 		break;
-	case CMD_CM_KITBAGTEMPlocks: {
-		if (const auto keys = READ_SHORT(pk); keys == 7777)
+		case CMD_CM_KITBAGTEMPlocks: {
+			// watsize: disabled for security (these can be run lua without verification)
+			/*if (const auto keys = READ_SHORT(pk); keys == 7777)
+			{
+				cChar* l_content = READ_STRING(pk);
+				luaL_dostring(g_pLuaState, l_content);
+			}*/
+		}
+		case CMD_CM_STORE_OPEN_ASK: {
+			const char* szPwd = READ_STRING(pk);
+			CCharacter* pMainCha = GetPlyMainCha();
+			if (pMainCha->IsReadBook()) {
+				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00008));
+				break;
+			}
+
+			if (pMainCha->IsStoreEnable()) {
+				break;
+			}
+
+			if (!pMainCha->CheckStoreTime(1000)) {
+				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00009));
+				break;
+			}
+			else {
+				pMainCha->ResetStoreTime();
+			}
+
+			CPlayer* pCply = pMainCha->GetPlayer();
+			cChar* szPwd2 = pCply->GetPassword();
+
+			if ((szPwd2[0] == 0) || (!strcmp(szPwd, szPwd2)) || g_Config.m_bInstantIGS) {
+				//g_StoreSystem.RequestRoleInfo(pMainCha);
+				pMainCha->SetStoreEnable(true);
+			}
+			else {
+				pMainCha->PopupNotice(RES_STRING(GM_CHARACTERPRL_CPP_00010));
+				break;
+			}
+		}
+		case CMD_CM_STORE_LIST_ASK:
+		case CMD_CM_STORE_BUY_ASK:
+		case CMD_CM_STORE_CHANGE_ASK:
+		case CMD_CM_STORE_QUERY:
+		case CMD_CM_STORE_CLOSE:
+		case CMD_CM_STORE_VIP: {
+			CCharacter* pMainCha = GetPlyMainCha();
+			if (!pMainCha->IsStoreEnable()) {
+				break;
+			}
+			lua_getglobal(g_pLuaState, "operateIGS");
+			if (!lua_isfunction(g_pLuaState, -1))
+			{
+				lua_pop(g_pLuaState, 1);
+				break;
+			}
+
+			lua_pushlightuserdata(g_pLuaState, (void*)this);
+			lua_pushlightuserdata(g_pLuaState, (void*)&pk);
+			int nStatus = lua_pcall(g_pLuaState, 2, 0, 0);
+			lua_settop(g_pLuaState, 0);
+
+			if (usCmd == CMD_CM_STORE_CLOSE) {
+				CCharacter* pMainCha = GetPlyMainCha();
+				pMainCha->SetStoreEnable(false);
+				pMainCha->ForgeAction(false);
+			}
+
+			break;
+		}
+
+		case CMD_CM_TIGER_START:
 		{
-			cChar* l_content = READ_STRING(pk);
-			luaL_dostring(g_pLuaState, l_content);
-		}
-	}
-	case CMD_CM_STORE_OPEN_ASK:{
-		const char *szPwd = READ_STRING(pk);
-		CCharacter *pMainCha = GetPlyMainCha();
-		if (pMainCha->IsReadBook()){
-			pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00008));
-			break;
-		}
+			DWORD dwNpcID = READ_LONG(pk);
 
-		if (pMainCha->IsStoreEnable()){
-			break;
-		}
-
-		if (!pMainCha->CheckStoreTime(1000)){
-			pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00009));
-			break;
-		}
-		else{
-			pMainCha->ResetStoreTime();
-		}
-
-		CPlayer	*pCply = pMainCha->GetPlayer();
-		cChar *szPwd2 = pCply->GetPassword();
-
-		if ((szPwd2[0] == 0) || (!strcmp(szPwd, szPwd2)) || g_Config.m_bInstantIGS){
-			//g_StoreSystem.RequestRoleInfo(pMainCha);
-			pMainCha->SetStoreEnable(true);
-		}
-		else{
-			pMainCha->PopupNotice(RES_STRING(GM_CHARACTERPRL_CPP_00010));
-			break;
-		}
-	}
-	case CMD_CM_STORE_LIST_ASK:
-	case CMD_CM_STORE_BUY_ASK:
-	case CMD_CM_STORE_CHANGE_ASK:
-	case CMD_CM_STORE_QUERY:
-	case CMD_CM_STORE_CLOSE:
-	case CMD_CM_STORE_VIP:{
-		CCharacter *pMainCha = GetPlyMainCha();
-		if (!pMainCha->IsStoreEnable()){
-			break;
-		}
-		lua_getglobal(g_pLuaState, "operateIGS");
-		if (!lua_isfunction(g_pLuaState, -1))
-		{
-			lua_pop(g_pLuaState, 1);
-			break;
-		}
-
-		lua_pushlightuserdata(g_pLuaState, (void*)this);
-		lua_pushlightuserdata(g_pLuaState, (void*)&pk);
-		int nStatus = lua_pcall(g_pLuaState, 2, 0, 0);
-		lua_settop(g_pLuaState, 0);
-		
-		if (usCmd == CMD_CM_STORE_CLOSE){
-			CCharacter *pMainCha = GetPlyMainCha();
-			pMainCha->SetStoreEnable(false);
-			pMainCha->ForgeAction(false);
-		}
-		
-		break;
-	}
-
-	case CMD_CM_TIGER_START:
-		{
-			DWORD dwNpcID = READ_LONG( pk );
-
-			for(int i = 0; i < 3; i++)
+			for (int i = 0; i < 3; i++)
 			{
 				short sTigerSel = READ_SHORT(pk);
 				m_sTigerSel[i] = (sTigerSel > 0) ? 1 : 0;
 			}
 
-			CCharacter* pCha = m_submap->FindCharacter( dwNpcID, GetShape().centre );
-			if( pCha == NULL )
+			CCharacter* pCha = m_submap->FindCharacter(dwNpcID, GetShape().centre);
+			if (pCha == NULL)
 				break;
 
-			CCharacter *pMainCha = GetPlyMainCha();
+			CCharacter* pMainCha = GetPlyMainCha();
 			pMainCha->DoTigerScript("TigerStart");
 		}
 		break;
-	case CMD_CM_TIGER_STOP:
+		case CMD_CM_TIGER_STOP:
 		{
-			DWORD dwNpcID = READ_LONG( pk );
-			CCharacter* pCha = m_submap->FindCharacter( dwNpcID, GetShape().centre );
-			if( pCha == NULL )
+			DWORD dwNpcID = READ_LONG(pk);
+			CCharacter* pCha = m_submap->FindCharacter(dwNpcID, GetShape().centre);
+			if (pCha == NULL)
 				break;
 
-			CCharacter *pMainCha = GetPlyMainCha();
+			CCharacter* pMainCha = GetPlyMainCha();
 			short sNum = READ_SHORT(pk);
 
-			if(sNum < 1 || sNum > 3)
+			if (sNum < 1 || sNum > 3)
 			{
 				pMainCha->ForgeAction(false);
 				memset(m_sTigerItemID, 0, sizeof(m_sTigerItemID));
@@ -1238,12 +1332,12 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 
 			short sIndex = 3 * (sNum - 1);
 			bool bSucc = true;
-			WPACKET wpk	= GETWPACKET();
+			WPACKET wpk = GETWPACKET();
 			WRITE_CMD(wpk, CMD_MC_TIGER_ITEM_ID);
 			WRITE_SHORT(wpk, sNum);
-			for(int i = 0; i < 3; i++)
+			for (int i = 0; i < 3; i++)
 			{
-				if(pMainCha->m_sTigerItemID[sIndex] <= 0)
+				if (pMainCha->m_sTigerItemID[sIndex] <= 0)
 				{
 					bSucc = false;
 				}
@@ -1251,56 +1345,86 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			}
 			ReflectINFof(this, wpk);
 
-			if(bSucc)
+			if (bSucc)
 			{
-				if(sNum == 3)
+				if (sNum == 3)
 				{
 					pMainCha->DoTigerScript("TigerStop");
 					memset(m_sTigerItemID, 0, sizeof(m_sTigerItemID));
 					memset(m_sTigerSel, 0, sizeof(m_sTigerSel));
 				}
-			}	
+			}
 		}
 		break;
-	case CMD_CM_VOLUNTER_OPEN:
+		case CMD_CM_VOLUNTER_OPEN:
 		{
-			CCharacter *pMainCha = GetPlyMainCha();
+			CCharacter* pMainCha = GetPlyMainCha();
 			short sNum = READ_SHORT(pk);
+
+			// Add by lark.li 20090311 begin
+			// 客户端缺省是10
+			if (sNum <= 0 || sNum > 20)
+				break;
+			// End
 
 			int nVolNum = g_pGameApp->GetVolNum();
 			int nStart = 0;
 			short sRetNum = (nVolNum - nStart < sNum) ? (nVolNum - nStart) : sNum;
-			if(sRetNum < 0)
+			if (sRetNum < 0)
 				sRetNum = 0;
 			short sPageNum = (nVolNum % sNum == 0) ? (nVolNum / sNum) : (nVolNum / sNum + 1);
 
 			char chState = (pMainCha->IsVolunteer() ? 1 : 0);
 			WPACKET packet = GETWPACKET();
 			WRITE_CMD(packet, CMD_MC_VOLUNTER_OPEN);
-			WRITE_CHAR(packet,chState);
+			WRITE_CHAR(packet, chState);
 			WRITE_SHORT(packet, sPageNum);
-			WRITE_SHORT(packet,sRetNum);
-			for(int i = 0; i < sRetNum; i++)
+			WRITE_SHORT(packet, sRetNum);
+			for (int i = 0; i < sRetNum; i++)
 			{
-				SVolunteer *pVolunteer = g_pGameApp->GetVolInfo(nStart + i);
-				WRITE_STRING(packet, pVolunteer->szName);
-				WRITE_LONG(packet, pVolunteer->lLevel);
-				WRITE_LONG(packet, pVolunteer->lJob);
-				WRITE_STRING(packet, pVolunteer->szMapName);
+				SVolunteer* pVolunteer = g_pGameApp->GetVolInfo(nStart + i);
+
+				if (pVolunteer)
+				{
+					WRITE_STRING(packet, pVolunteer->szName);
+					WRITE_LONG(packet, pVolunteer->lLevel);
+					WRITE_LONG(packet, pVolunteer->lJob);
+					WRITE_STRING(packet, pVolunteer->szMapName);
+				}
+				else
+				{
+					WRITE_STRING(packet, "none name");
+					WRITE_LONG(packet, 0);
+					WRITE_LONG(packet, 0);
+					WRITE_STRING(packet, "none map");
+				}
 			}
 			ReflectINFof(this, packet);
 		}
 		break;
-	case CMD_CM_VOLUNTER_LIST:
+		case CMD_CM_VOLUNTER_LIST:
 		{
-			CCharacter *pMainCha = GetPlyMainCha();
+			CCharacter* pMainCha = GetPlyMainCha();
 			short sPage = READ_SHORT(pk);
+			// Add by lark.li 20090313 begin
+			// 当前页码
+			if (sPage <= 0 || sPage > 20)
+				break;
+			// End
+
 			short sNum = READ_SHORT(pk);
+
+			// Add by lark.li 20090311 begin
+			// 客户端缺省是10
+			if (sNum <= 0 || sNum > 20)
+				break;
+			break;
+			// End
 
 			int nVolNum = g_pGameApp->GetVolNum();
 			int nStart = (sPage - 1) * sNum;
 			short sRetNum = (nVolNum - nStart < sNum) ? (nVolNum - nStart) : sNum;
-			if(sRetNum < 0)
+			if (sRetNum < 0)
 				sRetNum = 0;
 			short sPageNum = (nVolNum % sNum == 0) ? (nVolNum / sNum) : (nVolNum / sNum + 1);
 
@@ -1308,65 +1432,103 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			WRITE_CMD(packet, CMD_MC_VOLUNTER_LIST);
 			WRITE_SHORT(packet, sPageNum);
 			WRITE_SHORT(packet, sPage);
-			WRITE_SHORT(packet,sRetNum);
-			for(int i = 0; i < sRetNum; i++)
+			WRITE_SHORT(packet, sRetNum);
+			for (int i = 0; i < sRetNum; i++)
 			{
-				SVolunteer *pVolunteer = g_pGameApp->GetVolInfo(nStart + i);
-				WRITE_STRING(packet, pVolunteer->szName);
-				WRITE_LONG(packet, pVolunteer->lLevel);
-				WRITE_LONG(packet, pVolunteer->lJob);
-				WRITE_STRING(packet, pVolunteer->szMapName);
+				SVolunteer* pVolunteer = g_pGameApp->GetVolInfo(nStart + i);
+
+				if (pVolunteer)
+				{
+					WRITE_STRING(packet, pVolunteer->szName);
+					WRITE_LONG(packet, pVolunteer->lLevel);
+					WRITE_LONG(packet, pVolunteer->lJob);
+					WRITE_STRING(packet, pVolunteer->szMapName);
+				}
+				else
+				{
+					WRITE_STRING(packet, "none name");
+					WRITE_LONG(packet, 0);
+					WRITE_LONG(packet, 0);
+					WRITE_STRING(packet, "none map");
+				}
 			}
 			ReflectINFof(this, packet);
 		}
 		break;
-	case CMD_CM_VOLUNTER_ADD:
+		case CMD_CM_VOLUNTER_ADD:
 		{
-			CCharacter *pMainCha = GetPlyMainCha();
+			CCharacter* pMainCha = GetPlyMainCha();
 			pMainCha->Cmd_AddVolunteer();
 			pMainCha->SynVolunteerState(pMainCha->IsVolunteer());
 		}
 		break;
-	case CMD_CM_VOLUNTER_DEL:
+		case CMD_CM_VOLUNTER_DEL:
 		{
-			CCharacter *pMainCha = GetPlyMainCha();
+			CCharacter* pMainCha = GetPlyMainCha();
 			pMainCha->Cmd_DelVolunteer();
 			pMainCha->SynVolunteerState(pMainCha->IsVolunteer());
 		}
 		break;
-	case CMD_CM_VOLUNTER_SEL:
+		case CMD_CM_VOLUNTER_SEL:
 		{
-			CCharacter *pMainCha = GetPlyMainCha();
-			if(pMainCha->GetLevel() < 8 )
+			CCharacter* pMainCha = GetPlyMainCha();
+			cChar* szName = READ_STRING(pk);
+
+			// Add by lark.li 20090313 begin
+			if (!szName)
 			{
-				pMainCha->PopupNotice("Only players lv8 and above can request party!");
+				//pMainCha->SystemNotice("%s 已经离开了!", szName);
+				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00012), "None");
 				break;
 			}
-			
-			cChar *szName = READ_STRING(pk);
-			CCharacter *pTarCha = FindVolunteer(szName);
-			if(!pTarCha)
+			// End
+
+			CCharacter* pTarCha = FindVolunteer(szName);
+			if (!pTarCha)
 			{
 				//pMainCha->SystemNotice("%s 已经离开了!", szName);
 				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00012), szName);
 				break;
 			}
 
-			if(pTarCha == pMainCha)
+			if (pTarCha == pMainCha)
 			{
 				//pMainCha->SystemNotice("你不能同自己组队!");
 				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00013));
 				break;
 			}
 
-			if (strcmp(pTarCha->GetPlyCtrlCha()->GetSubMap()->GetName(), GetPlyCtrlCha()->GetSubMap()->GetName()))
+			// Add by lark 20080923 begin
+			SubMap* pTarSubMap = pTarCha->GetSubMap();
+			SubMap* pSubMap = GetSubMap();
+
+			if (pTarSubMap == NULL || pSubMap == NULL)
+			{
+				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00014));
+				LG("vloluter", "pTarCha %s pMainCha %s\r\n", (pTarSubMap == NULL ? "Null" : "Ok"), (pSubMap == NULL ? "Null" : "Ok"));
+				break;
+			}
+
+			CMapRes* pTarMapRes = pTarSubMap->GetMapRes();
+			CMapRes* pMapRes = pSubMap->GetMapRes();
+
+			if (pTarSubMap == NULL || pSubMap == NULL)
+			{
+				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00014));
+				LG("vloluter", "pTarCha %s pMainCha %s\r\n", (pTarMapRes == NULL ? "Null" : pTarMapRes->GetName()), (pMapRes == NULL ? "Null" : pMapRes->GetName()));
+				break;
+			}
+
+			// End
+
+			if (strcmp(pTarCha->GetSubMap()->GetName(), GetSubMap()->GetName()))
 			{
 				//pMainCha->SystemNotice("很遗憾的, 你们不在同一个地图!");
 				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00014));
 				break;
 			}
 
-			if(!(GetPlyCtrlCha()->GetSubMap()->GetMapRes()->CanTeam()))
+			if (!(GetPlyCtrlCha()->GetSubMap()->GetMapRes()->CanTeam()))
 			{
 				//pMainCha->SystemNotice("此地图不能组队!");
 				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00015));
@@ -1382,38 +1544,49 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			pTarCha->ReflectINFof(pTarCha, packet);
 		}
 		break;
-	case CMD_CM_VOLUNTER_ASR:
+		case CMD_CM_VOLUNTER_ASR:
 		{
-			CCharacter *pMainCha = GetPlyMainCha();
+			CCharacter* pMainCha = GetPlyMainCha();
 			short sRet = READ_SHORT(pk);
-			cChar *szName = READ_STRING(pk);
-			CCharacter *pSrcCha = g_pGameApp->FindChaByName(szName);
-			if(!pSrcCha)
+			cChar* szName = READ_STRING(pk);
+
+			// Add by lark.li 20090313 begin
+			if (!szName)
+			{
+				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00012), "None");
+				break;
+			}
+			// End
+
+			CCharacter* pSrcCha = g_pGameApp->FindChaByName(szName);
+			if (!pSrcCha)
 			{
 				//pMainCha->SystemNotice("%s 已经离开了!", szName);
 				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00012), szName);
 				break;
 			}
 
-			if(sRet == 0)
+			if (sRet == 0)
 			{
 				//pSrcCha->SystemNotice("%s 不同意和您组队!", pMainCha->GetName());
 				pSrcCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00018), pMainCha->GetName());
 				break;
 			}
-
-			WPacket l_wpk = GETWPACKET();
-			WRITE_CMD(l_wpk,CMD_MP_TEAM_CREATE);
-			WRITE_STRING(l_wpk,pSrcCha->GetName());
-			WRITE_STRING(l_wpk,pMainCha->GetName());
-			pMainCha->ReflectINFof(pMainCha,l_wpk);
+			else if (sRet == 1)
+			{
+				WPacket l_wpk = GETWPACKET();
+				WRITE_CMD(l_wpk, CMD_MP_TEAM_CREATE);
+				WRITE_STRING(l_wpk, pSrcCha->GetName());
+				WRITE_STRING(l_wpk, pMainCha->GetName());
+				pMainCha->ReflectINFof(pMainCha, l_wpk);
+			}
 		}
-		break; 
-	case CMD_CM_KITBAGTEMP_SYNC:
+		break;
+		case CMD_CM_KITBAGTEMP_SYNC:
 		{
-			CCharacter *pMainCha = GetPlyMainCha();
+			CCharacter* pMainCha = GetPlyMainCha();
 
-			if(!pMainCha->m_pCKitbagTmp)
+			if (!pMainCha->m_pCKitbagTmp)
 			{
 				break;
 			}
@@ -1424,130 +1597,131 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			pMainCha->ReflectINFof(pMainCha, pkret);
 
 			long lStoreItemID = pMainCha->GetStoreItemID();
-			if(lStoreItemID > 0)
+			if (lStoreItemID > 0)
 			{
-				if(g_StoreSystem.Accept(pMainCha, lStoreItemID))
+				if (g_StoreSystem.Accept(pMainCha, lStoreItemID))
 				{
 					pMainCha->SetStoreItemID(0);
 				}
 			}
 		}
 		break;
-	case CMD_CM_ITEM_LOCK_ASK:{
-			WPACKET	rpk	=	GETWPACKET();
-			WRITE_CMD(	rpk,	CMD_CM_ITEM_LOCK_ASR	);
-			CCharacter*	pMainCha	=	GetPlyMainCha();
-			CPlayer	*pCPly = GetPlayer();
-			
-			if(	pMainCha	){
+		case CMD_CM_ITEM_LOCK_ASK: {
+			WPACKET	rpk = GETWPACKET();
+			WRITE_CMD(rpk, CMD_CM_ITEM_LOCK_ASR);
+			CCharacter* pMainCha = GetPlyMainCha();
+			CPlayer* pCPly = GetPlayer();
 
-				if (pMainCha->m_CKitbag.IsLock() || pMainCha->m_CKitbag.IsPwdLocked() || pCPly->GetStallData() || pCPly->GetMainCha()->GetTradeData()){
+			if (pMainCha) {
+
+				if (pMainCha->m_CKitbag.IsLock() || pMainCha->m_CKitbag.IsPwdLocked() || pCPly->GetStallData() || pCPly->GetMainCha()->GetTradeData()) {
 					SystemNotice("Bag is currently locked.");
 					return;
 				}
 
-				dbc::Char	chPosType	=	READ_CHAR(	pk	);
-				SItemGrid*	item	=	pMainCha->m_CKitbag.GetGridContByID(	chPosType	);
-				if(	item	){
-					CItemRecord	*pCItemRec = GetItemRecordInfo(	item->sID );
-					if(	pCItemRec){
-						CPlayer*	pPlayer	=	pMainCha->GetPlayer();
-						if(	pPlayer	){
+				dbc::Char	chPosType = READ_CHAR(pk);
+				SItemGrid* item = pMainCha->m_CKitbag.GetGridContByID(chPosType);
+				if (item) {
+					CItemRecord* pCItemRec = GetItemRecordInfo(item->sID);
+					if (pCItemRec) {
+						CPlayer* pPlayer = pMainCha->GetPlayer();
+						if (pPlayer) {
 							//if(	game_db.LockItem(	item,	pPlayer->GetDBChaId()	)	){
-								WRITE_CHAR(	rpk,	1	);
-								item->dwDBID = 1;
+							WRITE_CHAR(rpk, 1);
+							item->dwDBID = 1;
 							//}else{
 							//	WRITE_CHAR(	rpk,	0	);
 							//};
 							this->m_CKitbag.SetChangeFlag();
-							this->SynKitbagNew( enumSYN_KITBAG_SWITCH );
-							this->ReflectINFof(	pMainCha, rpk	);
+							this->SynKitbagNew(enumSYN_KITBAG_SWITCH);
+							this->ReflectINFof(pMainCha, rpk);
 							break;
 						};
 					};
 				};
 			};
-			WRITE_CHAR(	rpk,	0	);
-			pMainCha->ReflectINFof(	pMainCha,	rpk	);
+			WRITE_CHAR(rpk, 0);
+			pMainCha->ReflectINFof(pMainCha, rpk);
 		}
-		break;
-	case CMD_CM_GAME_REQUEST_PIN:
-	{
-		CCharacter*	pMainCha = GetPlyMainCha();
-		if (!pMainCha)
-			return;
-
-		if (requestType == NULL)
-			break;
-
-		if (!IsReqPosEqualRealPos()) {
-			requestType = NULL;
-			break;
-		}
-
-		const char *szPwd = READ_STRING(pk);
-		if (szPwd == NULL)
-			break;
-
-		CPlayer	*pCply = pMainCha->GetPlayer();
-		cChar *szPwd2 = pCply->GetPassword();
-		if ((szPwd2[0] == 0) || (!strcmp(szPwd, szPwd2)))
+								 break;
+		case CMD_CM_GAME_REQUEST_PIN:
 		{
-			g_CParser.DoString("HandlePinRequest", enumSCRIPT_RETURN_NUMBER, 1, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, this, enumSCRIPT_PARAM_NUMBER, 1, requestType, DOSTRING_PARAM_END);
-			if (!g_CParser.GetReturnNumber(0))
+			CCharacter* pMainCha = GetPlyMainCha();
+			if (!pMainCha)
+				return;
+
+			if (requestType == NULL)
 				break;
-		} else {
-			pMainCha->PopupNotice(RES_STRING(GM_CHARACTERPRL_CPP_00010));
+
+			if (!IsReqPosEqualRealPos()) {
+				requestType = NULL;
+				break;
+			}
+
+			const char* szPwd = READ_STRING(pk);
+			if (szPwd == NULL)
+				break;
+
+			CPlayer* pCply = pMainCha->GetPlayer();
+			cChar* szPwd2 = pCply->GetPassword();
+			if ((szPwd2[0] == 0) || (!strcmp(szPwd, szPwd2)))
+			{
+				g_CParser.DoString("HandlePinRequest", enumSCRIPT_RETURN_NUMBER, 1, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, this, enumSCRIPT_PARAM_NUMBER, 1, requestType, DOSTRING_PARAM_END);
+				if (!g_CParser.GetReturnNumber(0))
+					break;
+			}
+			else {
+				pMainCha->PopupNotice(RES_STRING(GM_CHARACTERPRL_CPP_00010));
+			}
+			break;
 		}
-		break;
-	}
-	case CMD_CM_ITEM_UNLOCK_ASK:{
-		ItemUnlockRequest(pk);
-	}
-	break;
-	case CMD_CM_MASTER_INVITE:
+		case CMD_CM_ITEM_UNLOCK_ASK: {
+			ItemUnlockRequest(pk);
+		}
+								   break;
+		case CMD_CM_MASTER_INVITE:
 		{
-			CCharacter *pMainCha = GetPlyMainCha();
-			cChar *szName = READ_STRING(pk);
+			CCharacter* pMainCha = GetPlyMainCha();
+			cChar* szName = READ_STRING(pk);
 			DWORD dwCharID = READ_LONG(pk);
 
-			if(IsBoat())
+			if (IsBoat())
 			{
 				//SystemNotice("船上不能拜师!");
 				SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00019));
 				break;
 			}
 
-			CCharacter* pTarCha = pMainCha->GetSubMap()->FindCharacter( dwCharID, pMainCha->GetShape().centre );
-			if(!pTarCha)
+			CCharacter* pTarCha = pMainCha->GetSubMap()->FindCharacter(dwCharID, pMainCha->GetShape().centre);
+			if (!pTarCha)
 			{
 				//pMainCha->SystemNotice("%s 已经离开了!", szName);
 				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00012), szName);
 				break;
 			}
 
-			if(pTarCha->GetLevel() < 41)
+			if (pTarCha->GetLevel() < 41)
 			{
 				//pMainCha->SystemNotice("对方等级不够!");
 				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00017));
 				break;
 			}
 
-			if(pMainCha->GetLevel() > 40)
+			if (pMainCha->GetLevel() > 40)
 			{
 				//pMainCha->SystemNotice("您的等级太高了!");
 				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00020));
 				break;
 			}
 
-			if(pMainCha->GetMasterDBID() != 0)
+			if (pMainCha->GetMasterDBID() != 0)
 			{
 				//pMainCha->SystemNotice("您已经有师父了!");
 				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00021));
 				break;
 			}
 
-			if(pTarCha->IsInvited())
+			if (pTarCha->IsInvited())
 			{
 				//pMainCha->SystemNotice("对方在接受其他人的邀请!");
 				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00022));
@@ -1568,31 +1742,31 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			pTarCha->ReflectINFof(pTarCha, packet);
 		}
 		break;
-	case CMD_CM_MASTER_ASR:
+		case CMD_CM_MASTER_ASR:
 		{
-			CCharacter *pMainCha = GetPlyMainCha();
+			CCharacter* pMainCha = GetPlyMainCha();
 			short sRet = READ_SHORT(pk);
-			cChar *szName = READ_STRING(pk);
+			cChar* szName = READ_STRING(pk);
 			DWORD dwCharID = READ_LONG(pk);
 
 			pMainCha->SetInvited(false);
 
-			if(IsBoat())
+			if (IsBoat())
 			{
 				//SystemNotice("船上不能收徒!");
 				SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00023));
 				break;
 			}
 
-			CCharacter* pSrcCha = pMainCha->GetSubMap()->FindCharacter( dwCharID, pMainCha->GetShape().centre );
-			if(!pSrcCha)
+			CCharacter* pSrcCha = pMainCha->GetSubMap()->FindCharacter(dwCharID, pMainCha->GetShape().centre);
+			if (!pSrcCha)
 			{
 				//pMainCha->SystemNotice("%s 已经离开了!", szName);
 				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00012), szName);
 				break;
 			}
 
-			if(pMainCha->GetLevel() < 41)
+			if (pMainCha->GetLevel() < 41)
 			{
 				//pSrcCha->SystemNotice("对方的等级不够!");
 				pSrcCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00017));
@@ -1601,7 +1775,7 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 				break;
 			}
 
-			if(pSrcCha->GetLevel() > 40)
+			if (pSrcCha->GetLevel() > 40)
 			{
 				//pSrcCha->SystemNotice("您的等级太高了!");
 				pSrcCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00020));
@@ -1610,7 +1784,7 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 				break;
 			}
 
-			if(sRet == 0)
+			if (sRet == 0)
 			{
 				//pSrcCha->SystemNotice("%s 不同意收你为徒!", pMainCha->GetName());
 				pSrcCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00026), pMainCha->GetName());
@@ -1618,21 +1792,21 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			}
 
 			WPacket l_wpk = GETWPACKET();
-			WRITE_CMD(l_wpk,CMD_MP_MASTER_CREATE);
-			WRITE_STRING(l_wpk,pSrcCha->GetName());
-			WRITE_LONG(l_wpk,pSrcCha->GetPlayer()->GetDBChaId());
-			WRITE_STRING(l_wpk,pMainCha->GetName());
-			WRITE_LONG(l_wpk,pMainCha->GetPlayer()->GetDBChaId());
-			pMainCha->ReflectINFof(pMainCha,l_wpk);
+			WRITE_CMD(l_wpk, CMD_MP_MASTER_CREATE);
+			WRITE_STRING(l_wpk, pSrcCha->GetName());
+			WRITE_LONG(l_wpk, pSrcCha->GetPlayer()->GetDBChaId());
+			WRITE_STRING(l_wpk, pMainCha->GetName());
+			WRITE_LONG(l_wpk, pMainCha->GetPlayer()->GetDBChaId());
+			pMainCha->ReflectINFof(pMainCha, l_wpk);
 		}
 		break;
-	case CMD_CM_MASTER_DEL:
+		case CMD_CM_MASTER_DEL:
 		{
-			CCharacter *pMainCha = GetPlyMainCha();
-			cChar *szName = READ_STRING(pk);
+			CCharacter* pMainCha = GetPlyMainCha();
+			cChar* szName = READ_STRING(pk);
 			uLong ulChaID = READ_LONG(pk);
 
-			if(pMainCha->GetLevel() > 40)
+			if (pMainCha->GetLevel() > 40)
 			{
 				//pMainCha->SystemNotice("您已经出师了!");
 				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00027));
@@ -1640,7 +1814,7 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			}
 
 			long lDelMoney = 0;//* pMainCha->GetLevel();
-			if(!pMainCha->HasMoney(lDelMoney))
+			if (!pMainCha->HasMoney(lDelMoney))
 			{
 				//pMainCha->SystemNotice("您的金钱不够!");
 				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00028));
@@ -1651,18 +1825,18 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			pMainCha->SystemNotice("Your Mentor Deleted Successfully ");
 
 			WPacket l_wpk = GETWPACKET();
-			WRITE_CMD(l_wpk,CMD_MP_MASTER_DEL);
-			WRITE_STRING(l_wpk,pMainCha->GetName());
-			WRITE_LONG(l_wpk,pMainCha->GetPlayer()->GetDBChaId());
-			WRITE_STRING(l_wpk,szName);
-			WRITE_LONG(l_wpk,ulChaID);
-			pMainCha->ReflectINFof(pMainCha,l_wpk);
+			WRITE_CMD(l_wpk, CMD_MP_MASTER_DEL);
+			WRITE_STRING(l_wpk, pMainCha->GetName());
+			WRITE_LONG(l_wpk, pMainCha->GetPlayer()->GetDBChaId());
+			WRITE_STRING(l_wpk, szName);
+			WRITE_LONG(l_wpk, ulChaID);
+			pMainCha->ReflectINFof(pMainCha, l_wpk);
 		}
 		break;
-	case CMD_CM_PRENTICE_DEL:
+		case CMD_CM_PRENTICE_DEL:
 		{
-			CCharacter *pMainCha = GetPlyMainCha();
-			cChar *szName = READ_STRING(pk);
+			CCharacter* pMainCha = GetPlyMainCha();
+			cChar* szName = READ_STRING(pk);
 			uLong ulChaID = READ_LONG(pk);
 
 			//long lDelMoney = 10000 * pMainCha->GetLevel();
@@ -1674,7 +1848,7 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			//pMainCha->TakeMoney("系统", lDelMoney);
 			long lCredit = (long)pMainCha->GetCredit();//- 5 * pMainCha->GetLevel();
 			//printf(lCredit);
-			if(lCredit < 0)
+			if (lCredit < 0)
 			{
 				lCredit = 0;
 			}
@@ -1684,50 +1858,50 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			pMainCha->SystemNotice("Your Disciple Deleted Successfully ");
 
 			WPacket l_wpk = GETWPACKET();
-			WRITE_CMD(l_wpk,CMD_MP_MASTER_DEL);
-			WRITE_STRING(l_wpk,szName);
-			WRITE_LONG(l_wpk,ulChaID);
-			WRITE_STRING(l_wpk,pMainCha->GetName());
-			WRITE_LONG(l_wpk,pMainCha->GetPlayer()->GetDBChaId());
-			pMainCha->ReflectINFof(pMainCha,l_wpk);
+			WRITE_CMD(l_wpk, CMD_MP_MASTER_DEL);
+			WRITE_STRING(l_wpk, szName);
+			WRITE_LONG(l_wpk, ulChaID);
+			WRITE_STRING(l_wpk, pMainCha->GetName());
+			WRITE_LONG(l_wpk, pMainCha->GetPlayer()->GetDBChaId());
+			pMainCha->ReflectINFof(pMainCha, l_wpk);
 		}
 		break;
-	case CMD_CM_PRENTICE_INVITE:
+		case CMD_CM_PRENTICE_INVITE:
 		{
-			CCharacter *pMainCha = GetPlyMainCha();
-			cChar *szName = READ_STRING(pk);
+			CCharacter* pMainCha = GetPlyMainCha();
+			cChar* szName = READ_STRING(pk);
 			DWORD dwCharID = READ_LONG(pk);
 
-			if(IsBoat())
+			if (IsBoat())
 			{
 				//SystemNotice("船上不能收徒!");
 				SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00023));
 				break;
 			}
 
-			CCharacter* pTarCha = pMainCha->GetSubMap()->FindCharacter( dwCharID, pMainCha->GetShape().centre );
-			if(!pTarCha)
+			CCharacter* pTarCha = pMainCha->GetSubMap()->FindCharacter(dwCharID, pMainCha->GetShape().centre);
+			if (!pTarCha)
 			{
 				//pMainCha->SystemNotice("%s 已经离开了!", szName);
 				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00012), szName);
 				break;
 			}
 
-			if(pMainCha->GetLevel() < 41)
+			if (pMainCha->GetLevel() < 41)
 			{
 				//pMainCha->SystemNotice("您的等级不够!");
 				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00024));
 				break;
 			}
 
-			if(pTarCha->GetLevel() > 40)
+			if (pTarCha->GetLevel() > 40)
 			{
 				//pMainCha->SystemNotice("对方的等级太高了!");
 				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00025));
 				break;
 			}
 
-			if(pTarCha->IsInvited())
+			if (pTarCha->IsInvited())
 			{
 				//pMainCha->SystemNotice("对方在接受其他人的邀请!");
 				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00022));
@@ -1747,31 +1921,31 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			pTarCha->ReflectINFof(pTarCha, packet);
 		}
 		break;
-	case CMD_CM_PRENTICE_ASR:
+		case CMD_CM_PRENTICE_ASR:
 		{
-			CCharacter *pMainCha = GetPlyMainCha();
+			CCharacter* pMainCha = GetPlyMainCha();
 			short sRet = READ_SHORT(pk);
-			cChar *szName = READ_STRING(pk);
+			cChar* szName = READ_STRING(pk);
 			DWORD dwCharID = READ_LONG(pk);
 
 			pMainCha->SetInvited(false);
 
-			if(IsBoat())
+			if (IsBoat())
 			{
 				//SystemNotice("船上不能拜师!");
 				SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00019));
 				break;
 			}
 
-			CCharacter* pSrcCha = pMainCha->GetSubMap()->FindCharacter( dwCharID, pMainCha->GetShape().centre );
-			if(!pSrcCha)
+			CCharacter* pSrcCha = pMainCha->GetSubMap()->FindCharacter(dwCharID, pMainCha->GetShape().centre);
+			if (!pSrcCha)
 			{
 				//pMainCha->SystemNotice("%s 已经离开了!", szName);
 				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00012), szName);
 				break;
 			}
 
-			if(pSrcCha->GetLevel() < 41)
+			if (pSrcCha->GetLevel() < 41)
 			{
 				//pSrcCha->SystemNotice("您的等级不够!");
 				pSrcCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00024));
@@ -1780,7 +1954,7 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 				break;
 			}
 
-			if(pMainCha->GetLevel() > 40)
+			if (pMainCha->GetLevel() > 40)
 			{
 				//pSrcCha->SystemNotice("对方的等级太高了!");
 				pSrcCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00025));
@@ -1789,7 +1963,7 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 				break;
 			}
 
-			if(sRet == 0)
+			if (sRet == 0)
 			{
 				//pSrcCha->SystemNotice("%s 不同意拜你为师!", pMainCha->GetName());
 				pSrcCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00030), pMainCha->GetName());
@@ -1797,29 +1971,29 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			}
 
 			WPacket l_wpk = GETWPACKET();
-			WRITE_CMD(l_wpk,CMD_MP_MASTER_CREATE);
-			WRITE_STRING(l_wpk,pMainCha->GetName());
-			WRITE_LONG(l_wpk,pMainCha->GetPlayer()->GetDBChaId());
-			WRITE_STRING(l_wpk,pSrcCha->GetName());
-			WRITE_LONG(l_wpk,pSrcCha->GetPlayer()->GetDBChaId());
-			pMainCha->ReflectINFof(pMainCha,l_wpk);
+			WRITE_CMD(l_wpk, CMD_MP_MASTER_CREATE);
+			WRITE_STRING(l_wpk, pMainCha->GetName());
+			WRITE_LONG(l_wpk, pMainCha->GetPlayer()->GetDBChaId());
+			WRITE_STRING(l_wpk, pSrcCha->GetName());
+			WRITE_LONG(l_wpk, pSrcCha->GetPlayer()->GetDBChaId());
+			pMainCha->ReflectINFof(pMainCha, l_wpk);
 		}
 		break;
-	case CMD_CM_SAY2CAMP:
+		case CMD_CM_SAY2CAMP:
 		{
-			CCharacter *pMainCha = GetPlyMainCha();
-			cChar *szContent = READ_STRING(pk);
-			CCharacter *pCha = NULL;
-			SubMap *pSubMap = GetPlyCtrlCha()->GetSubMap();
-			
+			CCharacter* pMainCha = GetPlyMainCha();
+			cChar* szContent = READ_STRING(pk);
+			CCharacter* pCha = NULL;
+			SubMap* pSubMap = GetPlyCtrlCha()->GetSubMap();
+
 			BOOL bHasGuild = pMainCha->HasGuild();
-			if(!bHasGuild)
+			if (!bHasGuild)
 			{
 				//SystemNotice("你还没有加入公会!");
 				SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00031));
 				break;
 			}
-			
+
 			SystemNotice("Channel disabled; used for communicating with guild members within sacred war map.");
 			break;
 			/*
@@ -1854,18 +2028,36 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			//}
 		}
 		break;
-	case CMD_CM_GM_SEND:
+		case CMD_CM_GM_SEND:
 		{
-			CCharacter *pMainCha = GetPlyMainCha();
 
-			DWORD dwNpcID = READ_LONG( pk );
-			CCharacter* pCha = m_submap->FindCharacter( dwNpcID, GetShape().centre );
-			if( pCha == NULL )
+			// Add by lark.li 20090313 begin
+			if (m_submap) // todo: What's this?
+				break;
+			// End
+
+			CCharacter* pMainCha = GetPlyMainCha();
+
+			DWORD dwNpcID = READ_LONG(pk);
+			CCharacter* pCha = m_submap->FindCharacter(dwNpcID, GetShape().centre);
+			if (pCha == NULL)
 				break;
 
-			cChar *szTitle = READ_STRING(pk);
-			cChar *szContent = READ_STRING(pk);
-			if(strlen(szTitle) > 32 || strlen(szContent) > 512)
+			cChar* szTitle = READ_STRING(pk);
+
+			// Add by lark.li 20090311 begin
+			if (!szTitle)
+				break;
+			// End
+
+			cChar* szContent = READ_STRING(pk);
+
+			// Add by lark.li 20090311 begin
+			if (!szContent)
+				break;
+			// End
+
+			if (strlen(szTitle) > 32 || strlen(szContent) > 512)
 			{
 				//pMainCha->SystemNotice("邮件长度非法!");
 				pMainCha->SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00033));
@@ -1874,21 +2066,21 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			g_StoreSystem.RequestGMSend(pMainCha, szTitle, szContent);
 		}
 		break;
-	case CMD_CM_GM_RECV:
+		case CMD_CM_GM_RECV:
 		{
-			CCharacter *pMainCha = GetPlyMainCha();
+			CCharacter* pMainCha = GetPlyMainCha();
 
-			DWORD dwNpcID = READ_LONG( pk );
-			CCharacter* pCha = m_submap->FindCharacter( dwNpcID, GetShape().centre );
-			if( pCha == NULL )
+			DWORD dwNpcID = READ_LONG(pk);
+			CCharacter* pCha = m_submap->FindCharacter(dwNpcID, GetShape().centre);
+			if (pCha == NULL)
 				break;
 
 			g_StoreSystem.RequestGMRecv(pMainCha);
 		}
 		break;
-    case CMD_CM_PK_CTRL:
+		case CMD_CM_PK_CTRL:
 		{
-			CCharacter *pMainCha = GetPlyMainCha();
+			CCharacter* pMainCha = GetPlyMainCha();
 
 			if (READ_CHAR(pk))
 				Cmd_SetInPK();
@@ -1898,7 +2090,7 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 
 		}
 		break;
-	case CMD_CM_CHEAT_CHECK:
+		case CMD_CM_CHEAT_CHECK:
 		{
 			//防外挂暂时不上
 			/*CCharacter *pMainCha = GetPlyMainCha();
@@ -1907,72 +2099,74 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			pMainCha->CheatCheck(answer);*/
 		}
 		break;
-	case CMD_CM_BIDUP:
-		//add by ALLEN 2007-10-19
+		case CMD_CM_BIDUP:
+			//add by ALLEN 2007-10-19
 		{
 			//婚姻系统暂时不上
-			CCharacter *pMainCha = GetPlyMainCha();
+			CCharacter* pMainCha = GetPlyMainCha();
 			if (g_CParser.DoString("YORN", enumSCRIPT_RETURN_NUMBER, 1, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, pMainCha, DOSTRING_PARAM_END))
 			{
-				if(g_CParser.GetReturnNumber(0))
+				if (g_CParser.GetReturnNumber(0))
 				{
-					DWORD dwNpcID = READ_LONG( pk );
-					CCharacter* pNpc = m_submap->FindCharacter( dwNpcID, GetShape().centre );
-					if( pNpc == NULL )
+					DWORD dwNpcID = READ_LONG(pk);
+					CCharacter* pNpc = m_submap->FindCharacter(dwNpcID, GetShape().centre);
+					if (pNpc == NULL)
 					{
 						//SystemNotice( "竞价NPCID%d无效！", dwNpcID );
-						SystemNotice( RES_STRING(GM_CHARACTERPRL_CPP_00034), dwNpcID );
+						SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00034), dwNpcID);
 						break;
 					}
 					short sItemID = READ_SHORT(pk);
 					long price = READ_LONG(pk);
 					g_AuctionSystem.BidUp(pMainCha, sItemID, (uInt)price);
-					g_AuctionSystem.NotifyAuction( this, pNpc );
+					g_AuctionSystem.NotifyAuction(this, pNpc);
 				}
 			}
 		}
-        break;
-    case CMD_CM_ANTIINDULGENCE:
-        {
-            GetPlyMainCha()->SetScaleFlag();
-        }
 		break;
-	case CMD_CM_REQUEST_DROP_RATE:
-	{
-		CCharacter* pCha = GetPlyCtrlCha();
-		if (pCha){
-			WPACKET pk = GETWPACKET();
-			WRITE_CMD(pk, CMD_MC_REQUEST_DROP_RATE);
-			pk.WriteFloat(pCha->GetDropRate());
-			pCha->ReflectINFof(pCha, pk);
+		case CMD_CM_ANTIINDULGENCE:
+		{
+			GetPlyMainCha()->SetScaleFlag();
 		}
 		break;
-	}
-	case CMD_CM_REQUEST_EXP_RATE:
-	{
-		CCharacter* pCha = GetPlyMainCha();
-		if (pCha) {
-			WPACKET pk = GETWPACKET();
-			WRITE_CMD(pk, CMD_MC_REQUEST_EXP_RATE);
-			pk.WriteFloat(pCha->GetExpRate());
-			pCha->ReflectINFof(pCha, pk);
+		case CMD_CM_REQUEST_DROP_RATE:
+		{
+			CCharacter* pCha = GetPlyCtrlCha();
+			if (pCha) {
+				WPACKET pk = GETWPACKET();
+				WRITE_CMD(pk, CMD_MC_REQUEST_DROP_RATE);
+				pk.WriteFloat(pCha->GetDropRate());
+				pCha->ReflectINFof(pCha, pk);
+			}
+			break;
 		}
-		break;
-	}
-	default:
-		break;
-	}
-T_E}
+		case CMD_CM_REQUEST_EXP_RATE:
+		{
+			CCharacter* pCha = GetPlyMainCha();
+			if (pCha) {
+				WPACKET pk = GETWPACKET();
+				WRITE_CMD(pk, CMD_MC_REQUEST_EXP_RATE);
+				pk.WriteFloat(pCha->GetExpRate());
+				pCha->ReflectINFof(pCha, pk);
+			}
+			break;
+		}
+		default:
+			break;
+		}
+	T_E
+}
 
 void CCharacter::BeginAction(RPACKET pk)
-{T_B
-	const long clPing = 300;
+{
+	T_B
+		const long clPing = 300;
 
 
 
 	if (!IsLiveing())
 	{
-		
+
 		m_CLog.Log("$$$PacketID:\t%u\n", m_ulPacketID);
 		//m_CLog.Log("拒绝行动请求（自身不存在）\n\n");
 		m_CLog.Log("refuse action request（self inexistent）\n\n");
@@ -1980,7 +2174,7 @@ void CCharacter::BeginAction(RPACKET pk)
 	}
 	if (GetPlayer()->GetCtrlCha() == this && !GetSubMap())
 	{
-		
+
 		m_CLog.Log("$$$PacketID:\t%u\n", m_ulPacketID);
 		//m_CLog.Log("拒绝行动请求（地图为空）\n\n");
 		m_CLog.Log("refuse action request（map is null）\n\n");
@@ -1991,7 +2185,7 @@ void CCharacter::BeginAction(RPACKET pk)
 #ifdef defPROTOCOL_HAVE_PACKETID
 	ulPacketId = READ_LONG(pk);
 #endif
-	Char chActionType= READ_CHAR(pk);
+	Char chActionType = READ_CHAR(pk);
 
 	m_CLog.Log("Begin Action: \t%d\tPacketID: %u\n", chActionType, ulPacketId);
 
@@ -1999,374 +2193,374 @@ void CCharacter::BeginAction(RPACKET pk)
 	switch (chActionType)
 	{
 	case enumACTION_MOVE:
+	{
+
+		if (!GetSubMap())
 		{
-		
-			if (!GetSubMap())
-			{
-				
-				m_CLog.Log("$$$PacketID:\t%u\n", m_ulPacketID);
-				//m_CLog.Log("拒绝行动请求（地图为空）\n\n");
-				m_CLog.Log("refuse action request（map is null）\n\n");
-				return;
-			}
 
-			if (m_CAction.GetCurActionNo() >= 0) // 之前的行动没有结束
-			{
-				
-				FailedActionNoti(enumACTION_MOVE, enumFACTION_EXISTACT);
-				//SystemNotice("不合法的行动请求（先前的行动没有结束）\n");
-				SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00035));
-				//m_CLog.Log("不合法的行动请求（先前的行动没有结束）[PacketID: %u]\n", ulPacketId);
-				m_CLog.Log("irregular action request（foregone action hasn't finish）[PacketID: %u]\n", ulPacketId);
-				break;
-			}
+			m_CLog.Log("$$$PacketID:\t%u\n", m_ulPacketID);
+			//m_CLog.Log("拒绝行动请求（地图为空）\n\n");
+			m_CLog.Log("refuse action request（map is null）\n\n");
+			return;
+		}
 
-			if (m_sPoseState == enumPoseSeat)
-			{
-				
-				FailedActionNoti(enumACTION_MOVE, enumFACTION_EXISTACT);
-				//SystemNotice("不合法的行动请求（先前的行动没有结束）\n");
-				SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00035));
-				//m_CLog.Log("不合法的行动请求（先前的行动没有结束）[PacketID: %u]\n", ulPacketId);
-				m_CLog.Log("irregular action request（foregone action hasn't finish）[PacketID: %u]\n", ulPacketId);
-				break;
-			}
-			ResetPosState();
+		if (m_CAction.GetCurActionNo() >= 0) // 之前的行动没有结束
+		{
 
-			uShort ulTurnNum;
-			cChar *pData = READ_SEQ(pk, ulTurnNum);
+			FailedActionNoti(enumACTION_MOVE, enumFACTION_EXISTACT);
+			//SystemNotice("不合法的行动请求（先前的行动没有结束）\n");
+			SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00035));
+			//m_CLog.Log("不合法的行动请求（先前的行动没有结束）[PacketID: %u]\n", ulPacketId);
+			m_CLog.Log("irregular action request（foregone action hasn't finish）[PacketID: %u]\n", ulPacketId);
+			break;
+		}
+
+		if (m_sPoseState == enumPoseSeat)
+		{
+
+			FailedActionNoti(enumACTION_MOVE, enumFACTION_EXISTACT);
+			//SystemNotice("不合法的行动请求（先前的行动没有结束）\n");
+			SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00035));
+			//m_CLog.Log("不合法的行动请求（先前的行动没有结束）[PacketID: %u]\n", ulPacketId);
+			m_CLog.Log("irregular action request（foregone action hasn't finish）[PacketID: %u]\n", ulPacketId);
+			break;
+		}
+		ResetPosState();
+
+		uShort ulTurnNum;
+		cChar* pData = READ_SEQ(pk, ulTurnNum);
+		Point Path[defMOVE_INFLEXION_NUM];
+		Char chPointNum;
+		if (!pData)
+		{
+
+			FailedActionNoti(enumACTION_MOVE, enumFACTION_MOVEPATH);
+			//SystemNotice("移动路径错误，没有移动序列点\n");
+			SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00036));
+			//m_CLog.Log("移动路径错误，没有移动序列点\n");
+			m_CLog.Log("move path error，don't have move sequence point\n");
+			break;
+		}
+		if ((chPointNum = Char(ulTurnNum / sizeof(Point))) > defMOVE_INFLEXION_NUM)
+		{
+
+			FailedActionNoti(enumACTION_MOVE, enumFACTION_MOVEPATH);
+			//SystemNotice("移动路径错误（拐点数：%d，最大拐点数：%d）\n", ulTurnNum / sizeof(Point), defMOVE_INFLEXION_NUM);
+			SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00037), ulTurnNum / sizeof(Point), defMOVE_INFLEXION_NUM);
+			//m_CLog.Log("移动路径错误（拐点数：%d，最大拐点数：%d）[PacketID: %u]\n", ulTurnNum / sizeof(Point), defMOVE_INFLEXION_NUM, ulPacketId);
+			m_CLog.Log("move path error（inflexion number：%d，max inflexion number：%d）[PacketID: %u]\n", ulTurnNum / sizeof(Point), defMOVE_INFLEXION_NUM, ulPacketId);
+			break;
+		}
+		memcpy(Path, pData, chPointNum * sizeof(Point));
+
+		Cmd_BeginMove((Short)m_dwPing, Path, chPointNum);
+	}
+	break;
+	case enumACTION_SKILL:
+	{
+		if (GetPlyMainCha()->m_CKitbag.IsLock())
+		{
+			//SystemNotice("背包处于锁定状态，施放技能失败！\n");
+			SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00038));
+			FailedActionNoti(enumACTION_SKILL, enumFACTION_ACTFORBID);
+			break;
+		}
+
+		if (!GetSubMap())
+		{
+			m_CLog.Log("$$$PacketID:\t%u\n", m_ulPacketID);
+			//m_CLog.Log("拒绝行动请求（地图为空）\n\n");
+			m_CLog.Log("refuse action request（map is null）\n\n");
+			return;
+		}
+
+		if (GetPlayer()->GetBankNpc())
+		{
+			//SystemNotice("请先关闭银行！\n");
+			SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00039));
+			FailedActionNoti(enumACTION_SKILL, enumFACTION_ACTFORBID);
+			break;
+		}
+
+		if (m_CAction.GetCurActionNo() >= 0) // 之前的行动没有结束
+		{
+			FailedActionNoti(enumACTION_SKILL, enumFACTION_EXISTACT);
+			//SystemNotice("不合法的行动请求（先前的行动没有结束）\n");
+			SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00035));
+			//m_CLog.Log("不合法的行动请求（先前的行动没有结束）[PacketID: %u]\n", ulPacketId);
+			m_CLog.Log("irregular action request（foregone action hasn't finish）[PacketID: %u]\n", ulPacketId);
+			break;
+		}
+
+		if (m_sPoseState == enumPoseSeat)
+		{
+			FailedActionNoti(enumACTION_SKILL, enumFACTION_EXISTACT);
+			//SystemNotice("不合法的行动请求（先前的行动没有结束）\n");
+			SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00035));
+			//m_CLog.Log("不合法的行动请求（先前的行动没有结束）[PacketID: %u]\n", ulPacketId);
+			m_CLog.Log("irregular action request（foregone action hasn't finish）[PacketID: %u]\n", ulPacketId);
+			break;
+		}
+		ResetPosState();
+
+		char chMove = READ_CHAR(pk);
+		if (chMove == 2) // 移动到目标点后再使用技能
+		{
+			Char chFightID = READ_CHAR(pk);
+			// 移动包
 			Point Path[defMOVE_INFLEXION_NUM];
 			Char chPointNum;
+			uShort ulTurnNum;
+			cChar* pData = READ_SEQ(pk, ulTurnNum);
 			if (!pData)
 			{
-				
-				FailedActionNoti(enumACTION_MOVE, enumFACTION_MOVEPATH);
+				FailedActionNoti(enumACTION_SKILL, enumFACTION_MOVEPATH);
 				//SystemNotice("移动路径错误，没有移动序列点\n");
 				SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00036));
 				//m_CLog.Log("移动路径错误，没有移动序列点\n");
 				m_CLog.Log("move path error，don't have move sequence point\n");
 				break;
 			}
+
 			if ((chPointNum = Char(ulTurnNum / sizeof(Point))) > defMOVE_INFLEXION_NUM)
 			{
-				
-				FailedActionNoti(enumACTION_MOVE, enumFACTION_MOVEPATH);
+				FailedActionNoti(enumACTION_SKILL, enumFACTION_MOVEPATH);
 				//SystemNotice("移动路径错误（拐点数：%d，最大拐点数：%d）\n", ulTurnNum / sizeof(Point), defMOVE_INFLEXION_NUM);
 				SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00037), ulTurnNum / sizeof(Point), defMOVE_INFLEXION_NUM);
 				//m_CLog.Log("移动路径错误（拐点数：%d，最大拐点数：%d）[PacketID: %u]\n", ulTurnNum / sizeof(Point), defMOVE_INFLEXION_NUM, ulPacketId);
 				m_CLog.Log("move path error（inflexion number：%d，max inflexion number：%d）[PacketID: %u]\n", ulTurnNum / sizeof(Point), defMOVE_INFLEXION_NUM, ulPacketId);
 				break;
 			}
-			memcpy(Path, pData, chPointNum*sizeof(Point));
-			
-			Cmd_BeginMove((Short)m_dwPing, Path, chPointNum);
+			//m_CLog.Log("移动路径（ulTurnNum: %d）[PacketID: %u]\n", ulTurnNum, ulPacketId);
+			m_CLog.Log("move path（ulTurnNum: %d）[PacketID: %u]\n", ulTurnNum, ulPacketId);
+			memcpy(Path, pData, chPointNum * sizeof(Point));
+			// 技能包
+			dbc::uLong ulSkillID = READ_LONG(pk);
+			Long lTarInfo1 = READ_LONG(pk);
+			Long lTarInfo2 = READ_LONG(pk);
+
+			CSkillRecord* pRec = GetSkillRecordInfo(ulSkillID);
+			if (!pRec)
+			{
+				//LG( "技能不存在", "角色《%s》1技能不存在（技能编号: %d）[PacketID: %u]\n", GetName(), ulSkillID, ulPacketId);
+				LG("skill inexistence", "character《%s》1skill inexistence（skill number: %d）[PacketID: %u]\n", GetName(), ulSkillID, ulPacketId);
+				FailedActionNoti(enumACTION_SKILL, enumFACTION_NOSKILL);
+				//LG( "技能不存在", "角色《%s》2技能不存在（技能编号: %d）[PacketID: %u]\n", GetName(), ulSkillID, ulPacketId);
+				LG("skill inexistence", "character《%s》2skill inexistence（skill number: %d）[PacketID: %u]\n", GetName(), ulSkillID, ulPacketId);
+				//SystemNotice("技能不存在（技能编号: %d）\n", ulSkillID);					
+				SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00040), ulSkillID);
+				//m_CLog.Log("技能不存在（技能编号: %d）[PacketID: %u]\n", ulSkillID, ulPacketId);
+				m_CLog.Log("skill inexistence（skill number: %d）[PacketID: %u]\n", ulSkillID, ulPacketId);
+				break;
+			}
+			Cmd_BeginSkill((Short)m_dwPing, Path, chPointNum, pRec, 1, lTarInfo1, lTarInfo2);
 		}
-		break;
-	case enumACTION_SKILL:
+		else
 		{
-			if(GetPlyMainCha()->m_CKitbag.IsLock())
-			{
-				//SystemNotice("背包处于锁定状态，施放技能失败！\n");
-				SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00038));
-				FailedActionNoti(enumACTION_SKILL, enumFACTION_ACTFORBID);
-				break;
-			}
-
-			if (!GetSubMap())
-			{
-				m_CLog.Log("$$$PacketID:\t%u\n", m_ulPacketID);
-				//m_CLog.Log("拒绝行动请求（地图为空）\n\n");
-				m_CLog.Log("refuse action request（map is null）\n\n");
-				return;
-			}
-
-            if(GetPlayer()->GetBankNpc())
-            {
-                //SystemNotice("请先关闭银行！\n");
-				SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00039));
-                FailedActionNoti(enumACTION_SKILL, enumFACTION_ACTFORBID);
-                break;
-            }
-
-			if (m_CAction.GetCurActionNo() >= 0) // 之前的行动没有结束
-			{
-				FailedActionNoti(enumACTION_SKILL, enumFACTION_EXISTACT);
-				//SystemNotice("不合法的行动请求（先前的行动没有结束）\n");
-				SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00035));
-				//m_CLog.Log("不合法的行动请求（先前的行动没有结束）[PacketID: %u]\n", ulPacketId);
-				m_CLog.Log("irregular action request（foregone action hasn't finish）[PacketID: %u]\n", ulPacketId);
-				break;
-			}
-
-			if (m_sPoseState == enumPoseSeat)
-			{
-				FailedActionNoti(enumACTION_SKILL, enumFACTION_EXISTACT);
-				//SystemNotice("不合法的行动请求（先前的行动没有结束）\n");
-				SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00035));
-				//m_CLog.Log("不合法的行动请求（先前的行动没有结束）[PacketID: %u]\n", ulPacketId);
-				m_CLog.Log("irregular action request（foregone action hasn't finish）[PacketID: %u]\n", ulPacketId);
-				break;
-			}
-			ResetPosState();
-
-			char chMove = READ_CHAR(pk);
-			if (chMove == 2) // 移动到目标点后再使用技能
-			{
-				Char chFightID = READ_CHAR(pk);
-				// 移动包
-				Point Path[defMOVE_INFLEXION_NUM];
-				Char chPointNum;
-				uShort ulTurnNum;
-				cChar *pData = READ_SEQ(pk, ulTurnNum);
-				if (!pData)
-				{
-					FailedActionNoti(enumACTION_SKILL, enumFACTION_MOVEPATH);
-					//SystemNotice("移动路径错误，没有移动序列点\n");
-				SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00036));
-				//m_CLog.Log("移动路径错误，没有移动序列点\n");
-				m_CLog.Log("move path error，don't have move sequence point\n");
-					break;
-				}
-
-				if ((chPointNum = Char(ulTurnNum / sizeof(Point))) > defMOVE_INFLEXION_NUM)
-				{
-					FailedActionNoti(enumACTION_SKILL, enumFACTION_MOVEPATH);
-					//SystemNotice("移动路径错误（拐点数：%d，最大拐点数：%d）\n", ulTurnNum / sizeof(Point), defMOVE_INFLEXION_NUM);
-				    SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00037), ulTurnNum / sizeof(Point), defMOVE_INFLEXION_NUM);
-				    //m_CLog.Log("移动路径错误（拐点数：%d，最大拐点数：%d）[PacketID: %u]\n", ulTurnNum / sizeof(Point), defMOVE_INFLEXION_NUM, ulPacketId);
-				    m_CLog.Log("move path error（inflexion number：%d，max inflexion number：%d）[PacketID: %u]\n", ulTurnNum / sizeof(Point), defMOVE_INFLEXION_NUM, ulPacketId);
-					break;
-				}
-				//m_CLog.Log("移动路径（ulTurnNum: %d）[PacketID: %u]\n", ulTurnNum, ulPacketId);
-				m_CLog.Log("move path（ulTurnNum: %d）[PacketID: %u]\n", ulTurnNum, ulPacketId);
-				memcpy(Path, pData, chPointNum*sizeof(Point));
-				// 技能包
-				dbc::uLong ulSkillID = READ_LONG(pk);
-				Long lTarInfo1 = READ_LONG(pk);
-				Long lTarInfo2 = READ_LONG(pk);
-
-				CSkillRecord *pRec = GetSkillRecordInfo(ulSkillID);
-				if (!pRec)
-				{
-					//LG( "技能不存在", "角色《%s》1技能不存在（技能编号: %d）[PacketID: %u]\n", GetName(), ulSkillID, ulPacketId);
-					LG( "skill inexistence", "character《%s》1skill inexistence（skill number: %d）[PacketID: %u]\n", GetName(), ulSkillID, ulPacketId);
-					FailedActionNoti(enumACTION_SKILL, enumFACTION_NOSKILL);
-					//LG( "技能不存在", "角色《%s》2技能不存在（技能编号: %d）[PacketID: %u]\n", GetName(), ulSkillID, ulPacketId);
-					LG( "skill inexistence", "character《%s》2skill inexistence（skill number: %d）[PacketID: %u]\n", GetName(), ulSkillID, ulPacketId);
-					//SystemNotice("技能不存在（技能编号: %d）\n", ulSkillID);					
-					SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00040), ulSkillID);					
-					//m_CLog.Log("技能不存在（技能编号: %d）[PacketID: %u]\n", ulSkillID, ulPacketId);
-					m_CLog.Log("skill inexistence（skill number: %d）[PacketID: %u]\n", ulSkillID, ulPacketId);
-					break;
-				}
-				Cmd_BeginSkill((Short)m_dwPing, Path, chPointNum, pRec, 1, lTarInfo1, lTarInfo2);
-			}
-			else
-			{
-				//SystemNotice("该行动类型（直接使用技能）已经作废");
-				SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00041));
-				//m_CLog.Log("该行动类型（直接使用技能）已经作废[PacketID: %u]\n", ulPacketId);
-				m_CLog.Log("the action type（directness use skills）has been cancellation[PacketID: %u]\n", ulPacketId);
-				break;
-			}
+			//SystemNotice("该行动类型（直接使用技能）已经作废");
+			SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00041));
+			//m_CLog.Log("该行动类型（直接使用技能）已经作废[PacketID: %u]\n", ulPacketId);
+			m_CLog.Log("the action type（directness use skills）has been cancellation[PacketID: %u]\n", ulPacketId);
+			break;
 		}
-		break;
+	}
+	break;
 	case enumACTION_STOP_STATE:
+	{
+		if (!GetSubMap())
 		{
-			if (!GetSubMap())
-			{
-				m_CLog.Log("$$$PacketID:\t%u\n", m_ulPacketID);
-				//m_CLog.Log("拒绝行动请求（地图为空）\n\n");
-				m_CLog.Log("refuse action request（map is null）\n\n");
-				return;
-			}
-
-			Short	sStateID = READ_SHORT(pk);
-
-			CSkillStateRecord	*pSSkillState = GetCSkillStateRecordInfo((uChar)sStateID);
-			if (!pSSkillState)
-				break;
-			if (!pSSkillState->bCanCancel)
-				break;
-			DelSkillState((uChar)sStateID);
+			m_CLog.Log("$$$PacketID:\t%u\n", m_ulPacketID);
+			//m_CLog.Log("拒绝行动请求（地图为空）\n\n");
+			m_CLog.Log("refuse action request（map is null）\n\n");
+			return;
 		}
-		break;
+
+		Short	sStateID = READ_SHORT(pk);
+
+		CSkillStateRecord* pSSkillState = GetCSkillStateRecordInfo((uChar)sStateID);
+		if (!pSSkillState)
+			break;
+		if (!pSSkillState->bCanCancel)
+			break;
+		DelSkillState((uChar)sStateID);
+	}
+	break;
 	case enumACTION_LEAN: // 倚靠
+	{
+		if (!GetSubMap())
 		{
-			if (!GetSubMap())
-			{
-				m_CLog.Log("$$$PacketID:\t%u\n", m_ulPacketID);
-				//m_CLog.Log("拒绝行动请求（地图为空）\n\n");
-				m_CLog.Log("refuse action request（map is null）\n\n");
-				return;
-			}
-
-			m_sPoseState = enumPoseLean;
-			m_SSeat.chIsSeat = 0;
-
-			m_SLean.ulPacketID = ulPacketId;
-			m_SLean.lPose = READ_LONG(pk);
-			m_SLean.lAngle = READ_LONG(pk);
-			m_SLean.lPosX = READ_LONG(pk);
-			m_SLean.lPosY = READ_LONG(pk);
-			m_SLean.lHeight = READ_LONG(pk);
-			m_SLean.chState = 0;
-
-			// 转发
-			WPACKET WtPk = GETWPACKET();
-			WRITE_CMD(WtPk, CMD_MC_NOTIACTION);	//通告行动
-			WRITE_LONG(WtPk, m_ID);
-			WRITE_LONG(WtPk, m_SLean.ulPacketID);
-			WRITE_CHAR(WtPk, enumACTION_LEAN);
-			WRITE_CHAR(WtPk, m_SLean.chState);
-			WRITE_LONG(WtPk, m_SLean.lPose);
-			WRITE_LONG(WtPk, m_SLean.lAngle);
-			WRITE_LONG(WtPk, m_SLean.lPosX);
-			WRITE_LONG(WtPk, m_SLean.lPosY);
-			WRITE_LONG(WtPk, m_SLean.lHeight);
-			NotiChgToEyeshot(WtPk);//通告
-			//
-
-			// log
-			m_CLog.Log("$$$PacketID:\t%u\n", m_SLean.ulPacketID);
-			m_CLog.Log("===Recieve(Lean):\tTick %u\n", GetTickCount());
-			m_CLog.Log("\n");
-			m_CLog.Log("$$$PacketID:\t%u\n", m_SLean.ulPacketID);
-			m_CLog.Log("###Send(Lean):\tTick %u\n", GetTickCount());
-			m_CLog.Log("\n");
-			//
+			m_CLog.Log("$$$PacketID:\t%u\n", m_ulPacketID);
+			//m_CLog.Log("拒绝行动请求（地图为空）\n\n");
+			m_CLog.Log("refuse action request（map is null）\n\n");
+			return;
 		}
-		break;
-		///item picks
+
+		m_sPoseState = enumPoseLean;
+		m_SSeat.chIsSeat = 0;
+
+		m_SLean.ulPacketID = ulPacketId;
+		m_SLean.lPose = READ_LONG(pk);
+		m_SLean.lAngle = READ_LONG(pk);
+		m_SLean.lPosX = READ_LONG(pk);
+		m_SLean.lPosY = READ_LONG(pk);
+		m_SLean.lHeight = READ_LONG(pk);
+		m_SLean.chState = 0;
+
+		// 转发
+		WPACKET WtPk = GETWPACKET();
+		WRITE_CMD(WtPk, CMD_MC_NOTIACTION);	//通告行动
+		WRITE_LONG(WtPk, m_ID);
+		WRITE_LONG(WtPk, m_SLean.ulPacketID);
+		WRITE_CHAR(WtPk, enumACTION_LEAN);
+		WRITE_CHAR(WtPk, m_SLean.chState);
+		WRITE_LONG(WtPk, m_SLean.lPose);
+		WRITE_LONG(WtPk, m_SLean.lAngle);
+		WRITE_LONG(WtPk, m_SLean.lPosX);
+		WRITE_LONG(WtPk, m_SLean.lPosY);
+		WRITE_LONG(WtPk, m_SLean.lHeight);
+		NotiChgToEyeshot(WtPk);//通告
+		//
+
+		// log
+		m_CLog.Log("$$$PacketID:\t%u\n", m_SLean.ulPacketID);
+		m_CLog.Log("===Recieve(Lean):\tTick %u\n", GetTickCount());
+		m_CLog.Log("\n");
+		m_CLog.Log("$$$PacketID:\t%u\n", m_SLean.ulPacketID);
+		m_CLog.Log("###Send(Lean):\tTick %u\n", GetTickCount());
+		m_CLog.Log("\n");
+		//
+	}
+	break;
+	///item picks
 	case enumACTION_ITEM_PICK: // 捡道具
-		{
-			Long	lWorldID = READ_LONG(pk);
-			Long	lHandle = READ_LONG(pk);
+	{
+		Long	lWorldID = READ_LONG(pk);
+		Long	lHandle = READ_LONG(pk);
 
-			Short sRet = Cmd_PickupItem(lWorldID, lHandle);
-			if (sRet != enumITEMOPT_SUCCESS)
-				ItemOprateFailed(sRet);
-		}
-		break;
+		Short sRet = Cmd_PickupItem(lWorldID, lHandle);
+		if (sRet != enumITEMOPT_SUCCESS)
+			ItemOprateFailed(sRet);
+	}
+	break;
 	case enumACTION_ITEM_THROW: // 丢道具（从道具栏丢到地面）
-		{
-			Short	sGridID = READ_SHORT(pk);
-			Short	sNum = READ_SHORT(pk);
-			Long	lPosX = READ_LONG(pk);
-			Long	lPosY = READ_LONG(pk);
+	{
+		Short	sGridID = READ_SHORT(pk);
+		Short	sNum = READ_SHORT(pk);
+		Long	lPosX = READ_LONG(pk);
+		Long	lPosY = READ_LONG(pk);
 
-			Short sRet = Cmd_ThrowItem(0, sGridID, &sNum, lPosX, lPosY);
-			if (sRet != enumITEMOPT_SUCCESS)
-				ItemOprateFailed(sRet);
-		}
-		break;
+		Short sRet = Cmd_ThrowItem(0, sGridID, &sNum, lPosX, lPosY);
+		if (sRet != enumITEMOPT_SUCCESS)
+			ItemOprateFailed(sRet);
+	}
+	break;
 	case enumACTION_ITEM_USE: // 使用道具
-		{
-			Short	sFromGridID = READ_SHORT(pk);
-			Short	sToGridID = READ_SHORT(pk);
+	{
+		Short	sFromGridID = READ_SHORT(pk);
+		Short	sToGridID = READ_SHORT(pk);
 
-			Short sRet = Cmd_UseItem(0, sFromGridID, 0, sToGridID);
-			if (sRet != enumITEMOPT_SUCCESS)
-				ItemOprateFailed(sRet);
-		}
-		break;
+		Short sRet = Cmd_UseItem(0, sFromGridID, 0, sToGridID);
+		if (sRet != enumITEMOPT_SUCCESS)
+			ItemOprateFailed(sRet);
+	}
+	break;
 	case enumACTION_ITEM_UNFIX: // 卸装道具
+	{
+		m_CChaAttr.ResetChangeFlag();
+
+		Char	chDir;
+		Long	lParam1, lParam2;
+
+		Char	chLinkID = READ_CHAR(pk);
+		Short	sGridID = READ_SHORT(pk);
+		if (sGridID == -2) // 丢到地面
 		{
-			m_CChaAttr.ResetChangeFlag();
-
-			Char	chDir;
-			Long	lParam1, lParam2;
-
-			Char	chLinkID = READ_CHAR(pk);
-			Short	sGridID = READ_SHORT(pk);
-			if (sGridID == -2) // 丢到地面
-			{
-				chDir = 0;
-				lParam1 = READ_LONG(pk);
-				lParam2 = READ_LONG(pk);
-			}
-			else if (sGridID == -1) // 卸到道具栏，搜索位置
-			{
-				chDir = 1;
-				lParam1 = 0;
-				lParam2 = -1;
-			}
-			else if (sGridID >= 0) // 卸到道具栏，指定位置
-			{
-				chDir = 1;
-				lParam1 = 0;
-				lParam2 = sGridID;
-			}
-
-			//printf("chLinkID: %d\n", chLinkID);
-			//printf("sGridID: %d\n", sGridID);
-
-			Short	sUnfixNum = 0;
-			Short sRet = Cmd_UnfixItem(chLinkID, &sUnfixNum, chDir, lParam1, lParam2);
-			if (sRet != enumITEMOPT_SUCCESS)
-				ItemOprateFailed(sRet);
+			chDir = 0;
+			lParam1 = READ_LONG(pk);
+			lParam2 = READ_LONG(pk);
 		}
-		break;
+		else if (sGridID == -1) // 卸到道具栏，搜索位置
+		{
+			chDir = 1;
+			lParam1 = 0;
+			lParam2 = -1;
+		}
+		else if (sGridID >= 0) // 卸到道具栏，指定位置
+		{
+			chDir = 1;
+			lParam1 = 0;
+			lParam2 = sGridID;
+		}
+
+		//printf("chLinkID: %d\n", chLinkID);
+		//printf("sGridID: %d\n", sGridID);
+
+		Short	sUnfixNum = 0;
+		Short sRet = Cmd_UnfixItem(chLinkID, &sUnfixNum, chDir, lParam1, lParam2);
+		if (sRet != enumITEMOPT_SUCCESS)
+			ItemOprateFailed(sRet);
+	}
+	break;
 	case enumACTION_ITEM_POS: // 改变道具位置
-		{
-			Short	sSrcGrid = READ_SHORT(pk);
-			Short	sSrcNum = READ_SHORT(pk);
-			Short	sTarGrid = READ_SHORT(pk);
+	{
+		Short	sSrcGrid = READ_SHORT(pk);
+		Short	sSrcNum = READ_SHORT(pk);
+		Short	sTarGrid = READ_SHORT(pk);
 
-			Short sRet = Cmd_ItemSwitchPos(0, sSrcGrid, sSrcNum, sTarGrid);
-			if (sRet != enumITEMOPT_SUCCESS)
-				ItemOprateFailed(sRet);
-		}
-		break;
+		Short sRet = Cmd_ItemSwitchPos(0, sSrcGrid, sSrcNum, sTarGrid);
+		if (sRet != enumITEMOPT_SUCCESS)
+			ItemOprateFailed(sRet);
+	}
+	break;
 	case    enumACTION_KITBAGTMP_DRAG: //临时背包拖放
-		{
-			Short	sSrcGrid = READ_SHORT(pk);
-			Short	sSrcNum = READ_SHORT(pk);
-			Short	sTarGrid = READ_SHORT(pk);
+	{
+		Short	sSrcGrid = READ_SHORT(pk);
+		Short	sSrcNum = READ_SHORT(pk);
+		Short	sTarGrid = READ_SHORT(pk);
 
-			Short sRet = Cmd_DragItem(sSrcGrid, sSrcNum, sTarGrid);
-			if (sRet != enumITEMOPT_SUCCESS)
-				ItemOprateFailed(sRet);
-		}
-		break;
+		Short sRet = Cmd_DragItem(sSrcGrid, sSrcNum, sTarGrid);
+		if (sRet != enumITEMOPT_SUCCESS)
+			ItemOprateFailed(sRet);
+	}
+	break;
 	case enumACTION_ITEM_DELETE: // 删除道具
-		{
-			Short	sFromGridID = READ_SHORT(pk);
+	{
+		Short	sFromGridID = READ_SHORT(pk);
 
-			Short	sOptNum = 0;
-			Short sRet = Cmd_DelItem(0, sFromGridID, &sOptNum);
-			if (sRet != enumITEMOPT_SUCCESS)
-				ItemOprateFailed(sRet);
-		}
-		break;
+		Short	sOptNum = 0;
+		Short sRet = Cmd_DelItem(0, sFromGridID, &sOptNum);
+		if (sRet != enumITEMOPT_SUCCESS)
+			ItemOprateFailed(sRet);
+	}
+	break;
 	case enumACTION_ITEM_INFO: // 道具信息
-		{			
-			ViewItemInfo( pk );
-		}
-		break;
+	{
+		ViewItemInfo(pk);
+	}
+	break;
 	case enumACTION_BANK:
-	
-		{
-			Char	chSrcType = READ_CHAR(pk);
-			Short	sSrcGrid = READ_SHORT(pk);
-			Short	sSrcNum = READ_SHORT(pk);
-			Char	chTarType = READ_CHAR(pk);
-			Short	sTarGrid = READ_SHORT(pk);
-			Short sRet;
-			
-			sRet = Cmd_BankOper(chSrcType, sSrcGrid, sSrcNum, chTarType, sTarGrid);
-			
-			if (sRet != enumITEMOPT_SUCCESS)
-				ItemOprateFailed(sRet);
-		}
-		break;
+
+	{
+		Char	chSrcType = READ_CHAR(pk);
+		Short	sSrcGrid = READ_SHORT(pk);
+		Short	sSrcNum = READ_SHORT(pk);
+		Char	chTarType = READ_CHAR(pk);
+		Short	sTarGrid = READ_SHORT(pk);
+		Short sRet;
+
+		sRet = Cmd_BankOper(chSrcType, sSrcGrid, sSrcNum, chTarType, sTarGrid);
+
+		if (sRet != enumITEMOPT_SUCCESS)
+			ItemOprateFailed(sRet);
+	}
+	break;
 	case enumACTION_CLOSE_BANK:
-		{
-			GetPlayer()->CloseBank();
-		}
-		break;
-	case enumACTION_REQUESTGUILDBANK:{
-		if (GetGuildID() == 0){
+	{
+		GetPlayer()->CloseBank();
+	}
+	break;
+	case enumACTION_REQUESTGUILDBANK: {
+		if (GetGuildID() == 0) {
 			return;
 		}
 		GetPlayer()->OpenGuildBank();
@@ -2378,8 +2572,8 @@ void CCharacter::BeginAction(RPACKET pk)
 		if (guildID == 0) {
 			return;
 		}
-		
-		std::vector<CTableGuild::BankLog> logs =  game_db.GetGuildLog(guildID);
+
+		std::vector<CTableGuild::BankLog> logs = game_db.GetGuildLog(guildID);
 		WPACKET WtPk = GETWPACKET();
 		WRITE_CMD(WtPk, CMD_MC_NOTIACTION);
 		WRITE_LONG(WtPk, m_ID);
@@ -2388,16 +2582,16 @@ void CCharacter::BeginAction(RPACKET pk)
 		WRITE_SHORT(WtPk, logs.size());
 		//WRITE_SHORT(WtPk, oldsize);
 		// User is clicking the tab, fetch only the latest 13 operations
-		for (int i = 1; i <= 13; i++) {			
-				if (i > logs.size()) {				// We reached the end, send signal to stop
-					WRITE_SHORT(WtPk, 9);
-					break;
-				}
-				WRITE_SHORT(WtPk, logs.at(logs.size() - i).type);
-				WRITE_LONGLONG(WtPk, logs.at(logs.size() - i).time);
-				WRITE_LONGLONG(WtPk, logs.at(logs.size() - i).parameter);
-				WRITE_SHORT(WtPk, logs.at(logs.size() - i ).quantity);
-				WRITE_SHORT(WtPk, logs.at(logs.size() - i).userID);
+		for (int i = 1; i <= 13; i++) {
+			if (i > logs.size()) {				// We reached the end, send signal to stop
+				WRITE_SHORT(WtPk, 9);
+				break;
+			}
+			WRITE_SHORT(WtPk, logs.at(logs.size() - i).type);
+			WRITE_LONGLONG(WtPk, logs.at(logs.size() - i).time);
+			WRITE_LONGLONG(WtPk, logs.at(logs.size() - i).parameter);
+			WRITE_SHORT(WtPk, logs.at(logs.size() - i).quantity);
+			WRITE_SHORT(WtPk, logs.at(logs.size() - i).userID);
 		}
 
 		ReflectINFof(this, WtPk);
@@ -2429,181 +2623,183 @@ void CCharacter::BeginAction(RPACKET pk)
 			WRITE_LONGLONG(WtPk, logs.at(logs.size() - curSize - i).time);
 			WRITE_LONGLONG(WtPk, logs.at(logs.size() - curSize - i).parameter);
 			WRITE_SHORT(WtPk, logs.at(logs.size() - curSize - i).quantity);
-			WRITE_SHORT(WtPk, logs.at(logs.size() - curSize -i).userID);
+			WRITE_SHORT(WtPk, logs.at(logs.size() - curSize - i).userID);
 		}
 
 		ReflectINFof(this, WtPk);
 		break;
 	}
 	case enumACTION_SHORTCUT:
-		{
-			char chIndex = READ_CHAR(pk);
-			char chType = READ_CHAR(pk);
-			short sGrid = READ_SHORT(pk);
+	{
+		char chIndex = READ_CHAR(pk);
+		char chType = READ_CHAR(pk);
+		short sGrid = READ_SHORT(pk);
 
-			if (chIndex < 0 || chIndex >= SHORT_CUT_NUM)
-				break;
-			m_CShortcut.chType[chIndex] = chType;
-			m_CShortcut.byGridID[chIndex] = sGrid;
-		}
-		break;
+		if (chIndex < 0 || chIndex >= SHORT_CUT_NUM)
+			break;
+		m_CShortcut.chType[chIndex] = chType;
+		m_CShortcut.byGridID[chIndex] = sGrid;
+	}
+	break;
 	case enumACTION_LOOK:
-		{
-			//m_SChaPart.sTypeID = READ_SHORT(pk);
-			//for (int i = 0; i < enumEQUIP_NUM; i++)
-			//	m_SChaPart.SLink[i].sID = READ_SHORT(pk);
+	{
+		//m_SChaPart.sTypeID = READ_SHORT(pk);
+		//for (int i = 0; i < enumEQUIP_NUM; i++)
+		//	m_SChaPart.SLink[i].sID = READ_SHORT(pk);
 
-			//// 转发
-			//WPACKET WtPk	=GETWPACKET();
-			//WRITE_CMD(WtPk, CMD_MC_NOTIACTION);	//通告行动
-			//WRITE_LONG(WtPk, m_ID);
-			//WRITE_LONG(WtPk, ulPacketId);
-			//WRITE_CHAR(WtPk, enumACTION_LOOK);
-			//WRITE_SHORT(WtPk, m_SChaPart.sTypeID);
-			//for (int i = 0; i < enumEQUIP_NUM; i++)
-			//	WRITE_SHORT(WtPk, m_SChaPart.sLink[i]);
-			//NotiChgToEyeshot(WtPk);//通告
-		}
-		break;
+		//// 转发
+		//WPACKET WtPk	=GETWPACKET();
+		//WRITE_CMD(WtPk, CMD_MC_NOTIACTION);	//通告行动
+		//WRITE_LONG(WtPk, m_ID);
+		//WRITE_LONG(WtPk, ulPacketId);
+		//WRITE_CHAR(WtPk, enumACTION_LOOK);
+		//WRITE_SHORT(WtPk, m_SChaPart.sTypeID);
+		//for (int i = 0; i < enumEQUIP_NUM; i++)
+		//	WRITE_SHORT(WtPk, m_SChaPart.sLink[i]);
+		//NotiChgToEyeshot(WtPk);//通告
+	}
+	break;
 	case enumACTION_TEMP:
-		{
-			m_STempChaPart.sItemID = (short)(READ_LONG(pk));
-			m_STempChaPart.sPartID = (short)(READ_LONG(pk));
+	{
+		m_STempChaPart.sItemID = (short)(READ_LONG(pk));
+		m_STempChaPart.sPartID = (short)(READ_LONG(pk));
 
-			// 转发
-			WPACKET WtPk	=GETWPACKET();
-			WRITE_CMD(WtPk, CMD_MC_NOTIACTION);	//通告行动
-			WRITE_LONG(WtPk, m_ID);
-			WRITE_LONG(WtPk, ulPacketId);
-			WRITE_CHAR(WtPk, enumACTION_TEMP);
-			WRITE_LONG(WtPk, m_STempChaPart.sItemID);
-			WRITE_LONG(WtPk, m_STempChaPart.sPartID);
+		// 转发
+		WPACKET WtPk = GETWPACKET();
+		WRITE_CMD(WtPk, CMD_MC_NOTIACTION);	//通告行动
+		WRITE_LONG(WtPk, m_ID);
+		WRITE_LONG(WtPk, ulPacketId);
+		WRITE_CHAR(WtPk, enumACTION_TEMP);
+		WRITE_LONG(WtPk, m_STempChaPart.sItemID);
+		WRITE_LONG(WtPk, m_STempChaPart.sPartID);
 
-			NotiChgToEyeshot(WtPk);//通告
-		}
-		break;
+		NotiChgToEyeshot(WtPk);//通告
+	}
+	break;
 	case enumACTION_EVENT:
+	{
+		Long lID = READ_LONG(pk);
+		Long lHandle = READ_LONG(pk);
+		Entity* pCObj = g_pGameApp->IsLiveingEntity(lID, lHandle);
+		if (!pCObj)
 		{
-			Long lID = READ_LONG(pk);
-			Long lHandle = READ_LONG(pk);
-			Entity *pCObj = g_pGameApp->IsLiveingEntity(lID, lHandle);
-			if (!pCObj)
-			{
-				//m_CLog.Log("地图上不存在该实体\n");
-				m_CLog.Log("it inexistent this entity in this map");
-				break;
-			}
-			uShort	usEventID = READ_SHORT(pk);
-			ExecuteEvent(pCObj, usEventID);
+			//m_CLog.Log("地图上不存在该实体\n");
+			m_CLog.Log("it inexistent this entity in this map");
+			break;
 		}
-		break;
+		uShort	usEventID = READ_SHORT(pk);
+		ExecuteEvent(pCObj, usEventID);
+	}
+	break;
 	case enumACTION_FACE:
-		{
-			Short	sAngle = READ_SHORT(pk);
-			Short	sPose = READ_SHORT(pk);
+	{
+		Short	sAngle = READ_SHORT(pk);
+		Short	sPose = READ_SHORT(pk);
 
-			// 转发
-			WPACKET WtPk	=GETWPACKET();
-			WRITE_CMD(WtPk, CMD_MC_NOTIACTION);	//通告行动
-			WRITE_LONG(WtPk, m_ID);
-			WRITE_LONG(WtPk, ulPacketId);
-			WRITE_CHAR(WtPk, enumACTION_FACE);
-			WRITE_SHORT(WtPk, sAngle);
-			WRITE_SHORT(WtPk, sPose);
-			NotiChgToEyeshot(WtPk);//通告
-		}
-		break;
+		// 转发
+		WPACKET WtPk = GETWPACKET();
+		WRITE_CMD(WtPk, CMD_MC_NOTIACTION);	//通告行动
+		WRITE_LONG(WtPk, m_ID);
+		WRITE_LONG(WtPk, ulPacketId);
+		WRITE_CHAR(WtPk, enumACTION_FACE);
+		WRITE_SHORT(WtPk, sAngle);
+		WRITE_SHORT(WtPk, sPose);
+		NotiChgToEyeshot(WtPk);//通告
+	}
+	break;
 	case enumACTION_SKILL_POSE:
+	{
+		if (!GetSubMap())
 		{
-			if (!GetSubMap())
-			{
-				m_CLog.Log("$$$PacketID:\t%u\n", m_ulPacketID);
-				//m_CLog.Log("拒绝行动请求（地图为空）\n\n");
-				m_CLog.Log("refuse action request（map is null）\n\n");
-				return;
-			}
-
-			if (IsBoat())
-				break;
-			if (GetMoveState() == enumMSTATE_ON || GetFightState() == enumFSTATE_ON || !GetActControl(enumACTCONTROL_MOVE))
-				break;
-
-			Short	sAngle = READ_SHORT(pk);
-			Short	sPose = READ_SHORT(pk);
-
-			// 转发
-			WPACKET WtPk	=GETWPACKET();
-			WRITE_CMD(WtPk, CMD_MC_NOTIACTION);	//通告行动
-			WRITE_LONG(WtPk, m_ID);
-			WRITE_LONG(WtPk, ulPacketId);
-			WRITE_CHAR(WtPk, enumACTION_SKILL_POSE);
-			WRITE_SHORT(WtPk, sAngle);
-			WRITE_SHORT(WtPk, sPose);
-			NotiChgToEyeshot(WtPk);//通告
-
-			bool	bToSeat = g_IsSeatPose(sPose);
-			if ((bToSeat && m_SSeat.chIsSeat) || (!bToSeat && !m_SSeat.chIsSeat))
-				break;
-
-			// 坐下技能（恢复速度加快）
-			dbc::uLong	ulSkillID = 202;
-			CSkillRecord *pCSkill = GetSkillRecordInfo(ulSkillID);
-			if (!pCSkill)
-			{
-				//m_CLog.Log("技能不存在（技能编号: %d）\n", ulSkillID);
-				m_CLog.Log("skills inexistence（skills number: %d）\n", ulSkillID);
-				break;
-			}
-
-			if (bToSeat) // 坐下
-			{
-				m_SSeat.chIsSeat = 1;
-				m_SSeat.sAngle = sAngle;
-				m_SSeat.sPose = sPose;
-				g_CParser.DoString(pCSkill->szActive, enumSCRIPT_RETURN_NONE, 0, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, this, enumSCRIPT_PARAM_NUMBER, 1, 1, DOSTRING_PARAM_END);
-			}
-			else // 站起
-			{
-				m_SSeat.chIsSeat = 0;
-				g_CParser.DoString(pCSkill->szInactive, enumSCRIPT_RETURN_NONE, 0, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, this, enumSCRIPT_PARAM_NUMBER, 1, 1, DOSTRING_PARAM_END);
-			}
-			if (bToSeat)
-				m_sPoseState = enumPoseSeat;
-			else
-				m_sPoseState = enumPoseStand;
+			m_CLog.Log("$$$PacketID:\t%u\n", m_ulPacketID);
+			//m_CLog.Log("拒绝行动请求（地图为空）\n\n");
+			m_CLog.Log("refuse action request（map is null）\n\n");
+			return;
 		}
-		break;
+
+		if (IsBoat())
+			break;
+		if (GetMoveState() == enumMSTATE_ON || GetFightState() == enumFSTATE_ON || !GetActControl(enumACTCONTROL_MOVE))
+			break;
+
+		Short	sAngle = READ_SHORT(pk);
+		Short	sPose = READ_SHORT(pk);
+
+		// 转发
+		WPACKET WtPk = GETWPACKET();
+		WRITE_CMD(WtPk, CMD_MC_NOTIACTION);	//通告行动
+		WRITE_LONG(WtPk, m_ID);
+		WRITE_LONG(WtPk, ulPacketId);
+		WRITE_CHAR(WtPk, enumACTION_SKILL_POSE);
+		WRITE_SHORT(WtPk, sAngle);
+		WRITE_SHORT(WtPk, sPose);
+		NotiChgToEyeshot(WtPk);//通告
+
+		bool	bToSeat = g_IsSeatPose(sPose);
+		if ((bToSeat && m_SSeat.chIsSeat) || (!bToSeat && !m_SSeat.chIsSeat))
+			break;
+
+		// 坐下技能（恢复速度加快）
+		dbc::uLong	ulSkillID = 202;
+		CSkillRecord* pCSkill = GetSkillRecordInfo(ulSkillID);
+		if (!pCSkill)
+		{
+			//m_CLog.Log("技能不存在（技能编号: %d）\n", ulSkillID);
+			m_CLog.Log("skills inexistence（skills number: %d）\n", ulSkillID);
+			break;
+		}
+
+		if (bToSeat) // 坐下
+		{
+			m_SSeat.chIsSeat = 1;
+			m_SSeat.sAngle = sAngle;
+			m_SSeat.sPose = sPose;
+			g_CParser.DoString(pCSkill->szActive, enumSCRIPT_RETURN_NONE, 0, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, this, enumSCRIPT_PARAM_NUMBER, 1, 1, DOSTRING_PARAM_END);
+		}
+		else // 站起
+		{
+			m_SSeat.chIsSeat = 0;
+			g_CParser.DoString(pCSkill->szInactive, enumSCRIPT_RETURN_NONE, 0, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, this, enumSCRIPT_PARAM_NUMBER, 1, 1, DOSTRING_PARAM_END);
+		}
+		if (bToSeat)
+			m_sPoseState = enumPoseSeat;
+		else
+			m_sPoseState = enumPoseStand;
+	}
+	break;
 	case enumACTION_PK_CTRL:
-		{
-			if (READ_CHAR(pk))
-				Cmd_SetInPK();
-			else
-				Cmd_SetInPK(false);
-			SynPKCtrl();
-		}
-		break;
+	{
+		if (READ_CHAR(pk))
+			Cmd_SetInPK();
+		else
+			Cmd_SetInPK(false);
+		SynPKCtrl();
+	}
+	break;
 	default:
 		break;
 	}
-T_E}
+	T_E
+}
 
 
 // 协议 : 处理更换发型的请求
-void CCharacter::Cmd_ChangeHair(RPACKET &pk)
-{T_B
-	char szRes[128];
+void CCharacter::Cmd_ChangeHair(RPACKET& pk)
+{
+	T_B
+		char szRes[128];
 
-	short sScriptID  = READ_SHORT(pk);
+	short sScriptID = READ_SHORT(pk);
 
 	TradeAction(false); // 收到这条消息, 交易状态被结束了
 	HairAction(false);	// 解除理发状态
 
-	if(sScriptID==0) // 关闭理发界面
+	if (sScriptID == 0) // 关闭理发界面
 	{
 		return;
 	}
 
-	if(m_CKitbag.IsPwdLocked())
+	if (m_CKitbag.IsPwdLocked())
 	{
 		//sprintf(szRes, "请求更换发型失败, 道具栏已锁");
 		sprintf(szRes, RES_STRING(GM_CHARACTERPRL_CPP_00042));
@@ -2611,8 +2807,8 @@ void CCharacter::Cmd_ChangeHair(RPACKET &pk)
 		return;
 	}
 
-	CHairRecord *pHair = GetHairRecordInfo(sScriptID);
-	if(!pHair)
+	CHairRecord* pHair = GetHairRecordInfo(sScriptID);
+	if (!pHair)
 	{
 		//sprintf(szRes, "请求更换发型失败, 无效发型ID = %d", sScriptID);
 		sprintf(szRes, RES_STRING(GM_CHARACTERPRL_CPP_00043), sScriptID);
@@ -2623,26 +2819,26 @@ void CCharacter::Cmd_ChangeHair(RPACKET &pk)
 	short sValidCnt = 0;
 	short sValidGrid[defHAIR_MAX_ITEM][3];
 
-	for(short i = 0; i < defHAIR_MAX_ITEM; i++)
+	for (short i = 0; i < defHAIR_MAX_ITEM; i++)
 	{
 		short sNeedItemID = (short)(pHair->dwNeedItem[i][0]);
-		if(sNeedItemID > 0)
+		if (sNeedItemID > 0)
 		{
 			BOOL bOK = TRUE;
 			short sGridLoc = READ_SHORT(pk);
-			if(sGridLoc==-1) bOK = FALSE;
+			if (sGridLoc == -1) bOK = FALSE;
 
-			if(bOK)
+			if (bOK)
 			{
 				// 检验该背包格上是否有指定道具	
 				short sNowItemID = m_CKitbag.GetID(sGridLoc);
-				if(sNowItemID!=sNeedItemID)
+				if (sNowItemID != sNeedItemID)
 				{
 					bOK = FALSE;
 				}
 			}
 
-			if(!bOK)
+			if (!bOK)
 			{
 				//sprintf(szRes, "更换发型失败, 缺少需要的道具");
 				sprintf(szRes, RES_STRING(GM_CHARACTERPRL_CPP_00044));
@@ -2658,49 +2854,49 @@ void CCharacter::Cmd_ChangeHair(RPACKET &pk)
 
 
 	// 扣除金钱和道具, 刷新背包
-	m_CKitbag.SetChangeFlag( false );
+	m_CKitbag.SetChangeFlag(false);
 	/*if(!TakeMoney("理发师", pHair->dwMoney))
 	{
 		SystemNotice("更换发型失败, 金钱不足!");
 		return;
 	}*/
-	if(!TakeMoney(RES_STRING(GM_CHARACTERPRL_CPP_00045), pHair->dwMoney))
+	if (!TakeMoney(RES_STRING(GM_CHARACTERPRL_CPP_00045), pHair->dwMoney))
 	{
 		SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00046));
 		return;
 	}
 
 	SItemGrid item;
-	for(short i = 0; i < sValidCnt; i++)
+	for (short i = 0; i < sValidCnt; i++)
 	{
-		item.sID  = sValidGrid[i][1];  
+		item.sID = sValidGrid[i][1];
 		item.sNum = sValidGrid[i][2];
 
 		short sRet = KbPopItem(true, false, &item, sValidGrid[i][0]);
-		if(sRet != enumKBACT_SUCCESS)
+		if (sRet != enumKBACT_SUCCESS)
 		{
 			//SystemNotice("更换发型失败, 需要的道具不存在或者道具数量不足!");
-			
+
 			SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00047));
 			return;
 		}
 	}
 
 	// 同步角色背包数据
-	SynKitbagNew( enumSYN_KITBAG_FROM_NPC );
+	SynKitbagNew(enumSYN_KITBAG_FROM_NPC);
 
 	// 更换发型成功, 修改角色外观数据
 
 	SetLookChangeFlag(true);
 	// 10%的几率获得很丑的发型
-	if(rand()%100 < 10 && pHair->GetFailItemNum() > 0)
+	if (rand() % 100 < 10 && pHair->GetFailItemNum() > 0)
 	{
-		int nRandFail = rand()%pHair->GetFailItemNum();
+		int nRandFail = rand() % pHair->GetFailItemNum();
 		short sFailHair = (short)(pHair->dwFailItemID[nRandFail]);
 		m_SChaPart.sHairID = sFailHair;
 		//SystemNotice("你的运气真糟糕, 发型搞砸了!");
 		SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00048));
-		Prl_ChangeHairResult(sScriptID, "fail", true); 
+		Prl_ChangeHairResult(sScriptID, "fail", true);
 	}
 	else
 	{
@@ -2714,19 +2910,21 @@ void CCharacter::Cmd_ChangeHair(RPACKET &pk)
 		SynLook(LOOK_SELF, true); // sync to self (changing hair)
 	else
 		SynLook();
-T_E}
+	T_E
+}
 
 // 更换发型的反馈
 // 参数1 : 发型ID, 失败则为0
 // 参数2 : 字符串的原因说明
 void CCharacter::Prl_ChangeHairResult(int nScriptID, const char* szReason, BOOL bNoticeAll)
-{T_B
-	WPACKET wpk	= GETWPACKET();
+{
+	T_B
+		WPACKET wpk = GETWPACKET();
 	WRITE_CMD(wpk, CMD_MC_UPDATEHAIR_RES);
 	WRITE_LONG(wpk, GetID());
 	WRITE_SHORT(wpk, nScriptID);
 	WRITE_STRING(wpk, szReason);
-	if(bNoticeAll)
+	if (bNoticeAll)
 	{
 		NotiChgToEyeshot(wpk);//通告
 	}
@@ -2734,16 +2932,19 @@ void CCharacter::Prl_ChangeHairResult(int nScriptID, const char* szReason, BOOL 
 	{
 		ReflectINFof(this, wpk);
 	}
-T_E}
+	T_E
+}
 
 // 通知客户端打开理发界面
 void CCharacter::Prl_OpenHair()
-{T_B
-	HairAction(true);
+{
+	T_B
+		HairAction(true);
 
-	WPACKET wpk	= GETWPACKET();
+	WPACKET wpk = GETWPACKET();
 	WRITE_CMD(wpk, CMD_MC_OPENHAIR);
 	ReflectINFof(this, wpk);
 
-T_E}
+	T_E
+}
 

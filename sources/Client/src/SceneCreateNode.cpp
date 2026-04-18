@@ -14,7 +14,7 @@
 #include "NetProtocol.h"
 
 //-----------------------
-// SceneNode ´´½¨
+// SceneNode ï¿½ï¿½ï¿½ï¿½
 // Add Character to scene
 //----------------------- 
 CCharacter* CGameScene::AddBoat( stNetChangeChaPart& part )
@@ -23,10 +23,10 @@ CCharacter* CGameScene::AddBoat( stNetChangeChaPart& part )
     CChaRecord* pInfo = GetChaRecordInfo( nScriptID );
 	if( !pInfo ) return NULL;
 
-    CCharacter *pCha = _GetFirstInvalidCha(); // ´Ë´¦ÐèÒªÓÅ»¯ÎªÖØÓÃÉÏÒ»´ÎÍ¬ÀàÐÍCha	
+    CCharacter *pCha = _GetFirstInvalidCha(); // ï¿½Ë´ï¿½ï¿½ï¿½Òªï¿½Å»ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½Cha	
 	if( !pCha ) 
 	{
-        LG("error", g_oLangRec.GetString(341));
+        LG("error", RES_STRING(CL_LANGUAGE_MATCH_341));
 		return NULL;
 	}
 
@@ -73,7 +73,7 @@ CCharacter* CGameScene::AddCharacter(int nScriptID)
 	pCha = _GetFirstInvalidCha(); // ????????????????????????Cha
 	if (pCha == NULL)
 	{
-		LG("error", g_oLangRec.GetString(342));
+		LG("error", RES_STRING(CL_LANGUAGE_MATCH_342));
 		pCha = NULL;
 		goto __ret;
 	}
@@ -99,7 +99,7 @@ CCharacter* CGameScene::AddCharacter(int nScriptID)
 
 		if (((CCharacterModel*)pCha)->LoadCha(pInfo->chModalType, pInfo->sModel, part_buf) == 0)
 		{
-			LG("error", g_oLangRec.GetString(26), nScriptID, pInfo->szDataName);
+			LG("error", RES_STRING(CMISS_000026), nScriptID, pInfo->szDataName);
 			pCha = NULL;
 			goto __ret;
 		}
@@ -116,7 +116,7 @@ CCharacter* CGameScene::AddCharacter(int nScriptID)
 
 		if (((CCharacterModel*)pCha)->LoadShip(pInfo->chModalType, pInfo->sModel, part_buf) == 0)
 		{
-			LG("error", g_oLangRec.GetString(26), nScriptID, pInfo->szDataName);
+			LG("error", RES_STRING(CMISS_000026), nScriptID, pInfo->szDataName);
 			pCha = NULL;
 			goto __ret;
 		}
@@ -134,7 +134,7 @@ CCharacter* CGameScene::AddCharacter(int nScriptID)
 
 		if (((CCharacterModel*)pCha)->LoadTower(pInfo->chModalType, part_buf) == 0)
 		{
-			LG("error", g_oLangRec.GetString(26), nScriptID, pInfo->szDataName);
+			LG("error", RES_STRING(CMISS_000026), nScriptID, pInfo->szDataName);
 			pCha = NULL;
 			goto __ret;
 		}
@@ -160,7 +160,7 @@ CCharacter* CGameScene::AddCharacter(int nScriptID)
 
 		if (((CCharacterModel*)pCha)->LoadCha(&load_info) == 0)
 		{
-			LG("error", g_oLangRec.GetString(26), nScriptID, pInfo->szDataName);
+			LG("error", RES_STRING(CMISS_000026), nScriptID, pInfo->szDataName);
 			pCha = NULL;
 			goto __ret;
 		}
@@ -168,7 +168,7 @@ CCharacter* CGameScene::AddCharacter(int nScriptID)
 
 	if (((CCharacterModel*)pCha)->LoadPose(pInfo->sActionID) == 0)
 	{
-		LG("error", g_oLangRec.GetString(27), nScriptID, pInfo->szDataName);
+		LG("error", RES_STRING(CMISS_000027), nScriptID, pInfo->szDataName);
 		pCha = NULL;
 		goto __ret;
 	}
@@ -205,7 +205,7 @@ __ret:
 }
 
 //-----------------------
-// SceneNode ´´½¨
+// SceneNode ï¿½ï¿½ï¿½ï¿½
 // Add SceneObj to scene
 //----------------------- 
 CSceneObj* CGameScene::AddSceneObj(int nScriptID)
@@ -213,7 +213,7 @@ CSceneObj* CGameScene::AddSceneObj(int nScriptID)
 	CSceneObjInfo *pInfo = GetSceneObjInfo(nScriptID);
     if(pInfo==NULL)
     {
-        LG("error", g_oLangRec.GetString(343), nScriptID);
+        LG("error", RES_STRING(CL_LANGUAGE_MATCH_343), nScriptID);
         return NULL;
     }
 
@@ -221,11 +221,11 @@ CSceneObj* CGameScene::AddSceneObj(int nScriptID)
 	{
 		if(m_dwValidSceneObjCnt>=290)
 		{
-			LG("sceneobj", g_oLangRec.GetString(344), 299);
+			LG("sceneobj", RES_STRING(CL_LANGUAGE_MATCH_344), 299);
 		}
 		if(m_dwSceneObjPolyCnt>=9000)
 		{
-			LG("sceneobj", g_oLangRec.GetString(345), 9000);
+			LG("sceneobj", RES_STRING(CL_LANGUAGE_MATCH_345), 9000);
 		}
 	}
 
@@ -271,7 +271,7 @@ CSceneObj* CGameScene::AddSceneObj(int nScriptID)
 	}
 	else
 	{
-		LG("sceneobj", g_oLangRec.GetString(346), _nSceneObjCnt);
+		LG("sceneobj", RES_STRING(CL_LANGUAGE_MATCH_346), _nSceneObjCnt);
 	}
 
     // 
@@ -280,7 +280,7 @@ CSceneObj* CGameScene::AddSceneObj(int nScriptID)
         const DWORD no_transp_num = 1;
         DWORD no_transp[no_transp_num] =
         {
-            449, // ÊÒÄÚ¾Æ°É
+            449, // ï¿½ï¿½ï¿½Ú¾Æ°ï¿½
         };
 
         for(DWORD i = 0; i < no_transp_num; i++)
@@ -319,7 +319,7 @@ CSceneObj* CGameScene::AddSceneObj(int nScriptID)
 
 
 //-----------------------
-// SceneNode ´´½¨
+// SceneNode ï¿½ï¿½ï¿½ï¿½
 // Add EffectObj to scene
 //----------------------- 
 CEffectObj* CGameScene::AddSceneEffect(int nEffectTypeID)
@@ -338,13 +338,13 @@ CEffectObj* CGameScene::AddSceneEffect(int nEffectTypeID)
     }
 	else
 	{
-		LG("effect", g_oLangRec.GetString(347));
+		LG("effect", RES_STRING(CL_LANGUAGE_MATCH_347));
 	}
 	return pEff;
 }
 
 //-----------------------
-// SceneNode ´´½¨
+// SceneNode ï¿½ï¿½ï¿½ï¿½
 // Add SceneItem to scene
 //----------------------- 
 CSceneItem* CGameScene::AddSceneItem(int nScriptID, int nType)
@@ -366,7 +366,7 @@ CSceneItem* CGameScene::AddSceneItem(int nScriptID, int nType)
 	}
 	else
 	{
-		LG("sceneitem", g_oLangRec.GetString(348));
+		LG("sceneitem", RES_STRING(CL_LANGUAGE_MATCH_348));
 	}
 	return pObj;
 }
@@ -385,7 +385,7 @@ CSceneItem* CGameScene::AddSceneItem( const char* file )
 	}
 	else
 	{
-		LG("sceneitem", g_oLangRec.GetString(348));
+		LG("sceneitem", RES_STRING(CL_LANGUAGE_MATCH_348));
 	}
 	return pObj;
 

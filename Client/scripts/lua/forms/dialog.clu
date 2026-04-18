@@ -14,7 +14,7 @@ UI_LoadButtonImage( btnClose, "texture/ui/PublicC.tga", 14, 14, 116, 175, TRUE )
 UI_SetButtonModalResult( btnClose, BUTTON_CLOSE )
 
 labName = UI_CreateCompent( frmTrade, LABELEX_TYPE, "labName", 95, 13, 20, 4 )
-UI_SetCaption( labName, "就就就就就就就就" )
+UI_SetCaption( labName, "" )
 UI_SetTextColor( labName, COLOR_BLACK )
 UI_SetLabelExFont( labName, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
@@ -178,7 +178,7 @@ UI_SetEditEnterButton( edtPassword, btnYes )
 
 
 -----------------------------------------------------------------------
--- 定义防外挂答题框
+-- 
 -----------------------------------------------------------------------
 frmWGAnswer = UI_CreateForm( "frmWGAnswer",  FALSE, 185, 101, 397, 500, TRUE, FALSE )
 UI_ShowForm( frmWGAnswer, FALSE )
@@ -188,24 +188,24 @@ UI_FormSetIsEscClose( frmWGAnswer, FALSE )
 
 --UI_FormSetHotKey( frmWGAnswer, ALT_KEY, HOTKEY_Z) 
 
--- 加载背景图片
+-- 
 imgBackGround = UI_CreateCompent( frmWGAnswer, IMAGE_TYPE, "imgBackGround", 185, 101, 0, 0 )
 UI_LoadImage( imgBackGround, "texture/ui/sure.dds", NORMAL, 185, 101, 0, 0 )
 
---设置提示label
+--label
 	labNotice = UI_CreateCompent( frmWGAnswer, LABELEX_TYPE, "labNotice", 400, 150, 7, 3 )
 	UI_SetCaption( labNotice, "Enter 4 letter code")
 	UI_SetTextColor( labNotice, COLOR_BLUE)
 	UI_SetLabelExFont( labNotice, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
---加载验证码
+--
 ui3dCheckCode = UI_CreateCompent( frmWGAnswer, UI3D_COMPENT, "ui3dCheckCode", 110, 240, 73,24 )
 
---加载输入框背景
+--
 imgSum = UI_CreateCompent( frmWGAnswer, IMAGE_TYPE, "imgSum", 57, 18, 116, 54 )
 UI_LoadImage( imgSum, "texture/ui/PublicC.tga", NORMAL, 87, 18, 99, 235 )
 
---加载输入框
+--
 edtUserInput = UI_CreateCompent( frmWGAnswer, EDIT_TYPE, "edtUserInput", 87, 12, 120, 57 )
 UI_SetTextColor( edtUserInput, COLOR_BLACK )
 UI_SetEditMaxNum( edtUserInput, 4 )
@@ -215,7 +215,7 @@ UI_SetButtonModalResult( btnNo, BUTTON_NO )
 
 UI_SetEditEnterButton( edtPassword, btnYes )
 
---加载倒计时label
+--label
 labNotice = UI_CreateCompent( frmWGAnswer, LABELEX_TYPE, "labNotice", 23, 11, 12,57 )
 UI_SetCaption( labNotice, "Time" )
 UI_SetTextColor( labNotice, COLOR_BLACK )
@@ -226,7 +226,7 @@ UI_SetCaption( labTimeLeft, "Password" )
 UI_SetTextColor( labTimeLeft, COLOR_RED )
 UI_SetLabelExFont( labTimeLeft, FONT16, FALSE, COLOR_WHITE )
 
---加载确定按钮
+--
 btnYes = UI_CreateCompent( frmWGAnswer, BUTTON_TYPE, "btnYes", 41, 19, 74, 78 )
 UI_LoadButtonImage( btnYes, "texture/ui/PublicC.tga", 41, 19, 0, 0, TRUE )
 UI_SetButtonModalResult( btnYes, BUTTON_YES )
@@ -234,16 +234,16 @@ UI_SetEditEnterButton( edtUserInput, btnYes )
 
 
 -----------------------------------------------------
------- 精炼属性转移 By 小白 090310 ------
+------  By  090310 ------
 -----------------------------------------------------
---创建基本页面
+--
 frmforgeMove = UI_CreateForm( "frmforgeMove", FALSE, 310, 275, 240, 70, TRUE, FALSE )
 UI_ShowForm( frmforgeMove, TRUE )
 UI_AddFormToTemplete( frmforgeMove, FORM_MAIN )
 --UI_FormSetHotKey( frmforgeMove, ALT_KEY, HOTKEY_V )
 UI_SetIsDrag( frmforgeMove, TRUE )
 
--- 加载背景图片
+-- 
 imgBakLeft = UI_CreateCompent( frmforgeMove, IMAGE_TYPE, "imgBakLeft", 256, 256, 0, 0 )
 UI_LoadImage( imgBakLeft, "texture/ui2009/tongyongX1.tga", NORMAL, 256, 256, 0, 0 )
 
@@ -256,94 +256,94 @@ UI_LoadImage( imgBakLeftD, "texture/ui2009/tongyongX2.tga", NORMAL, 202, 19, 54,
 imgBakRightD = UI_CreateCompent( frmforgeMove, IMAGE_TYPE, "imgBakRightD", 109, 19, 202, 256 )
 UI_LoadImage( imgBakRightD, "texture/ui2009/tongyongX2.tga", NORMAL, 109, 19, 54, 19 )
 
---加载文字title
+--title
 labtitle = UI_CreateCompent( frmforgeMove, LABELEX_TYPE, "labtitle", 261, 12, 22, 12 )
-UI_SetCaption( labtitle, "精炼属性转移" )
+UI_SetCaption( labtitle, "" )
 UI_SetTextColor( labtitle, COLOR_WHITE )
 UI_SetLabelExFont( labtitle, DEFAULT_FONT, TRUE, COLOR_BLACK )
 
---创建关闭按钮
+--
 btnClose = UI_CreateCompent( frmforgeMove, BUTTON_TYPE, "btnClose", 15, 15, 278, 12 )
 UI_LoadButtonImage( btnClose, "texture/ui2009/button.tga", 15, 15, 165, 129, TRUE )
 UI_SetButtonModalResult( btnClose, BUTTON_CLOSE )
 
---道具槽位
+--
 imgElf0 = UI_CreateCompent( frmforgeMove, IMAGE_TYPE, "imgElf0", 47, 47, 134, 111 )
 UI_LoadImage( imgElf0, "texture/ui2009/BakGhost3.tga", NORMAL, 47, 47, 86, 135 )
 
---加载文字说明1
+--1
 labtitle1 = UI_CreateCompent( frmforgeMove, LABELEX_TYPE, "labtitle1", 261, 12, 140, 127 )
-UI_SetCaption( labtitle1, "石中盐" )
+UI_SetCaption( labtitle1, "" )
 UI_SetTextColor( labtitle1, COLOR_BLACK )
 UI_SetLabelExFont( labtitle1, DEFAULT_FONT, FALSE, COLOR_BLACK )
 
-cmdStore1 = UI_CreateCompent( frmforgeMove, COMMAND_ONE_TYPE, "cmdStore1", 32, 32, 140, 117 )	-- 精灵
-UI_SetHint( cmdStore1, "放入道具" )
+cmdStore1 = UI_CreateCompent( frmforgeMove, COMMAND_ONE_TYPE, "cmdStore1", 32, 32, 140, 117 )	-- 
+UI_SetHint( cmdStore1, "" )
 
--- 装备1槽位
+-- 1
 imgStore1 = UI_CreateCompent( frmforgeMove, IMAGE_TYPE, "imgStore1", 47, 47, 24, 45 )
 UI_LoadImage( imgStore1, "texture/ui2009/BakGhost3.tga", NORMAL, 47, 47, 86, 135 )
 
---加载文字说明2
+--2
 labtitle2 = UI_CreateCompent( frmforgeMove, LABELEX_TYPE, "labtitle2", 261, 12, 30, 61 )
-UI_SetCaption( labtitle2, "装备一" )
+UI_SetCaption( labtitle2, "" )
 UI_SetTextColor( labtitle2, COLOR_BLACK )
 UI_SetLabelExFont( labtitle2, DEFAULT_FONT, FALSE, COLOR_BLACK )
 
-cmdElf0 = UI_CreateCompent( frmforgeMove, COMMAND_ONE_TYPE, "cmdElf0", 32, 32, 30, 51 )	-- 合成道具
-UI_SetHint( cmdElf0, "放入装备一" )
+cmdElf0 = UI_CreateCompent( frmforgeMove, COMMAND_ONE_TYPE, "cmdElf0", 32, 32, 30, 51 )	-- 
+UI_SetHint( cmdElf0, "" )
 
---箭头1
+--1
 imgjiantou1 = UI_CreateCompent( frmforgeMove, IMAGE_TYPE, "imgjiantou1", 84, 48, 49, 92 )
 UI_LoadImage( imgjiantou1, "texture/ui2009/jiantou.tga", NORMAL, 84, 48, 0, 0 )
 
--- 装备2槽位
+-- 2
 imgEquip2 = UI_CreateCompent( frmforgeMove, IMAGE_TYPE, "imgEquip2", 47, 47, 243, 45 )
 UI_LoadImage( imgEquip2, "texture/ui2009/BakGhost3.tga", NORMAL, 47, 47, 86, 135 )
 
---加载文字说明3
+--3
 labtitle3 = UI_CreateCompent( frmforgeMove, LABELEX_TYPE, "labtitle3", 261, 12, 249, 61 )
-UI_SetCaption( labtitle3, "装备二" )
+UI_SetCaption( labtitle3, "" )
 UI_SetTextColor( labtitle3, COLOR_BLACK )
 UI_SetLabelExFont( labtitle3, DEFAULT_FONT, FALSE, COLOR_BLACK )
 
-cmdEquip2 = UI_CreateCompent( frmforgeMove, COMMAND_ONE_TYPE, "cmdEquip2", 32, 32, 249, 51 )	-- 合成道具
-UI_SetHint( cmdEquip2, "放入装备二" )
+cmdEquip2 = UI_CreateCompent( frmforgeMove, COMMAND_ONE_TYPE, "cmdEquip2", 32, 32, 249, 51 )	-- 
+UI_SetHint( cmdEquip2, "" )
 
---箭头2
+--2
 imgjiantou2 = UI_CreateCompent( frmforgeMove, IMAGE_TYPE, "imgjiantou2", 84, 41, 181, 96 )
 UI_LoadImage( imgjiantou2, "texture/ui2009/jiantou.tga", NORMAL, 84, 41, 91, 0 )
 
---加载说明文字背景框
+--
 imgTxtHelp1 = UI_CreateCompent( frmforgeMove, IMAGE_TYPE, "imgTxtHelp1", 202, 60, 16, 171 )
 UI_LoadImage( imgTxtHelp1, "texture/ui2009/tongyongX2.tga", NORMAL, 202, 60, 54, 38 )
 
 imgTxtHelp2 = UI_CreateCompent( frmforgeMove, IMAGE_TYPE, "imgTxtHelp2", 78, 60, 218, 171 )
 UI_LoadImage( imgTxtHelp2, "texture/ui2009/tongyongX2.tga", NORMAL, 78, 60, 54, 98 )
 
---加载说明文字框1
+--1
 labTxthelp1 = UI_CreateCompent( frmforgeMove, LABELEX_TYPE, "labTxthelp1", 261, 12, 24, 180 )
-UI_SetCaption( labTxthelp1, "转移后『装备一』会消失" )
+UI_SetCaption( labTxthelp1, "" )
 UI_SetTextColor( labTxthelp1, COLOR_BLACK )
 UI_SetLabelExFont( labTxthelp1, DEFAULT_FONT, FALSE, COLOR_WHITE )
 
---加载说明文字框2
+--2
 labTxthelp2 = UI_CreateCompent( frmforgeMove, LABELEX_TYPE, "labTxthelp2", 261, 12, 24, 195 )
-UI_SetCaption( labTxthelp2, "一槽装备也按照三槽收费" )
+UI_SetCaption( labTxthelp2, "" )
 UI_SetTextColor( labTxthelp2, COLOR_BLACK )
 UI_SetLabelExFont( labTxthelp2, DEFAULT_FONT, FALSE, COLOR_WHITE )
 
---加载说明文字框3
+--3
 labTxthelp3 = UI_CreateCompent( frmforgeMove, LABELEX_TYPE, "labTxthelp3", 261, 12, 24, 210 )
-UI_SetCaption( labTxthelp3, "转移需要消耗精灵体力和石中盐（商城道具）" )
+UI_SetCaption( labTxthelp3, "" )
 UI_SetTextColor( labTxthelp3, COLOR_BLACK )
 UI_SetLabelExFont( labTxthelp3, DEFAULT_FONT, FALSE, COLOR_WHITE )
 
---加载确定按钮
+--
 btnYes = UI_CreateCompent( frmforgeMove, BUTTON_TYPE, "btnYes", 43, 22, 58, 238 )
 UI_LoadButtonImage( btnYes, "texture/ui2009/button.tga", 47, 22, 0, 0, TRUE )
 
---加载取消按钮
+--
 btnNo = UI_CreateCompent( frmforgeMove, BUTTON_TYPE, "btnNo", 43, 22, 207, 238 )
 UI_LoadButtonImage( btnNo, "texture/ui2009/BakGhost3.tga", 43, 22, 43, 135, FALSE )
 UI_SetButtonModalResult( btnNo, BUTTON_CLOSE )

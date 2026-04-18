@@ -32,7 +32,7 @@ DWORD __tree_proc_play_pose(lwITreeNode* node, void* param)
     case MODELNODE_HELPER:
         break;
     default:
-        __asm int 3;
+        __debugbreak();
     }
 
     ret = TREENODE_PROC_RET_CONTINUE;
@@ -95,7 +95,7 @@ LW_RESULT lwPrimitiveObj_PlayPoseAll(lwIPrimitiveObj* obj, const lwPlayPoseInfo*
     {
         ctrl_obj = anim_agent->GetAnimCtrlObj(i);
 
-        // lwAnimCtrlObjBoneÔÚlwPrimitiveÖĞ×îÎªÈİÆ÷¶ø·Ç¶¯»­¿ØÖÆÆ÷
+        // Bone animation is handled via lwAnimCtrlObjBone / vertex-blend on the primitive; skip here
         if(ctrl_obj->GetType() == ANIM_CTRL_TYPE_BONE)
             continue;
 
@@ -370,8 +370,8 @@ LW_RESULT lwPrimitiveObj::Load(lwIGeomObjInfo* geom_info, const char* tex_path, 
     LoadRenderCtrl(&info->rcci);
 
     // base info
-    // warning:×¢Òâ£¬ÕâÀïµÄ_typeÓÃÀ´±íÊ¾MODELNODE_µÄÀàĞÍ
-    // ²»ÄÜÓÃµ¼³öµÄĞÅÏ¢typeÀ´¸²¸Ç£¡£¡£¡
+    // warning: do not overwrite _type from file data â€” this node is always MODELNODE_PRIMITIVE
+    // (on-disk type may not match MODELNODE_*; constructor already set the correct node kind)
     //_type = info->type;
 
     _id = info->id;
@@ -1002,13 +1002,12 @@ void lwPrimitiveObj::SetOpacity(float opacity)
     _state_ctrl.SetState(STATE_TRANSPARENT, opacity == 1.0f ? 0 : 1);
 }
 
-// SetParent¶ÔÓÚparentÊÇVertexBlendCtrlÊ±µÄÎÊÌâ
-// 1.µ÷ÕûlwAnimCtrlAgentÖĞANIM_CTRL_TYPE_BONEµÄ¶ÔÏó
-// 2.ÖØÉè_ref_ctrl_obj_bone
-// 3.ÖØÉèlwRenderCtrlAgentÖĞvs_typeºÍvs_ctrl£¬ÒòÎªvs_type¾ßÓĞ×Ô¶¨ÒåĞÔÖÊ
-//   ËùÒÔÎŞ·¨Í¨¹ıfvf»òÕßÆäËû·½Ê½½øĞĞÄÚ²¿Æ¥Åä£¬ÕâÀï½¨Òévs_typeºÍvs_ctrl
-//   ×öÍâ²¿ÏÔÊ¾ÖØÉè
-//   ¿ÉÒÔ²»ĞèÒªÖØÉèvs_type£¨ÖØÉèĞ§ÂÊÂÔ¸ß£©,ĞèÒªÖØÉèvs_ctrl
+// SetParent when parent is VertexBlendCtrl:
+// 1. Ensure lwAnimCtrlAgent has an ANIM_CTRL_TYPE_BONE controller (create if missing).
+// 2. Keep _ref_ctrl_obj_bone pointing at that bone controller.
+// 3. lwRenderCtrlAgent vs_type / vs_ctrl must stay consistent: vs_type selects the vertex-shader
+//    path; FVF and vertex declaration must match that path; pick vs_ctrl to match the active
+//    vs_type (e.g. skinning vs rigid).
 LW_RESULT lwPrimitiveObj::SetParent(lwIModelNode* parent)
 {
     LW_RESULT ret = LW_RET_FAILED;
@@ -1452,7 +1451,7 @@ __ret:
 
 LW_RESULT lwHelperObj::GetLinkMatrix(lwMatrix44* mat, DWORD link_id)
 {
-    __asm int 3;
+    __debugbreak();
     return 0;
 }
 LW_RESULT lwHelperObj::Update()

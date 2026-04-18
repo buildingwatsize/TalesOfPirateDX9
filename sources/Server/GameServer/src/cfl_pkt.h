@@ -17,20 +17,20 @@ protected:
 
 public:
 
-    // 必须要实现的接口
+    // Static packet-type queries
 
-    static short hdr_sz() {return T::hdr_sz();} // 包头的尺寸
-    static short pkt_len(void* dat) {return T::pkt_len(dat);} // 包的总长度
-    static short pkt_maxlen() {return T::pkt_maxlen();} // 合法包的最大长度
+    static short hdr_sz() {return T::hdr_sz();} // Header size
+    static short pkt_len(void* dat) {return T::pkt_len(dat);} // Packet length from raw buffer
+    static short pkt_maxlen() {return T::pkt_maxlen();} // Maximum allowed packet length
 
-    void* pkt_buf() {return _pkt.pkt_buf();} // 包首地址
-    short pkt_len() {return _pkt.pkt_len();} // 包总长度
+    void* pkt_buf() {return _pkt.pkt_buf();} // Raw buffer pointer
+    short pkt_len() {return _pkt.pkt_len();} // Current packet length
 
     void clone_from(cfl_pktc<T>* pkt) {_pkt.clone(pkt->_pkt);} // deep-copy
 
 public:
 
-    // 读写接口
+    // Read / write helpers
 
     void WriteCmd(unsigned short command) {_pkt.wcmd(command);}
     void WriteChar(char const c) {_pkt.wc(c);}
@@ -51,6 +51,7 @@ public:
     char const* ReadString() {return _pkt.rstr();}
 
     long ReverseReadLong() {return _pkt.rrl();}
+    LONG64 ReverseReadLongLong() {return _pkt.rrll();}
     short ReverseReadShort() {return _pkt.rrs();}
     char ReverseReadChar() {return _pkt.rrc();}
 
@@ -62,8 +63,8 @@ protected:
     void on_get() {_pkt.reset();}
     void on_ret() {_pkt.reset();}
 
-    void pkt_enc() {}; // 包加密
-    void pkt_dec() {}; // 包解密
+    void pkt_enc() {}; // Encrypt (stub)
+    void pkt_dec() {}; // Decrypt (stub)
 
     // the core packet
     T _pkt;};
@@ -81,21 +82,21 @@ struct cfl_pkt
         int ssid;};
 
 
-    // 包结构 begin
+    // Packet layout begin
     HDR hdr;
     unsigned short cmd;
     char buf[MYPKT_DATMAXLEN];
     unsigned short offset;
     unsigned short offset_r;
-    // 包结构 end
+    // Packet layout end
 
 
 
-    // 成员函数
+    // Construction / reset
     cfl_pkt() {reset();}
     void reset();
 
-    // 辅助函数
+    // Static packet-type queries
     static short hdr_sz();
     static short pkt_len(void* dat);
     static short pkt_maxlen();
@@ -104,16 +105,16 @@ struct cfl_pkt
     bool has_data(short len) const;
     void clone(cfl_pkt const& pkt);
 
-    // 改变包长度
+    // Length accessors
     short get_len() const;
     void set_len(short len);
     void add_len(short len);
 
-    // 得到缓冲区和长度
+    // Raw buffer / total-length accessors
     void* pkt_buf() const {return (void *)&hdr;}
     short pkt_len() const {return get_len();}
 
-    // 写
+    // Write
     void wcmd(unsigned short);
     void wc(char c);
     void ws(short s);
@@ -123,7 +124,7 @@ struct cfl_pkt
     void wb(char const* p, short len);
     void wstr(char const* str);
 
-    // 读
+    // Read
     unsigned short rcmd() const;
     char rc();
     short rs();
@@ -134,6 +135,7 @@ struct cfl_pkt
     char const* rstr();
 
     long rrl(); // Reverse Read Long
+    LONG64 rrll(); // Reverse Read LongLong
     short rrs(); // Reverse Read Short
     char rrc(); // Reverse Read Char
 
@@ -370,7 +372,7 @@ inline long cfl_pkt::rl()
 	inline LONG64 cfl_pkt::rll()
 	{
 		LONG64 ll;
-		if (has_data(sizeof(long)))
+		if (has_data(sizeof(LONG64)))
 		{
 #ifdef USE_NBO
 			memcpy((void *)&ll, (void *)(buf + offset), sizeof(LONG64));
@@ -398,6 +400,22 @@ inline long cfl_pkt::rrl()
 #else
     l = *(long *)(buf + offset_r);
     return l;
+#endif
+    }
+
+inline LONG64 cfl_pkt::rrll()
+    {
+    if (offset_r == 0 || offset_r > get_len())
+        offset_r = get_len() - hdr_sz() - sizeof(unsigned short);
+
+    LONG64 ll;
+    offset_r -= sizeof(LONG64);
+#ifdef USE_NBO
+    memcpy((void *)&ll, (void *)(buf + offset_r), sizeof(LONG64));
+    return ll;
+#else
+    ll = *(LONG64 *)(buf + offset_r);
+    return ll;
 #endif
     }
 

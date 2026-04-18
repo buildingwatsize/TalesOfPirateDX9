@@ -577,3 +577,46 @@ function ItemHint_GGW(Lv)
     local Hint = "Gem Bonus Agility +" .. eff
     return Hint
 end
+
+------------- ADDED BY WATSIZE -------------
+-------- WAIT FOR DOING SCRIPT 2016 --------
+function ItemHint_SaDanWG ( Lv )
+	local eff = Lv * 20
+	local Hint = "Gem Bonus Defense +"..eff
+	return Hint
+end
+function ItemHint_MLZY ( Lv ) ------Ä§ÁúÖ®ÑÀ.Ð¡ËÕËÕ
+	local eff = Lv * 20
+	local Hint = "Critical Rate +"..eff
+	return Hint
+end
+function ItemHint_DuanHunFW ( Lv ) -----¶Ï»ê·ûÎÄ-ljf
+	local eff = Lv * 5
+	local Hint = "Reduces target's Physical Resistance "..eff
+	return Hint
+end
+function ItemHint_PoFangFW ( Lv ) -----ÆÆ·À·ûÎÄ-ljf
+	local eff = Lv * 50
+	local Hint = "Reduces target's Defense "..eff
+	return Hint
+end
+function ItemHint_HuanMoFW ( Lv ) -----»ÃÄ§·ûÎÄ-ljf
+	local eff = Lv * 10
+	local Hint = "Reduces target's Dodge "..eff
+	return Hint
+end
+function ItemHint_QiFuFW ( Lv ) -----Æí¸£·ûÎÄ-ljf
+	local eff = Lv * 5
+	local Hint = "Exp from monsters increased by "..eff.."%"
+	return Hint
+end
+function ItemHint_EnCiFW ( Lv ) -----¶÷´Í·ûÎÄ-ljf
+	local eff = Lv * 5
+	local Hint = "Drop Rate from monsters increased by "..eff.."%"
+	return Hint
+end
+function ItemHint_WuZhouFW ( Lv ) -----Î×Öä·ûÎÄ-ljf
+	local eff = Lv * 10
+	local Hint = "Reduces target's Hit Rate "..eff
+	return Hint
+end

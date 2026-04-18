@@ -151,3 +151,4 @@ DatabasePath/GameDtopnet64_log.ldf
 sources/Engine/lib/MindPower3D_D8R.exp
 sources/Engine/lib/MindPower3D_D8R.idb
 /server/GameServer/resource/*/*.bin
+upgrade

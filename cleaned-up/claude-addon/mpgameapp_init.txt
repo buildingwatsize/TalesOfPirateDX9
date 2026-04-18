@@ -1,0 +1,79 @@
+77: BOOL MPGameApp::Init(HINSTANCE hInst,const char *pszClassName, int nScrWidth, int nScrHeight, int nColorBit, BOOL bFullScreen)
+78: {
+79: 	_hInst			= hInst;
+80: 
+81: 	DWORD dwWindowStyle = WS_CAPTION|WS_SYSMENU|WS_MINIMIZEBOX;
+82: 
+83:     if(bFullScreen==2 ||bFullScreen==1) // αȫ��
+84:     {
+85:         dwWindowStyle = WS_VISIBLE|WS_POPUP|WS_CLIPCHILDREN;
+86:     }
+87: 
+88:     RECT rc; SetRect( &rc, 0, 0, nScrWidth, nScrHeight);
+89: 	AdjustWindowRect( &rc, dwWindowStyle, FALSE );
+90: 
+91:     int nFrameSize   = GetSystemMetrics(SM_CYSIZEFRAME);
+92: 	int nCaptionSize = GetSystemMetrics(SM_CXSIZE);
+93: 
+94:     int nWindowWidth = rc.right - rc.left;
+95:     int nWindowHeight = rc.bottom - rc.top; // nScrHeight + nFrameSize + nCaptionSize;
+96: 	_hWnd = CreateWindow(pszClassName, "MindPower3D Application", dwWindowStyle,
+97: 	CW_USEDEFAULT, CW_USEDEFAULT, nWindowWidth, nWindowHeight, NULL, NULL, hInst, NULL);
+98: 
+99: 	if(!_hWnd)
+100: 	{
+101: 		return FALSE;
+102: 	}
+103: 
+104:     GetClientRect(_hWnd, &rc);
+105:     _nWindowWidth  = rc.right  - rc.left;
+106:     _nWindowHeight = rc.bottom - rc.top;
+107:     _bFullScreen   = bFullScreen;
+108: 
+109:     CLogMgr::Instance()->SetMessageWnd(_hWnd);
+110: 
+111: 	int dev_width;
+112:     int dev_height;
+113: 
+114:     if(bFullScreen)
+115:     {
+116:         dev_width = nScrWidth;
+117:         dev_height = nScrHeight;
+118:     }
+119:     else
+120:     {
+121:         dev_width = _nWindowWidth;
+122:         dev_height = _nWindowHeight;
+123:     }
+124: 
+125:    	if(!g_Render.Init(_hWnd, dev_width, dev_height, nColorBit, bFullScreen))
+126:     {
+127:         return FALSE;
+128:     }
+129: 
+130: 	MPTexSet *pTextureSet = new MPTexSet(0, 8192);
+131: 
+132: 	_nLogoTexID = GetTextureID("texture/logo.BMP");
+133: 
+134:     pTextureSet->EnableRequest(FALSE);
+135: 
+136: 	_InitInput();
+137: 
+138: 	// Del by lark.li 20080611
+139: 	// Added by clp
+140: 	//FontModule::FontSystem::getSingleton().init();
+141: 
+142:     if( _Init() == 0 )
+143:         return 0;
+144: 
+145: 	ShowWindow(_hWnd, SW_SHOW);
+146: 	UpdateWindow(_hWnd);
+147: 
+148:     return 1;
+149: }
+150: 
+151: BOOL MPGameApp::LoadResource()
+152: {
+153: 	if (!g_Render.InitResource())
+154: 	{
+155: 		return FALSE;

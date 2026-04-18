@@ -13,6 +13,7 @@
 
 
 #include <CaLua.h>
+#include <stdint.h>
 #include "CaLua_helper.h"
 #include "CaLua_hash.h"
 
@@ -48,7 +49,7 @@
 //////
 // The CLU virtualMachine stack stuff
 //////
-#define CLU_VM_STACK_SIZE			3
+#define CLU_VM_STACK_SIZE			64
 #define CLU_STATE_STACK_SIZE	16
 
 
@@ -196,7 +197,7 @@ int		UpdateLUD				(lua_State*	vm);		//Takes in a LUD and updates it with C data 
 /////
 // CaLua_function.c
 /////
-int		ParseReturnArgument	(int cType, int ea, int ed, double fs);
+int		ParseReturnArgument	(int cType, intptr_t ea, intptr_t ed, double fs);
 CStack* PrepareStack		(int rFunc);
 int		FreeCStack			(CStack* in);
 int		FreeStackData		(StackData* in);

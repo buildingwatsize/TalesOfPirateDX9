@@ -10,7 +10,7 @@ public:
 
 	CSceneObjInfo()
 	{
-	   strcpy(szName, g_oLangRec.GetString(351));
+	   strcpy(szName, RES_STRING(CMISS_000351));
 	   nPhotoTexID          = 0;
 	   nAttachEffectID      = 0;
        bEnablePointLight    = FALSE;
@@ -23,28 +23,28 @@ public:
 	
     char	szName[16];
 	
-    int     nType;              // ÀàÐÍ
-   	BYTE    btPointColor[3];    // µã¹âÔ´µÄÑÕÉ«
-    BYTE    btEnvColor[3];      // »·¾³¹âµÄÑÕÉ«
-    BYTE    btFogColor[3];      // ÎíµÄÑÕÉ«
+    int     nType;              // ï¿½ï¿½ï¿½ï¿½
+   	BYTE    btPointColor[3];    // ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½É«
+    BYTE    btEnvColor[3];      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
+    BYTE    btFogColor[3];      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
     int     nRange;
     float   Attenuation1;
-    int     nAnimCtrlID;        //µã¹âÔ´¶¯»­ÀàÐÍid
-    // .... ÆäËû²ÎÊý
+    int     nAnimCtrlID;        //ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id
+    // .... ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     
 
-    int     nStyle;             //  ·ç¸ñ
+    int     nStyle;             //  ï¿½ï¿½ï¿½
     int		nAttachEffectID;
-    BOOL    bEnablePointLight;  //  ÊÇ·ñÊÕµã¹âÔ´Ó°Ïì
-	BOOL    bEnableEnvLight;    //  ÊÇ·ñÊÕ»·¾³¹âÓ°Ïì    
-    int		nFlag;              //  ÆäËü±ê¼Ç
-    int     nSizeFlag;          //  ³ß´ç±ê¼Ç, Èç¹ûÎï¼þÊÇ³¬´ó³ß´ç, Ôò¿É¼ûÐÔÅÐ¶ÏÌØÊâ
+    BOOL    bEnablePointLight;  //  ï¿½Ç·ï¿½ï¿½Õµï¿½ï¿½Ô´Ó°ï¿½ï¿½
+	BOOL    bEnableEnvLight;    //  ï¿½Ç·ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½ï¿½Ó°ï¿½ï¿½    
+    int		nFlag;              //  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int     nSizeFlag;          //  ï¿½ß´ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç³ï¿½ï¿½ï¿½ß´ï¿½, ï¿½ï¿½É¼ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½
 
     char    szEnvSound[11];	
-	int		nEnvSoundDis;		// µ¥Î»:ÀåÃ×
-	int		nPhotoTexID;        //  Í¼±êÌùÍ¼ID
+	int		nEnvSoundDis;		// ï¿½ï¿½Î»:ï¿½ï¿½ï¿½ï¿½
+	int		nPhotoTexID;        //  Í¼ï¿½ï¿½ï¿½ï¿½Í¼ID
     BOOL    bShadeFlag;
-	BOOL	bIsReallyBig;		// ÊÇ·ñÌØ´óÎï¼þ,Added by clp
+	BOOL	bIsReallyBig;		// ï¿½Ç·ï¿½ï¿½Ø´ï¿½ï¿½ï¿½ï¿½,Added by clp
 
     int     nFadeObjNum;
     int     nFadeObjSeq[16];
@@ -68,7 +68,7 @@ public:
 
 protected:
 
-	static CSceneObjSet* _Instance; // Ïàµ±ÓÚµ¥¼ü, °Ñ×Ô¼º¼Ç×¡
+	static CSceneObjSet* _Instance; // ï¿½àµ±ï¿½Úµï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½×¡
    
 	virtual CRawDataInfo* _CreateRawDataArray(int nCnt)
 	{
@@ -103,10 +103,10 @@ protected:
 		
 		strncpy(pInfo->szName, ParamList[0].c_str(), sizeof(pInfo->szName));
 
-        // »ñµÃÎï¼þÀàÐÍ 0 ÆÕÍ¨ÎïÌå 1 ³¡¾°»¥¶¯ÎïÌå 2 ÕÏ°­±ê¼ÇÎïÌå....
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0 ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 ï¿½Ï°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½....
         pInfo->nType             = Str2Int(ParamList[1]);
         
-        // ÀàÐÍ²ÎÊý1 = ParamList[2];
+        // ï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½1 = ParamList[2];
         std::string strList1[16], strList2[16];
         int n1 = Util_ResolveTextLine(ParamList[2].c_str(), strList1, 16+1, ',');
         int n2 = Util_ResolveTextLine(ParamList[3].c_str(), strList2, 16+1, ',');
@@ -127,7 +127,7 @@ protected:
             pInfo->btEnvColor[1] = Str2Int(strList1[1]);
             pInfo->btEnvColor[2] = Str2Int(strList1[2]);
             break;
-        case 6: // »·¾³ÒôÐ§
+        case 6: // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§
 			strcpy(pInfo->szEnvSound, strList1[0].c_str());
 			pInfo->nEnvSoundDis = Str2Int( strList2[0] );
             LG("sceneobj", "Read Enviroment Sound [%s]\n", pInfo->szEnvSound);
@@ -147,7 +147,7 @@ protected:
             break;
         }
 
-        // ÀàÐÍ²ÎÊý2 = ParamList[3];
+        // ï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½2 = ParamList[3];
 
 	    pInfo->nAttachEffectID   = Str2Int(ParamList[4]);
        	pInfo->bEnableEnvLight   = Str2Int(ParamList[5]);

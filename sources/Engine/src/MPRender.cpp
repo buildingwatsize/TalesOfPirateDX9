@@ -64,6 +64,7 @@ void MPRender::End()
 
 BOOL MPRender::Init(HWND hWnd, int nScrWidth, int nScrHeight, int nColorBit, BOOL bFullScreen)
 {
+    { FILE* _f=fopen("log\\render_init.log","w"); if(_f){fprintf(_f,"MPRender::Init called hWnd=%p %dx%d fs=%d\n",(void*)hWnd,nScrWidth,nScrHeight,bFullScreen);fclose(_f);} }
 
 	_hWnd = hWnd;
 
@@ -79,9 +80,37 @@ BOOL MPRender::Init(HWND hWnd, int nScrWidth, int nScrHeight, int nColorBit, BOO
     d3dcp.dev_type = D3DDEVTYPE_HAL;
 
     IDirect3DX* d3d = Direct3DCreateX(D3D_SDK_VERSION);
+    { FILE* _f=fopen("log\\render_init.log","a"); if(_f){fprintf(_f,"d3d ptr=%p\n",(void*)d3d);fclose(_f);} }
+    if(!d3d) return FALSE;
+    {
+        FILE* _fa = fopen("log\\adapters.log","w");
+        if(_fa){fprintf(_fa,"d3d vtable ptr=%p\n",(void*)d3d);fflush(_fa);}
+        UINT adapterCount = d3d->GetAdapterCount();
+        if(_fa){fprintf(_fa,"AdapterCount=%u\n",adapterCount);fflush(_fa);}
+        if(adapterCount == 0) {
+            if(_fa){fprintf(_fa,"WARNING: AdapterCount is 0, forcing adapter 0 (GPU may be in restricted session)\n");fflush(_fa);}
+            adapterCount = 1;
+        }
+        UINT bestAdapter = D3DADAPTER_DEFAULT;
+        for(UINT ai = 0; ai < adapterCount; ai++) {
+            D3DCAPS9 caps9; memset(&caps9,0,sizeof(caps9));
+            if(_fa){fprintf(_fa,"Calling GetDeviceCaps(%u)...\n",ai);fflush(_fa);}
+            HRESULT hr = d3d->GetDeviceCaps(ai, D3DDEVTYPE_HAL, &caps9);
+            if(_fa){fprintf(_fa,"GetDeviceCaps(%u) hr=0x%08X\n",ai,(unsigned)hr);fflush(_fa);}
+            D3DADAPTER_IDENTIFIER9 id; memset(&id,0,sizeof(id));
+            d3d->GetAdapterIdentifier(ai, 0, &id);
+            if(_fa){fprintf(_fa,"Adapter[%u]: %s HAL_hr=0x%08X\n",ai,id.Description,(unsigned)hr);fflush(_fa);}
+            if(SUCCEEDED(hr)) { bestAdapter = ai; }
+        }
+        if(_fa){fprintf(_fa,"Using adapter %u\n",bestAdapter);fclose(_fa);}
+        d3dcp.adapter = bestAdapter;
+    }
     D3DDISPLAYMODE d3ddm;
-    d3d->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &d3ddm);
-    d3d->GetDeviceCaps(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, &_d3dCaps);
+    {FILE*_f=fopen("log\\render_init.log","a");if(_f){fprintf(_f,"GetAdapterDisplayMode...\n");fflush(_f);fclose(_f);}}
+    d3d->GetAdapterDisplayMode(d3dcp.adapter, &d3ddm);
+    {FILE*_f=fopen("log\\render_init.log","a");if(_f){fprintf(_f,"GetDeviceCaps...\n");fflush(_f);fclose(_f);}}
+    d3d->GetDeviceCaps(d3dcp.adapter, D3DDEVTYPE_HAL, &_d3dCaps);
+    {FILE*_f=fopen("log\\render_init.log","a");if(_f){fprintf(_f,"caps done VS=%08X PS=%08X\n",(unsigned)_d3dCaps.VertexShaderVersion,(unsigned)_d3dCaps.PixelShaderVersion);fflush(_f);fclose(_f);}}
  
     d3dcp.present_param.hDeviceWindow = hWnd;
     d3dcp.present_param.Windowed = !bFullScreen;
@@ -132,14 +161,39 @@ BOOL MPRender::Init(HWND hWnd, int nScrWidth, int nScrHeight, int nColorBit, BOO
     }
 
     d3dcp.behavior_flag |= D3DCREATE_MULTITHREADED;
+    {
+        HRESULT hrHAL = d3d->CheckDeviceType(d3dcp.adapter, D3DDEVTYPE_HAL,
+            d3ddm.Format, d3ddm.Format, d3dcp.present_param.Windowed);
+        {FILE*_f=fopen("log\\render_init.log","a");if(_f){fprintf(_f,"CheckDeviceType HAL hr=0x%08X fmt=%u windowed=%d\n",(unsigned)hrHAL,(unsigned)d3ddm.Format,d3dcp.present_param.Windowed);fflush(_f);fclose(_f);}}
+        if(FAILED(hrHAL)) {
+            LG("init", "HAL check failed (hr=0x%08X), trying anyway with HAL\n", (unsigned)hrHAL);
+        }
+    }
+    {FILE*_f=fopen("log\\render_init.log","a");if(_f){fprintf(_f,"d3d->Release...\n");fflush(_f);fclose(_f);}}
     d3d->Release();
 
-
+    {FILE*_f=fopen("log\\render_init.log","a");if(_f){fprintf(_f,"calling lwInitMeshLibSystem...\n");fflush(_f);fclose(_f);}}
 	// Init Mesh Lib
     LW_RESULT ret;
 	lwISystem* sys;
     lwISysGraphics* sys_graphics;
     if(LW_FAILED(ret = lwInitMeshLibSystem(&sys, &sys_graphics, &d3dcp, &_d3dCPAdjustInfo)))
+    {
+        // HAL device creation failed — retry with software REF device (VM/headless fallback)
+        {
+            FILE* _dbg = fopen("log\\d3d_fallback.log","w");
+            if(_dbg){fprintf(_dbg,"lwInitMeshLibSystem failed ret=%d devtype=%d\n",(int)ret,(int)d3dcp.dev_type);fclose(_dbg);}
+        }
+        if(ret == INIT_ERR_CREATE_DEVICE && d3dcp.dev_type == D3DDEVTYPE_HAL)
+        {
+            FILE* _dbg = fopen("log\\d3d_fallback.log","a");
+            if(_dbg){fprintf(_dbg,"Retrying with D3DDEVTYPE_REF\n");fclose(_dbg);}
+            d3dcp.dev_type = D3DDEVTYPE_REF;
+            d3dcp.behavior_flag = D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED;
+            ret = lwInitMeshLibSystem(&sys, &sys_graphics, &d3dcp, &_d3dCPAdjustInfo);
+        }
+    }
+    if(LW_FAILED(ret))
     {
         char err_str[260];
 

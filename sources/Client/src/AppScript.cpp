@@ -35,15 +35,15 @@ void CGameApp::LoadScriptScene( const char* script_file )
 //---------------------------------------------------------------------------
 // App_Script
 //---------------------------------------------------------------------------
-int GP_SetCameraPos( float ex, float ey, float ez, float rx, float ry, float rz )
+int GP_SetCameraPos( double ex, double ey, double ez, double rx, double ry, double rz )
 {
 	CCameraCtrl *pCam = g_pGameApp->GetMainCam();
-	pCam->m_EyePos.x = ex;
-	pCam->m_EyePos.y = ey;
-	pCam->m_EyePos.z = ez; 
-	pCam->m_RefPos.x = rx;
-	pCam->m_RefPos.y = ry;
-	pCam->m_RefPos.z = rz;
+	pCam->m_EyePos.x = (float)ex;
+	pCam->m_EyePos.y = (float)ey;
+	pCam->m_EyePos.z = (float)ez; 
+	pCam->m_RefPos.x = (float)rx;
+	pCam->m_RefPos.y = (float)ry;
+	pCam->m_RefPos.z = (float)rz;
 
 	return R_OK;
 }
@@ -62,6 +62,6 @@ int GP_GotoScene( int sceneid )
 //---------------------------------------------------------------------------
 void MPInitLua_App()
 {
-	CLU_RegisterFunction("GP_SetCameraPos", "int", "float,float,float,float,float,float", CLU_CDECL, CLU_CAST(GP_SetCameraPos));
+	CLU_RegisterFunction("GP_SetCameraPos", "int", "double,double,double,double,double,double", CLU_CDECL, CLU_CAST(GP_SetCameraPos));
     CLU_RegisterFunction("GP_GotoScene", "int", "int", CLU_CDECL, CLU_CAST(GP_GotoScene));
 }

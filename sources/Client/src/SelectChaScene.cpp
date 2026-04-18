@@ -582,7 +582,7 @@ void CSelectChaScene::LoadingCall()          // ��װ��loading��,ˢ�
 		// ��ʾ�����������봰��
 		g_stUIDoublePwd.ShowCreateForm();
 
-		//CBoxMgr::ShowSelectBox(_evtCreateDoublePwdEvent, g_oLangRec.GetString(800), true);//"��ǰ�ʺ�δ������������\n\n�Ƿ����ڴ���?"
+		//CBoxMgr::ShowSelectBox(_evtCreateDoublePwdEvent, RES_STRING(CMISS_000800), true);//"��ǰ�ʺ�δ������������\n\n�Ƿ����ڴ���?"
 	}
 	else if (GetChaCount() == 0 && frmWelcomeNotice)
 	{
@@ -757,7 +757,7 @@ void CSelectChaScene::_SelChaFrmMouseEvent(CCompent* pSender, int nMsgType,
 		else
 		{
 			// ɾ���ʺ�
-			//CBoxMgr::ShowSelectBox(_CheckFrmMouseEvent, g_oLangRec.GetString(384), true);
+			//CBoxMgr::ShowSelectBox(_CheckFrmMouseEvent, RES_STRING(CMISS_000384), true);
 		}
 	}
 	else if (strName == "btnNo")
@@ -933,7 +933,7 @@ bool CSelectChaScene::CreateCha(const string& sName, int nChaIndex, stNetChangeC
 
 	chaFont.pCha = pCha;
 	chaFont.iLevel = 1;
-	chaFont.sProfession = g_oLangRec.GetString(385);
+	chaFont.sProfession = RES_STRING(CL_LANGUAGE_MATCH_385);
 	chaFont.iPos = m_nCurChaIndex;
 	chaFont.iFontX = -1;
 	chaFont.iFontY = -1;

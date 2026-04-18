@@ -1,4 +1,4 @@
-// ¾­·ÖÎö,´ËÏîÄ¿½á¹¹´æÔÚÑÏÖØÎÊÌâ,ÓÐ¶à´¦µØ·½Ç·È±Ïß³ÌÍ¬²½¿¼ÂÇ,½¨ÒéÖØÐ´ - by Arcol
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½á¹¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½Ð¶à´¦ï¿½Ø·ï¿½Ç·È±ï¿½ß³ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ - by Arcol
 
 // main.cpp : Defines the entry point for the console application.
 //
@@ -12,6 +12,10 @@
 #include "AccountServer2.h"
 #include <signal.h>
 #include <CommCtrl.h>
+#pragma comment(lib, "comctl32.lib")
+#pragma comment(linker, "\"/manifestdependency:type='win32' \
+name='Microsoft.Windows.Common-Controls' version='6.0.0.0' \
+processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 //#include "BillThread.h"
 #include "BTIService.h"
 #include "GlobalVariable.h"
@@ -33,7 +37,7 @@ CResourceBundleManage  g_ResourceBundleManage("AccountServer.loc");	//Add by lar
 //BillThread bt;
 
 
-//std::string g_BTSAddr[2] = {"61.152.115.79:7243", "61.152.115.79:7243"}; ¾ÉµÄBTSµØÖ·
+//std::string g_BTSAddr[2] = {"61.152.115.79:7243", "61.152.115.79:7243"}; ï¿½Éµï¿½BTSï¿½ï¿½Ö·
 //std::string g_BTSAddr[2] = {"61.152.115.172:7243", "61.152.115.173:7243"};
 
 void __cdecl Ctrlc_Dispatch(int sig)
@@ -44,56 +48,68 @@ void __cdecl Ctrlc_Dispatch(int sig)
         bExit = TRUE;
 	}
 }
+static void OnInitDialog_ListView(HWND hwnd);
+static BOOL g_bListViewOk = FALSE;
+
 LRESULT OnInitDialog(HWND hwnd)
 {
-    //SetWindowText(hwnd, "AccountServer");
     SetWindowText(hwnd, RES_STRING(AS_MAIN_CPP_00008));
-
-	//ÈÏÖ¤
 	SetDlgItemText(hwnd,IDC_TOP,RES_STRING(AS_MAIN_CPP_00018));
-	//¶ÓÁÐ°ü£º 0
 	SetDlgItemText(hwnd,IDC_QUEUECAP,RES_STRING(AS_MAIN_CPP_00019));
-	//²¢·¢Êý£º 0
 	SetDlgItemText(hwnd,IDC_TASKCNT,RES_STRING(AS_MAIN_CPP_00020));
-	//GroupServer
 	SetDlgItemText(hwnd,IDC_MID,RES_STRING(AS_MAIN_CPP_00021));
-	//¼Æ·Ñ
 	SetDlgItemText(hwnd,IDC_BOTTOM,RES_STRING(AS_MAIN_CPP_00022));
-	//ÍË³ö
 	SetDlgItemText(hwnd,IDOK,RES_STRING(AS_MAIN_CPP_00023));
-    // Auth thread report list
+
+    SetTimer(hwnd, AUTHUPDATE_TIMER, 1000, NULL);
+    SetTimer(hwnd, GROUPUPDATE_TIMER, 3000, NULL);
+
+    return 0;
+}
+void InitListViewsDeferred(HWND hwnd)
+{
+	__try {
+		OnInitDialog_ListView(hwnd);
+		g_bListViewOk = TRUE;
+	} __except(EXCEPTION_EXECUTE_HANDLER) {
+		printf("[AS] ListView init failed (0x%08lX)\n", GetExceptionCode()); fflush(stdout);
+		g_bListViewOk = FALSE;
+	}
+}
+
+static void OnInitDialog_ListView(HWND hwnd)
+{
     {
         HWND hAuthList = GetDlgItem(hwnd, IDC_AUTHLIST);
+        if (!hAuthList) return;
 
         DWORD dwStyle = ListView_GetExtendedListViewStyle(hAuthList);
         ListView_SetExtendedListViewStyle(hAuthList,
             dwStyle | LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 
-        LVCOLUMN lv;
-        lv.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_FMT;
+        LVCOLUMNA lv = {};
+        lv.mask = LVCF_WIDTH | LVCF_TEXT;
 
         lv.cx = 50;
-        //lv.pszText = "Thread";
         lv.pszText = (LPSTR)RES_STRING(AS_MAIN_CPP_00009);
         ListView_InsertColumn(hAuthList, 0, &lv);
 
         lv.cx = 100;
-        //lv.pszText = "Run Label";
         lv.pszText = (LPSTR)RES_STRING(AS_MAIN_CPP_00010);
+        lv.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_FMT;
         lv.fmt = LVCFMT_CENTER;
         ListView_InsertColumn(hAuthList, 1, &lv);
 
         lv.cx = 150;
-       // lv.pszText = "Last/Max Consume (ms)";
         lv.pszText = (LPSTR)RES_STRING(AS_MAIN_CPP_00011);
         lv.fmt = LVCFMT_CENTER;
         ListView_InsertColumn(hAuthList, 2, &lv);
 
-        LVITEM item;
+        LVITEMA item = {};
         item.mask = LVIF_TEXT;
         item.iSubItem = 0;
         char buf[80] = {0};
-        for (char i = 0; i < AuthThreadPool::AT_MAXNUM; ++ i) {
+        for (int i = 0; i < AuthThreadPool::AT_MAXNUM; ++ i) {
             item.iItem = i;
             sprintf(buf, "#%02d", i + 1);
             item.pszText = (LPSTR)buf;
@@ -101,90 +117,81 @@ LRESULT OnInitDialog(HWND hwnd)
         }
     }
 
-    // Group report list
     {
         HWND hGroupList = GetDlgItem(hwnd, IDC_GROUPLIST);
+        if (!hGroupList) return;
 
         DWORD dwStyle = ListView_GetExtendedListViewStyle(hGroupList);
         ListView_SetExtendedListViewStyle(hGroupList,
             dwStyle | LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 
-        LVCOLUMN lv;
-        lv.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_FMT;
+        LVCOLUMNA lv = {};
+        lv.mask = LVCF_WIDTH | LVCF_TEXT;
 
         lv.cx = 100;
-        //lv.pszText = "Name";
         lv.pszText = (LPSTR)RES_STRING(AS_MAIN_CPP_00012);
         ListView_InsertColumn(hGroupList, 0, &lv);
 
         lv.cx = 100;
-        //lv.pszText = "Group IP";
         lv.pszText = (LPSTR)RES_STRING(AS_MAIN_CPP_00013);
+        lv.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_FMT;
         lv.fmt = LVCFMT_CENTER;
         ListView_InsertColumn(hGroupList, 1, &lv);
 
         lv.cx = 100;
-        //lv.pszText = "Status";
         lv.pszText = (LPSTR)RES_STRING(AS_MAIN_CPP_00014);
         lv.fmt = LVCFMT_CENTER;
         ListView_InsertColumn(hGroupList, 2, &lv);
     }
 
-    // Bill report list
     {
         HWND hBillList = GetDlgItem(hwnd, IDC_BILLLIST);
+        if (!hBillList) return;
 
         DWORD dwStyle = ListView_GetExtendedListViewStyle(hBillList);
         ListView_SetExtendedListViewStyle(hBillList,
             dwStyle | LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 
-        LVCOLUMN lv;
-        lv.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_FMT;
+        LVCOLUMNA lv = {};
+        lv.mask = LVCF_WIDTH | LVCF_TEXT;
 
         lv.cx = 50;
-        //lv.pszText = "BTS";
         lv.pszText = (LPSTR)RES_STRING(AS_MAIN_CPP_00015);
         ListView_InsertColumn(hBillList, 0, &lv);
 
         lv.cx = 150;
-        //lv.pszText = "Server IP";
         lv.pszText = (LPSTR)RES_STRING(AS_MAIN_CPP_00016);
+        lv.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_FMT;
         lv.fmt = LVCFMT_CENTER;
         ListView_InsertColumn(hBillList, 1, &lv);
 
         lv.cx = 100;
-        //lv.pszText = "Bill/Disconn Count";
         lv.pszText = (LPSTR)RES_STRING(AS_MAIN_CPP_00017);
         lv.fmt = LVCFMT_CENTER;
         ListView_InsertColumn(hBillList, 2, &lv);
 
-        LVITEM item;
+        LVITEMA item = {};
         item.mask = LVIF_TEXT;
         item.iSubItem = 0;
         char buf[80] = {0};
-        for (char i = 0; i < 2; ++ i) {
+        for (int i = 0; i < 2; ++ i) {
             item.iItem = i;
             sprintf(buf, "#%02d", i + 1);
             item.pszText = (LPSTR)buf;
             ListView_InsertItem(hBillList, &item);
-            //ListView_SetItemText(hBillList, i, 1, (LPSTR)g_BillThread.GetServerIP(i));
 			ListView_SetItemText(hBillList, i, 1, (LPSTR)g_BillService.GetServerIP(i));
         }
     }
-
-    // Update Timer
-    SetTimer(hwnd, AUTHUPDATE_TIMER, 1000, NULL);
-    SetTimer(hwnd, GROUPUPDATE_TIMER, 3000, NULL);
-
-    return 0;
 }
 void ClearGroupList()
 {
+    if (!g_bListViewOk) return;
     HWND hGroupList = GetDlgItem(g_hMainWnd, IDC_GROUPLIST);
-    ListView_DeleteAllItems(hGroupList);
+    if (hGroupList) ListView_DeleteAllItems(hGroupList);
 }
 BOOL AddGroupToList(char const* strName, char const* strAddr, char const* strStatus)
 {
+    if (!g_bListViewOk) return TRUE;
     HWND hGroupList = GetDlgItem(g_hMainWnd, IDC_GROUPLIST);
 
     LVITEM item;
@@ -200,40 +207,44 @@ BOOL AddGroupToList(char const* strName, char const* strAddr, char const* strSta
 }
 BOOL UpdateBTS(int index, char const* strStat)
 {
+    if (!g_bListViewOk) return TRUE;
     HWND hBTSList = GetDlgItem(g_hMainWnd, IDC_BILLLIST);
-    ListView_SetItemText(hBTSList, index, 2, (LPSTR)strStat);
+    if (hBTSList) ListView_SetItemText(hBTSList, index, 2, (LPSTR)strStat);
     return TRUE;
 }
 LRESULT OnTimer(HWND hwnd, UINT idEvent)
 {
     if (idEvent == AUTHUPDATE_TIMER) {
-        LVITEM item;
-        item.mask = LVIF_TEXT;
         char buf[80] = {0};
-        HWND hAuthList = GetDlgItem(hwnd, IDC_AUTHLIST);
-        for (char i = 0; i < AuthThreadPool::AT_MAXNUM; ++ i) {
-            item.iItem = i;
-
-            item.iSubItem = 1;
-            sprintf(buf, "%02d", AuthThreadPool::RunLabel[i]);
-            item.pszText = (LPSTR)buf;
-            ListView_SetItem(hAuthList, &item);
-
-            item.iSubItem = 2;
-            sprintf(buf, "%04d/%04d", AuthThreadPool::RunLast[i], AuthThreadPool::RunConsume[i]);
-            item.pszText = (LPSTR)buf;
-            ListView_SetItem(hAuthList, &item);
+        if (g_bListViewOk) {
+            LVITEMA item = {};
+            item.mask = LVIF_TEXT;
+            HWND hAuthList = GetDlgItem(hwnd, IDC_AUTHLIST);
+            if (hAuthList) {
+                for (int i = 0; i < AuthThreadPool::AT_MAXNUM; ++ i) {
+                    item.iItem = i;
+                    item.iSubItem = 1;
+                    sprintf(buf, "%02d", AuthThreadPool::RunLabel[i]);
+                    item.pszText = (LPSTR)buf;
+                    ListView_SetItem(hAuthList, &item);
+                    item.iSubItem = 2;
+                    sprintf(buf, "%04d/%04d", AuthThreadPool::RunLast[i], AuthThreadPool::RunConsume[i]);
+                    item.pszText = (LPSTR)buf;
+                    ListView_SetItem(hAuthList, &item);
+                }
+            }
         }
 
         HWND hQueueCap = GetDlgItem(hwnd, IDC_QUEUECAP);
-        //sprintf(buf, "¶ÓÁÐ°ü£º %d", g_Auth.GetPkTotal());
-        sprintf(buf, RES_STRING(AS_MAIN_CPP_00024), g_Auth.GetPkTotal());
-        SetWindowText(hQueueCap, (LPCTSTR)buf);
-
+        if (hQueueCap) {
+            sprintf(buf, RES_STRING(AS_MAIN_CPP_00024), g_Auth.GetPkTotal());
+            SetWindowText(hQueueCap, (LPCTSTR)buf);
+        }
         HWND hTaskCnt = GetDlgItem(hwnd, IDC_TASKCNT);
-        //sprintf(buf, "²¢·¢Êý£º %d", proc->GetTaskCount());
-        sprintf(buf, RES_STRING(AS_MAIN_CPP_00025), proc->GetTaskCount());
-        SetWindowText(hTaskCnt, (LPCTSTR)buf);
+        if (hTaskCnt) {
+            sprintf(buf, RES_STRING(AS_MAIN_CPP_00025), proc->GetTaskCount());
+            SetWindowText(hTaskCnt, (LPCTSTR)buf);
+        }
     }
 	else if (idEvent == GROUPUPDATE_TIMER)
 	{
@@ -242,7 +253,7 @@ LRESULT OnTimer(HWND hwnd, UINT idEvent)
 
     return 0;
 }
-BOOL CALLBACK MainDlgProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK MainDlgProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     WORD wNotify = HIWORD(wParam);
     WORD wID = LOWORD(wParam);
@@ -346,14 +357,14 @@ BOOL CALLBACK MainDlgProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
         /*
         printf("cBTI_Disconnected [WPARAM=%d, LPARAM=%d]\n", wParam, lParam);
         ++ g_nDisconn;
-        char buf[20]; sprintf(buf, "¶Ï¿ª´ÎÊý£º%d", g_nDisconn);
+        char buf[20]; sprintf(buf, "ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½%d", g_nDisconn);
         SetWindowText(GetDlgItem(hwndDlg, IDC_DISCONNCNT), buf);*/
         break;
 
     case cBTI_Closed:
         printf("cBTI_Closed [WPARAM=%d, LPARAM=%d]\n", wParam, lParam);
         break;
-    case cBTI_TIME:     //  ·À³ÁÃÔ
+    case cBTI_TIME:     //  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         g_BillService.AdjustExpScale((long)wParam, (long)lParam);
         break;
 	case WM_USER_LOG:
@@ -401,33 +412,40 @@ HANDLE hConsole = NULL;
 
 int main(int argc, char* argv[])
 {
+	INITCOMMONCONTROLSEX icex;
+	icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
+	icex.dwICC = ICC_LISTVIEW_CLASSES | ICC_WIN95_CLASSES;
+	InitCommonControlsEx(&icex);
+
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-	C_TITLE("AccountServer.exe")
-	C_PRINT("Loading AccountServer.cfg...\n");
+	{
+		char szPID[32];
+		_snprintf_s(szPID,sizeof(szPID),_TRUNCATE, "%d", GetCurrentProcessId());
+		std::string strConsoleT = std::string("[PID:") + szPID + "]AccountServer.exe";
+		SetConsoleTitle(strConsoleT.c_str());
+	}
 
-	SEHTranslator translator;
+	SetConsoleTextAttribute(hConsole, 14);
+	printf("Loading AccountServer.cfg...\n");
+	SetConsoleTextAttribute(hConsole, 10);
 
 	T_B
 
-    // ´´½¨Ö÷´°¿Ú
-	_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );		//Add by Arcol (2005-12-2)
+	_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
 
     g_hMainWnd = CreateMainDialog();
+	InitListViewsDeferred(g_hMainWnd);
     signal(SIGINT, Ctrlc_Dispatch);
 	g_MainThreadID=GetCurrentThreadId();
 
 	if (!g_MainDBHandle.CreateObject())
 	{
-		C_PRINT("failed\n");
-		//printf("Main database handler create failed, AccountServer hang!\n");
-		printf(RES_STRING(AS_MAIN_CPP_00003));
+		printf("Main database handler create failed\n"); fflush(stdout);
 		system("pause");
 		return -1;
 	}
 
-    // ³õÊ¼»¯BTI
-	//if (!g_BillThread.CreateBillingSystem(g_hMainWnd))
 	if (!g_BillService.CreateBillingSystem(g_hMainWnd))
 	{
 		//printf("Cannot Create Billing System, AccountServer hang!\n");
@@ -436,12 +454,11 @@ int main(int argc, char* argv[])
 		return -1;
 	}
 
-    // Æô¶¯ÈÏÖ¤¼Æ·ÑÏß³Ì
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½Æ·ï¿½ï¿½ß³ï¿½
 	//bt.Launch();
 	//g_BillThread.Launch();
     atp.Launch();
 
-    // ³õÊ¼»¯ÍøÂç
     TcpCommApp::WSAStartup();
     comm = ThreadPool::CreatePool(10, 10, 256);
 
@@ -456,7 +473,7 @@ int main(int argc, char* argv[])
         Sleep(10 * 1000);
         return -1;
     } catch (...) {
-        //printf("AccountServer³õÊ¼»¯ÆÚ¼ä·¢ÉúÎ´Öª´íÎó£¬ÇëÍ¨Öª¿ª·¢Õß\n");
+        //printf("AccountServerï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Ú¼ä·¢ï¿½ï¿½Î´Öªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨Öªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\n");
    		printf(RES_STRING(AS_MAIN_CPP_00006));
 		comm->DestroyPool();
         TcpCommApp::WSACleanup();
@@ -464,20 +481,20 @@ int main(int argc, char* argv[])
         return -2;
     }
 
-    // ÏûÏ¢Ñ­»·
+    // ï¿½ï¿½Ï¢Ñ­ï¿½ï¿½
     MSG msg;
     while (GetMessage(&msg, NULL, 0, 0)) {
         TranslateMessage(&msg);
         DispatchMessage(&msg);
     }
 
-    // Ð¶ÔØÍøÂç
+    // Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     delete g_As2;
     if (comm != NULL) comm->DestroyPool();
     if (proc != NULL) proc->DestroyPool();
     TcpCommApp::WSACleanup();
 
-    // ÈÏÖ¤¡¢¼Æ·ÑÏß³ÌÍË³ö
+    // ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ß³ï¿½ï¿½Ë³ï¿½
     //bt.NotifyToExit();
 	//g_BillThread.NotifyToExit();
     atp.NotifyToExit();
@@ -485,7 +502,7 @@ int main(int argc, char* argv[])
     atp.WaitForExit();
 	//g_BillThread.WaitForExit(-1);
 
-    // ¼ÇÂ¼×îºó×´Ì¬
+    // ï¿½ï¿½Â¼ï¿½ï¿½ï¿½×´Ì¬
     LG("RunLabel", "\n");
     for (char i = 0; i < AuthThreadPool::AT_MAXNUM; ++ i) {
         LG("RunLabel", "%02d %04d\n", AuthThreadPool::RunLabel[i],

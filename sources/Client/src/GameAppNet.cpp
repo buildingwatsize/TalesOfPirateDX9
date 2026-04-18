@@ -69,7 +69,7 @@ void CGameApp::_HandleMsg(DWORD dwTypeID, DWORD dwParam1, DWORD dwParam2)
 
 				if( g_TomServer.bEnable )
 				{
-					MessageBox( g_pGameApp->GetHWND(), g_oLangRec.GetString(134), "error", 0 );
+					MessageBox( g_pGameApp->GetHWND(), RES_STRING(CMISS_000134), "error", 0 );
 					g_pGameApp->SetIsRun( false );
 					return;
 				}
@@ -80,7 +80,7 @@ void CGameApp::_HandleMsg(DWORD dwTypeID, DWORD dwParam1, DWORD dwParam2)
 				if( dwParam1==1000 )
 				{
 					char szBuf[128] = { 0 };
-					sprintf( szBuf, g_oLangRec.GetString(135), WSAGetLastError() );
+					sprintf( szBuf, RES_STRING(CMISS_000135), WSAGetLastError() );
 					g_stUIBox.ShowMsgBox( _Disconnect, szBuf );
 					return;
 				}
@@ -90,18 +90,18 @@ void CGameApp::_HandleMsg(DWORD dwTypeID, DWORD dwParam1, DWORD dwParam2)
 					{
 						if( !g_ChaExitOnTime.TimeArrived() )
 						{
-							//·ÇµÇÂ½³¡¾°¶Ï¿ªÁ¬½Ó
+							//ï¿½Çµï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½
 							char szBuf[256] = { 0 };
 							if( g_NetIF )
 							{
-								// modify by Philip.Wu  2006-06-09  ·ÇÊÕ·ÑÏµÍ³²»ÌáÊ¾ÓÃ»§³äÖµ
+								// modify by Philip.Wu  2006-06-09  ï¿½ï¿½ï¿½Õ·ï¿½ÏµÍ³ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½Ã»ï¿½ï¿½ï¿½Öµ
 								if(g_Config.m_IsBill)
 								{
-									sprintf( szBuf, g_oLangRec.GetString(136), g_oLangRec.GetString(137), dwParam1 );
+									sprintf( szBuf, RES_STRING(CMISS_000136), RES_STRING(CL_LANGUAGE_MATCH_137), dwParam1 );
 								}
 								else
 								{
-									//sprintf( szBuf, "ÄúÏÖÔÚÒÑÓë·þÎñÆ÷¶Ï¿ªÁ¬½Ó,È·¶¨ºó½«·µ»ØµÇÂ¼½çÃæ\nÔ­Òò:%s[%d]", "ÄúÒÑÔÚÆäËûµØ·½µÇÂ½£¡", dwParam1 );
+									//sprintf( szBuf, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½,È·ï¿½ï¿½ï¿½ó½«·ï¿½ï¿½Øµï¿½Â¼ï¿½ï¿½ï¿½ï¿½\nÔ­ï¿½ï¿½:%s[%d]", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø·ï¿½ï¿½ï¿½Â½ï¿½ï¿½", dwParam1 );
 
 									const auto reason = g_NetIF->GetDisconnectErrText(dwParam1);
 									sprintf(szBuf, reason.c_str());
@@ -109,7 +109,7 @@ void CGameApp::_HandleMsg(DWORD dwTypeID, DWORD dwParam1, DWORD dwParam2)
 							}
 							else
 							{
-								sprintf( szBuf, g_oLangRec.GetString(139), dwParam1 );
+								sprintf( szBuf, RES_STRING(CMISS_000139), dwParam1 );
 							}
 
 							g_stUIBox.ShowMsgBox( _Disconnect, szBuf );
@@ -117,13 +117,13 @@ void CGameApp::_HandleMsg(DWORD dwTypeID, DWORD dwParam1, DWORD dwParam2)
 							extern bool g_HaveGameMender;
 							if( g_HaveGameMender )
 							{
-								g_pGameApp->MsgBox( g_oLangRec.GetString(140) );
+								g_pGameApp->MsgBox( RES_STRING(CMISS_000140) );
 							}
 						}
 					}
 					else
-					{	//µÇÂ½³¡¾°ÄÚ¶Ï¿ªÁ¬½Ó
-						//ÅÐ¶ÏÃÜÂëÊÇ·ñ´íÎó
+					{	//ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½
+						//ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
 						CLoginScene *pkLogin = dynamic_cast<CLoginScene*>(scene);
 						if (pkLogin && pkLogin->IsPasswordError())
 						{

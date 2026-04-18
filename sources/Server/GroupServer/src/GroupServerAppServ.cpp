@@ -118,9 +118,9 @@ WPacket	GroupServerApp::OnServeCall(DataSocket *datasock,RPacket &pk)
 	
 	}
 
-	auto	l_ply = ToPointer<Player>(pk.ReverseReadLong());
-	uLong		l_gtaddr=pk.ReverseReadLong();
-	uLong		l_plygt	=0;
+	auto	l_ply = ToPointer<Player>(pk.ReverseReadLongLong());
+	LONG64		l_gtaddr=pk.ReverseReadLongLong();
+	LONG64		l_plygt	=0;
 	try
 	{
 		l_plygt	=l_ply->m_gtAddr;
@@ -275,8 +275,8 @@ void GroupServerApp::OnProcessData(DataSocket *datasock,RPacket &recvbuf)
 		
 		}
 
-		auto l_ply = ToPointer<Player>(recvbuf.ReverseReadLong());
-		uLong l_gtaddr = recvbuf.ReverseReadLong();
+		auto l_ply = ToPointer<Player>(recvbuf.ReverseReadLongLong());
+		LONG64 l_gtaddr = recvbuf.ReverseReadLongLong();
 		try
 		{
 			if (!l_ply || 
@@ -586,11 +586,11 @@ WPacket GroupServerApp::TP_SYNC_PLYLST(DataSocket *datasock,RPacket &pk)
 				if(l_ply)
 				{
 					l_retpk.WriteShort(1);
-					uLong test = ToAddress(l_ply);
-					l_retpk.WriteLong(ToAddress(l_ply));
+					LONG64 test = ToAddress(l_ply);
+					l_retpk.WriteLongLong(ToAddress(l_ply));
 
 					l_ply->m_gate = pServer;
-					l_ply->m_gtAddr		=pk.ReadLong();
+					l_ply->m_gtAddr		=pk.ReadLongLong();
 					l_ply->m_acctLoginID = pk.ReadLong();
 					l_ply->m_acctid = pk.ReadLong();
 
@@ -680,12 +680,12 @@ void GroupServerApp::CP_REPORT_WG(Player *ply,DataSocket *datasock,RPacket &pk)
 	//ply->SendSysInfo( "±¨??á???é?ê1ó?ía1ò￡?" );
 }
 
-void GroupServerApp::KickUser(DataSocket *datasock,uLong gpaddr,uLong gtaddr)
+void GroupServerApp::KickUser(DataSocket *datasock,LONG64 gpaddr,LONG64 gtaddr)
 {
 	WPacket l_wpk	=GetWPacket();
 	l_wpk.WriteCmd(CMD_PT_KICKUSER);
-	l_wpk.WriteLong(gpaddr);
-	l_wpk.WriteLong(gtaddr);
+	l_wpk.WriteLongLong(gpaddr);
+	l_wpk.WriteLongLong(gtaddr);
 	l_wpk.WriteShort(1);
 	SendData(datasock,l_wpk);
 }
@@ -751,7 +751,7 @@ WPacket	GroupServerApp::TP_REQPLYLST(DataSocket *datasock,RPacket &pk)
 	for(l_ply	=m_plylst.GetNextItem();l_ply;l_ply	=m_plylst.GetNextItem())
 	{
 		if(l_ply->m_gate !=l_gate || l_ply->m_currcha <0)continue;
-		l_retpk.WriteLong(l_ply->m_gtAddr);
+		l_retpk.WriteLongLong(l_ply->m_gtAddr);
 		l_retpk.WriteLong(l_ply->m_chaid[l_ply->m_currcha]);
 		l_plynum	++;
 	}
@@ -1010,13 +1010,13 @@ WPacket	GroupServerApp::TP_USER_LOGIN(DataSocket* datasock, RPacket& pk)
 	}
 
 	l_ply->m_gate = static_cast<GateServer*>(datasock->GetPointer());
-	l_ply->m_gtAddr = pk.ReverseReadLong();
+	l_ply->m_gtAddr = pk.ReverseReadLongLong();
 	in_addr		l_ina;
 	l_ina.S_un.S_addr = pk.ReverseReadLong();
 	strcpy(l_ply->m_clientip, inet_ntoa(l_ina));
 
 	pk.DiscardLast(static_cast<uLong>(sizeof(uShort)));
-	pk.DiscardLast(4);
+	pk.DiscardLast(8);
 
 	uShort	l_len;
 	//cChar *l_passport = pk.ReadString(&l_len);
@@ -1124,7 +1124,7 @@ WPacket	GroupServerApp::TP_USER_LOGIN(DataSocket* datasock, RPacket& pk)
 
 	l_retpk.WriteLong(l_ply->m_acctid);
 	l_retpk.WriteLong(l_ply->m_acctLoginID);
-	l_retpk.WriteLong(ToAddress(l_ply));		//??′?é?×??oμ?μ??·
+	l_retpk.WriteLongLong(ToAddress(l_ply));		//??′?é?×??oμ?μ??·
 	l_ply->BeginRun();
 	LogLine l_line(g_LogGrpServer);
 	//l_line<<newln<<"("<<l_ply->m_clientip<<"):["<<l_ply->m_acctname<<"]μ???3é1|￡?\tμ±?°μ???/ó??·í??òêy:"<<m_plylst.GetTotal()<<"/"<<long(m_curChaNum)<<endln;
@@ -1136,7 +1136,7 @@ WPacket	GroupServerApp::TP_USER_LOGIN(DataSocket* datasock, RPacket& pk)
         sprintf(luaCmd, "ClearOnlineChars(%d)", l_ply->m_chaid[i]);
         WPacket    l_wpk = GetWPacket();
         l_wpk.WriteCmd(CMD_MM_DO_STRING);
-        l_wpk.WriteLong(ToAddress(l_ply));
+        l_wpk.WriteLongLong(ToAddress(l_ply));
         l_wpk.WriteString(luaCmd);
         SendToClient(l_ply, l_wpk);
     }
@@ -1391,7 +1391,7 @@ WPacket	GroupServerApp::TP_BGNPLAY(Player* ply, DataSocket* datasock, RPacket& p
 		constexpr auto timeout = 10'000;
 		auto wpk = GetWPacket();
 		wpk.WriteCmd(CMD_PT_KICKPLAYINGPLAYER);
-		wpk.WriteLong(playing_player->m_gtAddr);
+		wpk.WriteLongLong(playing_player->m_gtAddr);
 		auto rpk = SyncCall(playing_player->m_gate->GetDataSock(), wpk, timeout);
 		if (rpk.HasData() && rpk.ReadShort() == ERR_SUCCESS)
 		{

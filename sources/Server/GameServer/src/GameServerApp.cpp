@@ -11,15 +11,15 @@
 #include "TryUtil.h"
 
 _DBC_USING
-//不要修改下面的行,谢谢合作!
+// Network buffer size table; do not modify order!
 uLong	NetBuffer[]		={100,10,0};
 bool	g_logautobak	=true;
 //End
 
-extern BOOL	g_bGameEnd; // GameServer 退出全局标志
+extern BOOL	g_bGameEnd; // GameServer shutdown flag
 
 
-// 连接 GateServer 任务类
+// Thread: periodically reconnect dropped GateServer connections
 long ConnectGateServer::Process()
 {T_B
     DWORD	dwTick, dwCurTick;
@@ -27,7 +27,7 @@ long ConnectGateServer::Process()
     DWORD	dwConnectTick = 0;
 
     dwTick = dwCurTick = GetTickCount();
-    dwTick -= dwConnectTick; // 保证线程运行后立即执行连接GateServer的操作
+    dwTick -= dwConnectTick; // Offset so first connection attempt happens immediately
 
     while (!GetExitFlag())
         {
@@ -41,7 +41,7 @@ long ConnectGateServer::Process()
 
         dwLastRunTick = dwCurTick;
 
-        // 对未连接的 GateServer 进行连接
+        // Attempt to reconnect any disconnected GateServers
         if (dwCurTick - dwTick >= dwConnectTick)
             {
             dwTick = dwCurTick;
@@ -54,12 +54,12 @@ long ConnectGateServer::Process()
     return 0;
 T_E}
 
-//监听InfoServer线程
+// Thread: connect / keep-alive with InfoServer
 long ToInfoServer::Process()
 {T_B
 	if(m_gmsvr->m_IfServer.GetPort() == 0)
 	{
-		//LG("Store_data", "没有配置InfoServer!\n");
+		//LG("Store_data", "InfoServer not configured!\n");
 		LG("Store_data", "not configure InfoServer!\n");
 		return 0;
 	}
@@ -73,7 +73,7 @@ long ToInfoServer::Process()
 
 	dwCurTick = GetTickCount();
 
-	//登录InfoServer
+	// InfoServer login loop
 	while(!GetExitFlag())
 	{
 		dwCurTick = GetTickCount();
@@ -111,6 +111,12 @@ void InfoServer::Login()
 	pNetMessage pNm = new NetMessage();
 	char szPwd[33];
 	cChar *szPassword = (cChar *)GetPassword();
+
+    // Add by lark.li 20090311 begin
+    if (!szPassword)
+        return;
+    // End
+
 	if(strlen(szPassword) > 32)
 	{
 		LG("Store_data", "Login password too long!\n");
@@ -124,7 +130,7 @@ T_E}
 
 long InfoServer::PeekMsg(unsigned long ms)
 {T_B
-    //至少处理10条消息
+    // Clamp minimum wait to 10 ms
     if(ms < 10)
         ms = 10;
 
@@ -181,20 +187,20 @@ void InfoServer::OnDisconnect()
     g_gmsvr->ProcessData(NULL, CMD_FM_DISCONNECTED);
 }
 
-// 网络通信应用类
+// Constructor: set up network, gates, InfoServer
 GameServerApp::GameServerApp(ThreadPool *proc,ThreadPool *comm)
     :TcpClientApp(this,proc,comm), RPCMGR(this), m_count(0), PKQueue(false)
 {T_B
-	//LG("init", "开始构造ServerApp\n");	
+	//LG("init", "Starting ServerApp init\n");	
 	LG("init", "start init ServerApp\n");	
 
-	// 初始化随机数种子
+	// Seed random number generator
 	srand( (unsigned)time( NULL ) );
 
-    // 得到此 GameServer 的网络名称
+    // Read this GameServer's name from config
     m_strGameName = g_Config.m_szName;
 
-    // 初始化 GateServer 数组
+    // Initialize GateServer connection info from config
     m_gtnum = min(MAX_GATE, g_Config.m_nGateCnt);
     for (int i = 0; i < m_gtnum; ++ i)
         {
@@ -202,14 +208,14 @@ GameServerApp::GameServerApp(ThreadPool *proc,ThreadPool *comm)
         m_gtarray[i].GetPort() = g_Config.m_nGatePort[i];
         m_gtarray[i].m_playerlist = NULL;}
 
-    //初始化InfoServer
+    // Configure InfoServer connection
     m_IfServer.SetInfoServer(g_Config.m_szInfoIP, g_Config.m_nInfoPort, g_Config.m_szInfoPwd, g_Config.m_nSection);
 
-    // 网络设置
+    // Set packet parser params and start network layer
     SetPKParse(0,2,32*1024,400);
     BeginWork(g_Config.m_lSocketAlive);
 
-	//LG("init", "ServerApp构造结束\n");
+	//LG("init", "ServerApp init complete\n");
 	LG("init", "ServerApp init over\n");
 T_E}
 
@@ -224,7 +230,7 @@ GameServerApp::~GameServerApp()
 	ShutDown(2*1000);
 T_E}
 
-//返回值:true-允许连接,false-不允许连接
+// Return true to accept, false to reject the incoming connection
 bool GameServerApp::OnConnect(DataSocket *datasock)
 {T_B
     datasock->SetRecvBuf(64*1024); 
@@ -234,7 +240,7 @@ bool GameServerApp::OnConnect(DataSocket *datasock)
    return true;
 T_E}
 
-//reason值:0-本地程序正常退出；-3-网络被对方关闭；-1-Socket错误;-5-包长度超过限制.
+// reason: 0 = normal disconnect, -3 = protocol error, -1 = socket error, -5 = peer shutdown.
 void GameServerApp::OnDisconnect(DataSocket *datasock,int reason)
 {T_B
     LG("Connect", "GateServer Disconnect! IP = [%s] port = %d, reason = [%s]\n",  datasock->GetPeerIP() , datasock->GetPeerPort(), GetDisconnectErrText(reason).c_str());
@@ -252,15 +258,15 @@ void GameServerApp::OnDisconnect(DataSocket *datasock,int reason)
         // dual-check
         if (!gt->IsValid()) break;
 
-        // 通知逻辑层与该Gate的连接断开
+        // Queue a Gate-release packet so game thread cleans up players
         WPacket pkt = GetWPacket();
         pkt.WriteCmd(CMD_MM_GATE_RELEASE);
-		pkt.WriteLong(ToAddress(gt->m_playerlist));
+		pkt.WriteLongLong(ToAddress(gt->m_playerlist));
         auto rpkt = RPacket(pkt);
         AddPK(datasock, rpkt);
 
-        // 清理GateServer
-        //gt->Invalid(); // 放到外层操作（CGameApp::OnGateDisconnect处）
+        // Invalidate GateServer
+        //gt->Invalid(); // Handled later in CGameApp::OnGateDisconnect callback
 
     } while (false);
     m_mutdisconn.unlock();
@@ -355,12 +361,10 @@ WPacket	GameServerApp::TM_KICKCHA(DataSocket *datasock, RPacket &pkt)
 
 dbc::WPacket GameServerApp::TM_OFFLINE_MODE(dbc::DataSocket* datasock, RPacket& rpk)
 {
-	auto player = ToPointer<CPlayer>((rpk.ReverseReadLong()));
+	auto player = ToPointer<CPlayer>((rpk.ReverseReadLongLong()));
 	CCharacter* pCCha{};
 
     auto wpk = GetWPacket();
-    //NOTE(Ogge): Not sure if all checks is necessary, they were inherited from old code,
-    // which was incongruously implemented on top of other code
 	const auto return_code = [&]
 	{
         if (!player)
@@ -368,7 +372,7 @@ dbc::WPacket GameServerApp::TM_OFFLINE_MODE(dbc::DataSocket* datasock, RPacket& 
             return ReturnCode::OfflineMode::Unknown;
         }
 
-        if (player->GetGateAddr() != rpk.ReverseReadLong())
+        if (player->GetGateAddr() != rpk.ReverseReadLongLong())
         {
             return ReturnCode::OfflineMode::Unknown;
         }
@@ -430,7 +434,7 @@ dbc::WPacket GameServerApp::TM_OFFLINE_MODE(dbc::DataSocket* datasock, RPacket& 
 	return wpk;
 }
 
-// 登录 GateServer
+// Connect to a GateServer
 void GameServerApp::ConnectGate(GateServer* pGate)
 {T_B
     if (pGate->IsValid()) return;
@@ -438,14 +442,14 @@ void GameServerApp::ConnectGate(GateServer* pGate)
     DataSocket* datasock = Connect(pGate->GetIP().c_str(), pGate->GetPort());
     if (datasock == NULL)
     {
-		//LG("Connect", "连接 GateServer 失败, ip = %s, port = %d.\n", pGate->GetIP().c_str(), pGate->GetPort() ); 
+		//LG("Connect", "Failed to connect GateServer, ip = %s, port = %d.\n", pGate->GetIP().c_str(), pGate->GetPort() ); 
 		LG("Connect", "connect to  GateServer failed, ip = %s, port = %d.\n", pGate->GetIP().c_str(), pGate->GetPort() ); 
 	}
     else 
 	{
         pGate->SetDataSock(datasock);
         datasock->SetPointer(pGate);
-		// 通知应用层，连上一个 GateServer
+		// Announce this GameServer to the newly connected GateServer
 		WPacket wpkt = GetWPacket();
 		wpkt.WriteCmd(CMD_MM_GATE_CONNECT);
 		wpkt.WriteChar(0);
@@ -454,7 +458,7 @@ void GameServerApp::ConnectGate(GateServer* pGate)
 	}
 T_E}
 
-// 登录 InfoServer
+// Connect to InfoServer
 bool GameServerApp::ConnectInfo(InfoServer *pInfo)
 {T_B
 	//pInfo->StopInfoService();
@@ -489,30 +493,30 @@ GateServer* GameServerApp::FindGate(char const* gt_name)
 T_E}
 
 
-// Player 相关
-bool GameServerApp::AddPlayer(GatePlayer* gtplayer, GateServer* gt, uLong gtaddr)
+// Player linked list management
+bool GameServerApp::AddPlayer(GatePlayer* gtplayer, GateServer* gt, LONG64 gtaddr)
 {T_B
     if (gt == NULL || gtplayer == NULL) return false;
     if (!gt->IsValid()) return false;
 	if (gtplayer->Next || gtplayer->Prev)
 	{
-		//LG("玩家链表错误", "向链表插入玩家（dbid %u）时，发现其连接指针非空\n", gtplayer->GetDBChaId());
-		LG("character list error ", "when insert character（dbid %u）to character ,find it connect pointer is not empty!\n", gtplayer->GetDBChaId());
+		//LG("character list error", "insert character dbid %u failed: link pointers are not empty!\n", gtplayer->GetDBChaId());
+		LG("character list error ", "insert character dbid %u failed: link pointers not empty!\n", gtplayer->GetDBChaId());
 		return false;
 	}
 
-    // 赋予 GatePlayer 某些字段值
+    // Assign gate reference to this GatePlayer
     gtplayer->SetGate(gt);
     gtplayer->SetGateAddr(gtaddr);
 
-    // 将 gtplayer 插入到头部
+    // Link gtplayer at the head of the list
     gtplayer->Prev = NULL;
     gtplayer->Next = gt->m_playerlist;
 
     if (gtplayer->Next != NULL)
         gtplayer->Next->Prev = gtplayer;
 
-    // 更新头部
+    // Update list head
     gt->m_playerlist = gtplayer;
 
 	gt->AddPlayerCount();    
@@ -528,18 +532,18 @@ bool GameServerApp::DelPlayer(GatePlayer* gtplayer)
 
 	if (gt->m_listcurplayer == gtplayer)
 		gt->m_listcurplayer = gtplayer->Next;
-    // 从链表中剔除
+    // Remove gtplayer from doubly-linked list
     if ((gtplayer->Prev == NULL) && (gtplayer->Next == NULL))
         {
         if (gtplayer == gt->m_playerlist)
-            { // 只有一个，清空
+            { // Only element in the list
 				gt->m_playerlist = NULL;
             }
-        else { // 非法的gtplayer
+        else { // Stale / already-removed gtplayer
             return false;}
         }
     else if ((gtplayer->Prev == NULL) && (gtplayer->Next != NULL))
-        { // 头部
+        { // Head node
 			if (gtplayer != gt->m_playerlist) return false;
 
 			gt->m_playerlist = gtplayer->Next;
@@ -548,12 +552,12 @@ bool GameServerApp::DelPlayer(GatePlayer* gtplayer)
         gtplayer->Next = NULL;
         }    
     else if ((gtplayer->Prev != NULL) && (gtplayer->Next == NULL))
-        { // 尾部
+        { // Tail node
         gtplayer->Prev->Next = NULL;
 
         gtplayer->Prev = NULL;
         }
-    else { // 中间
+    else { // Middle node
         gtplayer->Prev->Next = gtplayer->Next;
         gtplayer->Next->Prev = gtplayer->Prev;
 
@@ -579,7 +583,7 @@ bool GameServerApp::KickPlayer2(GatePlayer *gtplayer)
 	WPacket pkt = GETWPACKET();
 	pkt.WriteCmd(CMD_MT_KICKUSER);
 	pkt.WriteLong(gtplayer->GetDBChaId());
-	pkt.WriteLong(gtplayer->GetGateAddr());
+	pkt.WriteLongLong(gtplayer->GetGateAddr());
 	pkt.WriteShort(1);
 	gtplayer->GetGate()->SendData(pkt);
 	return true;
@@ -589,7 +593,7 @@ bool GameServerApp::SendToGroup(WPacket& chginf)
 {
     GateServer* pGate;
 
-    // 准备为每一个连接的 Gate 产生通知包
+    // Route through the first valid Gate
     for (int i = 0; i < m_gtnum; ++ i)
         {
         pGate = &m_gtarray[i];
@@ -604,7 +608,7 @@ bool GameServerApp::SendToGroup(WPacket& chginf)
     return true;
 }
 
-// 特定发包接口
+// Broadcast to all players on all Gates
 bool GameServerApp::SendToWorld(WPacket& chginf)
 {T_B
     WPacket		CChginf;
@@ -613,7 +617,7 @@ bool GameServerApp::SendToWorld(WPacket& chginf)
     GatePlayer* pPlayer;
     GateServer* pGate;
 
-    // 准备为每一个连接的 Gate 产生通知包
+    // Duplicate packet per Gate and append each Gate's player addresses
     for (int i = 0; i < m_gtnum; ++ i)
         {
         pGate = &m_gtarray[i];
@@ -627,7 +631,7 @@ bool GameServerApp::SendToWorld(WPacket& chginf)
             while (pPlayer != NULL)
                 {
                 CChginf.WriteLong(pPlayer->GetDBChaId());
-                CChginf.WriteLong(pPlayer->GetGateAddr());
+                CChginf.WriteLongLong(pPlayer->GetGateAddr());
                 sCount++;
 
                 pPlayer = pPlayer->Next;}
@@ -662,7 +666,7 @@ bool GameServerApp::SendToClient(WPacket& pkt, GatePlayer* playerlist)
 {T_B
     if (playerlist == NULL) return false;
 
-    // 找出有效滴 Gate
+    // Prepare per-Gate packet duplicates
     uShort		usCount[MAX_GATE];
     WPacket		CChginf[MAX_GATE];
     GateServer* pValidGate[MAX_GATE];
@@ -678,7 +682,7 @@ bool GameServerApp::SendToClient(WPacket& pkt, GatePlayer* playerlist)
             }
         }
 
-    // 遍历 playerlist ，组织发往各个 Gate 的包
+    // Walk playerlist and append each player's address to its Gate's packet
     GatePlayer* tmp = playerlist;
     while (tmp != NULL)
     {
@@ -697,7 +701,7 @@ bool GameServerApp::SendToClient(WPacket& pkt, GatePlayer* playerlist)
                 {
                     usCount[i]++;
                     CChginf[i].WriteLong(tmp->GetDBChaId());
-                    CChginf[i].WriteLong(tmp->GetGateAddr());
+                    CChginf[i].WriteLongLong(tmp->GetGateAddr());
                     break;
                 }
             }
@@ -706,7 +710,7 @@ bool GameServerApp::SendToClient(WPacket& pkt, GatePlayer* playerlist)
         tmp = tmp->GetNextPlayer();
     }
 
-    //　添加最后一个 个数 数据，并发送出去
+    // Finalize and send each Gate's packet (write player count trailer)
     for (int i = 0; i < sValidGateNum; i++)
         {
         if (usCount[i] > 0)
@@ -727,7 +731,7 @@ bool GameServerApp::SendToClient(WPacket& pkt, int array_cnt, uplayer* uplayer_a
     //LG("SendToClient", "\nSendToClient called to notify %d players\n", array_cnt);
 #endif
 
-    // 找出有效滴 Gate
+    // Prepare per-Gate packet duplicates
     uShort		usCount[MAX_GATE];
     WPacket		CChginf[MAX_GATE];
     GateServer* pValidGate[MAX_GATE];
@@ -749,7 +753,7 @@ bool GameServerApp::SendToClient(WPacket& pkt, int array_cnt, uplayer* uplayer_a
     //LG("SendToClient", "Valid Gate num = %d\n", sValidGateNum);
 #endif
 
-    // 遍历 uplayer_array ，组织发往各个 Gate 的包
+    // Walk uplayer_array and append each player's address to its Gate's packet
     int j;
     for (int i = 0; i < array_cnt; ++ i)
     {
@@ -772,13 +776,13 @@ bool GameServerApp::SendToClient(WPacket& pkt, int array_cnt, uplayer* uplayer_a
             {
                 usCount[j]++;
                 CChginf[j].WriteLong(uplayer_array[i].m_dwDBChaId);
-                CChginf[j].WriteLong(uplayer_array[i].m_ulGateAddr);
+                CChginf[j].WriteLongLong(uplayer_array[i].m_ulGateAddr);
                 break;
             }
         }
     }
 
-    //　添加最后一个 个数 数据，并发送出去
+    // Finalize and send each Gate's packet (write player count trailer)
     for (int i = 0; i < sValidGateNum; i++)
     {
 #ifdef defCOMMU_LOG

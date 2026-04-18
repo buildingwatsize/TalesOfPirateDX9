@@ -30,7 +30,7 @@ long ConnectGroupServer::Process()
 				int i = 0;
 				for(auto l_ply =g_gtsvr->m_plylst.GetNextItem();l_ply;l_ply =g_gtsvr->m_plylst.GetNextItem())
 				{
-					pk.WriteLong(ToAddress(l_ply)); // ¸½¼ÓÉÏÔÚGateServerÉÏµÄÄÚ´æµØÖ·
+					pk.WriteLongLong(ToAddress(l_ply)); // ¸½¼ÓÉÏÔÚGateServerÉÏµÄÄÚ´æµØÖ·
 					pk.WriteLong(l_ply->m_loginID);
 					pk.WriteLong(l_ply->m_actid);
 
@@ -63,7 +63,7 @@ long ConnectGroupServer::Process()
 						{
 							if(retpk.ReadShort() == 1)
 							{
-								uLong test = retpk.ReadLong();;
+								LONG64 test = retpk.ReadLongLong();;
 								ply_array[i]->gp_addr = test;
 							}
 						}
@@ -188,7 +188,7 @@ WPacket ToGroupServer::OnServeCall(DataSocket* datasock, RPacket &in_para)
 	{
 	case CMD_PT_KICKPLAYINGPLAYER:
 	{
-		auto player = ToPointer<ClientConnection>(in_para.ReadLong());
+		auto player = ToPointer<ClientConnection>(in_para.ReadLongLong());
 		if (!player)
 		{
 			retpk.WriteShort(ERR_PT_INERR);
@@ -265,8 +265,8 @@ void ToGroupServer::OnProcessData(DataSocket* datasock, RPacket &recvbuf)
 						if(recvbuf.ReadLong() ==l_ply->m_worldid)
 						{
 							WPacket l_wpk1	=l_wpk;
-							l_wpk1.WriteLong(MakeULong(l_ply));
-							l_wpk1.WriteLong(l_ply->gm_addr);
+							l_wpk1.WriteLongLong(MakeULong(l_ply));
+							l_wpk1.WriteLongLong(l_ply->gm_addr);
 							l_ply->game->m_datasock->SendData(l_wpk1);
 						}
 					}
@@ -278,8 +278,8 @@ void ToGroupServer::OnProcessData(DataSocket* datasock, RPacket &recvbuf)
 		case CMD_PT_KICKUSER:
 			{
 				uShort	l_aimnum	=recvbuf.ReverseReadShort();
-				auto l_ply = ToPointer<ClientConnection>(recvbuf.ReverseReadLong());
-				if(l_ply && l_ply->gp_addr ==recvbuf.ReverseReadLong())
+				auto l_ply = ToPointer<ClientConnection>(recvbuf.ReverseReadLongLong());
+				if(l_ply && l_ply->gp_addr ==recvbuf.ReverseReadLongLong())
 				{
 					LogLine l_line(g_gatelog);
 					l_line<<newln<<"GroupServer kill person,l_ply->m_dbid ="<<l_ply->m_dbid<<endln;
@@ -294,8 +294,8 @@ void ToGroupServer::OnProcessData(DataSocket* datasock, RPacket &recvbuf)
 		case CMD_PT_DEL_ESTOPUSER:
 			{
 				uShort	l_aimnum	=recvbuf.ReverseReadShort();
-				auto l_ply = ToPointer<ClientConnection>(recvbuf.ReverseReadLong());
-				if(l_ply && l_ply->gp_addr ==recvbuf.ReverseReadLong())
+				auto l_ply = ToPointer<ClientConnection>(recvbuf.ReverseReadLongLong());
+				if(l_ply && l_ply->gp_addr ==recvbuf.ReverseReadLongLong())
 				{
 					LogLine l_line(g_gatelog);
 					l_line<<newln<<"GroupServer del estop user,operator success,l_ply->m_dbid ="<<l_ply->m_dbid<<endln;
@@ -312,8 +312,8 @@ void ToGroupServer::OnProcessData(DataSocket* datasock, RPacket &recvbuf)
 			{
 				//printf( "CMD_PT_ESTOPUSER" );
 				uShort	l_aimnum	=recvbuf.ReverseReadShort();
-				auto l_ply = ToPointer<ClientConnection>(recvbuf.ReverseReadLong());
-				if(l_ply && l_ply->gp_addr ==recvbuf.ReverseReadLong())
+				auto l_ply = ToPointer<ClientConnection>(recvbuf.ReverseReadLongLong());
+				if(l_ply && l_ply->gp_addr ==recvbuf.ReverseReadLongLong())
 				{
 					LogLine l_line(g_gatelog);
 					l_line<<newln<<"GroupServer del estop user,operator success,l_ply->m_dbid ="<<l_ply->m_dbid<<endln;
@@ -334,18 +334,18 @@ void ToGroupServer::OnProcessData(DataSocket* datasock, RPacket &recvbuf)
 				{
 					RPacket	l_rpk		=recvbuf;
 					uShort	l_aimnum	=l_rpk.ReverseReadShort();
-					recvbuf.DiscardLast(sizeof(uLong)*2*l_aimnum + sizeof(uShort));
+					recvbuf.DiscardLast(sizeof(LONG64) * 2 * l_aimnum + sizeof(uShort));
 					ClientConnection* l_ply{};
 					for(uShort i=0;i<l_aimnum;i++)
 					{
 
-						l_ply = ToPointer<ClientConnection>(l_rpk.ReverseReadLong());
+						l_ply = ToPointer<ClientConnection>(l_rpk.ReverseReadLongLong());
 						if (!l_ply)
 						{
 							continue;
 						}
 
-						if(l_ply->gp_addr ==l_rpk.ReverseReadLong())
+						if(l_ply->gp_addr ==l_rpk.ReverseReadLongLong())
 						{
 							l_ply->SendPacketToClient(recvbuf);
 						}else
@@ -358,8 +358,8 @@ void ToGroupServer::OnProcessData(DataSocket* datasock, RPacket &recvbuf)
 					{
 						WPacket	l_wpk	=recvbuf;
 						l_wpk.WriteCmd(CMD_TM_CHANGE_PERSONINFO);
-						l_wpk.WriteLong(ToAddress(l_ply));
-						l_wpk.WriteLong(l_ply->gm_addr);	//¸½¼ÓÉÏÔÚGameServerÉÏµÄÄÚ´æµØÖ·
+						l_wpk.WriteLongLong(ToAddress(l_ply));
+						l_wpk.WriteLongLong(l_ply->gm_addr);	//¸½¼ÓÉÏÔÚGameServerÉÏµÄÄÚ´æµØÖ·
 						g_gtsvr->gm_conn->SendData(l_ply->game->m_datasock ,l_wpk);
 						break;
 					}
@@ -372,7 +372,7 @@ void ToGroupServer::OnProcessData(DataSocket* datasock, RPacket &recvbuf)
 				{
 					RPacket	l_rpk		=recvbuf;
 					uShort	l_aimnum	=l_rpk.ReverseReadShort();
-					recvbuf.DiscardLast(sizeof(uLong)*2*l_aimnum + sizeof(uShort));
+					recvbuf.DiscardLast(sizeof(LONG64) * 2 * l_aimnum + sizeof(uShort));
 					if(!l_aimnum)
 					{
 						WPacket	l_wpk	=WPacket(recvbuf).Duplicate();
@@ -386,17 +386,17 @@ void ToGroupServer::OnProcessData(DataSocket* datasock, RPacket &recvbuf)
 						WPacket l_wpk,l_wpk0 =WPacket(recvbuf).Duplicate();
 						for(uShort i=0;i<l_aimnum;i++)
 						{
-							auto l_ply = ToPointer<ClientConnection>(l_rpk.ReverseReadLong());
+							auto l_ply = ToPointer<ClientConnection>(l_rpk.ReverseReadLongLong());
 							if (!l_ply)
 							{
 								continue;
 							}
 
-							if(l_ply->gp_addr ==l_rpk.ReverseReadLong() && l_ply->game)
+							if(l_ply->gp_addr ==l_rpk.ReverseReadLongLong() && l_ply->game)
 							{
 								l_wpk =l_wpk0;
-								l_wpk.WriteLong(ToAddress(l_ply));
-								l_wpk.WriteLong(l_ply->gm_addr);
+								l_wpk.WriteLongLong(ToAddress(l_ply));
+								l_wpk.WriteLongLong(l_ply->gm_addr);
 								g_gtsvr->gm_conn->SendData(l_ply->game->m_datasock ,l_wpk);
 							}
 						}

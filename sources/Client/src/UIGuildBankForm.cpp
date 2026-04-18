@@ -31,7 +31,7 @@ namespace GUI
 		frmBank = mgr.Find("frmManage");// 查找NPC银行存储表单 
 		if ( !frmBank)
 		{
-			LG("gui", g_oLangRec.GetString(438));
+			LG("gui", RES_STRING(CMISS_000438));
 			return false;
 		}
 
@@ -68,7 +68,7 @@ namespace GUI
 		if (!kItemPriceBox) return;
 		int value = kItemPriceBox->GetNumber();
 		if( value<=0 ) {
-			g_pGameApp->MsgBox( g_oLangRec.GetString(451) );
+			g_pGameApp->MsgBox( RES_STRING(CL_LANGUAGE_MATCH_451) );
 			return;
 		}
 		CS_GuildBankGiveGold(value);
@@ -86,7 +86,7 @@ namespace GUI
 		if (!kItemPriceBox) return;
 		int value = kItemPriceBox->GetNumber();
 		if( value<=0 ) {
-			g_pGameApp->MsgBox( g_oLangRec.GetString(451) );
+			g_pGameApp->MsgBox( RES_STRING(CL_LANGUAGE_MATCH_451) );
 			return;
 		}
 		CS_GuildBankTakeGold(value);
@@ -110,7 +110,7 @@ namespace GUI
 			return;
 
 		char szBuf[32];
-		sprintf(szBuf, "%s%s", g_stUIBoat.GetHuman()->getName(), g_oLangRec.GetString(440));//显示人物名及专用
+		sprintf(szBuf, "%s%s", g_stUIBoat.GetHuman()->getName(), RES_STRING(CL_LANGUAGE_MATCH_805));//显示人物名及专用
 		//labCharName->SetCaption(szBuf);//设置标题名字
 
 		frmBank->Show();
@@ -161,14 +161,14 @@ namespace GUI
 		 || pkItemRecord->lID == 6373 || pkItemRecord->lID >= 6376 && pkItemRecord->lID <= 6378
 		 || pkItemRecord->lID >= 6383 && pkItemRecord->lID <= 6385 )// modify by ning.yan 20080820 策划绵羊、李恒等提需求，增加一些道具不准存银行
 		{
-			//g_pGameApp->MsgBox(g_oLangRec.GetString(958));	// "该道具不允许存入银行！请重新选择"
-			g_pGameApp->MsgBox(g_oLangRec.GetString(958));	// "该道具不允许存入银行！请重新选择"
+			//g_pGameApp->MsgBox(RES_STRING(CMISS_000958));	// "该道具不允许存入银行！请重新选择"
+			g_pGameApp->MsgBox(RES_STRING(CMISS_000958));	// "该道具不允许存入银行！请重新选择"
 			return false;
 		}
 		if ( pkItemCmd->GetItemInfo()->GetIsPile() && pkItemCmd->GetTotalNum() > 1 )
 		{	/*存放多个物品*/
 			m_pkNumberBox = 
-				g_stUIBox.ShowNumberBox(_MoveItemsEvent, pkItemCmd->GetTotalNum(), g_oLangRec.GetString(441), false);
+				g_stUIBox.ShowNumberBox(_MoveItemsEvent, pkItemCmd->GetTotalNum(), RES_STRING(CMISS_000441), false);
 
 			if (m_pkNumberBox->GetNumber() < pkItemCmd->GetTotalNum())
 				return false;
@@ -206,7 +206,7 @@ namespace GUI
 		if ( pkItemCmd->GetItemInfo()->GetIsPile() && pkItemCmd->GetTotalNum() > 1 )
 		{	/*取出多个物品*/
 			m_pkNumberBox = 
-				g_stUIBox.ShowNumberBox( _MoveItemsEvent, pkItemCmd->GetTotalNum(), g_oLangRec.GetString(442), false);
+				g_stUIBox.ShowNumberBox( _MoveItemsEvent, pkItemCmd->GetTotalNum(), RES_STRING(CL_LANGUAGE_MATCH_442), false);
 
 			if (m_pkNumberBox->GetNumber() < pkItemCmd->GetTotalNum())
 				return false;

@@ -1,8 +1,8 @@
 #pragma once
 
 
-#define FORM_LOADING_CHECK(a,b,c) a=CFormMgr::s_Mgr.Find(c); if (!a) {::Error(g_oLangRec.GetString(577),b,c); return false;}
-#define FORM_CONTROL_LOADING_CHECK(a,b,c,d,e) a=dynamic_cast<c*>(b->Find(e)); if (!a) {::Error(g_oLangRec.GetString(578),d,b->GetName(),e); return false;}
+#define FORM_LOADING_CHECK(a,b,c) a=CFormMgr::s_Mgr.Find(c); if (!a) {::Error(RES_STRING(CMISS_000577),b,c); return false;}
+#define FORM_CONTROL_LOADING_CHECK(a,b,c,d,e) a=dynamic_cast<c*>(b->Find(e)); if (!a) {::Error(RES_STRING(CMISS_000578),d,b->GetName(),e); return false;}
 
 
 // �ȼ�����FLAG��SetEnableHotKey����
